@@ -61,5 +61,12 @@
     </div>
     <?php require_once("../html/mainjs.php"); ?>
      <?php require_once("modalObjetoCate.php"); ?>
+     <script>
+      new TomSelect("#select-color", {
+        plugins: ['remove_button'],
+        persist: false,
+        create: false
+      });
+     </script>
 </body>
 </html>

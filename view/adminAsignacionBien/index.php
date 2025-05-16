@@ -3,6 +3,7 @@
 <head>
     <?php require_once("../html/mainHead.php"); ?>
     <title>MPCH::AsignacionBienes</title>
+    <link href="../../public/css/estiloselect.css" rel="stylesheet"/>
   </head>
 <body>
     <?php require_once("../html/mainProfile.php"); ?>
@@ -18,6 +19,22 @@
                           ASIGNACION DE BIENES PARA EL SISTEMA DE INVENTARIO
                         </h2>
                     </div>
+                    <div class="col-auto ms-auto d-print-none">
+                        <div class="btn-list">
+                          <a href="#" class="btn btn-outline-light d-none d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#modalObjetoCate">
+                         <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-cancel"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M18.364 5.636l-12.728 12.728" /></svg>
+                               Cancelar
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-auto ms-auto d-print-none">
+                        <div class="btn-list">
+                          <a href="#" class="btn btn-info d-none d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#modalObjetoCate">
+                           <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-checks"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 12l5 5l10 -10" /><path d="M2 12l5 5m5 -5l5 -5" /></svg>
+                            Guardar Formato
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-12 mb-3">
                   <div class="card">
@@ -30,10 +47,15 @@
                     <div class="card-body">
                       <div class="row">
                         <div class="col-lg-6">
-                            <div class="mb-3">
-                                <label class="form-label">Área Destino:<span  style="color:red"> *</span></label>
-                                <input type="text" class="form-control">
-                            </div>
+                          <div class="mb-3">
+                            <label class="form-label">Área Destino:<span style="color:red"> *</span></label>
+                            <select class="form-select select2" id="area_de_id" name="area_de_id" data-placeholder="Seleccione Destino" style="width: 100%;">
+                              <option value="" disabled selected>Seleccione</option>
+                              <option value="j">AREA DE EJECUCION PRESUPUESTAL - SEDE ADMINISTRATIVA</option>
+                              <option value="k">AREA DE DESARROLLO DE CAPACIDADES - SEDE ADMINISTRATIVA</option>
+                              <option value="l">AREA DE COOPERACION TECNICA INTERNACIONAL - SEDE ADMINISTRATIVA</option>
+                            </select>
+                          </div>
                         </div>
                         <div class="col-lg-6">
                           <div class="mb-3">
@@ -48,13 +70,13 @@
                                 <input type="text" class="form-control">
                               </div>
                               <div class="col-3 d-flex align-items-center"> 
-                                <a href="#" class="btn btn-info w-100" data-bs-toggle="modal" data-bs-target="#modalarea">
+                                <a href="#" class="btn btn-info w-100 bg-blue text-blue-fg" data-bs-toggle="modal" data-bs-target="#modalarea">
                                   <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-file-search"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M12 21h-5a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v4.5" /><path d="M16.5 17.5m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0 -5 0" /><path d="M18.5 19.5l2.5 2.5" /></svg>
                                   Buscar
                                 </a>
                               </div>
                               <div class="col-3 d-flex align-items-center"> 
-                                <a href="#" class="btn btn-info w-100" data-bs-toggle="modal" data-bs-target="#modalarea">
+                                <a href="#" class="btn btn-info w-100 bg-blue text-blue-fg" data-bs-toggle="modal" data-bs-target="#modalarea">
                                   <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-camera-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13.5 20h-8.5a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v4" /><path d="M9 13a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M22 22l-5 -5" /><path d="M17 22l5 -5" /></svg>
                                   Escanear
                                 </a>
@@ -106,5 +128,17 @@
         </div>  
     </div>
     <?php require_once("../html/mainjs.php"); ?>
+    <script>
+    $(document).ready(function() {
+      $('#area_or_id').select2({
+        theme: 'bootstrap4',
+        width: '100%'
+      });
+      $('#area_de_id').select2({
+        theme: 'bootstrap4',
+        width: '100%'
+      });
+    });
+  </script>
 </body>
 </html>

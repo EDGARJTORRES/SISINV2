@@ -7,6 +7,9 @@
 <link href="../../public/css/tabler-payments.min.css?1692870487" rel="stylesheet"/>
 <link href="../../public/css/tabler-vendors.min.css?1692870487" rel="stylesheet"/>
 <link href="../../public/css/demo.min.css?1692870487" rel="stylesheet"/>
-<link href="../../public/libs/select2/css/select2.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@1.5.2/dist/select2-bootstrap4.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
 <link href="../../public/css/datatable.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.bootstrap5.min.css" rel="stylesheet">
+
