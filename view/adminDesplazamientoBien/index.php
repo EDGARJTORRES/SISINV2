@@ -71,30 +71,30 @@
                       </div>
                       <div class="row">
                         <div class="col-lg-6">
-                            <div class="mb-3">
-                                <label class="form-label">DNI Representante:<span  style="color:red"> *</span></label>
-                                <input type="text" class="form-control">
-                            </div>
+                          <div class="mb-3">
+                            <label class="form-label">DNI Representante:<span  style="color:red"> *</span></label>
+                            <input type="number" min="0" class="form-control">
+                          </div>
                         </div>
                         <div class="col-lg-6">
-                            <div class="mb-3">
-                                <label class="form-label">DNI Representante:<span  style="color:red"> *</span></label>
-                                <input type="text" class="form-control">
-                            </div>
+                          <div class="mb-3">
+                            <label class="form-label">DNI Representante:<span  style="color:red"> *</span></label>
+                            <input type="number" min="0" class="form-control">
+                          </div>
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-lg-6">
-                            <div class="mb-3">
-                                <label class="form-label">Nombre del Representante:<span  style="color:red"> *</span></label>
-                                <input type="text" disabled=""  class="form-control">
-                            </div>
+                          <div class="mb-3">
+                              <label class="form-label">Nombre del Representante:<span  style="color:red"> *</span></label>
+                              <input type="text" disabled=""  class="form-control">
+                          </div>
                         </div>
                         <div class="col-lg-6">
-                            <div class="mb-3">
-                                <label class="form-label">Nombre del Representante:<span  style="color:red"> *</span></label>
-                                <input type="text" disabled=""  class="form-control">
-                            </div>
+                          <div class="mb-3">
+                            <label class="form-label">Nombre del Representante:<span  style="color:red"> *</span></label>
+                            <input type="text" disabled=""  class="form-control">
+                          </div>
                         </div>
                       </div>
                     </div>

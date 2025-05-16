@@ -3,6 +3,7 @@
 <head>
     <?php require_once("../html/mainHead.php"); ?>
     <title>MPCH::AltaBienes</title>
+    <link href="../../public/css/estiloselect.css" rel="stylesheet"/>
   </head>
 <body>
     <?php require_once("../html/mainProfile.php"); ?>
@@ -61,12 +62,5 @@
     </div>
     <?php require_once("../html/mainjs.php"); ?>
      <?php require_once("modalObjetoCate.php"); ?>
-     <script>
-      new TomSelect("#select-color", {
-        plugins: ['remove_button'],
-        persist: false,
-        create: false
-      });
-     </script>
 </body>
 </html>

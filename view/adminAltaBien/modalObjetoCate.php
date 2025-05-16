@@ -64,17 +64,6 @@
                     <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-screen-share ms-3"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M21 12v3a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-10a1 1 0 0 1 1 -1h9" /><path d="M7 20l10 0" /><path d="M9 16l0 4" /><path d="M15 16l0 4" /><path d="M17 4h4v4" /><path d="M16 9l5 -5" /></svg>
                       Nuevo Registro
                 </h5>
-                <div id="edit_block" style="display: none">
-                    <input type="checkbox" id="lock" checked />
-                    <label for="lock" class="lock-label">
-                        <span class="lock-wrapper">
-                            <span class="shackle"></span>
-                            <svg class="lock-body" width="" height="" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M0 5C0 2.23858 2.23858 0 5 0H23C25.7614 0 28 2.23858 28 5V23C28 25.7614 25.7614 28 23 28H5C2.23858 28 0 25.7614 0 23V5ZM16 13.2361C16.6137 12.6868 17 11.8885 17 11C17 9.34315 15.6569 8 14 8C12.3431 8 11 9.34315 11 11C11 11.8885 11.3863 12.6868 12 13.2361V18C12 19.1046 12.8954 20 14 20C15.1046 20 16 19.1046 16 18V13.2361Z" fill="#ccc"></path>
-                            </svg>
-                        </span>
-                    </label>
-                </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -83,89 +72,165 @@
                         <input type="hidden" name="bien_id" id="bien_id" />
                         <input type="hidden" name="obj_id" id="obj_id" />
                         <div class="container">
-                            <div class="row">
-                                <div class="col-lg-4">
+                            <div class="card mb-3 p-3">
+                                <div class="row">
+                                    <h3 class="card-title">
+                                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-category-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 4h6v6h-6zm10 0h6v6h-6zm-10 10h6v6h-6zm10 3h6m-3 -3v6" /></svg>
+                                         Clasificación del Bien
+                                    </h3>
+                                </div>                             
+                                <div class="row">
+                                    <div class="col-lg-4">
                                         <div class="mb-3">
-                                            <label class="form-label">Grupo Generico:<span  style="color:red"> *</span></label>
-                                            <input type="text" class="form-control">
+                                            <label class="form-label">Grupo Generico:<span style="color:red"> *</span></label>
+                                            <select class="form-select select2" id="grup" name="grup" data-placeholder="Seleccione Grupo" style="width: 100%;">
+                                                <option value="" disabled selected>Seleccione</option>
+                                                <option value="j">AGRÍCOLA Y PESQUERO</option>
+                                                <option value="j">AIRE ACONDICIONADO Y REFRIGERACIÓN</option>
+                                                <option value="j">ANIMALES</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="mb-3">
                                             <label class="form-label">Clase:<span  style="color:red"> *</span></label>
-                                            <input type="text" class="form-control">
+                                            <select class="form-select select2" id="clase" name="clase" data-placeholder="Seleccione Clase" style="width: 100%;">
+                                                <option value="" disabled selected>Seleccione</option>
+                                                <option value="j">AGRÍCOLA Y PESQUERO</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="mb-3">
                                             <label class="form-label">Objeto:<span  style="color:red"> *</span></label>
+                                            <select class="form-select select2" id="obj" name="obj" data-placeholder="Seleccione objeto" style="width: 100%;">
+                                                <option value="" disabled selected>Seleccione</option>
+                                                <option value="j">AGRÍCOLA Y PESQUERO</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card mb-3 p-3">
+                                <div class="row">
+                                    <h3 class="card-title">
+                                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-object-scan"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 8v-2a2 2 0 0 1 2 -2h2" /><path d="M4 16v2a2 2 0 0 0 2 2h2" /><path d="M16 4h2a2 2 0 0 1 2 2v2" /><path d="M16 20h2a2 2 0 0 0 2 -2v-2" /><path d="M8 8m0 2a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-4a2 2 0 0 1 -2 -2z" /></svg>
+                                        Identificación Técnica
+                                    </h3>
+                                </div> 
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label class="form-label">Marca:<span  style="color:red"> *</span></label>
+                                            <select class="form-select select2" id="marca" name="marca" data-placeholder="Seleccione Marca" style="width: 100%;">
+                                                <option value="" disabled selected>Seleccione</option>
+                                                <option value="j">AGRÍCOLA Y PESQUERO</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label class="form-label">Modelo:<span  style="color:red"> *</span></label>
+                                            <select class="form-select select2" id="modelo" name="modelo" data-placeholder="Seleccione Modelo" style="width: 100%;">
+                                                <option value="" disabled selected>Seleccione</option>
+                                                <option value="j">AGRÍCOLA Y PESQUERO</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label class="form-label">Dimensiones:<span  style="color:red"> *</span></label>
                                             <input type="text" class="form-control">
                                         </div>
                                     </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <div class="mb-3">
-                                        <label class="form-label">Marca:<span  style="color:red"> *</span></label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="mb-3">
-                                        <label class="form-label">Modelo:<span  style="color:red"> *</span></label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="mb-3">
-                                        <label class="form-label">Dimensiones:<span  style="color:red"> *</span></label>
-                                        <input type="text" class="form-control">
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label class="form-label">N° Serie:<span  style="color:red"> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <div class="mb-3">
-                                        <label class="form-label">N° Serie:<span  style="color:red"> *</span></label>
-                                        <input type="text" class="form-control">
+                            <div class="card mb-3 p-3">
+                                <div class="row">
+                                    <h3 class="card-title">
+                                       <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+                                       Características Visuales
+                                    </h3>
+                                </div> 
+                                <div class="row">
+                                    <div class="col-lg-5">
+                                        <div class="mb-3">
+                                            <label class="form-label">Fecha de Registro:<span  style="color:red"> *</span></label>
+                                            <div class="row g-2">
+                                                <div class="col-5">
+                                                    <select name="user[month]" id="monthSelect" class="form-select">
+                                                        <option value="">Mes</option>
+                                                        <option value="1">Enero</option>
+                                                        <option value="2">Febrero</option>
+                                                        <option value="3">Marzo</option>
+                                                        <option value="4">Abril</option>
+                                                        <option value="5">Mayo</option>
+                                                        <option value="6">Junio</option>
+                                                        <option value="7">Julio</option>
+                                                        <option value="8">Agosto</option>
+                                                        <option value="9">Septiembre</option>
+                                                        <option value="10">Octubre</option>
+                                                        <option value="11">Noviembre</option>
+                                                        <option value="12">Diciembre</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-3">
+                                                    <select name="user[day]" id="daySelect" class="form-select">
+                                                    </select>
+                                                </div>
+                                                <div class="col-4">
+                                                    <select name="user[year]" id="yearSelect" class="form-select">
+                                                        <option value="">Year</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="mb-3">
-                                        <label class="form-label">Fecha de Registro:<span  style="color:red"> *</span></label>
-                                        <input type="date" class="form-control">
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label class="form-label">Color:<span style="color:red"> *</span></label>
+                                            <select class="form-select" id="select-color" multiple>
+                                            <option value="R">Rojo</option>
+                                            <option value="V">Verde</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="mb-3">
-                                        <label class="form-label">Codigo Interno:<span  style="color:red"> *</span></label>
-                                        <input type="text" class="form-control" disabled="" >
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label class="form-label">Codigo Interno:<span  style="color:red"> *</span></label>
+                                            <input type="text" class="form-control" disabled="" >
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <div class="mb-3">
-                                        <label class="form-label">Color:<span style="color:red"> *</span></label>
-                                        <select class="form-select" id="select-color" multiple>
-                                        <option value="R">Rojo</option>
-                                        <option value="V">Verde</option>
-                                        </select>
+                            <div class="card mb-3 p-3">
+                                <div class="row">
+                                    <h3 class="card-title">
+                                       <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-library"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 3m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 7.26a2.005 2.005 0 0 0 -1.012 1.737v10c0 1.1 .9 2 2 2h10c.75 0 1.158 -.385 1.5 -1" /><path d="M11 7h5" /><path d="M11 10h6" /><path d="M11 13h3" /></svg>
+                                       Información de Registro	
+                                    </h3>
+                                </div> 
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Muestra de barra:<span  style="color:red"> *</span></label>
+                                            <input type="text" class="form-control">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="mb-3">
-                                        <label class="form-label">Muestra de barra:<span  style="color:red"> *</span></label>
-                                        <input type="text" class="form-control">
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Codigo Generado:<span  style="color:red"> *</span></label>
+                                            <input type="text" class="form-control" disabled="" >
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="mb-3">
-                                        <label class="form-label">Codigo Generado:<span  style="color:red"> *</span></label>
-                                        <input type="text" class="form-control" disabled="" >
-                                    </div>
-                                </div>
-                            </div>    
+                                </div> 
+                            </div>         
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -184,6 +249,102 @@
     </div>
 </div>
 <script>
+   const monthSelect = document.getElementById('monthSelect');
+  const daySelect = document.getElementById('daySelect');
+  const yearSelect = document.getElementById('yearSelect');
+
+  // Generar años desde 2000 hasta 2100
+  const startYear = 2000;
+  const endYear = 2100;
+  for(let year = startYear; year <= endYear; year++){
+    const option = document.createElement('option');
+    option.value = year;
+    option.textContent = year;
+    yearSelect.appendChild(option);
+  }
+
+  // Función para calcular días del mes (considera años bisiestos)
+  function daysInMonth(year, month) {
+    return new Date(year, month, 0).getDate();
+  }
+
+  // Actualizar días según mes y año
+  function updateDays() {
+    const year = parseInt(yearSelect.value);
+    const month = parseInt(monthSelect.value);
+
+    if (!month || !year) {
+      // Si no hay año o mes, poner días del mes 31 por defecto
+      fillDays(31);
+      return;
+    }
+
+    const days = daysInMonth(year, month);
+    fillDays(days);
+  }
+
+  // Llena el select de días
+  function fillDays(days) {
+    const selectedDay = parseInt(daySelect.value);
+    daySelect.innerHTML = '<option value="">Dia</option>'; // reset
+
+    for(let i = 1; i <= days; i++) {
+      const option = document.createElement('option');
+      option.value = i;
+      option.textContent = i;
+      if(i === selectedDay) option.selected = true;
+      daySelect.appendChild(option);
+    }
+  }
+
+  // Eventos para actualizar días cuando cambie mes o año
+  monthSelect.addEventListener('change', updateDays);
+  yearSelect.addEventListener('change', updateDays);
+
+  // Inicializar días al cargar la página
+  // Si hay mes y año seleccionados, tomarlos, sino día 31 por defecto
+  window.onload = () => {
+    if(!yearSelect.value) yearSelect.value = 2024; // ejemplo valor por defecto
+    updateDays();
+  }
+  
+
+
+    $(document).ready(function() {
+        $('#grup').select2({
+        theme: 'bootstrap4',
+        width: '100%',
+        dropdownParent: $('#modalObjetoCate')
+        });
+    });
+    $(document).ready(function() {
+        $('#clase').select2({
+        theme: 'bootstrap4',
+        width: '100%',
+        dropdownParent: $('#modalObjetoCate')
+        });
+    });
+    $(document).ready(function() {
+        $('#obj').select2({
+        theme: 'bootstrap4',
+        width: '100%',
+        dropdownParent: $('#modalObjetoCate')
+        });
+    });
+    $(document).ready(function() {
+        $('#marca').select2({
+        theme: 'bootstrap4',
+        width: '100%',
+        dropdownParent: $('#modalObjetoCate')
+        });
+    });
+    $(document).ready(function() {
+        $('#modelo').select2({
+        theme: 'bootstrap4',
+        width: '100%',
+        dropdownParent: $('#modalObjetoCate')
+        });
+    });
     // Obtener la fecha actual
     var fecha = new Date();
     var opcionesFecha = {
@@ -196,25 +357,10 @@
 
     // Actualizar el contenido del elemento con el id "fecha"
     document.getElementById('lbltituloObjcate').innerHTML += fechaFormateada;
-</script>
-<script>
-    // Escuchar el cambio en el estado del checkbox
-    // Deshabilitar los campos al cargar la página
-    $("#combo_gg_bien_obj, #combo_clase_bien_obj, #combo_obj_bien").prop("disabled", true);
 
-    // Escuchar el cambio en el estado del checkbox
-    $("#lock").change(function() {
-        // Verificar si el checkbox está marcado
-        var isLocked = $(this).prop("checked");
-
-        // Habilitar o deshabilitar los selects según el estado del checkbox
-        $("#combo_gg_bien_obj, #combo_clase_bien_obj, #combo_obj_bien").prop("disabled", isLocked);
-
-        // Actualizar el color del icono de bloqueo de acuerdo al estado del checkbox
-        if (isLocked) {
-            $(".lock-label .lock-body").attr("fill", "#ccc");
-        } else {
-            $(".lock-label .lock-body").attr("fill", "white");
-        }
+    new TomSelect("#select-color", {
+        plugins: ['remove_button'],
+        persist: false,
+        create: false
     });
 </script>

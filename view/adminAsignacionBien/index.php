@@ -89,7 +89,7 @@
                         <div class="col-lg-6">
                             <div class="mb-3">
                                 <label class="form-label">DNI Representante:<span  style="color:red"> *</span></label>
-                                <input type="text" class="form-control">
+                                <input type="number" min="0" class="form-control">
                             </div>
                         </div>
                         <div class="col-lg-6">
