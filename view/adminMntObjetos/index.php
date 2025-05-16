@@ -1,3 +1,7 @@
+<?php
+require_once("../../config/conexion.php");
+if (isset($_SESSION["usua_id_siin"])) {
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -100,3 +104,9 @@
     <?php require_once("modalClase.php"); ?>
 </body>
 </html>
+<?php
+} else {
+  /* Si no a iniciado sesion se redireccionada a la ventana principal */
+  header("Location:" . Conectar::ruta() . "views/404/");
+}
+?>

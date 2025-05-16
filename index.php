@@ -1,3 +1,11 @@
+<?php
+require_once("config/conexion.php");
+if (isset($_POST["enviar"]) and $_POST["enviar"] == "si") {
+  require_once("models/Usuario.php");
+  $usuario = new Usuario();
+  $usuario->login();
+}
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -26,7 +34,6 @@
     </style>
   </head>
   <body  class=" d-flex flex-column">
-    <script src="./dist/js/demo-theme.min.js?1692870487"></script>
     <div class="page page-center">
       <div class="container container-normal py-4">
         <div class="row align-items-center g-0">
@@ -41,44 +48,92 @@
                   <h2 class="text-center mb-2">¡Bienvenido al Sistema  de Inventario!</h2>
                   <p class="text-center mb-2">Ingresa tus datos para Iniciar sesión.</p>
                   <form action="./" method="POST" autocomplete="off" novalidate>
-                     <?php
-                      if (isset($_GET["m"])) {
-                          switch ($_GET["m"]) {
-                              case 1:
-                                  ?>
-                                   <div class="alert alert-warning alert-dismissible" role="alert">
-                                    <div class="d-flex">
-                                      <div>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon alert-icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.24 3.957l-8.422 14.06a1.989 1.989 0 0 0 1.7 2.983h16.845a1.989 1.989 0 0 0 1.7 -2.983l-8.423 -14.06a1.989 1.989 0 0 0 -3.4 0z" /><path d="M12 9v4" /><path d="M12 17h.01" /></svg>
-                                      </div>
-                                      <div>
-                                        Error! Datos incorrectos
-                                      </div>
-                                    </div>
-                                    <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
-                                  </div>
-                                  <?php
-                                  break;
-                              case 2:
-                                  ?>
-                                  <div class="alert alert-danger alert-dismissible" role="alert">
-                                    <div class="d-flex">
-                                      <div>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon alert-icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 8v4" /><path d="M12 16h.01" /></svg>
-                                      </div>
-                                      <div>
-                                        Error!  Campos vacios
-                                      </div>
-                                    </div>
-                                    <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
-                                  </div>
-                                  <?php
-                                  break;
-                              default:
-                            break;
-                          }
+                    <?php
+                    if (isset($_GET["m"])) {
+                      switch ($_GET["m"]) {
+                        case "1":
+                          ?>
+                            <div class="alert alert-success" role="alert">
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                              <strong class="d-block d-sm-inline-block-force">Error!</strong> Error
+                            </div>
+                          <?php
+                          break;
+                        case "2":
+                          ?>
+                            <div class="alert alert-success" role="alert">
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                              <strong class="d-block d-sm-inline-block-force">Error!</strong> Campos vacios
+                            </div>
+                          <?php
+                          break;
+                        case "3":
+                          ?>
+                            <div class="alert alert-success" role="alert">
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                              <strong class="d-block d-sm-inline-block-force">Error!</strong> No se encontraron datos
+                            </div>
+                          <?php
+                          break;
+                        case "4":
+                          ?>
+                            <div class="alert alert-success" role="alert">
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                              <strong class="d-block d-sm-inline-block-force">Error!</strong> IP Persona no registrada
+                            </div>
+                          <?php
+                          break;
+                        case "5":
+                          ?>
+                            <div class="alert alert-success" role="alert">
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                              <strong class="d-block d-sm-inline-block-force">Error!</strong> Persona inactiva
+                            </div>
+                          <?php
+                          break;
+                        case "6":
+                          ?>
+                            <div class="alert alert-success" role="alert">
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                              <strong class="d-block d-sm-inline-block-force">Error!</strong> Fuera de la hora de acceso
+                            </div>
+                          <?php
+                          break;
+                        case "7":
+                          ?>
+                            <div class="alert alert-success" role="alert">
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                              <strong class="d-block d-sm-inline-block-force">Error!</strong> Usuario no vigente
+                            </div>
+                          <?php
+                          break;
+                        case "8":
+                          ?>
+                          <div class="alert alert-success" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong class="d-block d-sm-inline-block-force">Error!</strong> Datos incorrectos
+                          </div>
+                          <?php
+                          break;
+                        }
                       }
-                      ?>
+                    ?>
                     <div class="mb-2">
                       <label class="form-label">DNI</label>
                         <div class="input-icon mb-1">
@@ -126,7 +181,7 @@
                         </span>
                       </div>
                     </div>
-                    <input type="hidden" name ="enviar" class="form-control" value="1">
+                    <input type="hidden" name="enviar" value="si">
                     <div class="form-footer">
                         <button type="submit" class="btn btn-info w-100">
                         <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-login-2"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 8v-2a2 2 0 0 1 2 -2h7a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-2" /><path d="M3 12h13l-3 -3" /><path d="M13 15l3 -3" /></svg>

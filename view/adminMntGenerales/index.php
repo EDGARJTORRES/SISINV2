@@ -1,3 +1,7 @@
+<?php
+require_once("../../config/conexion.php");
+if (isset($_SESSION["usua_id_siin"])) {
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -37,7 +41,7 @@
                 </div>
                 <div class="card-body">
                   <div class="table-responsive m-4">
-                      <table id="gg_clase_data"  class="table card-table table-vcenter text-nowrap datatable">
+                      <table id="GG_data"  class="table card-table table-vcenter text-nowrap datatable">
                           <thead>
                               <tr>
                                   <th>COD</th>
@@ -71,7 +75,7 @@
                 </div>
                 <div class="card-body">
                   <div class="table-responsive m-4">
-                      <table id="gg_clase_data"  class="table card-table table-vcenter text-nowrap datatable">
+                      <table id="clase_data"  class="table card-table table-vcenter text-nowrap datatable">
                           <thead>
                               <tr>
                                   <th>COD</th>
@@ -105,7 +109,7 @@
                 </div>
                 <div class="card-body">
                   <div class="table-responsive m-4">
-                      <table id="gg_clase_data"  class="table card-table table-vcenter text-nowrap datatable">
+                      <table id="marca_data"  class="table card-table table-vcenter text-nowrap datatable">
                           <thead>
                               <tr>
                                 <th>N°</th>
@@ -139,7 +143,7 @@
                     </div>
                     <div class="card-body">
                       <div class="table-responsive m-4">
-                          <table id="gg_clase_data"  class="table card-table table-vcenter text-nowrap datatable">
+                          <table id="ubi_data"  class="table card-table table-vcenter text-nowrap datatable">
                               <thead>
                                   <tr>
                                     <th>N°</th>
@@ -163,6 +167,17 @@
     <?php require_once("modalClase.php"); ?>
     <?php require_once("modalMarca.php"); ?>
     <?php require_once("modalUbicacion.php"); ?>
+    <script type="text/javascript" src="adminMntGenerales.js"></script>
+    <script type="text/javascript" src="marca.js"></script>
+    <!-- <script type="text/javascript" src="movimiento.js"></script> -->
+    <script type="text/javascript" src="grupogenerico.js"></script>
+    <script type="text/javascript" src="clase.js"></script>
 </body>
 </body>
 </html>
+<?php
+} else {
+  /* Si no a iniciado sesion se redireccionada a la ventana principal */
+  header("Location:" . Conectar::ruta() . "views/404/");
+}
+?>

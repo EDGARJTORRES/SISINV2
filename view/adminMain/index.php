@@ -1,3 +1,7 @@
+<?php
+require_once("../../config/conexion.php");
+if (isset($_SESSION["usua_id_siin"])) {
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -170,3 +174,9 @@
    <script type="text/javascript" src="usuhome.js"></script>
 </body>
 </html>
+<?php
+} else {
+  /* Si no a iniciado sesion se redireccionada a la ventana principal */
+  header("Location:" . Conectar::ruta() . "views/404/");
+}
+?>

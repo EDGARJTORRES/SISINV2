@@ -1,8 +1,21 @@
+<?php
+require_once("../../config/conexion.php");
+if (isset($_SESSION["usua_id_siin"])) {
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <?php require_once("../html/mainHead.php"); ?>
     <title>MPCH::ManGenerales</title>
+    <style>
+     th, td {
+        max-width: 170px !important;         /* ancho máximo deseado */
+        white-space: normal;      /* permitir quiebre en varias líneas */
+        word-break: break-word;   /* romper palabras largas */
+        overflow-wrap: break-word; /* soporte adicional para romper palabra */
+        vertical-align: middle;   /* opcional, para centrar verticalmente */
+      }
+    </style>
   </head>
 <body>
     <?php require_once("../html/mainProfile.php"); ?>
@@ -29,12 +42,13 @@
                 </div>
                 <div class="card-body">
                   <div class="table-responsive m-4">
-                      <table id="gg_clase_data"  class="table card-table table-vcenter text-nowrap datatable">
+                      <table id="formatos_data"  class="table card-table table-vcenter text-nowrap datatable">
                           <thead>
                               <tr>
                                   <th>Fecha Creaccion</th>
                                   <th>Anexo</th>
                                   <th>Emisor</th>
+                                  <th>Receptor</th>
                                   <th>Cantidad Bienes</th>
                                   <th>Usuario</th>
                                   <th>Imprimir</th>
@@ -52,6 +66,13 @@
       </div>  
     </div>
     <?php require_once("../html/mainjs.php"); ?>
+    <script type="text/javascript" src="adminAltaBien.js"></script>
 </body>
 </body>
 </html>
+<?php
+} else {
+  /* Si no a iniciado sesion se redireccionada a la ventana principal */
+  header("Location:" . Conectar::ruta() . "view/404/");
+}
+?>
