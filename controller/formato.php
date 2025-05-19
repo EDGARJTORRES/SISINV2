@@ -159,8 +159,36 @@ switch ($_GET["op"]) {
             $sub_array[] = $row["receptor"];
             $sub_array[] = $row["count"];
             $sub_array[] = $row["pers_nombre"];
-            $sub_array[] = '<button type="button" onClick="imprimirFormato(' . $row["form_id"] . ');"  id="' . $row["form_id"] . '" class="btn btn-outline-success btn-icon" style="cursor: pointer;"><div><i class="fa fa-print"></i></div></button>';
-            $sub_array[] = '<button type="button" onClick="eliminarformato(' . $row["form_id"] . ');"  id="' . $row["form_id"] . '" class="btn btn-outline-danger btn-icon" style="cursor: pointer;"><div><i class="fa fa-close"></i></div></button>';
+            $sub_array[] = '
+            <div class="dropdown">
+            <a class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path d="M5 12h14"/>
+                <path d="M12 5l7 7l-7 7"/>
+                </svg>
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#" onclick="imprimirFormato(' . $row["form_id"] . ')">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon dropdown-item-icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M17 17v4h-10v-4" />
+                    <path d="M6 10v-5h12v5" />
+                    <path d="M6 14h12" />
+                    <path d="M9 17h6" />
+                </svg>
+                Imprimir
+                </a>
+                <a class="dropdown-item text-danger" href="#" onclick="eliminarformato(' . $row["form_id"] . ')">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon dropdown-item-icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M6 6l12 12" />
+                    <path d="M6 18l12 -12" />
+                </svg>
+                Eliminar
+                </a>
+            </div>
+            </div>';
             $data[] = $sub_array;
         }
 

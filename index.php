@@ -51,86 +51,77 @@ if (isset($_POST["enviar"]) and $_POST["enviar"] == "si") {
                     <?php
                     if (isset($_GET["m"])) {
                       switch ($_GET["m"]) {
-                        case "1":
-                          ?>
-                            <div class="alert alert-success" role="alert">
-                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                              <strong class="d-block d-sm-inline-block-force">Error!</strong> Error
+                         case "1":
+                            ?>
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                              <strong>Error:</strong> Error
                             </div>
-                          <?php
-                          break;
-                        case "2":
-                          ?>
-                            <div class="alert alert-success" role="alert">
-                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                              <strong class="d-block d-sm-inline-block-force">Error!</strong> Campos vacios
+                            <?php
+                            break;
+
+                           case "2":
+                            ?>
+                            <div class="alert alert-warning alert-dismissible" role="alert">
+                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                              <strong>Error:</strong> Campos vacíos
                             </div>
-                          <?php
-                          break;
-                        case "3":
-                          ?>
-                            <div class="alert alert-success" role="alert">
-                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                              <strong class="d-block d-sm-inline-block-force">Error!</strong> No se encontraron datos
+                            <?php
+                            break;
+
+                          case "3":
+                            ?>
+                            <div class="alert alert-info alert-dismissible" role="alert">
+                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                              <strong>Error:</strong> No se encontraron datos
                             </div>
-                          <?php
-                          break;
-                        case "4":
-                          ?>
-                            <div class="alert alert-success" role="alert">
-                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                              <strong class="d-block d-sm-inline-block-force">Error!</strong> IP Persona no registrada
+                            <?php
+                            break;
+
+                          case "4":
+                            ?>
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                              <strong>Error:</strong> IP Persona no registrada
                             </div>
-                          <?php
-                          break;
-                        case "5":
-                          ?>
-                            <div class="alert alert-success" role="alert">
-                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                              <strong class="d-block d-sm-inline-block-force">Error!</strong> Persona inactiva
+                            <?php
+                            break;
+
+                          case "5":
+                            ?>
+                            <div class="alert alert-warning alert-dismissible" role="alert">
+                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                              <strong>Error:</strong> Persona inactiva
                             </div>
-                          <?php
-                          break;
-                        case "6":
-                          ?>
-                            <div class="alert alert-success" role="alert">
-                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                              <strong class="d-block d-sm-inline-block-force">Error!</strong> Fuera de la hora de acceso
+                            <?php
+                            break;
+
+                          case "6":
+                            ?>
+                            <div class="alert alert-info alert-dismissible" role="alert">
+                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                              <strong>Error:</strong> Fuera de la hora de acceso
                             </div>
-                          <?php
-                          break;
-                        case "7":
-                          ?>
-                            <div class="alert alert-success" role="alert">
-                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                              <strong class="d-block d-sm-inline-block-force">Error!</strong> Usuario no vigente
+                            <?php
+                            break;
+
+                          case "7":
+                            ?>
+                            <div class="alert alert-warning alert-dismissible" role="alert">
+                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                              <strong>Error:</strong> Usuario no vigente
                             </div>
-                          <?php
-                          break;
-                        case "8":
-                          ?>
-                          <div class="alert alert-success" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                            <strong class="d-block d-sm-inline-block-force">Error!</strong> Datos incorrectos
-                          </div>
-                          <?php
-                          break;
+                            <?php
+                            break;
+
+                          case "8":
+                            ?>
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                              <strong>Error:</strong> Datos incorrectos
+                            </div>
+                            <?php
+                            break;
                         }
                       }
                     ?>

@@ -1,4 +1,7 @@
-
+<?php
+require_once("../../config/conexion.php");
+if (isset($_SESSION["usua_id_siin"])) {
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -30,7 +33,7 @@
                     </div>
                     <div class="col-12">
                       <div class="table-responsive m-4">
-                        <table id="area_data"  class="table card-table table-vcenter text-nowrap datatable">
+                        <table id="dependencias_objetos"  class="table card-table table-vcenter text-nowrap datatable">
                           <thead>
                             <tr>
                               <th>Area</th>
@@ -52,5 +55,12 @@
         </div>  
     </div>
     <?php require_once("../html/mainjs.php"); ?>
+    <script type="text/javascript" src="adminMntDedendencias.js"></script>
+    <script type="text/javascript" src="dependencias.js"></script>
 </body>
 </html>
+<?php
+} else {
+  header("Location:" . Conectar::ruta() . "view/404/");
+}
+?>

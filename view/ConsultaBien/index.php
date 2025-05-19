@@ -1,4 +1,7 @@
-
+<?php
+require_once("../../config/conexion.php");
+if (isset($_SESSION["usua_id_siin"])) {
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -33,28 +36,36 @@
                          <div class="col-lg-12">
                           <div class="mb-3">
                             <div class="row">
+                              <input type="hidden" name="pers_id" id="pers_id" />
                               <div class="col-12">
                                 <label class="form-label">Código de Barras:<span style="color:red"> *</span></label>
                               </div>
                             </div>
                             <div class="row">
                               <div class="col-8">
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" id="cod_bar" name="cod_bar" placeholder="Ingresa el código de barras..." required oninput="limitarADigitos(this)">
                               </div>
-                              <div class="col-2 d-flex align-items-center"> 
-                                <a href="#" class="btn btn-info w-100 bg-blue text-blue-fg" data-bs-toggle="modal" data-bs-target="#modalarea">
-                                  <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-file-search"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M12 21h-5a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v4.5" /><path d="M16.5 17.5m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0 -5 0" /><path d="M18.5 19.5l2.5 2.5" /></svg>
-                                  Buscar
-                                </a>
+                              <div class="col-2 d-flex align-items-center">
+                                <button type="button" class="btn btn-info w-100 bg-blue  px-2 d-flex align-items-center justify-content-center gap-1" id="buscaObjeto" onclick="buscarBien()">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                    <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                                    <path d="M12 21h-5a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v4.5" />
+                                    <path d="M16.5 17.5m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0 -5 0" />
+                                    <path d="M18.5 19.5l2.5 2.5" />
+                                  </svg>
+                                  <span>Buscar</span>
+                                </button>
                               </div>
-                              <div class="col-2 d-flex align-items-center"> 
-                                <a href="#" class="btn btn-info w-100 bg-blue text-blue-fg" data-bs-toggle="modal" data-bs-target="#modalarea">
+                              <div class="col-2 d-flex align-items-center" > 
+                                <a type="button"  class="btn btn-info w-100 bg-blue text-blue-fg" id="btnCamara" onclick="activarCamara()">
                                   <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-camera-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13.5 20h-8.5a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v4" /><path d="M9 13a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M22 22l-5 -5" /><path d="M17 22l5 -5" /></svg>
                                   Escanear
                                 </a>
                               </div>
                             </div>
                           </div>
+                           <div class="respuesta" style="text-align: justify;color: #2a2a2a;font-size: 12px;" >
                         </div>
                       </div>
                     </div>   
@@ -64,5 +75,70 @@
         </div>  
     </div>
     <?php require_once("../html/mainjs.php"); ?>
+    <script type="text/javascript" src="consultar.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+      var input = document.getElementById('cod_bar');
+      input.focus();
+      });
+      function limpiarDatos() {
+          var respuesta = document.querySelector('.respuesta');
+          respuesta.innerHTML = '';
+      }
+
+      function limitarADigitos(input) {
+        let valor = input.value.toString();
+          if (valor.length < 13) {
+            limpiarDatos();
+          }
+          if (valor.length > 13) {
+            valor = valor.slice(0, 8);
+          }
+          if (valor.length == 13) {
+            limpiarDatos();
+            buscarBien();
+          }
+          input.value = valor;
+      }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>
+    <script>
+      function activarCamara(){
+      const video = document.getElementById('interactive');
+      const codigoBarrasInput = document.getElementById('cod_bar');
+      Quagga.init({
+          inputStream: {
+              name: 'Live',
+              target: video,
+              constraints: {
+                  width: { min: 640 },
+                  height: { min: 480 },
+                  aspectRatio: { min: 1, max: 100 },
+                  facingMode: 'environment' 
+              }
+          },
+          decoder: {
+              readers: ['code_128_reader'] 
+          }
+      }, function(err) {
+          if (err) {
+              console.error('Error al inicializar Quagga:', err);
+              return;
+          }
+          console.log('QuaggaJS iniciado correctamente');
+          Quagga.start();
+      });
+      Quagga.onDetected(function(result) {
+          const code = result.codeResult.code;
+          codigoBarrasInput.value = code;
+      });
+      }   
+    </script>
+
 </body>
 </html>
+<?php
+} else {
+  header("Location:" . Conectar::ruta() . "view/404/");
+}
+?>

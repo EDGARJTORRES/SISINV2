@@ -1,4 +1,7 @@
-
+<?php
+require_once("../../config/conexion.php");
+if (isset($_SESSION["usua_id_siin"])) {
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -62,3 +65,8 @@
 </body>
 </body>
 </html>
+<?php
+} else {
+  header("Location:" . Conectar::ruta() . "view/404/");
+}
+?>

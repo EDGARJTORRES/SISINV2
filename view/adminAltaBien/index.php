@@ -1,4 +1,7 @@
-
+<?php
+require_once("../../config/conexion.php");
+if (isset($_SESSION["usua_id_siin"])) {
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -39,7 +42,7 @@
                     </div>
                     <div class="col-12">
                       <div class="table-responsive m-4">
-                        <table id="area_data"  class="table card-table table-vcenter text-nowrap datatable">
+                        <table id="listar_gg_bienes"  class="table card-table table-vcenter text-nowrap datatable">
                           <thead>
                             <tr>
                               <th>Cod Interno</th>
@@ -62,6 +65,15 @@
         </div>  
     </div>
     <?php require_once("../html/mainjs.php"); ?>
-     <?php require_once("modalObjetoCate.php"); ?>
+    <?php require_once("modalobjgg.php"); ?>
+    <?php require_once("modalObjetoCate.php"); ?>
+    <script type="text/javascript" src="adminAltaBien.js"></script>
+    <script type="text/javascript" src="bienes.js"></script>
 </body>
 </html>
+<?php
+} else {
+  /* Si no a iniciado sesion se redireccionada a la ventana principal */
+  header("Location:" . Conectar::ruta() . "view/404/");
+}
+?>

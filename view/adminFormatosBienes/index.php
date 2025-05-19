@@ -1,4 +1,7 @@
-
+<?php
+require_once("../../config/conexion.php");
+if (isset($_SESSION["usua_id_siin"])) {
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,11 +9,11 @@
     <title>MPCH::ManGenerales</title>
     <style>
      th, td {
-        max-width: 170px !important;         /* ancho máximo deseado */
-        white-space: normal;      /* permitir quiebre en varias líneas */
-        word-break: break-word;   /* romper palabras largas */
-        overflow-wrap: break-word; /* soporte adicional para romper palabra */
-        vertical-align: middle;   /* opcional, para centrar verticalmente */
+        max-width: 170px !important;     
+        white-space: normal;      
+        word-break: break-word;   
+        overflow-wrap: break-word; 
+        vertical-align: middle;   
       }
     </style>
   </head>
@@ -48,8 +51,7 @@
                                   <th>Receptor</th>
                                   <th>Cantidad Bienes</th>
                                   <th>Usuario</th>
-                                  <th>Imprimir</th>
-                                  <th>Eliminar</th> 
+                                  <th>Acciones</th>
                               </tr>
                           </thead>
                           <tbody>
@@ -64,6 +66,12 @@
     </div>
     <?php require_once("../html/mainjs.php"); ?>
     <script type="text/javascript" src="adminAltaBien.js"></script>
+    <script type="text/javascript" src="formato.js"></script>
 </body>
 </body>
 </html>
+<?php
+} else {
+  header("Location:" . Conectar::ruta() . "view/404/");
+}
+?>
