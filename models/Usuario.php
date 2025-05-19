@@ -89,7 +89,7 @@ class Usuario extends Conectar
                     $_SESSION["pers_celu01_siin"] = $data["pers_celu01"];
                     $_SESSION["historial_login_siin"] = $data["hise_id"];
 
-                    header("Location: " . Conectar::ruta() . "view/ConsultaBien/");
+                    header("Location: " . Conectar::ruta() . "view/adminMain/");
                 } else {
                     header("Location:" . Conectar::ruta() . 'index.php?m=1');
                     exit();

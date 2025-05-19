@@ -1,17 +1,14 @@
-<?php
-require_once("../../config/conexion.php");
-if (isset($_SESSION["usua_id_siin"])) {
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <?php require_once("../html/mainHead.php"); ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>MPCH: Inicio</title>
 </head>
 <body>
-    <?php require_once("../html/mainProfile.php"); ?>
+    <?php require_once("../html/mainProfile2.php"); ?>
     <div class="page-wrapper">
       <div class="page-header d-print-none">
         <div class="container-xl">
@@ -20,7 +17,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                 <div class="page-pretitle mb-3">
                     Inicio
                 </div>
-                <h2 class="page-title" style="color:white;">
+                <h2 class="page-title" >
                   DASHORBOARD
                 </h2>
             </div>
@@ -174,9 +171,3 @@ if (isset($_SESSION["usua_id_siin"])) {
    <script type="text/javascript" src="usuhome.js"></script>
 </body>
 </html>
-<?php
-} else {
-  /* Si no a iniciado sesion se redireccionada a la ventana principal */
-  header("Location:" . Conectar::ruta() . "views/404/");
-}
-?>

@@ -37,7 +37,7 @@ $(document).ready(function(){
         "aProcessing": true,
         "aServerSide": true,
         dom: 'Bfrtip',
-        searching: true,  // <-- aquí cambias a true
+        searching: true,  
         buttons: [
         ],
         "ajax":{

@@ -1,7 +1,4 @@
-<?php
-require_once("../../config/conexion.php");
-if (isset($_SESSION["usua_id_siin"])) {
-?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,16 +6,16 @@ if (isset($_SESSION["usua_id_siin"])) {
     <title>MPCH::AsignacionBienes</title>
   </head>
 <body>
-    <?php require_once("../html/mainProfile.php"); ?>
+    <?php require_once("../html/mainProfile2.php"); ?>
      <div class="page-wrapper">
         <div class="page-header d-print-none">
             <div class="container-xl">
                 <div class="row g-2  mb-5 align-items-center">
                     <div class="col">
                         <div class="page-pretitle mb-3">
-                           Mantenimiento de Objetos Para el Sistema de Inventario
+                           Baja de Objetos Para el Sistema de Inventario
                         </div>
-                        <h2 class="page-title" style="color:white;">
+                        <h2 class="page-title">
                           ADMINISTRADROR DE OBJETOS
                         </h2>
                     </div>
@@ -57,9 +54,3 @@ if (isset($_SESSION["usua_id_siin"])) {
     <?php require_once("../html/mainjs.php"); ?>
 </body>
 </html>
-<?php
-} else {
-  /* Si no a iniciado sesion se redireccionada a la ventana principal */
-  header("Location:" . Conectar::ruta() . "views/404/");
-}
-?>

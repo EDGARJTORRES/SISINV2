@@ -1,7 +1,4 @@
-<?php
-require_once("../../config/conexion.php");
-if (isset($_SESSION["usua_id_siin"])) {
-?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -21,7 +18,7 @@ if (isset($_SESSION["usua_id_siin"])) {
     </style>
   </head>
 <body>
-    <?php require_once("../html/mainProfile.php"); ?>
+    <?php require_once("../html/mainProfile2.php"); ?>
      <div class="page-wrapper">
         <div class="page-header d-print-none">
             <div class="container-xl">
@@ -30,7 +27,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                         <div class="page-pretitle mb-3">
                            Mantenimiento de Objetos Para el Sistema de Inventario
                         </div>
-                        <h2 class="page-title" style="color:white;">
+                        <h2 class="page-title">
                           ADMINISTRADOR DE OBJETOS
                         </h2>
                     </div>
@@ -104,9 +101,3 @@ if (isset($_SESSION["usua_id_siin"])) {
     <?php require_once("modalClase.php"); ?>
 </body>
 </html>
-<?php
-} else {
-  /* Si no a iniciado sesion se redireccionada a la ventana principal */
-  header("Location:" . Conectar::ruta() . "views/404/");
-}
-?>

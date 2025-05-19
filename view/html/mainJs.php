@@ -9,19 +9,3 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const currentPath = window.location.pathname;
-  document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
-    const tempLink = document.createElement("a");
-    tempLink.href = link.href;
-    const linkPath = tempLink.pathname;
-    if (currentPath.endsWith(linkPath)) {
-      document.querySelectorAll('.navbar-nav .nav-item').forEach(item =>
-        item.classList.remove('active')
-      );
-      link.closest('.nav-item').classList.add('active');
-    }
-  });
-});
-</script>

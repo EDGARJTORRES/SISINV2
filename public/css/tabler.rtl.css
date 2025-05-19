@@ -3956,6 +3956,7 @@ textarea.form-control-lg {
 }
 .dropend .dropdown-toggle::after {
   vertical-align: 0;
+  margin-left: 6px;
 }
 
 .dropstart .dropdown-menu[data-bs-popper] {

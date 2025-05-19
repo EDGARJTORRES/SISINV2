@@ -109,17 +109,17 @@ switch ($_GET["op"]) {
                 $sub_array[] = $row["objdepe_codbarras"];
                 $sub_array[] = $row["objdepe_est"];
                 $sub_array[] = '
-    <td class="dropdown hidden-xs-down show">
-        <a href="#" data-toggle="dropdown" class="btn pd-y-3 tx-gray-500 hover-info" aria-expanded="true"><i class="icon ion-more"></i></a>
-        <div class="dropdown-menu dropdown-menu-left pd-10">
-            <nav class="nav nav-style-1 flex-column">
-                <a href="#" class="nav-link" onclick="ImprimirObjDepe(' . $row["objdepe_id"] . ')">Imprimir</a>
-                <a href="#" class="nav-link" onclick="editarObjDepe(' . $row["objdepe_id"] . ')">Edit</a>
-                <a href="#" class="nav-link" onclick="eliminarObjetoDepe(' . $row["objdepe_id"] . ')">Delete</a>
-                <a href="#" class="nav-link" onclick="rotarObjetoDepe(' . $row["objdepe_id"] . ')">Rotar</a>
-            </nav>
-        </div><!-- dropdown-menu -->
-    </td>';
+                <td class="dropdown hidden-xs-down show">
+                    <a href="#" data-toggle="dropdown" class="btn pd-y-3 tx-gray-500 hover-info" aria-expanded="true"><i class="icon ion-more"></i></a>
+                    <div class="dropdown-menu dropdown-menu-left pd-10">
+                        <nav class="nav nav-style-1 flex-column">
+                            <a href="#" class="nav-link" onclick="ImprimirObjDepe(' . $row["objdepe_id"] . ')">Imprimir</a>
+                            <a href="#" class="nav-link" onclick="editarObjDepe(' . $row["objdepe_id"] . ')">Edit</a>
+                            <a href="#" class="nav-link" onclick="eliminarObjetoDepe(' . $row["objdepe_id"] . ')">Delete</a>
+                            <a href="#" class="nav-link" onclick="rotarObjetoDepe(' . $row["objdepe_id"] . ')">Rotar</a>
+                        </nav>
+                    </div><!-- dropdown-menu -->
+                </td>';
               /*   $sub_array[] = '<button type="button" onClick="editarObjDepe('.$row["objdepe_id"].');"  id="'.$row["objdepe_id"].'" class="btn btn-outline-warning btn-icon"><div><i class="fa fa-edit"></i></div></button>';
                 $sub_array[] = '<button type="button" onClick="eliminarObjDepe('.$row["objdepe_id"].');"  id="'.$row["objdepe_id"].'" class="btn btn-outline-danger btn-icon"><div><i class="fa fa-close"></i></div></button>';                
                  */

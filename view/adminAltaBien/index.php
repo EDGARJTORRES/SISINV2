@@ -1,7 +1,4 @@
-<?php
-require_once("../../config/conexion.php");
-if (isset($_SESSION["usua_id_siin"])) {
-?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -10,7 +7,7 @@ if (isset($_SESSION["usua_id_siin"])) {
     <link href="../../public/css/estiloselect.css" rel="stylesheet"/>
   </head>
 <body>
-    <?php require_once("../html/mainProfile.php"); ?>
+    <?php require_once("../html/mainProfile2.php"); ?>
      <div class="page-wrapper">
         <div class="page-header d-print-none">
             <div class="container-xl">
@@ -19,7 +16,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                         <div class="page-pretitle mb-3">
                           Mantenimiento de Bienes Para el Sistema de Inventario
                         </div>
-                        <h2 class="page-title" style="color:white;">
+                        <h2 class="page-title">
                           ALTA DE BIENES
                         </h2>
                     </div>
@@ -68,8 +65,3 @@ if (isset($_SESSION["usua_id_siin"])) {
      <?php require_once("modalObjetoCate.php"); ?>
 </body>
 </html>
-<?php
-} else {
-  header("Location:" . Conectar::ruta() . "view/404/");
-}
-?>
