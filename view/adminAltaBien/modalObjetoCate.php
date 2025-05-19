@@ -96,7 +96,7 @@
                                             <label class="form-label">Clase:<span  style="color:red"> *</span></label>
                                             <select class="form-select select2" id="clase" name="clase" data-placeholder="Seleccione Clase" style="width: 100%;">
                                                 <option value="" disabled selected>Seleccione</option>
-                                                <option value="j">AGRÍCOLA Y PESQUERO</option>
+                                            
                                             </select>
                                         </div>
                                     </div>
@@ -105,7 +105,6 @@
                                             <label class="form-label">Objeto:<span  style="color:red"> *</span></label>
                                             <select class="form-select select2" id="obj" name="obj" data-placeholder="Seleccione objeto" style="width: 100%;">
                                                 <option value="" disabled selected>Seleccione</option>
-                                                <option value="j">AGRÍCOLA Y PESQUERO</option>
                                             </select>
                                         </div>
                                     </div>
@@ -124,7 +123,6 @@
                                             <label class="form-label">Marca:<span  style="color:red"> *</span></label>
                                             <select class="form-select select2" id="marca" name="marca" data-placeholder="Seleccione Marca" style="width: 100%;">
                                                 <option value="" disabled selected>Seleccione</option>
-                                                <option value="j">AGRÍCOLA Y PESQUERO</option>
                                             </select>
                                         </div>
                                     </div>
@@ -133,7 +131,6 @@
                                             <label class="form-label">Modelo:<span  style="color:red"> *</span></label>
                                             <select class="form-select select2" id="modelo" name="modelo" data-placeholder="Seleccione Modelo" style="width: 100%;">
                                                 <option value="" disabled selected>Seleccione</option>
-                                                <option value="j">AGRÍCOLA Y PESQUERO</option>
                                             </select>
                                         </div>
                                     </div>

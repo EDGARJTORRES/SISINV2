@@ -29,7 +29,7 @@
                   </h3>
                   <div class="col-auto ms-auto d-print-none">
                     <div class="btn-list">
-                      <a href="#" class="btn bg-teal text-teal-fg d-none d-sm-inline-block"  data-bs-toggle="modal" data-bs-target="#modalGG">
+                      <a href="#" class="btn bg-teal text-teal-fg d-none d-sm-inline-block"  data-bs-toggle="modal" data-bs-target="#modalMov">
                       <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-device-imac-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12.5 17h-8.5a1 1 0 0 1 -1 -1v-12a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v8.5" /><path d="M3 13h13.5" /><path d="M8 21h4.5" /><path d="M10 17l-.5 4" /><path d="M16 19h6" /><path d="M19 16v6" /></svg>
                         Nuevo Registro
                         </a>
@@ -42,7 +42,7 @@
                           <thead>
                               <tr>
                                   <th>COD</th>
-                                  <th>GRUPO GENERICO</th>
+                                  <th>MOVIMIENTO</th>
                                   <th>EDITAR</th>
                                   <th>ELIMINAR</th>
                               </tr>
@@ -58,7 +58,7 @@
       </div>  
     </div>
     <?php require_once("../html/mainjs.php"); ?>
-    <?php require_once("modalUbicacion.php"); ?>
+    <?php require_once("modalmovimiento.php"); ?>
     <script type="text/javascript" src="movimiento.js"></script>
 </body>
 </body>
