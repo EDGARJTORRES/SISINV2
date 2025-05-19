@@ -175,8 +175,8 @@ function mostrarDatosObjeto(data, nombresColores) {
       transition: box-shadow 0.3s ease;">
         <div class="card-body d-flex">
           <div class="w-100">
-            <h4 style="background-color:rgb(243, 209, 159); color:rgb(255, 115, 0); border-radius: 8px; text-transform: uppercase; font-weight: 600; font-size: 18px; display: flex; align-items: center; gap: 8px;">
-              <svg  xmlns="http://www.w3.org/2000/svg"  class="icon icon-md text-warning" width="6"  height="8"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-buildings">
+            <h4 style="background-color:rgb(243, 209, 159); padding: 8px 8px; color:rgb(255, 115, 0); border-radius: 8px; text-transform: uppercase; font-weight: 600; font-size: 18px; display: flex; align-items: center; gap: 8px;">
+              <svg  xmlns="http://www.w3.org/2000/svg" width="6"  height="8"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-buildings">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 21v-15c0 -1 1 -2 2 -2h5c1 0 2 1 2 2v15" />
                 <path d="M16 8h2c1 0 2 1 2 2v11" />
                 <path d="M3 21h18" />
@@ -206,8 +206,8 @@ function mostrarDatosObjeto(data, nombresColores) {
         transition: box-shadow 0.3s ease;">
         <div class="card-body d-flex">
           <div class="w-100">
-            <h4 style="background-color:rgb(138, 240, 155); color:rgb(30, 117, 4);border-radius: 8px; text-transform: uppercase; font-weight: 600; font-size: 18px; display: flex; align-items: center; gap: 8px;">
-              <svg  xmlns="http://www.w3.org/2000/svg" class="icon icon-md text-success"  width="6"  height="6"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-user-scan"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 9a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M4 8v-2a2 2 0 0 1 2 -2h2" /><path d="M4 16v2a2 2 0 0 0 2 2h2" /><path d="M16 4h2a2 2 0 0 1 2 2v2" /><path d="M16 20h2a2 2 0 0 0 2 -2v-2" /><path d="M8 16a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2" /></svg>
+            <h4 style="background-color:rgb(138, 240, 155);padding: 8px 8px;  color:rgb(30, 117, 4);border-radius: 8px; text-transform: uppercase; font-weight: 600; font-size: 18px; display: flex; align-items: center; gap: 8px;">
+              <svg  xmlns="http://www.w3.org/2000/svg"  width="6"  height="6"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-user-scan"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 9a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M4 8v-2a2 2 0 0 1 2 -2h2" /><path d="M4 16v2a2 2 0 0 0 2 2h2" /><path d="M16 4h2a2 2 0 0 1 2 2v2" /><path d="M16 20h2a2 2 0 0 0 2 -2v-2" /><path d="M8 16a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2" /></svg>
               Datos del Representante
             </h4>
             <div class="text-muted">
