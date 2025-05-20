@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>QuaggaJS Demo</title>
+    <style>
+        #interactive {
+            width: 100%;
+            height: 300px; /* Ajusta la altura según tus necesidades */
+        }
+    </style>
+</head>
+<body>
+    <div id="interactive" class="viewport"></div>
+    <input type="text" name="cod_bar" id="cod_bar" class="form-control" placeholder="Ingresa el código de barras..." required>
+    <script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>
+    <script>
+        // Elemento HTML para la salida de vídeo
+        const video = document.getElementById('interactive');
+        // Elemento HTML del campo de entrada de código de barras
+        const codigoBarrasInput = document.getElementById('cod_bar');
+
+        // Configuración de QuaggaJS
+        Quagga.init({
+            inputStream: {
+                name: 'Live',
+                target: video,
+                constraints: {
+                    width: { min: 640 },
+                    height: { min: 480 },
+                    aspectRatio: { min: 1, max: 100 },
+                    facingMode: 'environment' // Usa la cámara trasera si está disponible
+                }
+            },
+            decoder: {
+                readers: ['code_128_reader'] // Puedes ajustar los lectores según tus necesidades
+            }
+        }, function(err) {
+            if (err) {
+                console.error('Error al inicializar Quagga:', err);
+                return;
+            }
+            console.log('QuaggaJS iniciado correctamente');
+            Quagga.start();
+        });
+
+        // Manejar el evento de detección de códigos de barras
+        Quagga.onDetected(function(result) {
+            const code = result.codeResult.code;
+            console.log('Código de barras detectado:', code);
+            // Establecer el valor del código de barras en el input
+            codigoBarrasInput.value = code;
+            // Aquí puedes manejar el resultado del escaneo como desees
+        });
+    </script>
+</body>
+</html>

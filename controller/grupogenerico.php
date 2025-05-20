@@ -67,19 +67,57 @@ switch ($_GET["op"]) {
                 $sub_array[] = $row["fecharegistro"];
                 $sub_array[] = $row["gg_cod"];
                 $sub_array[] = $row["clase_cod"];
-                $sub_array[] = $row["bien_est"];
-                $sub_array[] = '
-                <td class="dropdown hidden-xs-down show">
-                    <a href="#" data-toggle="dropdown" class="btn pd-y-3 tx-gray-500 hover-info" aria-expanded="true"><i class="icon ion-more"></i></a>
-                    <div class="dropdown-menu dropdown-menu-left pd-10">
-                        <nav class="nav nav-style-1 flex-column">
-                            <a href="#" class="nav-link" onclick="imprimirBien(' . $row["bien_id"] . ')">Imprimir</a>
-                            <a href="#" class="nav-link" onclick="editarBien(' . $row["bien_id"] . ')">Editar</a>
-                            <a href="#" class="nav-link" onclick="eliminarBien(' . $row["bien_id"] . ')">Eliminar</a>
-                        </nav>
-                    </div><!-- dropdown-menu -->
-                </td>';
+                $estado = strtolower($row["bien_est"]); 
+                switch ($estado) {
+                    case 'a':
+                        $badge_class = 'bg-primary';
+                        $estado_text = 'Activo';
+                        break;
+                    case 'n':
+                        $badge_class = 'bg-purple';
+                        $estado_text = 'Nuevo';
+                    break;
+                    case 'r':
+                        $badge_class = 'bg-warning';
+                        $estado_text = 'Regular';
+                        break;
+                    case 'm':
+                        $badge_class = 'bg-danger';
+                        $estado_text = 'Malo';
+                        break;
+                    case 'b':
+                        $badge_class = 'bg-success';
+                        $estado_text = 'Bueno';
+                        break;
+                    default:
+                        $badge_class = 'bg-secondary';
+                        $estado_text = 'Inactivo';
+                }
 
+                $sub_array[] = '<span class="d-inline-block rounded-circle ' . $badge_class . '" style="width: 12px; height: 12px;"></span> ' . $estado_text;
+
+                $sub_array[] = '
+                <td class="text-end">
+                    <div class="dropdown">
+                        <a href="#" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            Acciones
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a href="#" class="dropdown-item" onclick="imprimirBien(' . $row['bien_id'] . ')">
+                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-printer mx-1"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" /><path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" /><path d="M7 13m0 2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2z" /></svg>
+                            Imprimir
+                            </a>
+                            <a href="#" class="dropdown-item" onclick="editarBien(' . $row['bien_id'] . ')">
+                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-edit mx-1 "><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>
+                            Editar
+                            </a>
+                            <a href="#" class="dropdown-item" onclick="eliminarBien(' . $row['bien_id'] . ')">
+                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-backspace mx-1"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20 6a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-11l-5 -5a1.5 1.5 0 0 1 0 -2l5 -5z" /><path d="M12 10l4 4m0 -4l-4 4" /></svg>
+                            Eliminar
+                            </a>
+                        </div>
+                    </div>
+                </td>';
                 $data[] = $sub_array;
             }
     

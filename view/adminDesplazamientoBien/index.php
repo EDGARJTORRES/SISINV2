@@ -25,8 +25,8 @@ if (isset($_SESSION["usua_id_siin"])) {
                     </div>
                     <div class="col-auto ms-auto d-print-none">
                         <div class="btn-list">
-                          <a href="#" class="btn btn-outline-light d-none d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#modalObjetoCate">
-                         <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-cancel"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M18.364 5.636l-12.728 12.728" /></svg>
+                          <a  type="button" class="btn btn-outline-light d-none d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#">
+                               <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-cancel"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M18.364 5.636l-12.728 12.728" /></svg>
                                Cancelar
                             </a>
                         </div>
@@ -49,26 +49,22 @@ if (isset($_SESSION["usua_id_siin"])) {
                       </h3>
                     </div>
                     <div class="card-body">
+                      <input type="hidden" name="pers_origen_id" id="pers_origen_id" />
+                      <input type="hidden" name="pers_destino_id" id="pers_destino_id" />
                       <div class="row">
                         <div class="col-lg-6">
                             <div class="mb-3">
                                 <label class="form-label">Área Origen:<span  style="color:red"> *</span></label>
-                                <select class="form-select select2" id="area_or_id" name="area_or_id" data-placeholder="Seleccione Origen" style="width: 100%;">
+                                <select class="form-select select2" id="area_origen_combo" name="area_origen_combo"data-placeholder="Seleccione Origen" style="width: 100%;">
                                   <option value="" disabled selected>Seleccione Origen</option>
-                                  <option value="j">AREA DE EJECUCION PRESUPUESTAL - SEDE ADMINISTRATIVA</option>
-                                  <option value="k">AREA DE DESARROLLO DE CAPACIDADES - SEDE ADMINISTRATIVA</option>
-                                  <option value="l">AREA DE COOPERACION TECNICA INTERNACIONAL - SEDE ADMINISTRATIVA</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-lg-6">
                           <div class="mb-3">
                             <label class="form-label">Área Destino:<span style="color:red"> *</span></label>
-                            <select class="form-select select2" id="area_de_id" name="area_de_id" data-placeholder="Seleccione Destino" style="width: 100%;">
+                            <select class="form-select select2" id="area_destino_combo" name="area_destino_combo" data-placeholder="Seleccione Destino" style="width: 100%;">
                               <option value="" disabled selected>Seleccione</option>
-                              <option value="j">AREA DE EJECUCION PRESUPUESTAL - SEDE ADMINISTRATIVA</option>
-                              <option value="k">AREA DE DESARROLLO DE CAPACIDADES - SEDE ADMINISTRATIVA</option>
-                              <option value="l">AREA DE COOPERACION TECNICA INTERNACIONAL - SEDE ADMINISTRATIVA</option>
                             </select>
                           </div>
                         </div>
@@ -77,13 +73,13 @@ if (isset($_SESSION["usua_id_siin"])) {
                         <div class="col-lg-6">
                           <div class="mb-3">
                             <label class="form-label">DNI Representante:<span  style="color:red"> *</span></label>
-                            <input type="number" min="0" class="form-control">
+                            <input type="number" min="0"  id="pers_origen_dni" name="pers_origen_dni" class="form-control">
                           </div>
                         </div>
                         <div class="col-lg-6">
                           <div class="mb-3">
                             <label class="form-label">DNI Representante:<span  style="color:red"> *</span></label>
-                            <input type="number" min="0" class="form-control">
+                            <input type="number" min="0" id="pers_destino_dni" name="pers_destino_dni" class="form-control">
                           </div>
                         </div>
                       </div>
@@ -91,13 +87,13 @@ if (isset($_SESSION["usua_id_siin"])) {
                         <div class="col-lg-6">
                           <div class="mb-3">
                               <label class="form-label">Nombre del Representante:<span  style="color:red"> *</span></label>
-                              <input type="text" disabled=""  class="form-control">
+                              <input type="text" id="pers_origen_nom" name="pers_origen_nom" disabled=""  class="form-control">
                           </div>
                         </div>
                         <div class="col-lg-6">
                           <div class="mb-3">
                             <label class="form-label">Nombre del Representante:<span  style="color:red"> *</span></label>
-                            <input type="text" disabled=""  class="form-control">
+                            <input type="text" disabled=""  id="pers_destino_nom" name="pers_destino_nom"  class="form-control">
                           </div>
                         </div>
                       </div>
@@ -128,18 +124,47 @@ if (isset($_SESSION["usua_id_siin"])) {
         </div>  
     </div>
     <?php require_once("../html/mainjs.php"); ?>
+    <script type="text/javascript" src="desplazamiento.js"></script>
  <script>
     $(document).ready(function() {
-      $('#area_or_id').select2({
+      $('#area_destino_combo').select2({
         theme: 'bootstrap4',
         width: '100%'
       });
-      $('#area_de_id').select2({
+      $('#area_origen_combo').select2({
         theme: 'bootstrap4',
         width: '100%'
       });
     });
   </script>
+  
+    <script>
+      function limitarADigitosDNI(input) {
+        let valor = input.value.toString().replace(/\D/g, '');
+        if (valor.length > 8) {
+          valor = valor.slice(0, 8);
+          $("#pers_origen_nom").val('');
+        } else if (valor.length == 8) {
+          buscarDNIOrigen();
+        } else if (valor.length < 8) {
+          $("#pers_origen_nom").val('');
+        }
+        input.value = valor;
+      }
+
+      function limitarADigitosDNIdestino(input) {
+        let valor = input.value.toString().replace(/\D/g, '');
+        if (valor.length > 8) {
+          valor = valor.slice(0, 8);
+          $("#pers_destino_nom").val('');
+        } else if (valor.length == 8) {
+          buscarDNIDestino();
+        } else if (valor.length < 8) {
+          $("#pers_destino_nom").val('');
+        }
+        input.value = valor;
+      }
+    </script>
 </body>
 </html>
 <?php

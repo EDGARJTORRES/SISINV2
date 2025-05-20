@@ -25,7 +25,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                     </div>
                     <div class="col-auto ms-auto d-print-none">
                         <div class="btn-list">
-                          <a href="#" class="btn btn-outline-light d-none d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#modalObjetoCate">
+                          <a href="#" type="button" class="btn btn-outline-light d-none d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#">
                          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-cancel"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M18.364 5.636l-12.728 12.728" /></svg>
                                Cancelar
                             </a>
@@ -53,11 +53,8 @@ if (isset($_SESSION["usua_id_siin"])) {
                         <div class="col-lg-6">
                           <div class="mb-3">
                             <label class="form-label">Área Destino:<span style="color:red"> *</span></label>
-                            <select class="form-select select2" id="area_de_id" name="area_de_id" data-placeholder="Seleccione Destino" style="width: 100%;">
-                              <option value="" disabled selected>Seleccione</option>
-                              <option value="j">AREA DE EJECUCION PRESUPUESTAL - SEDE ADMINISTRATIVA</option>
-                              <option value="k">AREA DE DESARROLLO DE CAPACIDADES - SEDE ADMINISTRATIVA</option>
-                              <option value="l">AREA DE COOPERACION TECNICA INTERNACIONAL - SEDE ADMINISTRATIVA</option>
+                            <select class="form-select select2" id="area_asignacion_combo" name="area_asignacion_combo"  data-placeholder="Seleccione Destino" style="width: 100%;">
+                            <option value="" disabled selected>Seleccione</option>
                             </select>
                           </div>
                         </div>
@@ -71,19 +68,25 @@ if (isset($_SESSION["usua_id_siin"])) {
 
                             <div class="row">
                               <div class="col-6">
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" id="cod_bar" name="cod_bar">
                               </div>
-                              <div class="col-3 d-flex align-items-center"> 
-                                <a href="#" class="btn btn-info w-100 bg-blue text-blue-fg" data-bs-toggle="modal" data-bs-target="#modalarea">
-                                  <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-file-search"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M12 21h-5a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v4.5" /><path d="M16.5 17.5m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0 -5 0" /><path d="M18.5 19.5l2.5 2.5" /></svg>
-                                  Buscar
-                                </a>
+                              <div class="col-3 d-flex align-items-center">
+                                <button type="button" class="btn btn-info w-100 bg-blue  px-2 d-flex align-items-center justify-content-center gap-1" id="buscaObjeto" onclick="buscarBien()">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                    <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                                    <path d="M12 21h-5a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v4.5" />
+                                    <path d="M16.5 17.5m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0 -5 0" />
+                                    <path d="M18.5 19.5l2.5 2.5" />
+                                  </svg>
+                                  <span>Buscar</span>
+                                </button>
                               </div>
-                              <div class="col-3 d-flex align-items-center"> 
-                                <a href="#" class="btn btn-info w-100 bg-blue text-blue-fg" data-bs-toggle="modal" data-bs-target="#modalarea">
-                                  <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-camera-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13.5 20h-8.5a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v4" /><path d="M9 13a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M22 22l-5 -5" /><path d="M17 22l5 -5" /></svg>
-                                  Escanear
-                                </a>
+                               <div class="col-3 d-flex align-items-center">
+                                  <button type="button" class="btn btn-info w-100 bg-blue  px-2 d-flex align-items-center justify-content-center gap-1"  id="btnCamara" onclick="activarCamara()">
+                                     <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-camera-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13.5 20h-8.5a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v4" /><path d="M9 13a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M22 22l-5 -5" /><path d="M17 22l5 -5" /></svg>
+                                  <span> Escanear</span>
+                                </button>
                               </div>
                             </div>
                           </div>
@@ -99,7 +102,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                         <div class="col-lg-6">
                             <div class="mb-3">
                                 <label class="form-label">Nombre del Representante:<span  style="color:red"> *</span></label>
-                                <input type="text" disabled="" class="form-control">
+                                <input type="text" id="pers_nom" name="pers_nom" disabled="" class="form-control">
                             </div>
                         </div>
                       </div>
@@ -109,7 +112,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                 <div class="col-12">
                   <div class="card">
                     <div class="table-responsive m-4">
-                      <table id="bienes_data"  class="table card-table table-vcenter text-nowrap datatable">
+                      <table id="obj_formato"  class="table card-table table-vcenter text-nowrap datatable">
                         <thead>
                           <tr>
                             <th>Codigo de Barras</th>
@@ -117,9 +120,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                             <th>Color</th>
                             <th>Estado</th>
                             <th>Comentario</th>
-                            <th>ver</th>
-                            <th>Imprimir</th>
-                            <th>Eliminar</th>
+                            <th>Acciones</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -132,18 +133,79 @@ if (isset($_SESSION["usua_id_siin"])) {
         </div>  
     </div>
     <?php require_once("../html/mainjs.php"); ?>
+    <?php require_once("modalobjgg.php"); ?>
+    <?php require_once("modalObjetoCate.php"); ?>
+    <?php require_once("modalFormato.php"); ?>
+    <script type="text/javascript" src="adminAsignacionBien.js"></script>
+    <script type="text/javascript" src="formato.js"></script>
     <script>
-    $(document).ready(function() {
-      $('#area_or_id').select2({
-        theme: 'bootstrap4',
-        width: '100%'
+      $(document).ready(function() {
+        $('#area_asignacion_combo').select2({
+          theme: 'bootstrap4',
+          width: '100%'
+        });
       });
-      $('#area_de_id').select2({
-        theme: 'bootstrap4',
-        width: '100%'
+    </script>
+    <script>
+      function limitarADigitosDNI(input) {
+        let valor = input.value.toString().replace(/\D/g, '');
+        if (valor.length > 8) {
+          valor = valor.slice(0, 8);
+          $("#pers_nom").val('');
+        } else if (valor.length == 8) {
+          buscarDNI();
+        } else if(valor.length < 8){
+          $("#pers_nom").val('');
+        }
+        input.value = valor;
+      }
+    </script>
+    <script>
+      // Elemento HTML para la salida de vídeo
+      const video = document.getElementById('interactive');
+      // Elemento HTML del campo de entrada de código de barras
+      const codigoBarrasInput = document.getElementById('cod_bar');
+
+      // Configuración de QuaggaJS
+      Quagga.init({
+        inputStream: {
+          name: 'Live',
+          target: video,
+          constraints: {
+            width: {
+              min: 640
+            },
+            height: {
+              min: 480
+            },
+            aspectRatio: {
+              min: 1,
+              max: 100
+            },
+            facingMode: 'environment' // Usa la cámara trasera si está disponible
+          }
+        },
+        decoder: {
+          readers: ['code_128_reader'] // Puedes ajustar los lectores según tus necesidades
+        }
+      }, function(err) {
+        if (err) {
+          console.error('Error al inicializar Quagga:', err);
+          return;
+        }
+        console.log('QuaggaJS iniciado correctamente');
+        Quagga.start();
       });
-    });
-  </script>
+
+      // Manejar el evento de detección de códigos de barras
+      Quagga.onDetected(function(result) {
+        const code = result.codeResult.code;
+        console.log('Código de barras detectado:', code);
+        // Establecer el valor del código de barras en el input
+        codigoBarrasInput.value = code;
+        // Aquí puedes manejar el resultado del escaneo como desees
+      });
+    </script>
 </body>
 </html>
 <?php

@@ -88,24 +88,33 @@ function mostrarDatosObjeto(data, nombresColores) {
   const mainContainer = document.createElement("div");
   mainContainer.className = "row g-3";
 
-  // Columna: Estado del bien
   const colEstado = document.createElement("div");
-  colEstado.className = "col-lg-2";
+  colEstado.className = "col-lg-3 d-flex flex-column align-items-center"; 
   colEstado.innerHTML = `
-    <div class="card text-white" style="background-color: ${obtenerColorPorEstado(data.bien_est)};">
-      <div class="card-body text-center">
-        <div class="text-uppercase fw-bold" style="font-size: 15px;">
-          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-shareplay me-1"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 18a3 3 0 0 0 3 -3v-8a3 3 0 0 0 -3 -3h-12a3 3 0 0 0 -3 3v8a3 3 0 0 0 3 3" /><path d="M9 20h6l-3 -5z" /></svg>
+    <div class="text-title mb-0"><h3>Estado del Bien</h3></div>
+    <div class="card text-white w-100" style="background-color: ${obtenerColorPorEstado(data.bien_est)}; max-width: 220px; font-size: 13px;">
+      <div class="card-body py-2 px-3 text-center">
+        <div class="text-uppercase fw-semibold d-flex align-items-center justify-content-center" style="gap: 6px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-shareplay">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M18 18a3 3 0 0 0 3 -3v-8a3 3 0 0 0 -3 -3h-12a3 3 0 0 0 -3 3v8a3 3 0 0 0 3 3" />
+            <path d="M9 20h6l-3 -5z" />
+          </svg>
           ${data.bien_est}
         </div>
       </div>
     </div>
+    <div class="mt-2 w-100 d-flex justify-content-center">
+      <img src="../../static/illustrations/19197619.jpg" alt="Estado del bien" class="img-fluid" style="max-width: 220px;">
+    </div>
   `;
+
+
   mainContainer.appendChild(colEstado);
 
   // Crear contenedor de las filas de datos
   const colDatos = document.createElement("div");
-  colDatos.className = "col-lg-10";
+  colDatos.className = "col-lg-9";
 
   // Fila: Datos del Bien
   const rowBien = document.createElement("div");
@@ -163,69 +172,61 @@ function mostrarDatosObjeto(data, nombresColores) {
     </div>
   `;
 
-  // Fila: Datos de la Dependencia
-  const rowDependencia = document.createElement("div");
-  rowDependencia.className = "row mb-3";
-  rowDependencia.innerHTML = `
-    <div class="col-lg-6">
-      <div class="card" style="
+const rowDependencia = document.createElement("div");
+rowDependencia.className = "row mb-3 d-flex align-items-stretch";
+rowDependencia.innerHTML = `
+  <div class="col-lg-6 d-flex">
+    <div class="card h-100 w-100" style="
       background: white;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       transition: box-shadow 0.3s ease;">
-        <div class="card-body d-flex">
-          <div class="w-100">
-            <h4 style="background-color:rgb(243, 209, 159); padding: 8px 8px; color:rgb(255, 115, 0); border-radius: 8px; text-transform: uppercase; font-weight: 600; font-size: 18px; display: flex; align-items: center; gap: 8px;">
-              <svg  xmlns="http://www.w3.org/2000/svg" width="6"  height="8"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-buildings">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 21v-15c0 -1 1 -2 2 -2h5c1 0 2 1 2 2v15" />
-                <path d="M16 8h2c1 0 2 1 2 2v11" />
-                <path d="M3 21h18" />
-                <path d="M10 12v0" />
-                <path d="M10 16v0" />
-                <path d="M10 8v0" />
-                <path d="M7 12v0" />
-                <path d="M7 16v0" />
-                <path d="M7 8v0" />
-                <path d="M17 12v0" />
-                <path d="M17 16v0" />
-              </svg>
-              Datos de la Dependencia
-            </h4>
-            <div class="text-muted">
-              <strong>Dependencia Origen:</strong><br> ${data.depe_denominacion}
-            </div>
+      <div class="card-body d-flex flex-column">
+        <div class="w-100">
+          <h4 style="background-color:rgb(243, 209, 159); padding: 8px 8px; color:rgb(255, 115, 0); border-radius: 8px; text-transform: uppercase; font-weight: 600; font-size: 18px; display: flex; align-items: center; gap: 8px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="6" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-buildings">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 21v-15c0 -1 1 -2 2 -2h5c1 0 2 1 2 2v15" /><path d="M16 8h2c1 0 2 1 2 2v11" /><path d="M3 21h18" /><path d="M10 12v0" /><path d="M10 16v0" /><path d="M10 8v0" /><path d="M7 12v0" /><path d="M7 16v0" /><path d="M7 8v0" /><path d="M17 12v0" /><path d="M17 16v0" />
+            </svg>
+            Datos de la Dependencia
+          </h4>
+          <div class="text-muted">
+            <strong>Dependencia Origen:</strong><br> ${data.depe_denominacion}
           </div>
         </div>
       </div>
-     </div>
-     <div class="col-lg-6 mb-3">
-        <div class="card" style="
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        transition: box-shadow 0.3s ease;">
-        <div class="card-body d-flex">
-          <div class="w-100">
-            <h4 style="background-color:rgb(138, 240, 155);padding: 8px 8px;  color:rgb(30, 117, 4);border-radius: 8px; text-transform: uppercase; font-weight: 600; font-size: 18px; display: flex; align-items: center; gap: 8px;">
-              <svg  xmlns="http://www.w3.org/2000/svg"  width="6"  height="6"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-user-scan"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 9a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M4 8v-2a2 2 0 0 1 2 -2h2" /><path d="M4 16v2a2 2 0 0 0 2 2h2" /><path d="M16 4h2a2 2 0 0 1 2 2v2" /><path d="M16 20h2a2 2 0 0 0 2 -2v-2" /><path d="M8 16a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2" /></svg>
-              Datos del Representante
-            </h4>
-            <div class="text-muted">
-              <div class="row">
-                <div class="col-lg-6">
-                  <strong>Representante:</strong><br> ${data.nombre_completo}
-                </div>
-                <div class="col-lg-6">
-                  <strong>DNI:</strong><br> ${data.pers_dni}
-                </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6 d-flex">
+    <div class="card h-100 w-100" style="
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease;">
+      <div class="card-body d-flex flex-column">
+        <div class="w-100">
+          <h4 style="background-color:rgb(138, 240, 155);padding: 8px 8px; color:rgb(30, 117, 4); border-radius: 8px; text-transform: uppercase; font-weight: 600; font-size: 18px; display: flex; align-items: center; gap: 8px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-user-scan">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 9a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M4 8v-2a2 2 0 0 1 2 -2h2" /><path d="M4 16v2a2 2 0 0 0 2 2h2" /><path d="M16 4h2a2 2 0 0 1 2 2v2" /><path d="M16 20h2a2 2 0 0 0 2 -2v-2" /><path d="M8 16a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2" />
+            </svg>
+            Datos del Representante
+          </h4>
+          <div class="text-muted">
+            <div class="row">
+              <div class="col-lg-6">
+                <strong>Representante:</strong><br> ${data.nombre_completo}
+              </div>
+              <div class="col-lg-6">
+                <strong>DNI:</strong><br> ${data.pers_dni}
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  `;
- 
+  </div>
+`;
+
 
   // Añadir las filas al contenedor derecho
   colDatos.appendChild(rowBien);
@@ -236,36 +237,36 @@ function mostrarDatosObjeto(data, nombresColores) {
   contenedor.appendChild(mainContainer);
 }
 
-
-// Función para obtener el color según el estado del bien
 function obtenerColorPorEstado(estado) {
   switch (estado) {
-    case "Activo": // Activo
-      return "green";
-    case "Nuevo": // Nuevo
-      return "#337cff";
-    case "Bueno": // Bueno
-      return "limegreen";
-    case "Regular": // Regular
-      return "orange";
-    default: // Malo
-      return "red";
+    case "Activo":
+      return "#37b24d"; // Tabler green
+    case "Nuevo":
+      return "#228be6"; // Tabler blue
+    case "Bueno":
+      return "#82c91e"; // Tabler lime
+    case "Regular":
+      return "#f76707"; // Tabler orange
+    default:
+      return "#fa5252"; // Tabler red
   }
 }
+
 function obtenerColor2PorEstado(estado) {
   switch (estado) {
-    case "Activo": // Activo
-      return "#64c464";
-    case "Nuevo": // Nuevo
-      return "#96bcff";
-    case "Bueno": // Bueno
-      return "#9ae99a";
-    case "Regular": // Regular
-      return "#ffe2ac";
-    default: // Malo
-      return "#ffa0a0";
+    case "Activo":
+      return "#d3f9d8"; // Light green
+    case "Nuevo":
+      return "#d0ebff"; // Light blue
+    case "Bueno":
+      return "#e9fac8"; // Light lime
+    case "Regular":
+      return "#ffe8cc"; // Light orange
+    default:
+      return "#ffe3e3"; // Light red
   }
 }
+
 
 function get_color_string(color_id, callback) {
   console.log(color_id);

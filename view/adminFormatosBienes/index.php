@@ -49,7 +49,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                                   <th>Anexo</th>
                                   <th>Emisor</th>
                                   <th>Receptor</th>
-                                  <th>Cantidad Bienes</th>
+                                  <th>Cant.</th>
                                   <th>Usuario</th>
                                   <th>Acciones</th>
                               </tr>

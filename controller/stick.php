@@ -6,9 +6,8 @@ require_once("../models/Bitacora.php");
 // Verificar si la clase TCPDF existe
 if (!class_exists('TCPDF')) {
     // Intentar incluir el archivo de la clase TCPDF
-    require_once('../public/lib/TCPDF/tcpdf.php');
+    require_once('../public/libs/TCPDF/tcpdf.php');
 }
-
 $bitacora = new Bitacora();
 $stick = new Stick();
 
