@@ -162,6 +162,7 @@ switch ($_GET["op"]) {
             $sub_array[] = '
             <div class="dropdown">
             <a class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+            Acciones
             </a>
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="#" onclick="imprimirFormato(' . $row["form_id"] . ')">

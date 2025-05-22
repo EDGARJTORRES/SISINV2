@@ -65,8 +65,32 @@ switch ($_GET["op"]) {
             $sub_array[] = $row["obj_id"];
             $sub_array[] = $row["obj_nombre"];
             $sub_array[] = $row["codigo_cana"];
-            $sub_array[] = '<button type="button" onClick="editarObjeto(' . $row["obj_id"] . ');"  id="' . $row["obj_id"] . '" class="btn btn-outline-warning btn-icon"><div><i class="fa fa-edit"></i></div></button>';
-            $sub_array[] = '<button type="button" onClick="eliminarObjeto(' . $row["obj_id"] . ');"  id="' . $row["obj_id"] . '" class="btn btn-outline-danger btn-icon"><div><i class="fa fa-close"></i></div></button>';
+            $sub_array[] = '
+            <div class="dropdown">
+                <a class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                Acciones
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#" onclick="editarObjeto(' . $row["obj_id"] . ')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon dropdown-item-icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M17 17v4h-10v-4" />
+                            <path d="M6 10v-5h12v5" />
+                            <path d="M6 14h12" />
+                            <path d="M9 17h6" />
+                        </svg>
+                        Editar
+                    </a>
+                    <a class="dropdown-item" href="#" onclick="eliminarObjeto(' .$row["obj_id"]  . ')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon dropdown-item-icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M6 6l12 12" />
+                            <path d="M6 18l12 -12" />
+                        </svg>
+                        Eliminar
+                    </a>
+                </div>
+            </div>';
             $data[] = $sub_array;
         }
 

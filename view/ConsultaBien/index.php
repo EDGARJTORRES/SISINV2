@@ -7,6 +7,19 @@ if (isset($_SESSION["usua_id_siin"])) {
 <head>
     <?php require_once("../html/mainHead.php"); ?>
     <title>MPCH::AltaBienes</title>
+    <style>
+      .tabler-loader {
+        animation: spin 1s linear infinite;
+        width: 24px;
+        height: 24px;
+        stroke-width: 2;
+        stroke: currentColor;
+      }
+
+      @keyframes spin {
+        100% { transform: rotate(360deg); }
+      }
+    </style>
   </head>
 <body>
     <?php require_once("../html/mainProfile2.php"); ?>

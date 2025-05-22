@@ -1,9 +1,7 @@
 var usu_id = $("#usu_idx").val();
 
 $(document).ready(function(){
-
-
-  $('#formatos_data').DataTable({
+   var table = $('#formatos_data').DataTable({
       "aProcessing": true,
       "aServerSide": true,
       dom: 'Bfrtip',
@@ -15,9 +13,9 @@ $(document).ready(function(){
           type:"post"
       },
       "bDestroy": true,
-      "responsive": false,
-      "bInfo":false,
-      "iDisplayLength": 10,
+      "responsive": true,
+      "bInfo":true,
+      "iDisplayLength": parseInt($('#cantidad_registros').val()),
       "ordering": true, 
       "order": [[0, 'desc']],
       "language": {
@@ -45,6 +43,14 @@ $(document).ready(function(){
           }
       },
   });
-
+    $('#cantidad_registros').on('input change', function() {
+    var val = parseInt($(this).val());
+        if (val > 0) {
+            table.page.len(val).draw();
+        }
+    });
+    $('#buscar_registros').on('input', function () {
+        table.search(this.value).draw();
+    });
 
 });

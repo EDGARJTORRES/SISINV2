@@ -8,6 +8,19 @@ if (isset($_SESSION["usua_id_siin"])) {
     <?php require_once("../html/mainHead.php"); ?>
     <title>MPCH::AsignacionBienes</title>
     <link href="../../public/css/estiloselect.css" rel="stylesheet"/>
+    <style>
+      .tabler-loader {
+        animation: spin 1s linear infinite;
+        width: 24px;
+        height: 24px;
+        stroke-width: 2;
+        stroke: currentColor;
+      }
+
+      @keyframes spin {
+        100% { transform: rotate(360deg); }
+      }
+    </style>
   </head>
 <body >
     <?php require_once("../html/mainProfile2.php"); ?>
@@ -25,7 +38,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                     </div>
                     <div class="col-auto ms-auto d-print-none">
                         <div class="btn-list">
-                          <a href="#" type="button" class="btn btn-outline-light d-none d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#">
+                          <a href="#" type="button" class="btn btn-outline-dark d-none d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#">
                          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-cancel"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M18.364 5.636l-12.728 12.728" /></svg>
                                Cancelar
                             </a>
@@ -65,7 +78,6 @@ if (isset($_SESSION["usua_id_siin"])) {
                                 <label class="form-label">Código de Barras:<span style="color:red"> *</span></label>
                               </div>
                             </div>
-
                             <div class="row">
                               <div class="col-6">
                                 <input type="text" class="form-control" id="cod_bar" name="cod_bar">
@@ -138,79 +150,11 @@ if (isset($_SESSION["usua_id_siin"])) {
     <?php require_once("modalFormato.php"); ?>
     <script type="text/javascript" src="adminAsignacionBien.js"></script>
     <script type="text/javascript" src="formato.js"></script>
-    <script>
-      $(document).ready(function() {
-        $('#area_asignacion_combo').select2({
-          theme: 'bootstrap4',
-          width: '100%'
-        });
-      });
-    </script>
-    <script>
-      function limitarADigitosDNI(input) {
-        let valor = input.value.toString().replace(/\D/g, '');
-        if (valor.length > 8) {
-          valor = valor.slice(0, 8);
-          $("#pers_nom").val('');
-        } else if (valor.length == 8) {
-          buscarDNI();
-        } else if(valor.length < 8){
-          $("#pers_nom").val('');
-        }
-        input.value = valor;
-      }
-    </script>
-    <script>
-      // Elemento HTML para la salida de vídeo
-      const video = document.getElementById('interactive');
-      // Elemento HTML del campo de entrada de código de barras
-      const codigoBarrasInput = document.getElementById('cod_bar');
-
-      // Configuración de QuaggaJS
-      Quagga.init({
-        inputStream: {
-          name: 'Live',
-          target: video,
-          constraints: {
-            width: {
-              min: 640
-            },
-            height: {
-              min: 480
-            },
-            aspectRatio: {
-              min: 1,
-              max: 100
-            },
-            facingMode: 'environment' // Usa la cámara trasera si está disponible
-          }
-        },
-        decoder: {
-          readers: ['code_128_reader'] // Puedes ajustar los lectores según tus necesidades
-        }
-      }, function(err) {
-        if (err) {
-          console.error('Error al inicializar Quagga:', err);
-          return;
-        }
-        console.log('QuaggaJS iniciado correctamente');
-        Quagga.start();
-      });
-
-      // Manejar el evento de detección de códigos de barras
-      Quagga.onDetected(function(result) {
-        const code = result.codeResult.code;
-        console.log('Código de barras detectado:', code);
-        // Establecer el valor del código de barras en el input
-        codigoBarrasInput.value = code;
-        // Aquí puedes manejar el resultado del escaneo como desees
-      });
-    </script>
+    <script type="text/javascript" src="asignacion.js"></script>
 </body>
 </html>
 <?php
 } else {
-  /* Si no a iniciado sesion se redireccionada a la ventana principal */
   header("Location:" . Conectar::ruta() . "view/404/");
 }
 ?>

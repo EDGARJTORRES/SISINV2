@@ -10,7 +10,6 @@ $dependencia = new Dependencia();
 $stick = new Stick();
 
 switch ($_GET["op"]) {
-
     case "guardaryeditar":
         if (empty($_POST["objdepe_id"])) {
                 $dependencia->insert_registro_objeto($_POST["fecharegistro"],$_POST["depe_id"],$_POST["obj_id"],$_POST["marca_id"],$_POST["objdepe_numserie"],$_POST["codigo_barras_input"]);

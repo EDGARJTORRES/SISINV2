@@ -5,15 +5,9 @@ function initbienes() {
 }
 function buscarDNI() {
   pers_dni = $("#pers_dni").val();
-
   $.post("../../controller/persona.php?op=buscarDNI", {pers_dni: pers_dni}, function (response) {
       try {
           var data = JSON.parse(response);
-          
-          // Depurar el objeto data
-          console.log(data);
-          
-          // Verifica que data contiene el campo "nombre_completo"
           if (data && data.nombre_completo) {
               $("#pers_nom").val(data.nombre_completo);
               $("#pers_id").val(data.pers_id);
@@ -39,15 +33,12 @@ function guardaryeditarbienes(e) {
 
 $(document).ready(function () {
   $(".select2").select2();
-
   $.post("../../controller/dependencia.php?op=combo", function (data) {
     $("#area_asignacion_combo").html(data);
   });
 });
 function nuevoFormato() {
-  // Obtener todas las filas de la tabla
   var rows = $("#obj_formato tbody tr");
-  // Validar que haya al menos una fila registrada
   if (rows.length === 0) {
     Swal.fire({
       title: "Error",
@@ -67,24 +58,12 @@ function nuevoFormato() {
     });
     return;
   }
-
-  // Objeto para almacenar los datos asociados a cada código de barras
   var dataDict = {};
-
-  // Iterar sobre cada fila de la tabla
   rows.each(function () {
-    // Obtener el código de barras de la primera celda de la fila
     var codigoBarra = $(this).find("td:first").text().trim();
-
-    // Obtener el color de la tercera celda de la fila
     var color = $(this).find("td").eq(2).text().trim();
-
-    // Obtener el estado de la cuarta celda de la fila
     var estado = $(this).find("td").eq(3).find("select").val();
-    // Obtener el comentario de la quinta celda de la fila (input)
     var comentario = $(this).find("td").eq(4).find("input").val().trim();
-
-    // Si el código de barras no está vacío, almacenarlo en el diccionario
     if (codigoBarra !== "") {
       dataDict[codigoBarra] = {
         color: color,
@@ -93,8 +72,6 @@ function nuevoFormato() {
       };
     }
   });
-
-  // Mostrar un cuadro de diálogo para pedir un comentario
   Swal.fire({
     title: "Confirmar?",
     text: "¿Está seguro de que desea enviar los datos?",
@@ -104,17 +81,19 @@ function nuevoFormato() {
     cancelButtonText: "Cancelar",
   }).then((result) => {
     if (result.isConfirmed) {
-      // Si el usuario confirma, se obtiene el comentario ingresado
-       // Obtener el botón de envío
        var botonEnviar = Swal.getConfirmButton();
-
-       // Cambiar el ícono del botón a un spinner y bloquear el botón
        botonEnviar.disabled = true;
-       botonEnviar.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Enviando...';
+      botonEnviar.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" class="tabler-loader" viewBox="0 0 24 24" fill="none" stroke="currentColor" >
+        <path d="M12 4v4" />
+        <path d="M12 16v4" />
+        <path d="M4 12h4" />
+        <path d="M16 12h4" />
+        <circle cx="12" cy="12" r="7"/>
+      </svg> Enviando...
+      `;
         var depe_receptor = $("#area_asignacion_combo").val();
         var pers_id = $("#pers_id").val();
-
-      // Enviar los datos al servidor utilizando una solicitud POST
       $.post(
         "../../controller/formato.php?op=asignar",
         {
@@ -152,12 +131,10 @@ function verFormatoDatos() {
 }
 function buscarCodigoRepetido(cod_bar) {
   var codigoRepetido = false;
-
-  // Buscar el código de barras en las filas existentes de la tabla
   $("#obj_formato tbody td:first-child").each(function () {
     if ($(this).text() === cod_bar) {
       codigoRepetido = true;
-      return false; // Salir del bucle each() si se encuentra el código repetido
+      return false;
     }
   });
 
@@ -166,11 +143,8 @@ function buscarCodigoRepetido(cod_bar) {
 
 function buscarBien() {
   var botonBuscar = $("#buscaObjeto");
-  var cod_bar = $("#cod_bar").val(); // Obtener el valor del código de barras
-
-  // Verificar si el código de barras ya está en la tabla
+  var cod_bar = $("#cod_bar").val(); 
   if (buscarCodigoRepetido(cod_bar)) {
-    // Mostrar un mensaje de error si el código de barras está repetido
     Swal.fire({
       title: "Error",
       text: "El Objeto ya esta registrado.",
@@ -179,24 +153,17 @@ function buscarBien() {
     });
     return;
   }
-  // Cambiar el ícono del botón a un spinner y bloquear el botón
   botonBuscar.attr("disabled", true);
-  botonBuscar.html('<i class="fa fa-spinner fa-spin"></i>');
-
-  // Realizar la solicitud POST al servidor para buscar el objeto
+  botonBuscar.html('<svg class="tabler-loader" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-rotate-clockwise-2"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 4.55a8 8 0 0 1 6 14.9m0 -4.45v5h5" /><path d="M5.63 7.16l0 .01" /><path d="M4.06 11l0 .01" /><path d="M4.63 15.1l0 .01" /><path d="M7.16 18.37l0 .01" /><path d="M11 19.94l0 .01" /></svg>');
   $.post(
     "../../controller/objeto.php?op=buscar_obj_barras",
     { cod_bar: cod_bar },
     function (response) {
       botonBuscar.attr("disabled", false);
-      botonBuscar.html('<i class="fa fa-search"></i>');
+      botonBuscar.html('<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-file-search"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M12 21h-5a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v4.5" /><path d="M16.5 17.5m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0 -5 0" /><path d="M18.5 19.5l2.5 2.5" /></svg>');
       try {
-        // Intentar analizar la respuesta como JSON
         var data = JSON.parse(response);
-
-        // Si no se reciben datos del servidor
         if (!data || !data.bien_id) {
-          // Mostrar un mensaje de error
           Swal.fire({
             title: "No se encontraron datos",
             icon: "error",
@@ -204,21 +171,14 @@ function buscarBien() {
           });
           return;
         }
-
-        // Convertir la cadena de colores en un array
         var colores = data.bien_color.replace(/[{}]/g, "").split(",");
-
-        // Obtener los nombres de los colores
         var nombresColores = [];
         var completedRequests = 0;
         colores.forEach(function (color_id) {
           get_color_string(color_id.trim(), function (color_nom) {
             nombresColores.push(color_nom);
             completedRequests++;
-
-            // Si se han obtenido todos los nombres de colores
             if (completedRequests === colores.length) {
-              // Mostrar los datos del objeto en un SweetAlert con dos botones
               mostrarDatosObjeto(data, nombresColores);
             }
           });
@@ -229,7 +189,14 @@ function buscarBien() {
     }
   ).fail(function () {
     botonBuscar.attr("disabled", false);
-    botonBuscar.html('<i class="fa fa-search"></i>');
+    botonBuscar.html(`
+    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="11" cy="11" r="8" />
+      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+    </svg>
+    `);
     Swal.fire({
       title: "Error",
       text: "Hubo un problema al buscar el objeto.",
@@ -456,15 +423,12 @@ function verDatosbien(cod_bar) {
 }
 
 function quitarbien(cod_bar) {
-  // Buscar la fila correspondiente al bien_id
   var rowToRemove = $("#obj_formato tbody")
     .find("td")
     .filter(function () {
       return $(this).text() == cod_bar;
     })
     .closest("tr");
-
-  // Eliminar la fila
   rowToRemove.remove();
 }
 

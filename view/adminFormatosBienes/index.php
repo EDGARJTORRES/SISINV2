@@ -8,6 +8,12 @@ if (isset($_SESSION["usua_id_siin"])) {
     <?php require_once("../html/mainHead.php"); ?>
     <title>MPCH::ManGenerales</title>
     <style>
+      div.dataTables_filter {
+        display: none !important;
+      }
+      th{
+      color: #0054a6 !important;
+      }
      th, td {
         max-width: 170px !important;     
         white-space: normal;      
@@ -41,7 +47,30 @@ if (isset($_SESSION["usua_id_siin"])) {
                   </h3>
                 </div>
                 <div class="card-body">
-                  <div class="table-responsive m-4">
+                  <div class="table-responsive mx-4">
+                     <div class="row my-4">
+                        <div class="col-lg-3">
+                          <label for="cantidad_registros">Registros por página:</label>
+                          <div class="input-icon">
+                              <span class="input-icon-addon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
+                                  <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+                                  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
+                                </svg>
+                              </span>
+                              <input type="number" id="cantidad_registros"   style="width: 75%;" class="form-control" min="1" max="100" value="10"> 
+                          </div>
+                        </div>
+                        <div class="col-lg-3">
+                          <label for="cantidad_registros">Buscar Formato:</label>
+                          <div class="input-icon">
+                              <span class="input-icon-addon">
+                                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+                              </span>
+                                 <input type="text" id="buscar_registros" class="form-control"> 
+                          </div>
+                        </div>
+                      </div>
                       <table id="formatos_data"  class="table card-table table-vcenter text-nowrap datatable">
                           <thead>
                               <tr>
@@ -51,7 +80,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                                   <th>Receptor</th>
                                   <th>Cant.</th>
                                   <th>Usuario</th>
-                                  <th>Acciones</th>
+                                  <th></th>
                               </tr>
                           </thead>
                           <tbody>

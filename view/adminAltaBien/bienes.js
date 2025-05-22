@@ -190,20 +190,15 @@ function nuevoBien() {
   $("#combo_marca_obj").val("");
   $("#obj_dim").val("");
   $("#combo_marca_obj").change();
-
   $("#obj_id").val("");
-
   $("#gg_text").html('Grupo Generico:  <span class="tx-danger">*</span>');
   $("#clase_text").html('Clase:  <span class="tx-danger">*</span>');
   $("#obj_text").html('Objeto: <span class="tx-danger">*</span>');
-
   $("#combo_gg_bien_obj").prop("disabled", false);
   $("#combo_clase_bien_obj").prop("disabled", false);
   $("#combo_obj_bien").prop("disabled", false);
   $("#combo_marca_obj").prop("disabled", false);
   $("#combo_modelo_obj").prop("disabled", false);
-  // Cargar el combo de categorías
-
   $.post("../../controller/objeto.php?op=getcodinterno", function (data) {
     // Convierte el dato recibido a un número y le suma 1
     var cod = parseInt(data) + 1;
@@ -218,10 +213,8 @@ function nuevoBien() {
     // Genera el código de barras con el código formateado
     generarCodigoBarras(formattedCod);
   }).fail(function () {
-    // Maneja errores de la solicitud AJAX
-    alert("Error al obtener el código interno");
+    alert("Error al obtener el codigo interno");
   });
-
   $("#bien_id").val("");
 
   $("#bien_numserie").val("");

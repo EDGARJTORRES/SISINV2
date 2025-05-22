@@ -56,90 +56,89 @@ switch ($_GET["op"]) {
         );
         echo json_encode($results);
         break;
-        case "listar_gg_bienes":
-            $datos = $grupogenerico->get_grupogenerico_bienes();
-            $data = array();
-            foreach ($datos as $row) {
-                $sub_array = array();
-                $sub_array[] = $row["bien_id"];
-                $sub_array[] = $row["bien_codbarras"];
-                $sub_array[] = $row["obj_nombre"];
-                $sub_array[] = $row["fecharegistro"];
-                $sub_array[] = $row["gg_cod"];
-                $sub_array[] = $row["clase_cod"];
-                $estado = strtolower($row["bien_est"]); 
-                switch ($estado) {
-                    case 'a':
-                        $badge_class = 'bg-primary';
-                        $estado_text = 'Activo';
-                        break;
-                    case 'n':
-                        $badge_class = 'bg-purple';
-                        $estado_text = 'Nuevo';
+    case "listar_gg_bienes":
+        $datos = $grupogenerico->get_grupogenerico_bienes();
+        $data = array();
+        foreach ($datos as $row) {
+            $sub_array = array();
+            $sub_array[] = $row["bien_id"];
+            $sub_array[] = $row["bien_codbarras"];
+            $sub_array[] = $row["obj_nombre"];
+            $sub_array[] = $row["fecharegistro"];
+            $sub_array[] = $row["gg_cod"];
+            $sub_array[] = $row["clase_cod"];
+            $estado = strtolower($row["bien_est"]); 
+            switch ($estado) {
+                case 'a':
+                    $badge_class = 'bg-primary';
+                    $estado_text = 'Activo';
                     break;
-                    case 'r':
-                        $badge_class = 'bg-warning';
-                        $estado_text = 'Regular';
-                        break;
-                    case 'm':
-                        $badge_class = 'bg-danger';
-                        $estado_text = 'Malo';
-                        break;
-                    case 'b':
-                        $badge_class = 'bg-success';
-                        $estado_text = 'Bueno';
-                        break;
-                    default:
-                        $badge_class = 'bg-secondary';
-                        $estado_text = 'Inactivo';
-                }
-
-                $sub_array[] = '<span class="d-inline-block rounded-circle ' . $badge_class . '" style="width: 12px; height: 12px;"></span> ' . $estado_text;
-
-                $sub_array[] = '
-                <td class="text-end">
-                    <div class="dropdown">
-                        <a href="#" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            Acciones
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <a href="#" class="dropdown-item" onclick="imprimirBien(' . $row['bien_id'] . ')">
-                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-printer mx-1"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" /><path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" /><path d="M7 13m0 2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2z" /></svg>
-                            Imprimir
-                            </a>
-                            <a href="#" class="dropdown-item" onclick="editarBien(' . $row['bien_id'] . ')">
-                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-edit mx-1 "><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>
-                            Editar
-                            </a>
-                            <a href="#" class="dropdown-item" onclick="eliminarBien(' . $row['bien_id'] . ')">
-                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-backspace mx-1"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20 6a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-11l-5 -5a1.5 1.5 0 0 1 0 -2l5 -5z" /><path d="M12 10l4 4m0 -4l-4 4" /></svg>
-                            Eliminar
-                            </a>
-                        </div>
-                    </div>
-                </td>';
-                $data[] = $sub_array;
+                case 'n':
+                    $badge_class = 'bg-purple';
+                    $estado_text = 'Nuevo';
+                break;
+                case 'r':
+                    $badge_class = 'bg-warning';
+                    $estado_text = 'Regular';
+                    break;
+                case 'm':
+                    $badge_class = 'bg-danger';
+                    $estado_text = 'Malo';
+                    break;
+                case 'b':
+                    $badge_class = 'bg-success';
+                    $estado_text = 'Bueno';
+                    break;
+                default:
+                    $badge_class = 'bg-secondary';
+                    $estado_text = 'Inactivo';
             }
-    
-            $results = array(
-                "sEcho" => 1,
-                "iTotalRecords" => count($data),
-                "iTotalDisplayRecords" => count($data),
-                "aaData" => $data
-            );
-            echo json_encode($results);
-            break;
+
+            $sub_array[] = '<span class="d-inline-block rounded-circle ' . $badge_class . '" style="width: 12px; height: 12px;"></span> ' . $estado_text;
+
+            $sub_array[] = '
+            <td class="text-end">
+                <div class="dropdown">
+                    <a href="#" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        Acciones
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <a href="#" class="dropdown-item" onclick="imprimirBien(' . $row['bien_id'] . ')">
+                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-printer mx-1"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" /><path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" /><path d="M7 13m0 2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2z" /></svg>
+                        Imprimir
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="editarBien(' . $row['bien_id'] . ')">
+                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-edit mx-1 "><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>
+                        Editar
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="eliminarBien(' . $row['bien_id'] . ')">
+                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-backspace mx-1"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20 6a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-11l-5 -5a1.5 1.5 0 0 1 0 -2l5 -5z" /><path d="M12 10l4 4m0 -4l-4 4" /></svg>
+                        Eliminar
+                        </a>
+                    </div>
+                </div>
+            </td>';
+            $data[] = $sub_array;
+        }
+
+        $results = array(
+            "sEcho" => 1,
+            "iTotalRecords" => count($data),
+            "iTotalDisplayRecords" => count($data),
+            "aaData" => $data
+        );
+        echo json_encode($results);
+        break;
     
     case "listar_gg_clase":
         $datos = $grupogenerico->get_clase_modal($_POST["gg_id"]);
         $data = array();
         foreach ($datos as $row) {
             $sub_array = array();
-            $sub_array[] = "<input type='checkbox' name='detallecheck[]' value='" . $row["clase_id"] . "'>";
+            $sub_array[] = "<input type='checkbox' class='m-3' name='detallecheck[]' value='" . $row["clase_id"] . "'>";
             $sub_array[] = $row["clase_nom"];
             $data[] = $sub_array;
         }
-
         $results = array(
             "sEcho" => 1,
             "iTotalRecords" => count($data),

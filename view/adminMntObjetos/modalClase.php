@@ -1,5 +1,5 @@
 <div class="modal modal-blur fade" id="modalClase" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 80%; margin: auto;">
         <div class="modal-content">
             <div class="modal-header">
                 <h5  id="lbltituloObj" class="modal-title" style="color: #004085; display: flex; align-items: center; gap: 10px; background-color: rgb(247, 249, 250); padding: 8px 8px; border-left: 5px solid #17a2b8; border-radius: 6px; width:100%;">
@@ -7,6 +7,7 @@
                     ACCIONES PARA CLASES:</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <input type="hidden" name="gg_id" id="gg_id" />
             <div class="modal-body">
                 <form method="post" id="obj_form">
                     <div class="modal-body">
@@ -15,10 +16,13 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="mb-3">
-                                        <h4 class="mb-3"><svg xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-list ms-2"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l11 0" /><path d="M9 12l11 0" /><path d="M9 18l11 0" /><path d="M5 6l0 .01" /><path d="M5 12l0 .01" /><path d="M5 18l0 .01" /></svg>Ingresar Nueva Clase</h4>
+                                        <h1 class="header-title">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-list"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l11 0" /><path d="M9 12l11 0" /><path d="M9 18l11 0" /><path d="M5 6l0 .01" /><path d="M5 12l0 .01" /><path d="M5 18l0 .01" />
+                                            </svg> INGRESA NUEVA CLASE:
+                                        </h1>
                                         <div class="table-responsive m-4">
                                             <table id="gg_clase_data"  class="table card-table table-vcenter text-nowrap datatable">
-                                                <thead>
+                                                <thead >
                                                     <tr>
                                                         <th>Accion</th>
                                                         <th>Clase</th>
@@ -36,9 +40,11 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="mb-3">
-                                        <h4 class= "mb-3"><svg   xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-chalkboard"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 19h-3a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v11a1 1 0 0 1 -1 1" /><path d="M11 16m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v1a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" /></svg>Clases actuales</h4>
+                                        <h1 class="header-title">
+                                           <svg   xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-chalkboard mx-2"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 19h-3a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v11a1 1 0 0 1 -1 1" /><path d="M11 16m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v1a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" /></svg>CLASES ACTUALES</h4>
+                                        </h1>
                                         <div class="table-responsive m-4">
-                                            <table id="gg_clase_data"  class="table card-table table-vcenter text-nowrap datatable">
+                                            <table id="gg_clase_data_actual"  class="table card-table table-vcenter text-nowrap datatable">
                                                 <thead>
                                                     <tr>
                                                         <th>Clase</th>
@@ -55,7 +61,6 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-
                         <a type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                             <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>
                             Cancelar
