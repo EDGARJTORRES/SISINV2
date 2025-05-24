@@ -230,28 +230,77 @@ function registrardetalle() {
     $("#gg_clase_data").DataTable().ajax.reload();
   }
 }
-
 function quitarClase(gc_id){
-    swal.fire({
-        title: "Eliminar!",
-        text: "Desea Quitar La Clase?",
-        icon: "error",
-        confirmButtonText: "Si",
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¡Esta acción no se puede deshacer!",
+        imageUrl: '../../static/gif/advertencia.gif',
+        imageWidth: 100,
+        imageHeight: 100,
         showCancelButton: true,
-        cancelButtonText: "No",
+         confirmButtonColor: 'rgb(243, 18, 18)', 
+        cancelButtonColor: '#000', 
+        confirmButtonText: 'Sí, eliminarlo',
+        backdrop: true,
+        didOpen: () => {
+            const swalBox = Swal.getPopup();
+            const topBar = document.createElement('div');
+            topBar.id = 'top-progress-bar';
+            topBar.style.cssText = `
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 5px;
+                width: 0%;
+                background-color:rgb(243, 18, 18);
+                transition: width 0.4s ease;
+            `;
+            swalBox.appendChild(topBar);
+
+            setTimeout(() => {
+                topBar.style.width = '40%';
+            }, 300);
+        }
     }).then((result) => {
-        if (result.value) {
-            $.post("../../controller/clase.php?op=quitarclase",{gc_id : gc_id}, function (data) {
-                $("#gg_clase_data_actual").DataTable().ajax.reload();
-
-                $("#gg_clase_data").DataTable().ajax.reload();
-
-                Swal.fire({
-                    title: 'Correcto!',
-                    text: 'Se Quitó Correctamente',
-                    icon: 'success',
-                    confirmButtonText: 'Aceptar'
-                })
+        if (result.isConfirmed) {
+            $.ajax({
+              url: '../../controller/clase.php?op=quitarclase',
+                type: 'POST',
+               data: {gc_id : gc_id},
+                success: function (response) {
+                   $("#gg_clase_data_actual").DataTable().ajax.reload();
+                   $("#gg_clase_data").DataTable().ajax.reload();
+                    Swal.fire({
+                        title: '¡Eliminado!',
+                        html: `
+                            <p>La clase ha sido eliminado correctamente.</p>
+                            <div id="top-progress-bar-final" style="
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                height: 5px;
+                                width: 0%;
+                                background-color:rgb(243, 18, 18);
+                                transition: width 0.6s ease;
+                            "></div>
+                        `,
+                        imageUrl: '../../static/gif/verified.gif',
+                        imageWidth: 100,
+                        imageHeight: 100,
+                        showConfirmButton: true,
+                        confirmButtonColor: 'rgb(243, 18, 18)',
+                        backdrop: true,
+                        didOpen: () => {
+                            const bar = document.getElementById('top-progress-bar-final');
+                            setTimeout(() => {
+                                bar.style.width = '100%';
+                            }, 100);
+                        }
+                    });
+                },
+                error: function () {
+                    Swal.fire('Error', 'No se pudo eliminar el usuario.', 'error');
+                }
             });
         }
     });

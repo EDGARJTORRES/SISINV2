@@ -9,6 +9,28 @@ if (isset($_SESSION["usua_id_siin"])) {
     <title>MPCH::AsignacionBienes</title>
     <link href="../../public/css/estiloselect.css" rel="stylesheet"/>
     <style>
+      div.dataTables_filter {
+      display: none !important;
+    }
+    th{
+    color: #0054a6 !important;
+    }
+    th, td {
+      max-width: 170px !important;     
+      white-space: normal;      
+      word-break: break-word;   
+      overflow-wrap: break-word; 
+      vertical-align: middle;  
+    }
+    .swal2-container {
+      background: rgba(255, 255, 255, 0.05) !important;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+    .swal2-popup {
+      background: rgb(255, 255, 255) !important;
+      box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.27) !important;
+    }
       .tabler-loader {
         animation: spin 1s linear infinite;
         width: 24px;

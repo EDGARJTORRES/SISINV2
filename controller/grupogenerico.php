@@ -93,9 +93,7 @@ switch ($_GET["op"]) {
                     $badge_class = 'bg-secondary';
                     $estado_text = 'Inactivo';
             }
-
             $sub_array[] = '<span class="d-inline-block rounded-circle ' . $badge_class . '" style="width: 12px; height: 12px;"></span> ' . $estado_text;
-
             $sub_array[] = '
             <td class="text-end">
                 <div class="dropdown">

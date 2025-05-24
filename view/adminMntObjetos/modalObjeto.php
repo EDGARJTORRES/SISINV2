@@ -17,27 +17,27 @@
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         <label class="form-label">Denominación:<span  style="color:red"> *</span></label>
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control" id="obj_nombre" name="obj_nombre" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         <label class="form-label">Catálogo Nacional:<span  style="color:red"> *</span></label>
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control" id="codigo_cana" name="codigo_cana" required>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <a type="submit" name="action" value="add" class="btn btn-primary " data-bs-dismiss="modal">
+                        <button type="submit" name="action" value="add" class="btn btn-primary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium" >
                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-checks"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 12l5 5l10 -10" /><path d="M2 12l5 5m5 -5l5 -5" /></svg>
-                            Guardar
-                        </a>
-                        <a type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                             Guardar
+                        </button>
+                        <button type="reset" class="btn btn-outline-secondary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium" aria-label="Close" aria-hidden="true" data-dismiss="modal">
                             <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>
                             Cancelar
-                        </a>
+                        </button>
                     </div>
                 </form>
             </div>

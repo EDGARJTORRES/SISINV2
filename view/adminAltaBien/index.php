@@ -23,6 +23,15 @@ if (isset($_SESSION["usua_id_siin"])) {
         overflow-wrap: break-word; 
         vertical-align: middle;  
       }
+      .swal2-container {
+        background: rgba(255, 255, 255, 0.05) !important;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+      }
+      .swal2-popup {
+        background: rgba(255, 255, 255, 0.9) !important;
+        box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.1) !important;
+      }
     </style>
   </head>
 <body>

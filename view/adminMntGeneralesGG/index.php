@@ -7,6 +7,31 @@ if (isset($_SESSION["usua_id_siin"])) {
 <head>
     <?php require_once("../html/mainHead.php"); ?>
     <title>MPCH::MantGenerales</title>
+     <style>
+      div.dataTables_filter {
+        display: none !important;
+      }
+     th{
+      color: #0054a6 !important;
+     }
+
+     th, td {
+        max-width: 170px !important;     
+        white-space: normal;      
+        word-break: break-word;   
+        overflow-wrap: break-word; 
+        vertical-align: middle;  
+      }
+      .swal2-container {
+        background: rgba(255, 255, 255, 0.05) !important;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+      }
+      .swal2-popup {
+        background: rgba(255, 255, 255, 0.9) !important;
+        box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.1) !important;
+      }
+    </style>
   </head>
 <body>
     <?php require_once("../html/mainProfile2.php"); ?>
@@ -40,7 +65,30 @@ if (isset($_SESSION["usua_id_siin"])) {
                 </div>
                 </div>
                 <div class="card-body">
-                  <div class="table-responsive m-4">
+                  <div class="table-responsive mx-4">
+                    <div class="row my-4">
+                      <div class="col-lg-3">
+                        <label  class="form-label" for="cantidad_registros">Registros por página:</label>
+                        <div class="input-icon">
+                            <span class="input-icon-addon">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
+                              <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+                              <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
+                              </svg>
+                            </span>
+                            <input type="number" id="cantidad_registros"   style="width: 75%;" class="form-control" min="1" max="100" value="10"> 
+                        </div>
+                      </div>
+                      <div class="col-lg-3">
+                        <label  class="form-label" for="cantidad_registros">Buscar Grupo Generico:</label>
+                        <div class="input-icon">
+                            <span class="input-icon-addon">
+                              <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+                            </span>
+                            <input type="text" id="buscar_registros" class="form-control"> 
+                        </div>
+                      </div>
+                    </div>
                       <table id="GG_data"  class="table card-table table-vcenter text-nowrap datatable">
                           <thead>
                               <tr>

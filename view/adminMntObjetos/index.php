@@ -44,6 +44,15 @@ if (isset($_SESSION["usua_id_siin"])) {
       font-size: 1.5rem; 
       color:white;                
       } 
+      .swal2-container {
+        background: rgba(255, 255, 255, 0.05) !important;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+      }
+      .swal2-popup {
+        background: rgba(255, 255, 255, 0.9) !important;
+        box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.1) !important;
+      }
     </style>
   </head>
 <body>
@@ -152,7 +161,6 @@ if (isset($_SESSION["usua_id_siin"])) {
     <?php require_once("../html/mainjs.php"); ?>
     <?php require_once("modalObjeto.php"); ?>
     <?php require_once("modalClase.php"); ?>
-    <?php require_once("modalObjetoCate.php"); ?>
     <?php require_once("modalObjetoRotar.php"); ?>
     <script type="text/javascript" src="adminMntObjetos.js"></script>
     <script type="text/javascript" src="objeto.js"></script>

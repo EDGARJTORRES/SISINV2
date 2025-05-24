@@ -32,7 +32,7 @@ function guardaryeditarclase(e){
 }
 
 $(document).ready(function(){
-    $('#clase_data').DataTable({
+    var table= $('#clase_data').DataTable({
         "aProcessing": true,
         "aServerSide": true,
         dom: 'Bfrtip',
@@ -44,8 +44,8 @@ $(document).ready(function(){
             type:"post"
         },
         "bDestroy": true,
-        "responsive": false,
-        "bInfo":false,
+        "responsive": true,
+        "bInfo":true,
         "iDisplayLength": 5,
         "ordering": false, 
         "language": {
@@ -73,6 +73,15 @@ $(document).ready(function(){
             }
         },
     });
+    $('#cantidad_registros').on('input change', function() {
+        var val = parseInt($(this).val());
+        if (val > 0) {
+            table.page.len(val).draw();
+    }
+    });
+   $('#buscar_registros').on('input', function () {
+    table.search(this.value).draw();
+   });
 
 });
 
@@ -88,25 +97,76 @@ function editarclase(clase_id){
     $('#modalClase').modal('show');
 }
 
-function eliminarclase(clase_id){
-    swal.fire({
-        title: "Eliminar!",
-        text: "Desea Eliminar el Registro?",
-        icon: "error",
-        confirmButtonText: "Si",
+function eliminarclase(clase_id) {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¡Esta acción no se puede deshacer!",
+        imageUrl: '../../static/gif/advertencia.gif',
+        imageWidth: 100,
+        imageHeight: 100,
         showCancelButton: true,
-        cancelButtonText: "No",
-    }).then((result) => {
-        if (result.value) {
-            $.post("../../controller/clase.php?op=eliminar",{clase_id : clase_id}, function (data) {
-                $('#clase_data').DataTable().ajax.reload();
+         confirmButtonColor: 'rgb(243, 18, 18)', 
+        cancelButtonColor: '#000', 
+        confirmButtonText: 'Sí, eliminarlo',
+        backdrop: true,
+        didOpen: () => {
+            const swalBox = Swal.getPopup();
+            const topBar = document.createElement('div');
+            topBar.id = 'top-progress-bar';
+            topBar.style.cssText = `
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 5px;
+                width: 0%;
+                background-color:rgb(243, 18, 18);
+                transition: width 0.4s ease;
+            `;
+            swalBox.appendChild(topBar);
 
-                Swal.fire({
-                    title: 'Correcto!',
-                    text: 'Se Elimino Correctamente',
-                    icon: 'success',
-                    confirmButtonText: 'Aceptar'
-                })
+            setTimeout(() => {
+                topBar.style.width = '40%';
+            }, 300);
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+              url: '../../controller/clase.php?op=eliminar',
+                type: 'POST',
+               data: {clase_id : clase_id},
+                success: function (response) {
+                   $('#clase_data').DataTable().ajax.reload();
+                    Swal.fire({
+                        title: '¡Eliminado!',
+                        html: `
+                            <p>La clase ha sido eliminado correctamente.</p>
+                            <div id="top-progress-bar-final" style="
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                height: 5px;
+                                width: 0%;
+                                background-color:rgb(243, 18, 18);
+                                transition: width 0.6s ease;
+                            "></div>
+                        `,
+                        imageUrl: '../../static/gif/verified.gif',
+                        imageWidth: 100,
+                        imageHeight: 100,
+                        showConfirmButton: true,
+                        confirmButtonColor: 'rgb(243, 18, 18)',
+                        backdrop: true,
+                        didOpen: () => {
+                            const bar = document.getElementById('top-progress-bar-final');
+                            setTimeout(() => {
+                                bar.style.width = '100%';
+                            }, 100);
+                        }
+                    });
+                },
+                error: function () {
+                    Swal.fire('Error', 'No se pudo eliminar el usuario.', 'error');
+                }
             });
         }
     });

@@ -1,5 +1,5 @@
 <?php
-    class Marca extends Conectar{
+    class Modelo extends Conectar{
 
         public function insert_marca($marca_nom){
             $conectar= parent::conexion();
@@ -11,40 +11,47 @@
             return $resultado=$sql->fetchAll();
         }
 
-        public function update_marca($marca_id,$marca_nom){
+        public function update_modelo($modelo_id,$modelo_nom){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="UPDATE sc_inventario.tb_marca
+            $sql="UPDATE sc_inventario.tb_modelo
                 SET
-                marca_nom = ?
+                modelo_nom = ?
                 WHERE
-                    marca_id = ?";
+                    modelo_id = ?";
             $sql=$conectar->prepare($sql);
-            $sql->bindValue(1, $marca_nom);
-            $sql->bindValue(2, $marca_id);
+            $sql->bindValue(1, $modelo_nom);
+            $sql->bindValue(2, $modelo_id);
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
 
-        public function delete_marca($marca_id){
+        public function delete_modelo($modelo_id){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="UPDATE sc_inventario.tb_marca
+            $sql="UPDATE sc_inventario.tb_modelo
                 SET
-                marca_est = 0
+                modelo_est = 0
                 WHERE
-                marca_id = ?";
+                modelo_id = ?";
             $sql=$conectar->prepare($sql);
-            $sql->bindValue(1, $marca_id);
+            $sql->bindValue(1, $modelo_id);
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
 
-        public function get_marca(){
+        public function get_modelo(){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="SELECT marca_id, marca_nom, marca_est
-            FROM sc_inventario.tb_marca where marca_est = 1";
+            $sql="SELECT 
+                m.modelo_id, 
+                m.modelo_nom, 
+                m.modelo_est, 
+                m.marca_id,
+                ma.marca_nom
+            FROM sc_inventario.tb_modelo m
+            INNER JOIN sc_inventario.tb_marca ma ON m.marca_id = ma.marca_id
+            WHERE m.modelo_est = 1;";
             $sql=$conectar->prepare($sql);
             $sql->execute();
             return $resultado=$sql->fetchAll();
@@ -86,6 +93,5 @@
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
-        
     }
 ?>

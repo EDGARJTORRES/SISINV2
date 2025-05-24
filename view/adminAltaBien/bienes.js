@@ -351,32 +351,77 @@ function generarBarras() {
 }
 
 function eliminarBien(bien_id) {
-  swal
-    .fire({
-      title: "Eliminar!",
-      text: "Desea Eliminar el Registro?",
-      icon: "error",
-      confirmButtonText: "Si",
-      showCancelButton: true,
-      cancelButtonText: "No",
-    })
-    .then((result) => {
-      if (result.value) {
-        $.post(
-          "../../controller/objeto.php?op=eliminarBien",
-          { bien_id: bien_id },
-          function (data) {
-            $("#bienes_data").DataTable().ajax.reload();
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¡Esta acción no se puede deshacer!",
+        imageUrl: '../../static/gif/advertencia.gif',
+        imageWidth: 100,
+        imageHeight: 100,
+        showCancelButton: true,
+         confirmButtonColor: 'rgb(243, 18, 18)', 
+        cancelButtonColor: '#000', 
+        confirmButtonText: 'Sí, eliminarlo',
+        backdrop: true,
+        didOpen: () => {
+            const swalBox = Swal.getPopup();
+            const topBar = document.createElement('div');
+            topBar.id = 'top-progress-bar';
+            topBar.style.cssText = `
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 5px;
+                width: 0%;
+                background-color:rgb(243, 18, 18);
+                transition: width 0.4s ease;
+            `;
+            swalBox.appendChild(topBar);
 
-            Swal.fire({
-              title: "Correcto!",
-              text: "Se Elimino Correctamente",
-              icon: "success",
-              confirmButtonText: "Aceptar",
+            setTimeout(() => {
+                topBar.style.width = '40%';
+            }, 300);
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+              url: '../../controller/objeto.php?op=eliminarBien',
+                type: 'POST',
+               data: { bien_id: bien_id },
+                success: function (response) {
+                   $("#bienes_data").DataTable().ajax.reload();
+                    Swal.fire({
+                        title: '¡Eliminado!',
+                        html: `
+                            <p>El Bien ha sido eliminado correctamente.</p>
+                            <div id="top-progress-bar-final" style="
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                height: 5px;
+                                width: 0%;
+                                background-color:rgb(243, 18, 18);
+                                transition: width 0.6s ease;
+                            "></div>
+                        `,
+                        imageUrl: '../../static/gif/verified.gif',
+                        imageWidth: 100,
+                        imageHeight: 100,
+                        showConfirmButton: true,
+                        confirmButtonColor: 'rgb(243, 18, 18)',
+                        backdrop: true,
+                        didOpen: () => {
+                            const bar = document.getElementById('top-progress-bar-final');
+                            setTimeout(() => {
+                                bar.style.width = '100%';
+                            }, 100);
+                        }
+                    });
+                },
+                error: function () {
+                    Swal.fire('Error', 'No se pudo eliminar el usuario.', 'error');
+                }
             });
-          }
-        );
-      }
+        }
     });
 }
 

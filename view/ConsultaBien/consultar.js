@@ -30,8 +30,11 @@ function buscarBien() {
         if (!data || !data.bien_id) {
           Swal.fire({
             title: "No se encontraron datos",
-            icon: "error",
+            imageUrl: '../../static/gif/letra-x.gif',
+            imageWidth: 100,
+            imageHeight: 100,
             confirmButtonText: "Aceptar",
+            confirmButtonColor: 'rgb(243, 18, 18)',
           });
           return;
         }

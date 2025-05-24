@@ -20,22 +20,22 @@ switch ($_GET["op"]) {
             }
             break;
         break;
-        case "mostrarObjCate":
-            $datos = $dependencia->get_dependencia_objetos_id($_POST["objdepe_id"]);
-            if (is_array($datos) == true and count($datos) <> 0) {
-                foreach ($datos as $row) {
-                    $output["objdepe_id"] = $row["objdepe_id"];
-                    $output["obj_id"] = $row["obj_id"];
-                    $output["marca_id"] = $row["marca_id"];
-                    $output["cate_id"] = $row["cate_id"];
-                    $output["fecharegistro"] = $row["fecharegistro"];
-                    $output["objdepe_numserie"] = $row["objdepe_numserie"];
-                    $output["objdepe_codbarras"] = $row["objdepe_codbarras"];
-                    $output["objdepe_est"] = $row["objdepe_est"];
-                }
-                echo json_encode($output);
+    case "mostrarObjCate":
+        $datos = $dependencia->get_dependencia_objetos_id($_POST["objdepe_id"]);
+        if (is_array($datos) == true and count($datos) <> 0) {
+            foreach ($datos as $row) {
+                $output["objdepe_id"] = $row["objdepe_id"];
+                $output["obj_id"] = $row["obj_id"];
+                $output["marca_id"] = $row["marca_id"];
+                $output["cate_id"] = $row["cate_id"];
+                $output["fecharegistro"] = $row["fecharegistro"];
+                $output["objdepe_numserie"] = $row["objdepe_numserie"];
+                $output["objdepe_codbarras"] = $row["objdepe_codbarras"];
+                $output["objdepe_est"] = $row["objdepe_est"];
             }
-            break;
+            echo json_encode($output);
+        }
+        break;
 
     case "eliminar_bien":
         $dependencia->delete_dependencia($_POST["bien_id"]);
@@ -98,7 +98,7 @@ switch ($_GET["op"]) {
         echo json_encode($results);
         break;
 
-        case "listarObjetos":
+    case "listarObjetos":
             $datos=$dependencia->get_dependencia_objetos($_POST["depe_id"], $_POST['gc_id']);
             $data= Array();
             foreach($datos as $row){
@@ -132,7 +132,7 @@ switch ($_GET["op"]) {
                 "aaData"=>$data);
             echo json_encode($results);
             break;
-        case "combo":
+    case "combo":
         $datos = $dependencia->get_dependencia_datos();
         if (is_array($datos) == true and count($datos) > 0) {
             $html = " <option label='Seleccione'></option>";

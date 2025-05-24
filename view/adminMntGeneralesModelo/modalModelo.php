@@ -17,7 +17,7 @@
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         <label class="form-label">Marca<span  style="color:red"> *</span></label>
-                                        <select class="form-select" id="marca_id" name="marca_id">
+                                        <select  class="form-select select2" id="combo_marca_obj" name="combo_marca_obj">
                                             <option value="">Seleccione Marca</option>
                                         </select> 
                                     </div>
@@ -25,7 +25,7 @@
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         <label class="form-label">Modelo:<span  style="color:red"> *</span></label>
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control" id="modelo_nom" name="modelo_nom"required>
                                     </div>
                                 </div>
                             </div>

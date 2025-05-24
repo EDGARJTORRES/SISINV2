@@ -26,11 +26,9 @@ function buscarDNI() {
       $("#pers_id").val('');
   });
 }
-
 function guardaryeditarbienes(e) {
   e.preventDefault();
 }
-
 $(document).ready(function () {
   $(".select2").select2();
   $.post("../../controller/dependencia.php?op=combo", function (data) {
@@ -125,7 +123,6 @@ function nuevoFormato() {
     }
   });
 }
-
 function verFormatoDatos() {
   $("#modalFormato").modal("show");
 }
@@ -140,7 +137,6 @@ function buscarCodigoRepetido(cod_bar) {
 
   return codigoRepetido;
 }
-
 function buscarBien() {
   var botonBuscar = $("#buscaObjeto");
   var cod_bar = $("#cod_bar").val(); 
@@ -166,8 +162,11 @@ function buscarBien() {
         if (!data || !data.bien_id) {
           Swal.fire({
             title: "No se encontraron datos",
-            icon: "error",
+            imageUrl: '../../static/gif/letra-x.gif',
+            imageWidth: 100,
+            imageHeight: 100,
             confirmButtonText: "Aceptar",
+            confirmButtonColor: 'rgb(243, 18, 18)',
           });
           return;
         }
@@ -207,7 +206,6 @@ function buscarBien() {
 
   $("#cod_bar").val("");
 }
-
 function mostrarDatosObjeto(data, nombresColores) {
   // Contar la cantidad de filas existentes en la tabla
   var rowCount = $("#obj_formato tbody tr").length;
@@ -227,30 +225,26 @@ function mostrarDatosObjeto(data, nombresColores) {
   Swal.fire({
     title: "Datos del Objeto",
     html:
-      "Denominacion: " +
-      data.obj_nombre +
+      "Denominacion: " + data.obj_nombre +
       "<br>" +
-      "Fecha de Registro: " +
-      data.fecharegistro +
+      "Fecha de Registro: " +data.fecharegistro +
       "<br>" +
-      "Número de Serie: " +
-      data.bien_numserie +
+      "Número de Serie: " + data.bien_numserie +
       "<br>" +
-      "Estado del Bien: " +
-      data.bien_est +
+      "Estado del Bien: " +data.bien_est +
       "<br>" +
-      "Dimensiones: " +
-      data.bien_dim +
+      "Dimensiones: " + data.bien_dim +
       "<br>" +
-      "Color: " +
-      nombresColores.join(", ") + // Mostrar los nombres de colores separados por coma
+      "Color: " + nombresColores.join(", ") + 
       "<br>" +
-      "Dependencia Origen: " +
-      data.depe_denominacion,
-    icon: "info",
-    showCancelButton: true, // Mostrar el botón de cancelar
-    confirmButtonText: "Aceptar",
-    cancelButtonText: "Cancelar",
+      "Dependencia Origen: " +data.depe_denominacion,
+      imageUrl: '../../static/gif/informacion.gif',
+      imageWidth: 100,
+      imageHeight: 100,
+      showCancelButton: true,
+      confirmButtonColor: 'rgb(243, 18, 18)', 
+      cancelButtonColor: '#000', 
+      confirmButtonText: 'Aceptar',
   }).then((result) => {
     // Si se hace clic en el botón de aceptar
     if (result.isConfirmed) {
@@ -325,7 +319,6 @@ function mostrarDatosObjeto(data, nombresColores) {
     }
   });
 }
-
 function get_color_string(color_id, callback) {
   console.log(color_id);
   $.post(
@@ -337,7 +330,6 @@ function get_color_string(color_id, callback) {
     }
   );
 }
-
 function verDatosbien(cod_bar) {
   console.log(cod_bar);
   $.post(
@@ -421,7 +413,6 @@ function verDatosbien(cod_bar) {
     });
   });
 }
-
 function quitarbien(cod_bar) {
   var rowToRemove = $("#obj_formato tbody")
     .find("td")
@@ -431,7 +422,6 @@ function quitarbien(cod_bar) {
     .closest("tr");
   rowToRemove.remove();
 }
-
 function imprimir(bien_codbarras) {
   console.log(bien_codbarras);
   redirect_by_post(
@@ -447,7 +437,6 @@ function imprimirGrupo(depe_id) {
     true
   );
 }
-
 function eliminarformato(form_id) {
   console.log(form_id);
   swal
