@@ -3,13 +3,45 @@ var usu_id = $('#usu_idx').val();
 
 function initobjeto(){
     $("#obj_form").on("submit",function(e){
-        guardaryeditarobjeto(e);
-    });
+    e.preventDefault(); 
+    const nombreInput = document.getElementById('obj_nombre');
+    const codigoInput = document.getElementById('codigo_cana');
+    const errorNombre = document.getElementById('errorNombre');
+    const errorCodigo = document.getElementById('errorCodigo');
+
+    let nombreValido = validarInput(nombreInput, errorNombre);
+    let codigoValido = validarInput(codigoInput, errorCodigo);
+
+    if (nombreValido && codigoValido) {
+      guardaryeditarobjeto(e);
+    }
+  });
+
+  $('#obj_nombre').on('input', function() {
+    validarInput(this, document.getElementById('errorNombre'));
+  });
+
+  $('#codigo_cana').on('input', function() {
+    validarInput(this, document.getElementById('errorCodigo'));
+  });
+}
+function validarInput(input, errorDiv) {
+  const pattern = new RegExp(input.getAttribute("pattern"));
+  if (input.value.trim() === '' || !pattern.test(input.value.trim())) {
+    input.classList.remove('is-valid');
+    input.classList.add('is-invalid');
+    errorDiv.classList.add('active');
+    return false;
+  } else {
+    input.classList.remove('is-invalid');
+    input.classList.add('is-valid');
+    errorDiv.classList.remove('active');
+    return true;
+  }
 }
 
+
 function guardaryeditarobjeto(e) {
-    e.preventDefault();
-   
     var formData = new FormData($("#obj_form")[0]);
     var gc_id = $("#combo_clase_gen").val();
     formData.append("gc_id", gc_id);
@@ -20,41 +52,45 @@ function guardaryeditarobjeto(e) {
         contentType: false,
         processData: false,
         success: function(data){
-            // Si la respuesta es un JSON
-            var response = JSON.parse(data);
-            if (response.success) {
-                // Si la operación fue exitosa
-                $('#clase_grupo_obj_id').DataTable().ajax.reload();
+            $('#clase_grupo_obj_id').DataTable().ajax.reload();
+            $('#modalObjeto').modal('hide');
+               Swal.fire({
+                title: 'Correcto!',
+                text: 'Se registró correctamente',
+                imageUrl: '../../static/gif/verified.gif',
+                imageWidth: 100,
+                imageHeight: 100,
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: 'rgb(18, 129, 18)',
+                backdrop: true,
+                didOpen: () => {
+                    const swalBox = Swal.getPopup();
+                    const topBar = document.createElement('div');
+                    topBar.id = 'top-progress-bar';
+                    topBar.style.cssText = `
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        height: 6px;
+                        width: 0%;
+                        background-color: rgb(16, 141, 16);
+                        transition: width 0.4s ease;
+                    `;
+                    swalBox.appendChild(topBar);
+
+                    setTimeout(() => {
+                        topBar.style.width = '100%';
+                    }, 300);
+                } 
+            }).then(() => {
                 $('#modalObjeto').modal('hide');
-
-                Swal.fire({
-                    title: 'Correcto!',
-                    text: 'Se registró correctamente',
-                    icon: 'success',
-                    confirmButtonText: 'Aceptar'
-                });
-            } else {
-                // Si ocurrió un error
-                Swal.fire({
-                    title: 'Error!',
-                    text: response.message, // Mostrar el mensaje de error recibido del servidor
-                    icon: 'error',
-                    confirmButtonText: 'Aceptar'
-                });
-            }
-        },
-        error: function(xhr, textStatus, errorThrown) {
-            // Si ocurre un error en la solicitud AJAX
-            Swal.fire({
-                title: 'Error!',
-                text: 'Hubo un error al procesar la solicitud.',
-                icon: 'error',
-                confirmButtonText: 'Aceptar'
+                if ( $.fn.DataTable.isDataTable('#clase_grupo_obj_id') ) {
+                    $('#clase_grupo_obj_id').DataTable().ajax.reload(null, false);
+                }
             });
-        }
-    });
+      }
+  });
 }
-
 
 $(document).ready(function(){
    
@@ -122,13 +158,15 @@ function cargarDataGrupoObj(gc_id){
 
 function editarObjeto(obj_id){
      $.post("../../controller/objeto.php?op=mostrar",{obj_id : obj_id}, function (data) {
+        $('#obj_nombre, #codigo_cana').removeClass('is-valid is-invalid');
+        $('#errorNombre, #errorCodigo').removeClass('active');
         data = JSON.parse(data);
-        console.log(data);
         $('#obj_id').val(data.obj_id);
         $('#obj_nombre').val(data.obj_nombre);
         $('#combo_cate').val(data.cate_id);
         $('#combo_cate').change();
-        $('#lbltituloObj').html('Editar Objeto');
+        $('#codigo_cana').val(data. codigo_cana);
+        $('#lbltituloObj').html('<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-screen-share ms-3"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M21 12v3a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-10a1 1 0 0 1 1 -1h9" /><path d="M7 20l10 0" /><path d="M9 16l0 4" /><path d="M15 16l0 4" /><path d="M17 4h4v4" /><path d="M16 9l5 -5" /></svg> EDITAR REGISTRO DE OBJETO');
     });
     $('#modalObjeto').modal('show');
 }
@@ -208,19 +246,35 @@ function eliminarObjeto(obj_id){
 }
 
 function nuevoObjeto(){
+    var gg_id = $("#combo_grupo_gen").val();
     var gc_id = $("#combo_clase_gen").val();
-    if(gc_id == ''){
+    if (gg_id == '') {
+        Swal.fire({
+            title: '¡Error!',
+            imageUrl: '../../static/gif/letra-x.gif',
+            imageWidth: 100,
+            imageHeight: 100,
+            text: 'Debe seleccionar el Grupo Genérico',
+            confirmButtonText: 'Aceptar',
+            confirmButtonColor: 'rgb(243, 18, 18)',
+        });
+    } else if (gc_id == '') {
         Swal.fire({
             title: 'Error!',
+            imageUrl: '../../static/gif/letra-x.gif',
+            imageWidth: 100,
+            imageHeight: 100,
             text: 'Debe Ingresar la Clase',
-            icon: 'error',
-            confirmButtonText: 'Aceptar'
+            confirmButtonText: 'Aceptar',
+            confirmButtonColor: 'rgb(243, 18, 18)',
         })
     }else {
         $('#obj_id').val('');
         $('#obj_nom').val('');
         $('#codigo_cana').val('');
-        $('#lbltituloObj').html('Registrar Nuevo Objeto');
+        $('#obj_nombre, #codigo_cana').removeClass('is-valid is-invalid');
+        $('#errorNombre, #errorCodigo').removeClass('active');
+        $('#lbltituloObj').html('<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-screen-share ms-3"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M21 12v3a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-10a1 1 0 0 1 1 -1h9" /><path d="M7 20l10 0" /><path d="M9 16l0 4" /><path d="M15 16l0 4" /><path d="M17 4h4v4" /><path d="M16 9l5 -5" /></svg> Registrar Nuevo Objeto');
         $('#obj_form')[0].reset();
         $('#modalObjeto').modal('show');
     }
@@ -241,4 +295,4 @@ function rotarObjetoDepe(obj_id){
     $('#modalObjetoRotar').modal('show');
 }
 
-  initobjeto();
+initobjeto();

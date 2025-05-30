@@ -12,16 +12,11 @@ class Usuario extends Conectar
                 header("Location:" . conectar::ruta() . "index.php?m=2");
                 exit();
             } else {
-
                 $ip = $_SERVER['REMOTE_ADDR'];
                 if (strpos($ip, '::') === 0) {
-                    // Si es IPv6, intenta obtener la dirección IPv4 local
-                    $ip = '::1'; // Dirección IPv6 de localhost
-
-                    // REEMPLAZAR POR LA DIRECCIÓN IP DE LA PC
+                    $ip = '::1'; 
                     $ip = "192.168.12.44";
                 }
-
                 //comienzo API seguridad
                 $ch = curl_init();
                 $ws_reniec = "https://www.munichiclayo.gob.pe/sisSeguridad/ws/ws.php/?op=login&pers_dni=" . $dni . "&pers_contrasena=" . $pass . "&pers_ip=" . $ip . "&sist_inic=SICP";
@@ -81,7 +76,7 @@ class Usuario extends Conectar
                     $_SESSION["rol_id_siin"] = $data["perf_id"];
                     $_SESSION["usua_estado_siin"] = $data["pers_estado"];
                     $_SESSION["historial_login_siin"] = $data["hise_id"];
-                    $_SESSION["pers_apellidos_siin"] = $data["pers_apelpat"] . " " . $data["pers_apelmat"];
+                    $_SESSION["pers_apellidos_siin"] = $data["pers_apelpat"];
                     $_SESSION["pers_nombre_siin"] = $data["pers_nombre"];
                     $_SESSION["nombre_completo_siin"] = $data["pers_nombre"] . " " . $data["pers_apelpat"] . " " . $data["pers_apelmat"];
                     $_SESSION["rol_nombre_siin"] = $data["perf_nombre"];
@@ -96,8 +91,7 @@ class Usuario extends Conectar
                 }
             }
         }
-    }
-    
+    } 
     public function logout($hise_id)
     {
         $conectar = parent::conexion();
@@ -122,7 +116,6 @@ class Usuario extends Conectar
         header("Location:" . Conectar::ruta() . "index.php");
         exit();
     }
-
     public function cambiar_contrasena_API($pers_id, $claveantigua, $clave, $clave2)
     {
         $conectar = parent::conexion();
@@ -158,7 +151,6 @@ class Usuario extends Conectar
         $sql->execute();
         return $resultado = $sql->fetchAll();
     }
-
     //Funcion para buscar un Persona por su id, usando la siguiente funcion:
     public function get_Persona_por_id($pers_id)
     {
@@ -172,7 +164,6 @@ class Usuario extends Conectar
         $sql->execute();
         return $resultado = $sql->fetchAll();
     }
-
     //Funcion para buscar una persona por el documento de identidad, usando la siguiente funcion:
     public function get_persona_by_dni($dni)
     {
@@ -232,9 +223,6 @@ class Usuario extends Conectar
 
         return $filas_afectadas > 0;
     }
-
-
-
     public function delete_usuario($usu_id)
     {
         $conectar = parent::conexion();

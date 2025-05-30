@@ -7,22 +7,20 @@
     switch($_GET["op"]){
         case "guardaryeditar":
             if (empty($_POST["modelo_id"])) {
-                $modelo->insert_modelo($_POST["modelo_nom"]);
+                $modelo->insert_modelo($_POST["modelo_nom"], $_POST["combo_marca_obj"]);
                 $bitacora->update_bitacora($_SESSION["usua_id_siin"]);
             } else {
-                $modelo->update_modelo($_POST["modelo_id"], $_POST["modelo_nom"]);
+               $modelo->update_modelo($_POST["modelo_id"], $_POST["modelo_nom"], $_POST["combo_marca_obj"]);
                 $bitacora->update_bitacora($_SESSION["usua_id_siin"]);
-            }
-            break;
-            
-       
+        }
+        break;
         case "mostrar":
-            $datos = $marca->get_marca_id($_POST["marca_id"]);
-            if(is_array($datos)==true and count($datos)<>0){
-                foreach($datos as $row){
-                    $output["marca_id"] = $row["marca_id"];
-                    $output["marca_nom"] = $row["marca_nom"];
-                }
+            $datos = $modelo->get_modelo_id($_POST["modelo_id_input"]);
+            if (is_array($datos) && count($datos) > 0) {
+                $output["modelo_id"] = $datos["modelo_id"];
+                $output["modelo_nom"] = $datos["modelo_nom"];
+                $output["marca_id"] = $datos["marca_id"];
+                $output["marca_nom"] = $datos["marca_nom"];
                 echo json_encode($output);
             }
             break;
@@ -31,17 +29,35 @@
             $modelo->delete_modelo($_POST["modelo_id"]);
             $bitacora->update_bitacora($_SESSION["usua_id_sisgi"]);
             break;
+        case "eliminar_modelos":
+            $ids = isset($_POST['ids']) ? $_POST['ids'] : [];
+            if (!empty($ids)) {
+                foreach ($ids as $id) {
+                    $modelo->delete_modelo(intval($id));
+                }
+                echo json_encode(['status' => 'ok']);
+            } else {
+                echo json_encode(['status' => 'no_ids']);
+            }
+        break; 
         case "listar":
-            $filtro_marca = isset($_POST['filtro_marca']) ? trim($_POST['filtro_marca']) : '';
-            $datos = $modelo->get_modelo($filtro_marca);
+            $datos = $modelo->get_modelo();
             $data= Array();
             foreach($datos as $row){
                 $sub_array = array();
-                $sub_array[] = $row["modelo_id"];
+                $sub_array[] = '<input type="checkbox" class="modelo-checkbox" data-id="' 
+                . htmlspecialchars($row["modelo_id"]) 
+                . '" value="' 
+                . htmlspecialchars($row["modelo_id"]) 
+                . '">'; 
                 $sub_array[] = $row["marca_nom"];
                 $sub_array[] = $row["modelo_nom"];
-                $sub_array[] = '<button type="button" onClick="editarmodelo('.$row["modelo_id"].');"  id="'.$row["modelo_id"].'" class="btn bg-yellow text-yellow-fg"><div><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-edit"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg></div></button>';
-                $sub_array[] = '<button type="button" onClick="eliminarmodelo('.$row["modelo_id"].');"  id="'.$row["modelo_id"].'" class="btn  bg-red text-red-fg"><div><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-backspace"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20 6a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-11l-5 -5a1.5 1.5 0 0 1 0 -2l5 -5z" /><path d="M12 10l4 4m0 -4l-4 4" /></svg></div></button>';                
+                $sub_array[] = '<button type="button" onClick="editarmodelo('.$row["modelo_id"].');"  id="'.$row["modelo_id"].'" class="btn bg-warning text-light"  style="width: 40px; height: 40px; padding: 0;">
+                                 <svg  style="transform: translateX(5px);" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-edit"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>
+                               </button>';
+                $sub_array[] = '<button type="button" onClick="eliminarmodelo('.$row["modelo_id"].');"  id="'.$row["modelo_id"].'" class="btn  bg-danger text-light"  style="width: 40px; height: 40px; padding: 0;">
+                                <svg  style="transform: translateX(5px);" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-backspace"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20 6a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-11l-5 -5a1.5 1.5 0 0 1 0 -2l5 -5z" /><path d="M12 10l4 4m0 -4l-4 4" /></svg>
+                                </button>';                
                 $data[] = $sub_array;
             }
 

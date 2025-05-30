@@ -60,10 +60,8 @@
                 gg_est = 0
                 WHERE
                 gg_id = ?";
-            $sql=$conectar->prepare($sql);
-            $sql->bindValue(1, $gg_id);
-            $sql->execute();
-            return $resultado=$sql->fetchAll();
+            $stmt=$conectar->prepare($sql);
+            $stmt->execute([$gg_id]);
         }
 
         public function get_grupogenerico(){

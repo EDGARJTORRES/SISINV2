@@ -10,7 +10,7 @@ if (isset($_SESSION["usua_id_siin"])) {
     <link href="../../public/css/estiloselect.css" rel="stylesheet"/>
   </head>
 <body>
-    <?php require_once("../html/mainProfile2.php"); ?>
+    <?php require_once("../html/mainProfile.php"); ?>
     <div class="page-wrapper">
         <div class="page-header d-print-none">
             <div class="container-xl">
@@ -27,7 +27,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                 <div class="col-lg-12">
                     <div class="row row-cards">
                         <div class="col-12">
-                            <form class="card" method="POST">
+                            <form class="card" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;" method="POST">
                                 <div class="card-body">
                                     <div class="row row-cards">
                                         <div class="col-md-4 text-center">
@@ -109,6 +109,7 @@ if (isset($_SESSION["usua_id_siin"])) {
             </div>
         </div>  
     </div> 
+    <?php require_once("../html/footer.php"); ?>
      <?php require_once '../html/MainJs.php';?>  
     <script type="text/javascript" src="usuperfil.js"></script>
 </body>

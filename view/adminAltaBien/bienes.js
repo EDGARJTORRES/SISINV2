@@ -191,9 +191,6 @@ function nuevoBien() {
   $("#obj_dim").val("");
   $("#combo_marca_obj").change();
   $("#obj_id").val("");
-  $("#gg_text").html('Grupo Generico:  <span class="tx-danger">*</span>');
-  $("#clase_text").html('Clase:  <span class="tx-danger">*</span>');
-  $("#obj_text").html('Objeto: <span class="tx-danger">*</span>');
   $("#combo_gg_bien_obj").prop("disabled", false);
   $("#combo_clase_bien_obj").prop("disabled", false);
   $("#combo_obj_bien").prop("disabled", false);
@@ -230,10 +227,8 @@ function generarCodigoBarras(codigoBarras) {
   var canvas = document.getElementById("codigo_barras_canvas");
   var ctx = canvas.getContext("2d");
 
-  // Limpiar el canvas
+  
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  // Generar el código de barras usando JsBarcode
   JsBarcode(canvas, codigoBarras, {
     format: "CODE128",
     displayValue: true,
@@ -245,7 +240,6 @@ function generarCodigoBarras(codigoBarras) {
     height: 30,
   });
 }
-
 function editarBien(bien_id) {
   $("#edit_block").show();
   var fecha = new Date();
@@ -256,7 +250,6 @@ function editarBien(bien_id) {
     day: "numeric",
   };
   var fechaFormateada = fecha.toLocaleDateString("es-ES", opcionesFecha);
-
   $("#bien_id").val(bien_id);
   $("#modalBackdrop").hide();
   $("#modalObjetoCate").modal("show");
@@ -267,8 +260,6 @@ function editarBien(bien_id) {
     { bien_id: bien_id },
     function (bienData) {
       bienData = JSON.parse(bienData);
-
-      /*       $("#combo_gg_bien_obj").val(bienData.gg_id).trigger("change"); */
       $("#combo_marca_obj").val(bienData.marca_id).trigger("change");
       $("#combo_gg_bien_obj").prop("disabled", true);
       $("#combo_clase_bien_obj").prop("disabled", true);

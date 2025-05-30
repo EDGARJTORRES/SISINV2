@@ -8,19 +8,19 @@ if (isset($_SESSION["usua_id_siin"])) {
     <?php require_once("../html/mainHead.php"); ?>
     <title>MPCH::MantGenerales</title>
     <style>
-       .swal2-container {
-        background: rgba(255, 255, 255, 0.05) !important;
-        backdrop-filter: blur(4px);
+      .swal2-container {
+        background-color: rgba(0, 0, 0, 0.25) !important;
+        backdrop-filter: blur(2px);
         -webkit-backdrop-filter: blur(4px);
       }
       .swal2-popup {
-        background: rgba(255, 255, 255, 0.9) !important;
-        box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.1) !important;
+        background: rgb(255, 255, 255) !important;
+        box-shadow: rgba(24, 36, 51, 0.04) 0 2px 4px 0 !important;
       }
     </style> 
   </head>
 <body>
-    <?php require_once("../html/mainProfile2.php"); ?>
+    <?php require_once("../html/mainProfile.php"); ?>
     <div class="page-wrapper">
       <div class="page-header d-print-none">
         <div class="container-xl">
@@ -35,7 +35,7 @@ if (isset($_SESSION["usua_id_siin"])) {
               </div>
             </div>
             <div class="col-12 mb-3">
-                  <div class="card">
+                  <div class="card" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
                     <div class="card-header">
                       <h3 class="card-title">
                         <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-list-search"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 15m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M18.5 18.5l2.5 2.5" /><path d="M4 6h16" /><path d="M4 12h4" /><path d="M4 18h4" /></svg>
