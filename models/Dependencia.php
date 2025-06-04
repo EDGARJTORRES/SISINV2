@@ -137,6 +137,26 @@
         
             return $resultado;
         }
+        public function contadorObjetosPorDependencia() {
+            $conectar = parent::conexion();
+            $sql = "
+                SELECT
+                    d.depe_denominacion,
+                    COUNT(bd.biendepe_id) AS cantidad
+                FROM
+                    sc_inventario.tb_bien_dependencia bd
+                JOIN
+                    public.tb_dependencia d ON bd.depe_id = d.depe_id
+                GROUP BY
+                    d.depe_denominacion
+                ORDER BY
+                    cantidad DESC
+            ";
+
+            $stmt = $conectar->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
 
     }
 ?>

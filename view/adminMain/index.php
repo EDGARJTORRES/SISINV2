@@ -8,6 +8,7 @@ if (isset($_SESSION["usua_id_siin"])) {
     <meta charset="UTF-8">
     <?php require_once("../html/mainHead.php"); ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link href="../../public/css/Breadcrumb.css" rel="stylesheet"/>
     <title>MPCH: Inicio</title>
     <style>
       .btn-fixed {width: 100%;}
@@ -25,10 +26,7 @@ if (isset($_SESSION["usua_id_siin"])) {
       <div class="page-header d-print-none">
         <div class="container-xl">
           <div class="row g-2  mb-3 align-items-center">
-            <div class="col">
-                <h2 class="page-title" >
-                  DASHBOARD
-                </h2>
+            <div class="col"> 
             </div>
           </div>
           <div class="col-12 mb-3">
@@ -90,12 +88,12 @@ if (isset($_SESSION["usua_id_siin"])) {
                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-world-share"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20.94 13.045a9 9 0 1 0 -8.953 7.955" /><path d="M3.6 9h16.8" /><path d="M3.6 15h9.4" /><path d="M11.5 3a17 17 0 0 0 0 18" /><path d="M12.5 3a16.991 16.991 0 0 1 2.529 10.294" /><path d="M16 22l5 -5" /><path d="M21 21.5v-4.5h-4.5" /></svg>
                   </div>
                   <div class="card-body">
-                      <h3 class="card-title text-yellow">Ordenes Giradas</h3>
+                      <h3 class="card-title text-yellow">TOTAL DE BIENES</h3>
                       <div class="row text-center">
                         <div class="col-lg-6">
                           <img style ="height:60px;" src="../../static/gif/computadora.gif" alt="Cargando..." />
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-6" style=" align-content: center;">
                             <h1 id="lblactivo" style="font-size: 3rem;"></h1>
                         </div>
                       </div>
@@ -108,13 +106,13 @@ if (isset($_SESSION["usua_id_siin"])) {
                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-cashapp"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17.1 8.648a.568 .568 0 0 1 -.761 .011a5.682 5.682 0 0 0 -3.659 -1.34c-1.102 0 -2.205 .363 -2.205 1.374c0 1.023 1.182 1.364 2.546 1.875c2.386 .796 4.363 1.796 4.363 4.137c0 2.545 -1.977 4.295 -5.204 4.488l-.295 1.364a.557 .557 0 0 1 -.546 .443h-2.034l-.102 -.011a.568 .568 0 0 1 -.432 -.67l.318 -1.444a7.432 7.432 0 0 1 -3.273 -1.784v-.011a.545 .545 0 0 1 0 -.773l1.137 -1.102c.214 -.2 .547 -.2 .761 0a5.495 5.495 0 0 0 3.852 1.5c1.478 0 2.466 -.625 2.466 -1.614c0 -.989 -1 -1.25 -2.886 -1.954c-2 -.716 -3.898 -1.728 -3.898 -4.091c0 -2.75 2.284 -4.091 4.989 -4.216l.284 -1.398a.545 .545 0 0 1 .545 -.432h2.023l.114 .012a.544 .544 0 0 1 .42 .647l-.307 1.557a8.528 8.528 0 0 1 2.818 1.58l.023 .022c.216 .228 .216 .569 0 .773l-1.057 1.057z" /></svg>
                   </div>
                   <div class="card-body">
-                      <h3 class="card-title text-success">Ordenes Pagadas</h3>
+                      <h3 class="card-title text-success">TOTAL VALOR ADQUISION</h3>
                       <div class="row text-center">
                         <div class="col-lg-6">
                           <img style ="height:60px;" src="../../static/gif/ordenador-portatil.gif" alt="Cargando..." />
                         </div>
-                        <div class="col-lg-6">
-                            <h1 id="lblmantenimiento" style="font-size: 3rem;"></h1>
+                        <div class="col-lg-6" style=" align-content: center;">
+                            <h4 id="lbltotal_adq"></h4>
                         </div>
                       </div>
                   </div>
@@ -131,8 +129,8 @@ if (isset($_SESSION["usua_id_siin"])) {
                         <div class="col-lg-6">
                           <img style ="height:60px;" src="../../static/gif/vlogger.gif" alt="Cargando..." />
                         </div>
-                        <div class="col-lg-6">
-                            <h4 id="lblultimo"></h4>
+                        <div class="col-lg-6" style=" align-content: center;">
+                            <h5 id="lblultimo"></h5>
                         </div>
                       </div>
                   </div>
@@ -144,7 +142,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                     <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-xbox-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 21a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9a9 9 0 0 0 -9 9a9 9 0 0 0 9 9z" /><path d="M9 8l6 8" /><path d="M15 8l-6 8" /></svg>
                   </div>
                   <div class="card-body">
-                      <h3 class="card-title text-blue">Ordenes Improcedentes</h3>
+                      <h3 class="card-title text-blue">ULTIMA BAJA DE BIEN</h3>
                       <div class="row text-center">
                         <div class="col-lg-6">
                           <img style ="height:60px;" src="../../static/gif/presentacion.gif" alt="Cargando..." />
@@ -158,7 +156,7 @@ if (isset($_SESSION["usua_id_siin"])) {
               </div>
             </div>    
             <div class="row">
-              <div class="col-lg-6  mb-3">
+              <div class="col-lg-5  mb-3">
                 <div class="row">
                   <div class="col-12 mb-3">
                     <div class="card" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
@@ -166,24 +164,24 @@ if (isset($_SESSION["usua_id_siin"])) {
                         <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-scale"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 20l10 0" /><path d="M6 6l6 -1l6 1" /><path d="M12 3l0 17" /><path d="M9 12l-3 -6l-3 6a3 3 0 0 0 6 0" /><path d="M21 12l-3 -6l-3 6a3 3 0 0 0 6 0" /></svg>
                       </div>
                       <div class="card-body">
-                          <h3 class="card-title text-purple ">Bienes Registrados <span class="text-secondary"> (Evaluando su estado)</span> </h3>
+                          <h3 class="card-title text-purple ">BIENES REGISTRADOS <span class="text-secondary"> (EVALUANDO SU ESTADO)</span> </h3>
                         <div class="row text-center">
-                          <div id="grafico_estados_bienes" style="height: 300px;"></div>
+                          <div id="grafico_estados_bienes"></div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-7">
                 <div class="card" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
                   <div class="ribbon ribbon-top bg-secondary">
                      <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-chart-bar"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 13a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" /><path d="M15 9a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" /><path d="M9 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" /><path d="M4 20h14" /></svg>
                   </div>
                   <div class="card-body">
-                   <h3 class="card-title text-purple ">Bienes Registrados <span class="text-secondary"> (Evaluando su Area)</span> </h3>
+                   <h3 class="card-title text-purple ">BIENES REGISTRADOS<span class="text-secondary"> (EVALUANDO SU DEPENDENCIA)</span> </h3>
                     <div class="row text-center">
-                      <div id="grafico_area" style="height: 300px;"></div>
+                      <div id="grafico_objetos_dependencia"></div>
                     </div>
                   </div>
                 </div>

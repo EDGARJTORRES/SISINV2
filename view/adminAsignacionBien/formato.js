@@ -4,33 +4,45 @@ function initbienes() {
   });
 }
 function buscarDNI() {
-  pers_dni = $("#pers_dni").val();
-  $.post("../../controller/persona.php?op=buscarDNI", {pers_dni: pers_dni}, function (response) {
-      try {
-          var data = JSON.parse(response);
-          if (data && data.nombre_completo) {
-              $("#pers_nom").val(data.nombre_completo);
-              $("#pers_id").val(data.pers_id);
-          } else {
-              console.error("No se encontró el campo 'nombre_completo' en la respuesta");
-              $("#pers_nom").val('');
-          }
-      } catch (e) {
-          console.error("Error al procesar la respuesta JSON:", e);
-          $("#pers_nom").val('');
-          $("#pers_id").val('');
-      }
-  }).fail(function (jqXHR, textStatus, errorThrown) {
-      console.error("Error en la solicitud AJAX:", textStatus, errorThrown);
-      $("#pers_nom").val('');
-      $("#pers_id").val('');
-  });
+    var pers_dni_id = $("#pers_dni_combo").val(); // Obtener el ID del DNI seleccionado
+    console.log("ID del DNI seleccionado:", pers_dni_id); // Verifica el ID
+    $.post("../../controller/persona.php?op=buscarDNI", { pers_dni: pers_dni_id }, function(response) {
+        try {
+            var data = JSON.parse(response);
+            console.log("Respuesta del servidor:", data); // Verifica la respuesta
+            if (data && data.nombre_completo) {
+                $("#pers_nom").val(data.nombre_completo); // Llenar el campo de nombre
+                $("#pers_id").val(data.pers_id); // Llenar el campo de ID si es necesario
+            } else {
+                console.error("No se encontró el campo 'nombre_completo' en la respuesta");
+                $("#pers_nom").val(''); // Limpiar el campo si no se encuentra el nombre
+            }
+        } catch (e) {
+            console.error("Error al procesar la respuesta JSON:", e);
+            $("#pers_nom").val(''); // Limpiar el campo en caso de error
+            $("#pers_id").val(''); // Limpiar el campo de ID si es necesario
+        }
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+        console.error("Error en la solicitud AJAX:", textStatus, errorThrown);
+        $("#pers_nom").val(''); // Limpiar el campo en caso de error
+        $("#pers_id").val(''); // Limpiar el campo de ID si es necesario
+    });
 }
+
 function guardaryeditarbienes(e) {
   e.preventDefault();
 }
 $(document).ready(function () {
   $(".select2").select2();
+
+  $.post("../../controller/persona.php?op=combo", function (data) {
+      $("#pers_dni_combo").html(data);
+  });
+
+  $("#pers_dni_combo").change(function() {
+      buscarDNI();
+  });
+
   $.post("../../controller/dependencia.php?op=combo", function (data) {
     $("#area_asignacion_combo").html(data);
   });
@@ -41,8 +53,11 @@ function nuevoFormato() {
     Swal.fire({
       title: "Error",
       text: "No hay filas registradas en la tabla.",
-      icon: "error",
+      imageUrl: '../../static/gif/letra-x.gif',
+      imageWidth: 100,
+      imageHeight: 100,
       confirmButtonText: "Aceptar",
+      confirmButtonColor: 'rgb(243, 18, 18)'
     });
     return;
   }
@@ -51,8 +66,11 @@ function nuevoFormato() {
     Swal.fire({
       title: "Error",
       text: "Debes seleccionar un área de asignación.",
-      icon: "error",
+      imageUrl: '../../static/gif/letra-x.gif',
+      imageWidth: 100,
+      imageHeight: 100,
       confirmButtonText: "Aceptar",
+      confirmButtonColor: 'rgb(243, 18, 18)'
     });
     return;
   }
@@ -206,7 +224,15 @@ function buscarBien() {
 
   $("#cod_bar").val("");
 }
+
 function mostrarDatosObjeto(data, nombresColores) {
+  const estadosBien = {
+  'N': 'Nuevo',
+  'B': 'Bueno',
+  'R': 'Regular',
+  'M': 'Malo'
+  };
+  const estadoBienLegible = estadosBien[data.bien_est] || 'Desconocido';
   // Contar la cantidad de filas existentes en la tabla
   var rowCount = $("#obj_formato tbody tr").length;
 
@@ -223,29 +249,67 @@ function mostrarDatosObjeto(data, nombresColores) {
   }
   // Mostrar los datos del objeto en un SweetAlert con dos botones
   Swal.fire({
-    title: "Datos del Objeto",
-    html:
-      "Denominacion: " + data.obj_nombre +
-      "<br>" +
-      "Fecha de Registro: " +data.fecharegistro +
-      "<br>" +
-      "Número de Serie: " + data.bien_numserie +
-      "<br>" +
-      "Estado del Bien: " +data.bien_est +
-      "<br>" +
-      "Dimensiones: " + data.bien_dim +
-      "<br>" +
-      "Color: " + nombresColores.join(", ") + 
-      "<br>" +
-      "Dependencia Origen: " +data.depe_denominacion,
-      imageUrl: '../../static/gif/informacion.gif',
-      imageWidth: 100,
-      imageHeight: 100,
-      showCancelButton: true,
-      confirmButtonColor: 'rgb(243, 18, 18)', 
-      cancelButtonColor: '#000', 
-      confirmButtonText: 'Aceptar',
-  }).then((result) => {
+  title: "DATOS DEL OBJETO",
+  html: `
+    <table style="width:100%; text-align:left;">
+      <tr >
+        <td style="width:40%;"><strong>DENOMINACIÓN:</strong></td>
+        <td style="width:60%; text-align:right;">${data.obj_nombre}</td>
+      </tr>
+      <tr>
+        <td style="width:40%;"><strong>FECHA REGISTRO:</strong></td>
+        <td style="width:60%; text-align:right;">${data.fecharegistro}</td>
+      </tr>
+      <tr>
+        <td style="width:40%;"><strong>NÚMERO DE SERIE:</strong></td>
+        <td style="width:60%; text-align:right;">${data.bien_numserie}</td>
+      </tr>
+      <tr >
+       <td style="width:40%;"><strong>ESTADO DEL BIEN:</strong></td>
+       <td style="width:60%; text-align:right;">${estadoBienLegible}</td>
+      </tr>
+      <tr >
+       <td style="width:40%;"><strong>PROCEDENCIA:</strong></td>
+       <td style="width:60%; text-align:right;">${data.procedencia}</td>
+      </tr>
+      <tr >
+        <td style="width:40%;"><strong>DIMENSIONES:</strong></td>
+        <td style="width:60%; text-align:right;">${data.bien_dim}</td>
+      </tr>
+      <tr >
+        <td style="width:40%;"><strong>COLOR:</strong></td>
+        <td style="width:60%; text-align:right;">${nombresColores.join(", ")}</td>
+      </tr>
+      <tr >
+        <td style="width:40%;"><strong>DEPENDENCIA DEL ORIGEN:</strong></td>
+        <td style="width:60%; text-align:right;">${data.depe_denominacion}</td>
+      </tr>
+    </table>
+  `,
+  imageUrl: '../../static/gif/informacion.gif',
+  imageWidth: 100,
+  imageHeight: 100,
+  showCancelButton: true,
+  confirmButtonColor: 'rgb(18, 129, 18)',
+  cancelButtonColor: '#000',
+  confirmButtonText: 'Aceptar',
+  backdrop: true,
+  didOpen: () => {
+    const swalBox = Swal.getPopup();
+    const topBar = document.createElement('div');
+    topBar.id = 'top-progress-bar';
+    topBar.style.cssText = `
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 6px;
+        width: 100%;
+        background-color:rgb(18, 129, 18);
+    `;
+    swalBox.appendChild(topBar);
+  }
+
+}).then((result) => {
     // Si se hace clic en el botón de aceptar
     if (result.isConfirmed) {
       // Verificar si hay una dependencia asignada
@@ -256,8 +320,11 @@ function mostrarDatosObjeto(data, nombresColores) {
         Swal.fire({
           title: "Error",
           text: "Solo se pueden agregar objetos sin dependencias asignadas.",
-          icon: "error",
+          imageUrl: '../../static/gif/letra-x.gif',
+          imageWidth: 100,
+          imageHeight: 100,
           confirmButtonText: "Aceptar",
+          confirmButtonColor: 'rgb(243, 18, 18)',
         });
         return;
       }

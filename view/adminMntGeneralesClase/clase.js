@@ -394,6 +394,12 @@ function eliminarclase(clase_id) {
     });
 }
 
+$('#clase_form').on('reset', function () {
+  setTimeout(function () {
+    $('#clase_nom, #clase_cod').removeClass('is-valid is-invalid');
+    $('#errorNombre, #errorCodigo').removeClass('active');
+  }, 0);
+});
 function nuevaclase(){
   $('#clase_nom').val(''); 
   $('#clase_cod').val('');

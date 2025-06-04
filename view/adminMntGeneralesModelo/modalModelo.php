@@ -12,9 +12,8 @@
                         <input type="hidden" name="modelo_id" id="modelo_id"/>
                         <div class="row">
                             <div class="col-12">
-                                <h4 class="text-orange">
-                                SELECCIONA LA MARCA Y DEFINA EL MODELO
-                                </h4>
+                                <h5 id="lblsubtitulo" class="text-orange">
+                                </h5>
                             </div>
                             <div class="col-lg-6">
                                 <div class="mb-3">

@@ -12,9 +12,9 @@
                        <input type="hidden" name="marca_id" id="marca_id"/>
                         <div class="row">
                             <div class="col-lg-12">
-                                <h4 class="text-orange">
+                                <h5 id="lblsubtitulo" class="text-orange">
                                     POR FAVOR, COMPLETE LOS DATOS DE LA MARCA A REGISTRAR
-                                </h4>
+                                </h5>
                             </div>
                             <div class="col-lg-12">
                                 <div class="mb-2">

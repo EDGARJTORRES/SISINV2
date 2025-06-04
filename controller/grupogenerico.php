@@ -49,11 +49,18 @@ switch ($_GET["op"]){
         $data = array();
         foreach ($datos as $row) {
             $sub_array = array();
-            $sub_array[] = '<input type="checkbox" class="gg-checkbox" data-id="' 
-            . htmlspecialchars($row["gg_id"]) 
-            . '" value="' 
-            . htmlspecialchars($row["gg_id"]) 
-            . '">';
+            $sub_array[] = '
+            <label class="checkbox-wrapper-46">
+                <input type="checkbox" class="inp-cbx gg-checkbox" data-id="' . htmlspecialchars($row["gg_id"]) . '" value="' . htmlspecialchars($row["gg_id"]) . '" />
+                <span class="cbx">
+                <span>
+                    <svg viewBox="0 0 12 10" height="10px" width="12px">
+                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                    </svg>
+                </span>
+                <span></span>
+                </span>
+            </label>';
             $sub_array[] = $row["gg_cod"];
             $sub_array[] = $row["gg_nom"];
             $sub_array[] = '<button type="button" onClick="editarGG(' . $row["gg_id"] . ');"  id="' . $row["gg_id"] . '" class="btn bg-warning text-light"  style="width: 40px; height: 40px; padding: 0;">
@@ -117,7 +124,9 @@ switch ($_GET["op"]){
                     $badge_class = 'bg-secondary';
                     $estado_text = 'Inactivo';
             }
-            $sub_array[] = '<span class="d-inline-block rounded-circle ' . $badge_class . '" style="width: 12px; height: 12px;"></span> ' . $estado_text;
+           $sub_array[] = '<span class="d-inline-block ' . $badge_class . ' text-white text-center px-0 py-0 rounded-pill" style="min-width: 70px;">' . $estado_text . '</span>';
+            $sub_array[] = $row["procedencia"]; 
+            $sub_array[] = $row["val_adq"]; 
             $sub_array[] = '
             <td class="text-end">
                 <div class="dropdown">

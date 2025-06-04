@@ -4,75 +4,54 @@ function initbienes() {
   });
 }
 function buscarDNIOrigen() {
-  pers_dni = $("#pers_origen_dni").val();
-
-  $.post(
-    "../../controller/persona.php?op=buscarDNI",
-    { pers_dni: pers_dni },
-    function (response) {
-      try {
-        var data = JSON.parse(response);
-
-        // Depurar el objeto data
-        console.log(data);
-
-        // Verifica que data contiene el campo "nombre_completo"
-        if (data && data.nombre_completo) {
-          $("#pers_origen_nom").val(data.nombre_completo);
-          $("#pers_origen_id").val(data.pers_id);
-          listarBienesRepre(data.pers_id);
-        } else {
-          console.error(
-            "No se encontró el campo 'nombre_completo' en la respuesta"
-          );
-          $("#pers_origen_nom").val("");
+   var pers_dni_id = $("#pers_origen_dni").val(); // Obtener el ID del DNI seleccionado
+    console.log("ID del DNI seleccionado:", pers_dni_id); // Verifica el ID
+    $.post("../../controller/persona.php?op=buscarDNI", { pers_dni: pers_dni_id }, function(response) {
+        try {
+            var data = JSON.parse(response);
+            console.log("Respuesta del servidor:", data); // Verifica la respuesta
+            if (data && data.nombre_completo) {
+                $("#pers_origen_nom").val(data.nombre_completo); // Llenar el campo de nombre
+                $("#pers_id").val(data.pers_id); // Llenar el campo de ID si es necesario
+            } else {
+                console.error("No se encontró el campo 'nombre_completo' en la respuesta");
+                $("#pers_origen_nom").val(''); // Limpiar el campo si no se encuentra el nombre
+            }
+        } catch (e) {
+            console.error("Error al procesar la respuesta JSON:", e);
+            $("#pers_origen_nom").val(''); // Limpiar el campo en caso de error
+            $("#pers_id").val(''); // Limpiar el campo de ID si es necesario
         }
-      } catch (e) {
-        console.error("Error al procesar la respuesta JSON:", e);
-        $("#pers_origen_nom").val("");
-        $("#pers_origen_dni").val("");
-      }
-    }
-  ).fail(function (jqXHR, textStatus, errorThrown) {
-    console.error("Error en la solicitud AJAX:", textStatus, errorThrown);
-    $("#pers_origen_nom").val("");
-    $("#pers_origen_id").val("");
-  });
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+        console.error("Error en la solicitud AJAX:", textStatus, errorThrown);
+        $("#pers_origen_nom").val(''); // Limpiar el campo en caso de error
+        $("#pers_id").val(''); // Limpiar el campo de ID si es necesario
+    });
 }
 function buscarDNIDestino() {
-  pers_dni = $("#pers_destino_dni").val();
-
-  $.post(
-    "../../controller/persona.php?op=buscarDNI",
-    { pers_dni: pers_dni },
-    function (response) {
-      try {
-        var data = JSON.parse(response);
-
-        // Depurar el objeto data
-        console.log(data);
-
-        // Verifica que data contiene el campo "nombre_completo"
-        if (data && data.nombre_completo) {
-          $("#pers_destino_nom").val(data.nombre_completo);
-          $("#pers_destino_id").val(data.pers_id);
-        } else {
-          console.error(
-            "No se encontró el campo 'nombre_completo' en la respuesta"
-          );
-          $("#pers_destino_nom").val("");
+  var pers_dni_id = $("#pers_destino_dni").val(); // Obtener el ID del DNI seleccionado
+    console.log("ID del DNI seleccionado:", pers_dni_id); // Verifica el ID
+    $.post("../../controller/persona.php?op=buscarDNI", { pers_dni: pers_dni_id }, function(response) {
+        try {
+            var data = JSON.parse(response);
+            console.log("Respuesta del servidor:", data); // Verifica la respuesta
+            if (data && data.nombre_completo) {
+                $("#pers_destino_nom").val(data.nombre_completo); // Llenar el campo de nombre
+                $("#pers_id").val(data.pers_id); // Llenar el campo de ID si es necesario
+            } else {
+                console.error("No se encontró el campo 'nombre_completo' en la respuesta");
+                $("#pers_destino_nom").val(''); // Limpiar el campo si no se encuentra el nombre
+            }
+        } catch (e) {
+            console.error("Error al procesar la respuesta JSON:", e);
+            $("#pers_destino_nom").val(''); // Limpiar el campo en caso de error
+            $("#pers_id").val(''); // Limpiar el campo de ID si es necesario
         }
-      } catch (e) {
-        console.error("Error al procesar la respuesta JSON:", e);
-        $("#pers_destino_nom").val("");
-        $("#pers_destino_dni").val("");
-      }
-    }
-  ).fail(function (jqXHR, textStatus, errorThrown) {
-    console.error("Error en la solicitud AJAX:", textStatus, errorThrown);
-    $("#pers_destino_nom").val("");
-    $("#pers_destino_id").val("");
-  });
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+        console.error("Error en la solicitud AJAX:", textStatus, errorThrown);
+        $("#pers_destino_nom").val(''); // Limpiar el campo en caso de error
+        $("#pers_id").val(''); // Limpiar el campo de ID si es necesario
+    });
 }
 
 function guardaryeditarbienes(e) {
@@ -80,7 +59,19 @@ function guardaryeditarbienes(e) {
 }
 
 $(document).ready(function () {
+
   $(".select2").select2();
+  $.post("../../controller/persona.php?op=combo", function (data) {
+      $("#pers_origen_dni").html(data);
+      $("#pers_destino_dni").html(data);
+  });
+
+  $("#pers_origen_dni").change(function() {
+      buscarDNIOrigen();
+  });
+   $("#pers_destino_dni").change(function() {
+      buscarDNIDestino();
+  });
 
   $.post("../../controller/dependencia.php?op=combo", function (data) {
     $("#area_destino_combo").html(data);

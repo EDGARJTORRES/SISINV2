@@ -149,11 +149,15 @@ function mostrarDatosObjeto(data, nombresColores) {
                   <strong>Número de Serie:</strong><br>
                   ${data.bien_numserie}
                 </div>
-                <div class="col-lg-5">
+                <div class="col-lg-3">
                   <strong>Dimensiones:</strong><br>
                   ${data.bien_dim}
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-3">
+                  <strong>Procedencia:</strong><br>
+                  ${data.procedencia}
+                </div>
+                <div class="col-lg-3">
                   <strong>Color:</strong><br>
                   ${nombresColores.join(", ")}
                 </div>

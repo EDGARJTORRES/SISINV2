@@ -341,6 +341,7 @@ function editarmodelo(modelo_id_input){
          $('#modelo_nom').val(data.modelo_nom);
          $('#combo_marca_obj').val(data.marca_id).trigger('change');
          $('#lbltitulo').html('<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-mood-edit"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20.955 11.104a9 9 0 1 0 -9.895 9.847" /><path d="M9 10h.01" /><path d="M15 10h.01" /><path d="M9.5 15c.658 .672 1.56 1 2.5 1c.126 0 .251 -.006 .376 -.018" /><path d="M18.42 15.61a2.1 2.1 0 0 1 2.97 2.97l-3.39 3.42h-3v-3l3.42 -3.39z" /></svg> EDITAR MARCA REGISTRADO');
+         $('#lblsubtitulo').html('MODIFICA LA MARCA Y DEFINA EL MODELO');
     });
      $('#modalModelo').modal('show');
 }
@@ -420,9 +421,7 @@ function eliminarmodelo(modelo_id) {
         }
     });
 }
-$('#btnCancelar').on('click', function() {
-  resetearFormularioModelo();
-});
+
 function resetearFormularioModelo() {
   $('#modelo_form')[0].reset(); 
   $('#combo_marca_obj').val('').trigger('change');
@@ -431,6 +430,13 @@ function resetearFormularioModelo() {
   idsSeleccionados.clear();
   actualizarContadorSeleccionados();
 }
+$('#modelo_form').on('reset', function () {
+  setTimeout(function () {
+    $('#modelo_nom, #combo_marca_obj').removeClass('is-valid is-invalid');
+    $('#errorNombre, #errorCombo').removeClass('active');
+  }, 0);
+});
+
 
 function nuevomodelo(){
   $('#modelo_nom').val(''); 
@@ -440,6 +446,7 @@ function nuevomodelo(){
   $('#modelo_id_all').prop('checked', false);
   $('#modelo_nom, #combo_marca_obj').removeClass('is-valid is-invalid');
   $('#errorNombre, #errorCombo').removeClass('active');
+  $('#lblsubtitulo').html('SELECCIONA LA MARCA Y DEFINA EL MODELO');
   $('#lbltitulo').html('<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-screen-share ms-3"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M21 12v3a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-10a1 1 0 0 1 1 -1h9" /><path d="M7 20l10 0" /><path d="M9 16l0 4" /><path d="M15 16l0 4" /><path d="M17 4h4v4" /><path d="M16 9l5 -5" /></svg> REGISTRAR NUEVO MODELO');
   $('#modalModelo').modal('show');
   idsSeleccionados.clear();

@@ -45,11 +45,18 @@
             $data= Array();
             foreach($datos as $row){
                 $sub_array = array();
-                $sub_array[] = '<input type="checkbox" class="modelo-checkbox" data-id="' 
-                . htmlspecialchars($row["modelo_id"]) 
-                . '" value="' 
-                . htmlspecialchars($row["modelo_id"]) 
-                . '">'; 
+                $sub_array[] = '
+                <label class="checkbox-wrapper-46">
+                    <input type="checkbox" class="inp-cbx modelo-checkbox" data-id="' . htmlspecialchars($row["modelo_id"]) . '" value="' . htmlspecialchars($row["modelo_id"]) . '" />
+                    <span class="cbx">
+                    <span>
+                        <svg viewBox="0 0 12 10" height="10px" width="12px">
+                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                        </svg>
+                    </span>
+                    <span></span>
+                    </span>
+                </label>';
                 $sub_array[] = $row["marca_nom"];
                 $sub_array[] = $row["modelo_nom"];
                 $sub_array[] = '<button type="button" onClick="editarmodelo('.$row["modelo_id"].');"  id="'.$row["modelo_id"].'" class="btn bg-warning text-light"  style="width: 40px; height: 40px; padding: 0;">

@@ -76,7 +76,7 @@
         public function get_grupogenerico_bienes(){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="SELECT tbb.bien_id, tob.obj_nombre, tbb.fecharegistro, tbb.bien_codbarras, tbb.bien_id, tbb.bien_est, tc.clase_cod, gg.gg_cod 
+            $sql="SELECT tbb.bien_id, tob.obj_nombre, tbb.fecharegistro, tbb.bien_codbarras, tbb.bien_id, tbb.bien_est,tbb.procedencia,tbb.val_adq ,tc.clase_cod, gg.gg_cod 
             from sc_inventario.tb_bien tbb
             left  join sc_inventario.tb_objeto tob on tob.obj_id = tbb.obj_id
             left  join sc_inventario.tb_grupo_clase gc on gc.gc_id = tob.gc_id

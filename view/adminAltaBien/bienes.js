@@ -89,6 +89,10 @@ $(document).ready(function () {
     dropdownParent: $("#modalObjetoCate"),
     dropdownPosition: "below",
   });
+   $("#procedencia").select2({
+    dropdownParent: $("#modalObjetoCate"),
+    dropdownPosition: "below",
+  });
 
   $("#combo_gg_bien_obj").change(function () {
     var gg_id = $(this).val();
@@ -191,11 +195,14 @@ function nuevoBien() {
   $("#obj_dim").val("");
   $("#combo_marca_obj").change();
   $("#obj_id").val("");
+  $("#procedencia").val("").change();
   $("#combo_gg_bien_obj").prop("disabled", false);
   $("#combo_clase_bien_obj").prop("disabled", false);
   $("#combo_obj_bien").prop("disabled", false);
   $("#combo_marca_obj").prop("disabled", false);
+  $("#procedencia").prop("disabled", false);
   $("#combo_modelo_obj").prop("disabled", false);
+  
   $.post("../../controller/objeto.php?op=getcodinterno", function (data) {
     // Convierte el dato recibido a un número y le suma 1
     var cod = parseInt(data) + 1;

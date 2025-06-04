@@ -1,9 +1,4 @@
-$(document).ready(function() {
-    $('#area_asignacion_combo').select2({
-        theme: 'bootstrap4',
-        width: '100%'
-    });
-});
+
 function limitarADigitosDNI(input) {
     let valor = input.value.toString().replace(/\D/g, '');
     if (valor.length > 8) {

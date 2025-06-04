@@ -1,61 +1,3 @@
-<style>
-    #lock {
-        display: none;
-    }
-
-    .lock-label {
-        width: 45px;
-        height: 45px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: rgb(80, 80, 80);
-        border-radius: 15px;
-        cursor: pointer;
-        transition: all 0.3s;
-    }
-
-    .lock-wrapper {
-        width: fit-content;
-        height: fit-content;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        transform: rotate(-10deg);
-    }
-
-    .shackle {
-        background-color: transparent;
-        height: 9px;
-        width: 14px;
-        border-top-right-radius: 10px;
-        border-top-left-radius: 10px;
-        border-top: 3px solid white;
-        border-left: 3px solid white;
-        border-right: 3px solid white;
-        transition: all 0.3s;
-    }
-
-    .lock-body {
-        width: 15px;
-    }
-
-    #lock:checked+.lock-label .lock-wrapper .shackle {
-        transform: rotateY(150deg) translateX(3px);
-        transform-origin: right;
-    }
-
-    #lock:checked+.lock-label {
-        background-color: rgb(167, 71, 245);
-    }
-
-    .lock-label:active {
-        transform: scale(0.9);
-    }
-</style>
-
-
 <div class="modal modal-blur fade" id="modalObjetoCate" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 80%; margin: auto;">
         <div class="modal-content">
@@ -74,38 +16,37 @@
                 <div class="col-lg-6 text-center">
                     <canvas id="codigo_barras_canvas" style="border: 1px solid #ccc;"></canvas>
                 </div>
-            </div>
-
-            <!-- Indicador de pasos -->
+            </div>eyui
             <div class="card-body">
                 <ul class="steps steps-orange steps-counter my-2">
-                <li class="step-item active" id="step-indicator-1">Clasificación</li>
-                <li class="step-item" id="step-indicator-2">Identificación Técnica</li>
-                <li class="step-item" id="step-indicator-3">Características Visuales</li>
+                <li class="step-item active" id="step-indicator-1">CLASIFICACIÓN</li>
+                <li class="step-item" id="step-indicator-2">IDENTIFICACION TÉCNICA</li>
+                <li class="step-item" id="step-indicator-3">CARACTÉRISTICAS</li>
                 </ul>
             </div>
-
-            <!-- Paso 1 -->
             <div class=" mb-3 p-3 step-form" id="step-1">
                 <div class="row">
-                <div class="col-lg-4">
-                    <label class="form-label">Grupo Genérico:<span style="color:red">*</span></label>
-                    <select class="form-select select2 required" id="combo_gg_bien_obj" name="combo_gg_bien_obj">
-                    <option value="" disabled selected>Seleccione</option>
-                    </select>
-                </div>
-                <div class="col-lg-4">
-                    <label class="form-label">Clase:<span style="color:red">*</span></label>
-                    <select class="form-select select2 required" id="combo_clase_bien_obj" name="combo_clase_bien_obj">
-                    <option value="" disabled selected>Seleccione</option>
-                    </select>
-                </div>
-                <div class="col-lg-4">
-                    <label class="form-label">Objeto:<span style="color:red">*</span></label>
-                    <select class="form-select select2 required" id="combo_obj_bien" name="combo_obj_bien">
-                    <option value="" disabled selected>Seleccione</option>
-                    </select>
-                </div>
+                    <div class="col-lg-4">
+                        <label class="form-label">Grupo Genérico:<span style="color:red">*</span></label>
+                        <select class="form-select select2 required" id="combo_gg_bien_obj" name="combo_gg_bien_obj">
+                        <option value="" disabled selected>Seleccione</option>
+                        </select>
+                        <div class="error-msg text-danger d-none" id="errorGrupo">Seleccione un grupo genérico válido.</div>
+                    </div>
+                    <div class="col-lg-4">
+                        <label class="form-label">Clase:<span style="color:red">*</span></label>
+                        <select class="form-select select2 required" id="combo_clase_bien_obj" name="combo_clase_bien_obj">
+                        <option value="" disabled selected>Seleccione</option>
+                        </select>
+                        <div class="error-msg text-danger d-none" id="errorClase">Seleccione una clase válida.</div>
+                    </div>
+                    <div class="col-lg-4">
+                        <label class="form-label">Objeto:<span style="color:red">*</span></label>
+                        <select class="form-select select2 required" id="combo_obj_bien" name="combo_obj_bien">
+                        <option value="" disabled selected>Seleccione</option>
+                        </select>
+                        <div class="error-msg text-danger d-none" id="errorObjeto">Seleccione un objeto válido.</div>
+                    </div>
                 </div>
                 <div class="d-flex justify-content-end mt-4">
                 <button type="button" class="btn btn-orange" onclick="avanzarPaso(1)">
@@ -118,26 +59,26 @@
             <!-- Paso 2 -->
             <div class=" mb-3 p-3 step-form d-none" id="step-2">
                 <div class="row">
-                <div class="col-lg-3">
-                    <label class="form-label">Marca:<span style="color:red">*</span></label>
-                    <select class="form-select select2 required" id="combo_marca_obj" name="combo_marca_obj">
-                    <option value="" disabled selected>Seleccione</option>
-                    </select>
-                </div>
-                <div class="col-lg-3">
-                    <label class="form-label">Modelo:<span style="color:red">*</span></label>
-                    <select class="form-select select2 required" id="combo_modelo_obj" name="combo_modelo_obj">
-                    <option value="" disabled selected>Seleccione</option>
-                    </select>
-                </div>
-                <div class="col-lg-3">
-                    <label class="form-label">Dimensiones:<span style="color:red">*</span></label>
-                    <input type="text" class="form-control required" id="obj_dim" name="obj_dim">
-                </div>
-                <div class="col-lg-3">
-                    <label class="form-label">N° Serie:<span style="color:red">*</span></label>
-                    <input type="text" class="form-control required" id="bien_numserie" name="bien_numserie">
-                </div>
+                    <div class="col-lg-3">
+                        <label class="form-label">Marca:<span style="color:red">*</span></label>
+                        <select class="form-select select2 required" id="combo_marca_obj" name="combo_marca_obj">
+                        <option value="" disabled selected>Seleccione</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3">
+                        <label class="form-label">Modelo:<span style="color:red">*</span></label>
+                        <select class="form-select select2 required" id="combo_modelo_obj" name="combo_modelo_obj">
+                        <option value="" disabled selected>Seleccione</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3">
+                        <label class="form-label">Dimensiones:<span style="color:red">*</span></label>
+                        <input type="text" class="form-control required" id="obj_dim" name="obj_dim">
+                    </div>
+                    <div class="col-lg-3">
+                        <label class="form-label">N° Serie:<span style="color:red">*</span></label>
+                        <input type="text" class="form-control required" id="bien_numserie" name="bien_numserie">
+                    </div>
                 </div>
                 <div class="d-flex justify-content-between mt-4">
                 <button type="button" class="btn btn-secondary" onclick="retrocederPaso(2)">
@@ -154,17 +95,25 @@
             <!-- Paso 3 -->
             <div class="mb-3 p-3 step-form d-none" id="step-3">
                 <div class="row">
-                <div class="col-lg-5">
+                <div class="col-lg-3">
                    <label class="form-label">Fecha de Registro:<span style="color:red">*</span></label>
-                   <input type="date" class="form-control" id="fecha_registro" name="fecha_registro" value="<?php echo date('Y-m-d'); ?>" required>
+                   <input type="date" class="form-control" id="fecha_registro" name="fecha_registro" value="<?php  date_default_timezone_set('America/Lima');echo date('Y-m-d');?>" required>
                 </div>
                 <div class="col-lg-3">
                     <label class="form-label">Color:<span style="color:red">*</span></label>
                     <select class="form-control select2 required" id="combo_color_bien" name="combo_color_bien" multiple></select>
                 </div>
-                <div class="col-lg-4">
-                    <label class="form-label">Código Interno:<span style="color:red">*</span></label>
-                    <input type="text" class="form-control" id="cod_interno" name="cod_interno" disabled>
+                <div class="col-lg-3">
+                    <label class="form-label">Procedencia:<span style="color:red">*</span></label>
+                     <input type="text" class="form-control" id="cod_interno" name="cod_interno" style="display: none;" disabled>
+                    <select class="form-select select2 required" id="procedencia" name="procedencia">
+                        <option value="NACIONAL">NACIONAL</option>
+                        <option value="DONADO">DONADO</option>
+                    </select>  
+                </div>
+                <div class="col-lg-3">
+                    <label class="form-label">Valor Adquisión:<span style="color:red">*</span></label>
+                    <input type="text" class="form-control" id="val_adq" name="val_adq" required>
                 </div>
                 </div>
                 <div class="modal-footer mt-4 d-flex justify-content-between">

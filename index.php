@@ -108,7 +108,7 @@ if (isset($_POST["enviar"]) and $_POST["enviar"] == "si") {
                             <img src="./static/illustrations/cumplimiento-de-pedidos.png" height="120" alt="Logo">
                         </div>
     
-                        <h2 class="h3 text-center mb-4">Software de Gestion de Inventario <br> [ Municipalidad de Chiclayo ]</h3>
+                        <h2 class="h3 text-center mb-4">SOFTWARE DE GESTIÓN DE INVENTARIO <br> [ MUNICIPALIDAD DE CHICLAYO ]</h3>
                         <?php
                             if (isset($_GET["m"])) {
                             switch ($_GET["m"]) {
@@ -116,7 +116,7 @@ if (isset($_POST["enviar"]) and $_POST["enviar"] == "si") {
                                     ?>
                                     <div class="alert alert-danger alert-dismissible" role="alert">
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                    <strong>Error:</strong> Error
+                                    <strong>Error:</strong> ERROR
                                     </div>
                                     <?php
                                     break;
@@ -125,7 +125,7 @@ if (isset($_POST["enviar"]) and $_POST["enviar"] == "si") {
                                     ?>
                                     <div class="alert alert-warning alert-dismissible" role="alert">
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                    <strong>Error:</strong> Campos vacíos
+                                    <strong>Error:</strong> CAMPOS VACIOS
                                     </div>
                                     <?php
                                     break;
@@ -134,7 +134,7 @@ if (isset($_POST["enviar"]) and $_POST["enviar"] == "si") {
                                     ?>
                                     <div class="alert alert-info alert-dismissible" role="alert">
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                    <strong>Error:</strong> No se encontraron datos
+                                    <strong>Error:</strong> NO SE ENCONTRARON DATOS
                                     </div>
                                     <?php
                                     break;
@@ -143,7 +143,7 @@ if (isset($_POST["enviar"]) and $_POST["enviar"] == "si") {
                                     ?>
                                     <div class="alert alert-danger alert-dismissible" role="alert">
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                    <strong>Error:</strong> IP Persona no registrada
+                                    <strong>Error:</strong> IP NO REGISTRADA
                                     </div>
                                     <?php
                                     break;
@@ -152,7 +152,7 @@ if (isset($_POST["enviar"]) and $_POST["enviar"] == "si") {
                                     ?>
                                     <div class="alert alert-warning alert-dismissible" role="alert">
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                    <strong>Error:</strong> Persona inactiva
+                                    <strong>Error:</strong> PERSONA INACTIVA
                                     </div>
                                     <?php
                                     break;
@@ -161,7 +161,7 @@ if (isset($_POST["enviar"]) and $_POST["enviar"] == "si") {
                                     ?>
                                     <div class="alert alert-info alert-dismissible" role="alert">
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                    <strong>Error:</strong> Fuera de la hora de acceso
+                                    <strong>Error:</strong> FUERA DE LA HORA DE ACCESO
                                     </div>
                                     <?php
                                     break;
@@ -170,7 +170,7 @@ if (isset($_POST["enviar"]) and $_POST["enviar"] == "si") {
                                     ?>
                                     <div class="alert alert-warning alert-dismissible" role="alert">
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                    <strong>Error:</strong> Usuario no vigente
+                                    <strong>Error:</strong> USUARIO NO VIGENTE
                                     </div>
                                     <?php
                                     break;
@@ -179,7 +179,7 @@ if (isset($_POST["enviar"]) and $_POST["enviar"] == "si") {
                                     ?>
                                     <div class="alert alert-danger alert-dismissible" role="alert">
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                    <strong>Error:</strong> Datos incorrectos
+                                    <strong>Error:</strong> DATOS INCORRECTOS
                                     </div>
                                     <?php
                                     break;

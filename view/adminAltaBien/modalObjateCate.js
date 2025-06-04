@@ -69,3 +69,4 @@
 
     // Actualizar el contenido del elemento con el id "fecha"
     document.getElementById('lbltituloObjcate').innerHTML += fechaFormateada;
+    

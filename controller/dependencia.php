@@ -1,14 +1,12 @@
 <?php
 
 require_once("../config/conexion.php");
-
 require_once("../models/Dependencia.php");
 require_once("../models/Bitacora.php");
 require_once("../models/Stick.php");
 $bitacora = new Bitacora();
 $dependencia = new Dependencia();
 $stick = new Stick();
-
 switch ($_GET["op"]) {
     case "guardaryeditar":
         if (empty($_POST["objdepe_id"])) {
@@ -142,13 +140,18 @@ switch ($_GET["op"]) {
             echo $html;
         }
         break;
-        case "generarBarras":
-            $datos = $stick->get_nro_patrimonial($_POST['obj_id']);
-            $cod_cana = $datos['codigo_cana'];
-            $lid = $stick->get_last_id();
-            $codinterno = $lid['objdepe_id'];
-            $output["codigo_cana"] = $cod_cana; // Se corrige el acceso a la variable $datos
-            $output["objdepe_id"] = $codinterno; // Se corrige el nombre de la variable $lid
-            echo json_encode($output);
-            break;
+    case "generarBarras":
+        $datos = $stick->get_nro_patrimonial($_POST['obj_id']);
+        $cod_cana = $datos['codigo_cana'];
+        $lid = $stick->get_last_id();
+        $codinterno = $lid['objdepe_id'];
+        $output["codigo_cana"] = $cod_cana; // Se corrige el acceso a la variable $datos
+        $output["objdepe_id"] = $codinterno; // Se corrige el nombre de la variable $lid
+        echo json_encode($output);
+        break;
+    case "contador_objetos_por_dependencia":
+        $datos = $dependencia->contadorObjetosPorDependencia();
+        echo json_encode($datos);
+    break;
+            
 }

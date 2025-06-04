@@ -160,42 +160,37 @@ switch ($_GET["op"]) {
             $sub_array[] = $row["count"];
             $sub_array[] = $row["pers_nombre"];
             $sub_array[] = '
-<div class="dropdown text-center">
-  <button class="btn btn-outline-primary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Acciones
-    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots-vertical" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <circle cx="12" cy="5" r="1" />
-      <circle cx="12" cy="12" r="1" />
-      <circle cx="12" cy="19" r="1" />
-    </svg>
-  </button>
-  <ul class="dropdown-menu">
-    <li>
-      <a class="dropdown-item" href="#" onclick="imprimirFormato(' . $row["form_id"] . ')">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-printer me-2" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-          <path d="M6 9v-5h12v5" />
-          <path d="M6 18h12v-8h-12z" />
-          <path d="M6 14h12" />
-        </svg>
-        Imprimir
-      </a>
-    </li>
-    <li>
-      <a class="dropdown-item text-danger" href="#" onclick="eliminarformato(' . $row["form_id"] . ')">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash me-2" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-          <path d="M4 7h16" />
-          <path d="M10 11v6" />
-          <path d="M14 11v6" />
-          <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-          <path d="M9 7v-3h6v3" />
-        </svg>
-        Eliminar
-      </a>
-    </li>
-  </ul>
-</div>';
+            <div class="dropdown text-center">
+            <a href="#" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                Acciones
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="dropdown-item" href="#" onclick="imprimirFormato(' . $row["form_id"] . ')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-printer me-2" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M6 9v-5h12v5" />
+                    <path d="M6 18h12v-8h-12z" />
+                    <path d="M6 14h12" />
+                    </svg>
+                    Imprimir
+                </a>
+                </li>
+                <li>
+                <a class="dropdown-item text-danger" href="#" onclick="eliminarformato(' . $row["form_id"] . ')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash me-2" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M4 7h16" />
+                    <path d="M10 11v6" />
+                    <path d="M14 11v6" />
+                    <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                    <path d="M9 7v-3h6v3" />
+                    </svg>
+                    Eliminar
+                </a>
+                </li>
+            </ul>
+            </div>';
 
             $data[] = $sub_array;
         }
@@ -557,7 +552,7 @@ switch ($_GET["op"]) {
         $pdf->Cell($anchoCelda, $espaciado, "INTEGRANTES DE B. PATRIMONIALES", 0, 0, 'C');
         $pdf->Cell($anchoCelda, $espaciado, "FIRMA DEL REPRESENTANTE", 0, 1, 'C');
 
-        // Continúa con el resto de tu código para generar el PDF
+        ob_clean();
         $pdf->Output();
 
         break;

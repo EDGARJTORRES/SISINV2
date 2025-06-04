@@ -1,7 +1,6 @@
 <?php
 class Objeto extends Conectar
 {
-
     public function insert_objeto($obj_nombre, $codigo_cana, $gc_id)
         {
             $conectar = parent::conexion();
@@ -256,20 +255,24 @@ class Objeto extends Conectar
     }
     public function get_color($color_id)
     {
+        if (empty($color_id) || !is_numeric($color_id)) {
+            return []; // retorna vacío si no es un valor válido
+        }
         $conectar = parent::conexion();
         parent::set_names();
-        $sql = "SELECT *
-                FROM public.tb_color where color_id = ? and color_est=1; ";
+
+        $sql = "SELECT * FROM public.tb_color WHERE color_id = ? AND color_est = 1;";
         $sql = $conectar->prepare($sql);
-        $sql->bindValue(1, $color_id);
+        $sql->bindValue(1, (int)$color_id, PDO::PARAM_INT); // fuerza a tipo entero
         $sql->execute();
-        return $resultado = $sql->fetchAll();
+
+        return $sql->fetchAll();
     }
     public function buscar_obj_barras($cod_barras)
     {
         $conectar = parent::conexion();
         parent::set_names();
-        $sql = "SELECT tbb.bien_id, tp.pers_dni,  tp.pers_apelpat || ' ' || tp.pers_apelmat || ', ' || tp.pers_nombre AS nombre_completo, tbb.bien_est, tbm.marca_id, tbb.modelo_id , tob.obj_nombre, tbb.bien_codbarras, tbb.fecharegistro, tbb.bien_numserie, tbb.bien_dim, tbb.bien_color,  td.depe_denominacion 
+        $sql = "SELECT tbb.bien_id, tp.pers_dni,  tp.pers_apelpat || ' ' || tp.pers_apelmat || ', ' || tp.pers_nombre AS nombre_completo, tbb.bien_est, tbm.marca_id, tbb.modelo_id , tob.obj_nombre, tbb.bien_codbarras, tbb.fecharegistro, tbb.bien_numserie, tbb.bien_dim, tbb.procedencia, tbb.bien_color,  td.depe_denominacion 
         from sc_inventario.tb_bien tbb
         left join sc_inventario.tb_bien_dependencia tbd on tbb.bien_id = tbd.bien_id
         left join tb_dependencia td on td.depe_id = tbd.depe_id
@@ -286,7 +289,8 @@ class Objeto extends Conectar
     {
         $conectar = parent::conexion();
         parent::set_names();
-        $sql = "SELECT tbb.bien_id,tbd.biendepe_est, tp.pers_dni,  tp.pers_apelpat || ' ' || tp.pers_apelmat || ', ' || tp.pers_nombre AS nombre_completo, tbb.bien_est, tbm.marca_id, tbb.modelo_id , tob.obj_nombre, tbb.bien_codbarras, tbb.fecharegistro, tbb.bien_numserie, tbb.bien_dim, tbb.bien_color,  td.depe_denominacion 
+        $sql = "SELECT tbb.bien_id,tbd.biendepe_est, tp.pers_dni,  tp.pers_apelpat || ' ' || tp.pers_apelmat || ', ' || tp.pers_nombre AS nombre_completo, tbb.bien_est, tbm.marca_id, tbb.modelo_id , tob.obj_nombre, tbb.bien_codbarras, tbb.fecharegistro, tbb.bien_numserie, 
+        tbb.procedencia, tbb.bien_dim, tbb.bien_color,  td.depe_denominacion 
         from sc_inventario.tb_bien tbb
         left join sc_inventario.tb_bien_dependencia tbd on tbb.bien_id = tbd.bien_id
         left join tb_dependencia td on td.depe_id = tbd.depe_id

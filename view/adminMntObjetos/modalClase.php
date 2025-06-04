@@ -46,7 +46,7 @@
                         </div>
                         <div id="tab-top-2" class="card tab-pane active show" role="tabpanel">
                             <div class="card-body">
-                                <div class="card-title">Gestiona las clases actuales que quieres mostrar</div>
+                                <div class="card-title">GESTIONA LA CLASE ACTUAL:</div>
                                 <div class="table-responsive m-4">
                                     <table id="gg_clase_data_actual"  class="table card-table table-vcenter text-nowrap datatable">
                                         <thead>

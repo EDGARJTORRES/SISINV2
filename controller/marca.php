@@ -48,11 +48,18 @@
             $data= Array();
             foreach($datos as $row){
                 $sub_array = array();
-                $sub_array[] = '<input type="checkbox" class="marca-checkbox" data-id="' 
-                . htmlspecialchars($row["marca_id"]) 
-                . '" value="' 
-                . htmlspecialchars($row["marca_id"]) 
-                . '">';
+                $sub_array[] = '
+                <label class="checkbox-wrapper-46">
+                    <input type="checkbox" class="inp-cbx marca-checkbox" data-id="' . htmlspecialchars($row["marca_id"]) . '" value="' . htmlspecialchars($row["marca_id"]) . '" />
+                    <span class="cbx">
+                    <span>
+                        <svg viewBox="0 0 12 10" height="10px" width="12px">
+                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                        </svg>
+                    </span>
+                    <span></span>
+                    </span>
+                </label>';
                 $sub_array[] = $row["marca_nom"];
                 $sub_array[] = '<button type="button" onClick="editarmarca('.$row["marca_id"].');"  id="'.$row["marca_id"].'" class="btn bg-warning text-light"   style="width: 40px; height: 40px; padding: 0;">
                                     <svg style="transform: translateX(5px);" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-edit">

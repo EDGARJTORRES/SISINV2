@@ -389,6 +389,12 @@ function eliminarGG(gg_id) {
         }
     });
 }
+$('#modalGG').on('reset', function () {
+  setTimeout(function () {
+    $('#ggnomgene, #ggcodgene').removeClass('is-valid is-invalid');
+    $('#errorNombre, #errorCodigo').removeClass('active');
+  }, 0); 
+});
 
 function nuevaGG(){
   $('#gg_id_gene').val('');

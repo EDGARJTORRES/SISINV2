@@ -238,6 +238,7 @@ switch ($_GET["op"]) {
                 $output["obj_nombre"] = $row["obj_nombre"];
                 $output["bien_numserie"] = $row["bien_numserie"];
                 $output["bien_est"] = $row["bien_est"];
+                $output["procedencia"] = $row["procedencia"];
                 $output["bien_dim"] = $row["bien_dim"];
                 $output["bien_color"] = $row["bien_color"];
                 $output["depe_denominacion"] = $row["depe_denominacion"];
@@ -245,7 +246,7 @@ switch ($_GET["op"]) {
             echo json_encode($output);
         } else echo json_encode($output);
         break;
-        case "buscar_obj_barras_consultas":
+    case "buscar_obj_barras_consultas":
             $datos = $objeto->buscar_obj_barras_simple($_POST['cod_bar']);
             $output = array();
             if (is_array($datos) == true and count($datos) <> 0) {
@@ -254,9 +255,7 @@ switch ($_GET["op"]) {
                     $output["bien_codbarras"] = $row["bien_codbarras"];
                     $output["fecharegistro"] = $row["fecharegistro"];
                     $output["obj_nombre"] = $row["obj_nombre"];
-                    
                     $output["bien_numserie"] = $row["bien_numserie"];
-                    
                     if($row["bien_est"] =='A'){
                         $output["bien_est"] = 'Activo';
                     }else if($row["bien_est"] =='N'){
@@ -268,6 +267,7 @@ switch ($_GET["op"]) {
                     }else{
                         $output["bien_est"] = 'Malo';
                     }
+                    $output["procedencia"] = $row["procedencia"];
                     $output["bien_dim"] = $row["bien_dim"];
                     $output["bien_color"] = $row["bien_color"];
                     $output["depe_denominacion"] = $row["depe_denominacion"];

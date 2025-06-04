@@ -7,6 +7,7 @@ if (isset($_SESSION["usua_id_siin"])) {
 <head>
     <?php require_once("../html/mainHead.php"); ?>
     <link href="../../public/css/estiloselect.css" rel="stylesheet"/>
+    <link href="../../public/css/Breadcrumb.css" rel="stylesheet"/>
     <title>MPCH::AltaBienes</title>
     <style>
       div.dataTables_filter {
@@ -71,6 +72,20 @@ if (isset($_SESSION["usua_id_siin"])) {
       .modal-header{
         background-color: #252422;
       }
+      .btn-izquierdo{
+        box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+      }
+      .btn-derecho{
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+        margin-left: -7px;
+      }
     </style>
   </head>
 <body>
@@ -78,29 +93,31 @@ if (isset($_SESSION["usua_id_siin"])) {
      <div class="page-wrapper">
         <div class="page-header d-print-none">
             <div class="container-xl">
+                <nav class="breadcrumb mb-2">
+                  <a href="../adminMain/">Inicio</a>
+                  <svg class="breadcrumb-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10.1 16.3"><path fill="currentColor" d="M0,14.4l6.2-6.2L0,1.9L2,0l8.1,8.1L2,16.3L0,14.4z"/></svg>
+                  <span>Mantenimientos de Objetos</span>
+                </nav>
                 <div class="row g-2  mb-5 align-items-center">
                     <div class="col">
-                        <div class="page-pretitle mb-3">
-                           Mantenimiento de Objetos Para el Sistema de Inventario
-                        </div>
                         <h2 class="page-title">
                           ADMINISTRADOR DE OBJETOS
                         </h2>
                     </div>
                     <div class="col-auto ms-auto d-print-none">
                         <div class="btn-list"> 
-                        <button class="btn btn-6 btn-light btn-pill w-100" id="add_button"   onclick="nuevaclase()">
+                        <button class="btn btn-6 btn-light btn-izquierdo" id="add_button"    onclick="nuevaclase()">
                          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-edit"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>
-                            Editar Clases
+                            EDITAR CLASE
                         </button>
                         </div>
                     </div>
                     <div class="col-auto ms-auto d-print-none">
                         <div class="btn-list">
-                          <button class="btn btn-6 btn-primary btn-pill w-100" id="add_button" 
+                          <button class="btn btn-6 btn-primary btn-derecho" id="add_button" 
                           onclick="nuevoObjeto()">
                           <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-device-imac-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12.5 17h-8.5a1 1 0 0 1 -1 -1v-12a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v8.5" /><path d="M3 13h13.5" /><path d="M8 21h4.5" /><path d="M10 17l-.5 4" /><path d="M16 19h6" /><path d="M19 16v6" /></svg>
-                             Registrar Objeto
+                             REGISTRAR OBJETO
                         </button>
                         </div>
                     </div>
@@ -110,7 +127,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                     <div class="card-header">
                       <h3 class="card-title">
                         <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-list-search"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 15m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M18.5 18.5l2.5 2.5" /><path d="M4 6h16" /><path d="M4 12h4" /><path d="M4 18h4" /></svg>
-                        Registro por Grupo y categorias <span class="text-secondary">(Objetos en Inventario)</span>
+                        REGISTRO POR GRUPO Y CATEGORIAS <span class="text-secondary">(OBJETOS EN INVENTARIO)</span>
                       </h3>
                     </div>
                     <div class="card-body">
@@ -177,6 +194,7 @@ if (isset($_SESSION["usua_id_siin"])) {
             </div>
         </div>  
     </div>
+    <?php require_once("../html/footer.php"); ?>
     <?php require_once("../html/mainjs.php"); ?>
     <?php require_once("modalObjeto.php"); ?>
     <?php require_once("modalClase.php"); ?>

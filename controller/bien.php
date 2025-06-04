@@ -15,4 +15,12 @@ switch ($_GET["op"]) {
             echo json_encode(["error" => "No se encontró el último bien."]); 
         }
     break;
+    case "total_adquision":
+         $datos = $bien->get_total_adquision_bien();  
+        if ($datos) {  
+            echo json_encode($datos);  
+        } else {
+            echo json_encode(["error" => "No se encontró el total bien."]); 
+        }
+    break;
 }

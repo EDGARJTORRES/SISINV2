@@ -8,7 +8,56 @@ if (isset($_SESSION["usua_id_siin"])) {
     <?php require_once("../html/mainHead.php"); ?>
     <title>MPCH::AltaBienes</title>
     <link href="../../public/css/estiloselect.css" rel="stylesheet"/>
+    <link href="../../public/css/botones.css" rel="stylesheet"/>
+    <link href="../../public/css/Breadcrumb.css" rel="stylesheet"/>
     <style>
+      #lock {
+        display: none;
+      }
+      .lock-label {
+          width: 45px;
+          height: 45px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: rgb(80, 80, 80);
+          border-radius: 15px;
+          cursor: pointer;
+          transition: all 0.3s;
+      }
+      .lock-wrapper {
+          width: fit-content;
+          height: fit-content;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          transform: rotate(-10deg);
+      }
+      .shackle {
+          background-color: transparent;
+          height: 9px;
+          width: 14px;
+          border-top-right-radius: 10px;
+          border-top-left-radius: 10px;
+          border-top: 3px solid white;
+          border-left: 3px solid white;
+          border-right: 3px solid white;
+          transition: all 0.3s;
+      }
+      .lock-body {
+          width: 15px;
+      }
+      #lock:checked+.lock-label .lock-wrapper .shackle {
+          transform: rotateY(150deg) translateX(3px);
+          transform-origin: right;
+      }
+      #lock:checked+.lock-label {
+          background-color: rgb(167, 71, 245);
+      }
+      .lock-label:active {
+          transform: scale(0.9);
+      }
       div.dataTables_filter {
         display: none !important;
       }
@@ -49,6 +98,15 @@ if (isset($_SESSION["usua_id_siin"])) {
         color: #f76707; 
         font-weight: 600;
       }
+      .error-msg {
+        color: red;
+        font-size: 0.9em;
+        margin-top: 4px;
+        display: none;
+      }
+      .error-msg.active {
+        display: block;
+      }
     </style>
   </head>
 <body>
@@ -56,21 +114,25 @@ if (isset($_SESSION["usua_id_siin"])) {
      <div class="page-wrapper">
         <div class="page-header d-print-none">
             <div class="container-xl">
+              <nav class="breadcrumb mb-3">
+                <a href="../adminMain/">Inicio</a>
+                <svg class="breadcrumb-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10.1 16.3"><path fill="currentColor" d="M0,14.4l6.2-6.2L0,1.9L2,0l8.1,8.1L2,16.3L0,14.4z"/></svg>
+                <span>Procesos</span>
+                <svg class="breadcrumb-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10.1 16.3"><path fill="currentColor" d="M0,14.4l6.2-6.2L0,1.9L2,0l8.1,8.1L2,16.3L0,14.4z"/></svg>
+                <span>Alta de Bien</span>
+              </nav>
                 <div class="row g-2  mb-5 align-items-center">
                     <div class="col">
-                        <div class="page-pretitle mb-3">
-                          Mantenimiento de Bienes Para el Sistema de Inventario
-                        </div>
                         <h2 class="page-title">
-                          ALTA DE BIENES
+                          ALTA DE BIEN PATRIMONIAL
                         </h2>
                     </div>
                     <div class="col-auto ms-auto d-print-none">
                       <div class="btn-list">
-                        <button class="btn btn-6 btn-primary btn-pill w-100" id="add_button" 
+                        <button class="button2" id="add_button" 
                         onclick=" nuevoBien()">
                           <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-device-imac-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12.5 17h-8.5a1 1 0 0 1 -1 -1v-12a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v8.5" /><path d="M3 13h13.5" /><path d="M8 21h4.5" /><path d="M10 17l-.5 4" /><path d="M16 19h6" /><path d="M19 16v6" /></svg>
-                            Nuevo Bien
+                            REGISTRAR BIEN
                         </button>
                       </div>
                     </div>
@@ -80,10 +142,9 @@ if (isset($_SESSION["usua_id_siin"])) {
                     <div class="card-header">
                       <h3 class="card-title">
                         <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-list-search"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 15m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M18.5 18.5l2.5 2.5" /><path d="M4 6h16" /><path d="M4 12h4" /><path d="M4 18h4" /></svg>
-                        Registro por Grupo Generico <span class="text-secondary">(Objetos en Inventario)</span>
+                        REGISTRO POR GRUPO GENERICO<span class="text-secondary"> (OBJETOS EN INVENTARIO)</span>
                       </h3>
                       <div class="text-end col-auto ms-auto d-print-none">
-                        <span class="d-inline-block rounded-circle bg-primary mx-1" style="width: 12px; height: 12px;" aria-label="Bienes Donados" title="Donado"></span> Donado
                         <span class="d-inline-block rounded-circle bg-purple mx-1" style="width: 12px; height: 12px;" aria-label="Bienes Nuevos" title="Bienes Nuevos"></span> Nuevo
                         <span class="d-inline-block rounded-circle bg-danger mx-1" style="width: 12px; height: 12px;" aria-label="Baja Definitiva" title="Baja Definitiva"></span> Malo
                         <span class="d-inline-block rounded-circle bg-warning mx-1" style="width: 12px; height: 12px;" aria-label="Bienes Regular" title="Bienes Regular"></span>Regular
@@ -101,7 +162,6 @@ if (isset($_SESSION["usua_id_siin"])) {
                                 </span>
                               <select id="filtro_estado" class="form-select" style="width: 75%; padding-left: 40px;">
                                 <option value=""> Todos</option>
-                                <option value="Activo">Activo</option>
                                 <option value="Nuevo">Nuevo</option>
                                 <option value="Bueno">Bueno</option>
                                 <option value="Regular">Regular</option>
@@ -134,13 +194,15 @@ if (isset($_SESSION["usua_id_siin"])) {
                         <table id="bienes_data"  class="table card-table table-vcenter text-nowrap datatable ">
                           <thead>
                             <tr>
-                              <th>Cod Interno</th>
-                              <th>Cod Barras</th>
-                              <th>Denominacion</th>
-                              <th>Fecha Registro</th>
-                              <th>Cod Grupo</th>
-                              <th>Cod Clase</th>
-                              <th>Estado</th>
+                              <th><span title="Codigo Interno">Cod</span></th>
+                              <th><span title="Codigo de Barras">Cod Barras</span></th>
+                              <th><span title="Denominacion del bien">Denominacion</span></th>
+                              <th><span title="Fecha Registro">Fecha</span></th>
+                              <th><span title="Codigo del grupo">Grupo</span></th>
+                              <th><span title="Código de la clase">Clase</span></th>
+                              <th><span title="Estado del bien"></span>Estado</th>
+                              <th><span title="Procedencia del Bien">Proc.</span></th>
+                              <th><span title="Valor Adquision del bien">Valor Adq.</span></th>
                               <th></th>
                             </tr>
                           </thead>
@@ -161,6 +223,7 @@ if (isset($_SESSION["usua_id_siin"])) {
     <script type="text/javascript" src="bienes.js"></script>
     <script type="text/javascript" src="funcionalidad.js"></script>
     <script type="text/javascript" src="modalobjateCate.js"></script>
+     <script type="text/javascript" src="validaciones.js"></script>
 </body>
 </html>
 <?php
