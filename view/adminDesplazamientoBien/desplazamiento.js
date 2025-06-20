@@ -1,57 +1,92 @@
+function mostrarLoader() {
+  const loader = document.getElementById('page');
+  loader.style.visibility = 'visible';
+  loader.style.opacity = '1';
+  loader.style.pointerEvents = 'auto';
+}
+
+function ocultarLoader() {
+  const loader = document.getElementById('page');
+  loader.style.visibility = 'hidden';
+  loader.style.opacity = '0';
+  loader.style.pointerEvents = 'none';
+}
+
 function initbienes() {
   $("#bien_form").on("submit", function (e) {
     guardaryeditarbienes(e);
   });
 }
 function buscarDNIOrigen() {
-   var pers_dni_id = $("#pers_origen_dni").val(); // Obtener el ID del DNI seleccionado
-    console.log("ID del DNI seleccionado:", pers_dni_id); // Verifica el ID
-    $.post("../../controller/persona.php?op=buscarDNI", { pers_dni: pers_dni_id }, function(response) {
-        try {
-            var data = JSON.parse(response);
-            console.log("Respuesta del servidor:", data); // Verifica la respuesta
-            if (data && data.nombre_completo) {
-                $("#pers_origen_nom").val(data.nombre_completo); // Llenar el campo de nombre
-                $("#pers_id").val(data.pers_id); // Llenar el campo de ID si es necesario
-            } else {
-                console.error("No se encontró el campo 'nombre_completo' en la respuesta");
-                $("#pers_origen_nom").val(''); // Limpiar el campo si no se encuentra el nombre
-            }
-        } catch (e) {
-            console.error("Error al procesar la respuesta JSON:", e);
-            $("#pers_origen_nom").val(''); // Limpiar el campo en caso de error
-            $("#pers_id").val(''); // Limpiar el campo de ID si es necesario
+  pers_dni = $("#pers_origen_dni").val();
+
+  $.post(
+    "../../controller/persona.php?op=buscarDNI",
+    { pers_dni: pers_dni },
+    function (response) {
+      try {
+        var data = JSON.parse(response);
+
+        // Depurar el objeto data
+        console.log(data);
+
+        // Verifica que data contiene el campo "nombre_completo"
+        if (data && data.nombre_completo) {
+          $("#pers_origen_nom").val(data.nombre_completo);
+          $("#pers_origen_id").val(data.pers_id);
+          listarBienesRepre(data.pers_id);
+        } else {
+          console.error(
+            "No se encontró el campo 'nombre_completo' en la respuesta"
+          );
+          $("#pers_origen_nom").val("");
         }
-    }).fail(function(jqXHR, textStatus, errorThrown) {
-        console.error("Error en la solicitud AJAX:", textStatus, errorThrown);
-        $("#pers_origen_nom").val(''); // Limpiar el campo en caso de error
-        $("#pers_id").val(''); // Limpiar el campo de ID si es necesario
-    });
+      } catch (e) {
+        console.error("Error al procesar la respuesta JSON:", e);
+        $("#pers_origen_nom").val("");
+        $("#pers_origen_dni").val("");
+      }
+    }
+  ).fail(function (jqXHR, textStatus, errorThrown) {
+    console.error("Error en la solicitud AJAX:", textStatus, errorThrown);
+    $("#pers_origen_nom").val("");
+    $("#pers_origen_id").val("");
+  });
 }
 function buscarDNIDestino() {
-  var pers_dni_id = $("#pers_destino_dni").val(); // Obtener el ID del DNI seleccionado
-    console.log("ID del DNI seleccionado:", pers_dni_id); // Verifica el ID
-    $.post("../../controller/persona.php?op=buscarDNI", { pers_dni: pers_dni_id }, function(response) {
-        try {
-            var data = JSON.parse(response);
-            console.log("Respuesta del servidor:", data); // Verifica la respuesta
-            if (data && data.nombre_completo) {
-                $("#pers_destino_nom").val(data.nombre_completo); // Llenar el campo de nombre
-                $("#pers_id").val(data.pers_id); // Llenar el campo de ID si es necesario
-            } else {
-                console.error("No se encontró el campo 'nombre_completo' en la respuesta");
-                $("#pers_destino_nom").val(''); // Limpiar el campo si no se encuentra el nombre
-            }
-        } catch (e) {
-            console.error("Error al procesar la respuesta JSON:", e);
-            $("#pers_destino_nom").val(''); // Limpiar el campo en caso de error
-            $("#pers_id").val(''); // Limpiar el campo de ID si es necesario
+  pers_dni = $("#pers_destino_dni").val();
+
+  $.post(
+    "../../controller/persona.php?op=buscarDNI",
+    { pers_dni: pers_dni },
+    function (response) {
+      try {
+        var data = JSON.parse(response);
+
+        // Depurar el objeto data
+        console.log(data);
+
+        // Verifica que data contiene el campo "nombre_completo"
+        if (data && data.nombre_completo) {
+          $("#pers_destino_nom").val(data.nombre_completo);
+          $("#pers_destino_id").val(data.pers_id);
+        } else {
+          console.error(
+            "No se encontró el campo 'nombre_completo' en la respuesta"
+          );
+          $("#pers_destino_nom").val("");
         }
-    }).fail(function(jqXHR, textStatus, errorThrown) {
-        console.error("Error en la solicitud AJAX:", textStatus, errorThrown);
-        $("#pers_destino_nom").val(''); // Limpiar el campo en caso de error
-        $("#pers_id").val(''); // Limpiar el campo de ID si es necesario
-    });
+      } catch (e) {
+        console.error("Error al procesar la respuesta JSON:", e);
+        $("#pers_destino_nom").val("");
+        $("#pers_destino_dni").val("");
+      }
+    }
+  ).fail(function (jqXHR, textStatus, errorThrown) {
+    console.error("Error en la solicitud AJAX:", textStatus, errorThrown);
+    $("#pers_destino_nom").val("");
+    $("#pers_destino_id").val("");
+  });
 }
 
 function guardaryeditarbienes(e) {
@@ -61,17 +96,7 @@ function guardaryeditarbienes(e) {
 $(document).ready(function () {
 
   $(".select2").select2();
-  $.post("../../controller/persona.php?op=combo", function (data) {
-      $("#pers_origen_dni").html(data);
-      $("#pers_destino_dni").html(data);
-  });
-
-  $("#pers_origen_dni").change(function() {
-      buscarDNIOrigen();
-  });
-   $("#pers_destino_dni").change(function() {
-      buscarDNIDestino();
-  });
+  
 
   $.post("../../controller/dependencia.php?op=combo", function (data) {
     $("#area_destino_combo").html(data);
@@ -139,7 +164,12 @@ function get_color_string(color_id, callback) {
 }
 
 function verDatosbien(cod_bar) {
-  console.log(cod_bar);
+   const estadosBien = {
+    'N': 'Nuevo',
+    'B': 'Bueno',
+    'R': 'Regular',
+    'M': 'Malo'
+  };
   $.post(
     "../../controller/objeto.php?op=buscar_obj_barras",
     { cod_bar: cod_bar },
@@ -162,9 +192,9 @@ function verDatosbien(cod_bar) {
           });
           return;
         }
-
         // Convertir la cadena de colores en un array
         var colores = data.bien_color.replace(/[{}]/g, "").split(",");
+        const estadoBienLegible = estadosBien[data.bien_est] || 'Desconocido';
 
         // Obtener los nombres de los colores
         var nombresColores = [];
@@ -178,31 +208,67 @@ function verDatosbien(cod_bar) {
             if (completedRequests === colores.length) {
               // Mostrar los datos del objeto en un SweetAlert
               Swal.fire({
-                title: "Datos del Objeto",
-                html:
-                  "Denominacion: " +
-                  data.obj_nombre +
-                  "<br>" +
-                  "Fecha de Registro: " +
-                  data.fecharegistro +
-                  "<br>" +
-                  "Número de Serie: " +
-                  data.bien_numserie +
-                  "<br>" +
-                  "Estado del Bien: " +
-                  data.bien_est +
-                  "<br>" +
-                  "Dimensiones: " +
-                  data.bien_dim +
-                  "<br>" +
-                  "Color: " +
-                  nombresColores.join(", ") +
-                  "<br>" +
-                  "Dependencia Origen: " +
-                  (data.depe_denominacion ? data.depe_denominacion : "N/A"),
-                icon: "info",
-                showCancelButton: false, // No mostrar el botón de cancelar
-                confirmButtonText: "Aceptar",
+               title: '<span style="color: black;">Datos del Objeto</span>',
+                html: `
+                <table style="width:100%; text-align:left; border-collapse: collapse; border-spacing: 0; font-size: 13px; line-height: 1.2;">
+                  <tr>
+                    <td style="width:40%; padding: 4px; color:black"><strong>DENOMINACIÓN:</strong></td>
+                    <td style="width:60%; padding: 4px; text-align:right;">${data.obj_nombre}</td>
+                  </tr>
+                  <tr>
+                    <td style="width:40%; padding: 4px;  color:black"><strong>FECHA REGISTRO:</strong></td>
+                    <td style="width:60%; padding: 4px; text-align:right;">${data.fecharegistro}</td>
+                  </tr>
+                  <tr>
+                    <td style="width:40%; padding: 4px;  color:black"><strong>NÚMERO DE SERIE:</strong></td>
+                    <td style="width:60%; padding: 4px; text-align:right;">${data.bien_numserie}</td>
+                  </tr>
+                  <tr>
+                    <td style="width:40%; padding: 4px;  color:black"><strong>ESTADO DEL BIEN:</strong></td>
+                    <td style="width:60%; padding: 4px; text-align:right;">${estadoBienLegible}</td>
+                  </tr>
+                  <tr>
+                    <td style="width:40%; padding: 4px;  color:black"><strong>PROCEDENCIA:</strong></td>
+                    <td style="width:60%; padding: 4px; text-align:right;">${data.procedencia}</td>
+                  </tr>
+                  <tr>
+                    <td style="width:40%; padding: 4px;  color:black"><strong>DIMENSIONES:</strong></td>
+                    <td style="width:60%; padding: 4px; text-align:right;">${data.bien_dim}</td>
+                  </tr>
+                  <tr>
+                    <td style="width:40%; padding: 4px;  color:black"><strong>COLOR:</strong></td>
+                    <td style="width:60%; padding: 4px; text-align:right;">${nombresColores.join(", ")}</td>
+                  </tr>
+                  <tr>
+                    <td style="width:40%; padding: 4px;  color:black"><strong>DEPENDENCIA DEL ORIGEN:</strong></td>
+                    <td style="width:60%; padding: 4px; text-align:right;">
+                      ${data.depe_denominacion ? data.depe_denominacion : 'Sin dependencia asignada'}
+                    </td>
+                  </tr>
+                </table>
+                `,
+
+                imageUrl: '../../static/gif/informacion.gif',
+                imageWidth: 100,
+                imageHeight: 100,
+                showCancelButton: false,
+                confirmButtonColor: 'rgb(18, 129, 18)',
+                confirmButtonText: 'Aceptar',
+                backdrop: true,
+                didOpen: () => {
+                  const swalBox = Swal.getPopup();
+                  const topBar = document.createElement('div');
+                  topBar.id = 'top-progress-bar';
+                  topBar.style.cssText = `
+                      position: absolute;
+                      top: 0;
+                      left: 0;
+                      height: 6px;
+                      width: 100%;
+                      background-color:rgb(18, 129, 18);
+                  `;
+                  swalBox.appendChild(topBar);
+                }
               });
             }
           });
@@ -240,11 +306,33 @@ function nuevoFormato() {
   // Comprobar si hay filas activadas
   if (filasConCheckboxActivo.length === 0) {
     Swal.fire({
-      title: "Error",
-      text: "No hay filas registradas en la tabla.",
-      icon: "error",
-      confirmButtonText: "Aceptar",
-    });
+       title: "Error",
+       text: "No hay filas registradas en la tabla.",
+       imageUrl: '../../static/gif/letra-x.gif',
+       imageWidth: 100,
+       imageHeight: 100,
+       confirmButtonText: 'Aceptar',
+       confirmButtonColor: 'rgb(243, 18, 18)',
+       backdrop: true,
+          didOpen: () => {
+              const swalBox = Swal.getPopup();
+              const topBar = document.createElement('div');
+              topBar.id = 'top-progress-bar';
+              topBar.style.cssText = `
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  height: 6px;
+                  width: 0%;
+                  background-color:rgb(243, 18, 18);
+                  transition: width 0.4s ease;
+              `;
+              swalBox.appendChild(topBar);
+              setTimeout(() => {
+                  topBar.style.width = '100%';
+              }, 300);
+          } 
+      });
     return;
   }
 
@@ -257,9 +345,31 @@ function nuevoFormato() {
     Swal.fire({
       title: "Error",
       text: "Debes seleccionar un área de asignación.",
-      icon: "error",
+      imageUrl: '../../static/gif/asignar.gif',
+      imageWidth: 100,
+      imageHeight: 100,
       confirmButtonText: "Aceptar",
-    });
+      confirmButtonColor: 'rgb(243, 18, 18)',
+      backdrop: true,
+          didOpen: () => {
+              const swalBox = Swal.getPopup();
+              const topBar = document.createElement('div');
+              topBar.id = 'top-progress-bar';
+              topBar.style.cssText = `
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  height: 6px;
+                  width: 0%;
+                  background-color:rgb(243, 18, 18);
+                  transition: width 0.4s ease;
+              `;
+              swalBox.appendChild(topBar);
+              setTimeout(() => {
+                  topBar.style.width = '100%';
+              }, 300);
+          } 
+      });
     return;
   }
 
@@ -287,15 +397,37 @@ function nuevoFormato() {
 
   // Mostrar confirmación
   Swal.fire({
-    title: "¿Confirmar?",
+    title: "Advertencia",
     text: "¿Está seguro de que desea enviar los datos?",
-    icon: "warning",
     showCancelButton: true,
     confirmButtonText: "Enviar",
     cancelButtonText: "Cancelar",
+    imageUrl: '../../static/gif/advertencia.gif',
+    imageWidth: 100,
+    imageHeight: 100,
+    confirmButtonColor: 'rgb(255, 102, 0)',
+    cancelButtonColor: '#000',
+    backdrop: true,
+    didOpen: () => {
+      const swalBox = Swal.getPopup();
+      const topBar = document.createElement('div');
+      topBar.id = 'top-progress-bar';
+      topBar.style.cssText = `
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 5px;
+          width: 0%;
+          background-color:rgb(255, 102, 0);
+          transition: width 0.4s ease;
+      `;
+      swalBox.appendChild(topBar);
+      setTimeout(() => {
+        topBar.style.width = '40%';
+      }, 300);
+    }
   }).then((result) => {
     if (result.isConfirmed) {
-      // Si el usuario confirma, enviar datos al servidor
       console.table(depeReceptor);
       console.table(depeEmisor);
       enviarDatosAlServidor(dataDict, depeReceptor, depeEmisor);
@@ -311,6 +443,7 @@ function enviarDatosAlServidor(dataDict, depeReceptor, depeEmisor) {
   console.table(persOrigenId);
   console.table(persDestinoId);
   // Enviar los datos al servidor
+  mostrarLoader();
   $.post(
     "../../controller/formato.php?op=desplazar",
     {
@@ -323,10 +456,31 @@ function enviarDatosAlServidor(dataDict, depeReceptor, depeEmisor) {
     function (response) {
       // Manejar la respuesta del servidor
       Swal.fire({
-        title: "Éxito",
-        text: "Se agregaron los bienes correctamente.",
-        icon: "success",
+         title: "Correcto",
+         html: `
+          <p>Se agregaron los bienes correctamente.</p>
+          <div id="top-progress-bar-final" style="
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 5px;
+            width: 0%;
+            background-color:rgb(16, 141, 16);
+            transition: width 0.6s ease;">
+          </div>
+        `,
+        imageUrl: '../../static/gif/verified.gif',
+        imageWidth: 100,
+        imageHeight: 100,
         confirmButtonText: "Aceptar",
+        confirmButtonColor: 'rgb(16, 141, 16)',
+        backdrop: true,
+        didOpen: () => {
+          const bar = document.getElementById('top-progress-bar-final');
+          setTimeout(() => {
+            bar.style.width = '100%';
+          }, 100);
+        }
       }).then(() => {
         // Limpiar la tabla después de que el usuario haga clic en "Aceptar"
          $("#obj_formato tbody").empty();
@@ -338,6 +492,7 @@ function enviarDatosAlServidor(dataDict, depeReceptor, depeEmisor) {
     var botonEnviar = Swal.getConfirmButton();
     botonEnviar.disabled = false;
     botonEnviar.innerHTML = "Enviar";
+    ocultarLoader();
   });
 }
 
@@ -429,11 +584,7 @@ function redirect_by_post(purl, pparameters, in_new_tab) {
 
   return false;
 }
-
-// Función para validar el número de checkboxes seleccionados// Inicializar el contador global de checkboxes seleccionados
 let contadorSeleccionados = 0;
-
-// Función para validar la selección de checkboxes
 function validarCheckbox(checkbox) {
   // Si el checkbox está marcado, aumentar el contador
   if (checkbox.checked) {

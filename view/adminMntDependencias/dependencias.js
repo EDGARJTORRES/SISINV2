@@ -1,368 +1,423 @@
-function initdependencia() {
-  $("#obj_depe_form").on("submit", function (e) {
-    guardaryeditardependencia(e);
-  });
+function mostrarAlertaCarga() {
+  document.getElementById('alerta-carga').style.display = 'block';
 }
-function guardaryeditardependencia(e) {
-  e.preventDefault();
 
-  var formData = new FormData($("#obj_depe_form")[0]);
-  var depe_id = $("#depe_id").val();
-  formData.append("depe_id", depe_id);
-  var obj_id = $("#combo_obj_depe").val();
-  formData.append("obj_id", obj_id);
-  var marca_id = $("#combo_marca_obj").val();
-  formData.append("marca_id", marca_id);
-  var fecharegistro = $("#fecharegistro").val();
-  formData.append("fecharegistro", fecharegistro);
-  $.ajax({
-    url: "../../controller/dependencia.php?op=guardaryeditar",
-    type: "POST",
-    data: formData,
-    contentType: false,
-    processData: false,
-    success: function (data) {
-      $("#obj_depedata").DataTable().ajax.reload();
-      $("#modalObjetoCate").modal("hide");
-
-      Swal.fire({
-        title: "Correcto!",
-        text: "Se Registro Correctamente",
-        icon: "success",
-        confirmButtonText: "Aceptar",
-      });
-    },
-  });
+function ocultarAlertaCarga() {
+  document.getElementById('alerta-carga').style.display = 'none';
 }
-$(document).ready(function () {
 
-  $("#fecharegistro").mask("9999/99/99");
-  $('#showPaletteOnly').spectrum({
-    showPaletteOnly: true,
-    showPalette:true,
-    color: '#DC3545',
-    palette: [
-        ['#1D2939', '#fff', '#0866C6','#23BF08', '#F49917'],
-        ['#DC3545', '#17A2B8', '#6610F2', '#fa1e81', '#72e7a6']
-    ]
-});
+function obtenerIconoPorDependencia(nombre) {
+  const n = nombre.toUpperCase();
+  if (n.includes("TURISMO") || n.includes("CULTURA")) return "fa-map-marked-alt";
+  if (n.includes("TESORERIA") || n.includes("EGRESO")) return "fa-cash-register";
+  if (n.includes("TRANSPORTE") || n.includes("VEHICULO")) return "fa-car";
+  if (n.includes("TRÁNSITO") || n.includes("TRANSITO")) return "fa-traffic-light";
+  if (n.includes("INFORMACION") || n.includes("TECNOLOGIA")) return "fa-network-wired";
+  if (n.includes("REGISTRO CIVIL")) return "fa-id-card";
+  if (n.includes("RIESGO") || n.includes("DEFENSA CIVIL")) return "fa-fire-extinguisher";
+  if (n.includes("LOGISTICA") || n.includes("ALMACEN") || n.includes("ALMACÉN")) return "fa-boxes";
+  if (n.includes("TERMINAL")) return "fa-bus";
+  if (n.includes("RECURSOS HUMANOS") || n.includes("ASISTENCIA SOCIAL")) return "fa-users";
+  if (n.includes("ESTADISTICA") || n.includes("PRESUPUESTO") || n.includes("GESTIÓN")) return "fa-chart-pie";
+  if (n.includes("MANTENIMIENTO") || n.includes("SERVICIOS")) return "fa-tools";
+  if (n.includes("OBRA") || n.includes("INFRAESTRUCTURA")) return "fa-hard-hat";
+  if (n.includes("EDUCACION") || n.includes("CAPACIDADES")) return "fa-graduation-cap";
+  if (n.includes("SEGURIDAD") || n.includes("SERENAZGO") || n.includes("POLICIA")) return "fa-shield-alt";
+  if (n.includes("ARCHIVO") || n.includes("DOCUMENTO")) return "fa-archive";
+  if (n.includes("FISCALIZACION") || n.includes("CONTROL")) return "fa-search";
+  if (n.includes("VIAL") || n.includes("SEÑALIZACION")) return "fa-road";
+  if (n.includes("ATENCION") || n.includes("GESTION DOCUMENTARIA")) return "fa-headset";
+  if (n.includes("MEDIO AMBIENTE") || n.includes("PARQUE") || n.includes("RESIDUO")) return "fa-leaf";
+  if (n.includes("CONTRATACION")) return "fa-file-contract";
+  if (n.includes("DEFENSORIA") || n.includes("DISCAPACIDAD") || n.includes("CIAM")) return "fa-hands-helping";
+  if (n.includes("TRIBUTACION") || n.includes("RENTAS")) return "fa-receipt";
+  return "fa-building";
+}
 
+function nuevobaja() {
+  $('#modalBaja').modal('show');
+  cargarListadoBienesEnModal();
+}
 
+function cargarListadoBienesEnModal() {
+  fetch("../../controller/dependencia.php?op=listar_cantidad_bienes_por_dependencia")
+    .then(response => response.json())
+    .then(data => {
+      let html = `
+        <div class="row">
+          <div class="col-md-4">
+            <div id="lista-items" class="list-group"></div>
+          </div>
+          <div class="col-md-8">
+            <div id="detalle-contenido">
+              <p id="mensaje-inicial">Seleccione una dependencia para ver sus bienes.</p>
+              <h6 id="subtitulo-inicial" class="text-muted">Detalle de bienes aparecerá aquí.</h6>
+            </div>
+          </div>
+        </div>`;
+      const lista = document.getElementById("lista-items");
+      const detalle = document.getElementById("detalle-contenido");
+      const mensajeInicial = document.getElementById("mensaje-inicial");
+      const subtituloInicial = document.getElementById("subtitulo-inicial");
 
-  $(".select2").select2();
-  $("#combo_gg_depe_obj").select2({
-    dropdownParent: $("#modalObjetoCate"),
-    dropdownPosition: "below",
-  });
-  $("#combo_clase_depe_obj").select2({
-    dropdownParent: $("#modalObjetoCate"),
-    dropdownPosition: "below",
-  });
-  $("#combo_obj_depe").select2({
-    dropdownParent: $("#modalObjetoCate"),
-    dropdownPosition: "below",
-  });
-  $("#combo_gg_tabla_obj").select2({
-    dropdownParent: $("#modalDependencias"),
-    dropdownPosition: "below",
-  });
-  $("#combo_clase_depe_obj_tabla").select2({
-    dropdownParent: $("#modalDependencias"),
-    dropdownPosition: "below",
-  });
-  $("#combo_marca_obj").select2({
-    dropdownParent: $("#modalObjetoCate"),
-    dropdownPosition: "below",
-  });
-  $("#combo_cate_depe").select2({
-    dropdownParent: $("#modalDependencias"),
-    dropdownPosition: "below",
-  });
-  $("#combo_cate_depe").change(function () {
-    if (cate_id !== "") {
-      loadDataDependencias($("#depe_id").val());
-    }
-  });
-
-  $("#combo_gg_depe_obj").change(function () {
-    var gg_id = $(this).val(); // Obtener el valor seleccionado de la categoría
-    if (gg_id !== "") {
-      // Realizar una solicitud AJAX para obtener el combo de objetos asociados a esa categoría
-      $.post("../../controller/clase.php?op=combo",{ gg_id: gg_id }, function (data) {
-        $("#combo_clase_depe_obj").html(data);
+      let listaHTML = "";
+      data.forEach(dep => {
+        const icono = obtenerIconoPorDependencia(dep.depe_denominacion);
+        listaHTML += `
+          <div class="list-group-item d-flex align-items-start" data-id="${dep.depe_id}">
+            <div class="me-3 pt-1">
+              <i class="fa-solid ${icono} fa-lg text-primary"></i>
+            </div>
+            <div class="flex-grow-1">
+              <a href="#" class="text-reset d-block fw-semibold text-decoration-none">${dep.depe_denominacion}</a>
+              <div class="text-secondary mt-1 small">
+                ${dep.cantidad_bienes} bienes registrados
+              </div>
+            </div>
+          </div>`;
       });
-    }
-  });
-  $("#combo_clase_depe_obj").change(function () {
-    var gc_id = $(this).val(); // Obtener el valor seleccionado de la categoría
-    if (gc_id !== "") {
-      // Realizar una solicitud AJAX para obtener el combo de objetos asociados a esa categoría
-      $.post(
-        "../../controller/objeto.php?op=combo_clase",
-        { gc_id: gc_id },
-        function (data) {
-          $("#combo_obj_depe").html(data);
+
+      lista.innerHTML = listaHTML;
+
+      // Delegar eventos de tabla
+      let inicioCarga;
+      let tiempoMinimo = 1000;
+
+      $(document).on('preXhr.dt', '#dependencia_data', function () {
+        mostrarAlertaCarga();
+        inicioCarga = new Date().getTime();
+      });
+
+      $(document).on('xhr.dt', '#dependencia_data', function () {
+        let finCarga = new Date().getTime();
+        let duracion = finCarga - inicioCarga;
+        let tiempoRestante = tiempoMinimo - duracion;
+
+        if (tiempoRestante > 0) {
+          setTimeout(ocultarAlertaCarga, tiempoRestante);
+        } else {
+          ocultarAlertaCarga();
         }
-      );
-    }
-  });
-
- 
-});
-function verDependencia(dep_id) {
-  var gc_id = 0;
-  $("#depe_id").val(dep_id);
-  $("#combo_gg_tabla_obj").val("").trigger("change");
-  $("#combo_clase_depe_obj_tabla").val("").trigger("change");
-  $("#lbltituloDepe").html("Registros de la Dependencia: ");
-  $("#modalDependencias").modal("show");
-
-  loadDataDependencias($("#depe_id").val(),gc_id);
-  $.post("../../controller/grupogenerico.php?op=combo", function (data) {
-    $("#combo_gg_tabla_obj").html(data);
-  });
-  $("#combo_gg_tabla_obj").change(function () {
-    var gg_id = $(this).val(); // Obtener el valor seleccionado de la categoría
-    if (gg_id !== "") {
-      // Realizar una solicitud AJAX para obtener el combo de objetos asociados a esa categoría
-      $.post("../../controller/clase.php?op=combo",{ gg_id: gg_id }, function (data) {
-        $("#combo_clase_depe_obj_tabla").html(data);
       });
-    }
-  });
-  $("#combo_clase_depe_obj_tabla").change(function () {
-    gc_id = $("#combo_clase_depe_obj_tabla").val();
-    if(gc_id !== 0 && $("#combo_gg_tabla_obj").val() != '' ){
-      loadDataDependencias($("#depe_id").val(),gc_id);
-    }
-   
-    console.log(gc_id);
-  });
-}
-function nuevoRegistroObjetoCate() {
-   // Cargar el combo de categorías
-   $.post("../../controller/grupogenerico.php?op=combo", function (data) {
-    $("#combo_gg_depe_obj").html(data);
-  });
 
-  $.post("../../controller/marca.php?op=combo", function (data) {
-    $("#combo_marca_obj").html(data);
-  });
-  $("#objdepe_id").val("");
-  $("#combo_gg_depe_obj").val("").trigger("change");
-  $("#combo_clase_depe_obj").val("").trigger("change");
-  $("#combo_obj_depe").val("").trigger("change");
-  $("#combo_marca_obj").val("").trigger("change");
-  $("#objdepe_numserie").val("");
-  $("#cod_interno").val("");
-  $("#codigo_barras_input").val("");
-  $("#fecharegistro").val("");
+      const items = document.querySelectorAll('#lista-items .list-group-item');
+      items.forEach(item => {
+        item.addEventListener('click', function (e) {
+          e.preventDefault();
+          items.forEach(i => i.classList.remove('active'));
+          item.classList.add('active');
 
-  $("#modalBackdrop").hide();
-  $("#modalObjetoCate").modal("show");
-}
-function loadDataDependencias(depe_id, gc_id) {
-  console.log(depe_id , gc_id);
-  $("#obj_depedata").DataTable({
-    aProcessing: true,
-    aServerSide: true,
-    dom: "Bfrtip",
-    searching: true,
-    buttons: [],
-    ajax: {
-      url: "../../controller/dependencia.php?op=listarObjetos",
-      type: "post",
-      data: { depe_id: depe_id, gc_id:gc_id},
-    },
-    bDestroy: true,
-    responsive: false,
-    bInfo: false,
-    iDisplayLength: 5,
-    order: [[0, "desc"]],
-    ordering: true,
-    language: {
-      sProcessing: "Procesando...",
-      sLengthMenu: "Mostrar _MENU_ registros",
-      sZeroRecords: "No se encontraron resultados",
-      sEmptyTable: "Ningún dato disponible en esta tabla",
-      sInfo:
-        "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-      sInfoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
-      sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
-      sInfoPostFix: "",
-      sSearch: "Buscar:",
-      sUrl: "",
-      sInfoThousands: ",",
-      sLoadingRecords: "Cargando...",
-      oPaginate: {
-        sFirst: "Primero",
-        sLast: "Último",
-        sNext: "Siguiente",
-        sPrevious: "Anterior",
-      },
-      oAria: {
-        sSortAscending:
-          ": Activar para ordenar la columna de manera ascendente",
-        sSortDescending:
-          ": Activar para ordenar la columna de manera descendente",
-      },
-    },
-  });
-}
+          if (mensajeInicial) mensajeInicial.style.display = "none";
+          if (subtituloInicial) subtituloInicial.style.display = "none";
 
-function editarObjDepe(objdepe_id) {
-  var fecha = new Date();
-  var opcionesFecha = {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  };
-  var fechaFormateada = fecha.toLocaleDateString("es-ES", opcionesFecha);
-  $("#objdepe_id").val(objdepe_id);
-  $("#modalBackdrop").hide();
-  $("#modalObjetoCate").modal("show");
-  $("#lbltituloObjcate").html("Editar Registro " + fechaFormateada);
+          const depeId = item.dataset.id;
+          const nombre = item.querySelector('a').innerText;
+          mostrarAlertaCarga();
 
-  $.post("../../controller/marca.php?op=combo", function (data) {
-    $("#combo_marca_obj").html(data);
-  });
+          detalle.innerHTML = `
+            <h5 class="mb-3">${nombre}</h5>
+            <div class="d-flex align-items-center gap-4 mb-2">
+              <div class="input-icon" style="width: 400px;">
+                  <span class="input-icon-addon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-search">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+                  </span>
+                  <input type="text" id="buscar_registros" placeholder="Buscar registro..." class="form-control"> 
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table id="dependencia_data" class="table card-table table-vcenter text-nowrap datatable">
+                <thead>
+                  <tr>
+                    <th>Código</th>
+                    <th>Denominación</th>
+                    <th>Dimensión</th>
+                    <th>Valor Adq.</th>
+                    <th>Doc. Adq.</th>
+                    <th>Obs. Bien</th>
+                    <th>Acción</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-bienes"></tbody>
+              </table>
+            </div>`;
 
+          $.ajax({
+            url: "../../controller/dependencia.php?op=listar_bienes_por_dependencia2",
+            type: "POST",
+            data: { depe_id: depeId },
+            dataType: "json",
+            success: function (bienes) {
+              let rows = "";
+              if (bienes.length > 0) {
+                $.each(bienes, function (index, b) {
+                  rows += `
+                      <tr>
+                        <td><span class="badge bg-red-lt selectable">${b.bien_codbarras || '-'}</span></td>
+                        <td>${b.obj_nombre || '-'}</td>
+                        <td>${b.bien_dim || '-'}</td>
+                        <td>${b.val_adq || '-'}</td>
+                        <td>${b.doc_adq || '-'}</td>
+                        <td>${b.bien_obs || '-'}</td>
+                        <td>
+                          <button class="btn btn-outline-dark" onclick="darDeBaja(${b.bien_id})">
+                            <i class="fa fa-trash"></i>
+                          </button>
+                        </td>
+                      </tr>`;
+                });
+              } else {
+                rows = `<tr><td colspan="7" class="text-center text-muted">No hay bienes registrados.</td></tr>`;
+              }
+              $("#tbody-bienes").html(rows);
+              if ($.fn.DataTable.isDataTable("#dependencia_data")) {
+                $("#dependencia_data").DataTable().destroy();
+              }
 
-  $.post(
-    "../../controller/dependencia.php?op=mostrarObjCate",
-    { objdepe_id: objdepe_id },
-    function (data) {
-      data = JSON.parse(data);
-      console.log(data);
-      // Actualizar los valores de los campos con los datos obtenidos
-      $("#combo_cate_depe_obj").val(data.cate_id).trigger("change");
-      var cate_id = $("#combo_cate_depe_obj").val();
-      $.post(
-        "../../controller/objeto.php?op=combo_cate",
-        { cate_id: cate_id },
-        function (datacombo) {
-          $("#combo_obj_depe").html(datacombo);
-          $("#combo_obj_depe").val(data.obj_id).trigger("change");
-        }
-      );
-      
-      $("#combo_marca_obj").val(data.marca_id).trigger("change");
-      $("#objdepe_numserie").val(data.objdepe_numserie);
-      $("#codigo_barras_input").val(data.objdepe_codbarras);
-      $("#fecharegistro").val(data.fecharegistro);
+              var table = $("#dependencia_data").DataTable({
+                pageLength: 5,
+                lengthChange: false,
+                order: [[0, "desc"]],
+                searching: true,
+                language: {
+                  sProcessing: "Procesando...",
+                  sLengthMenu: "Mostrar _MENU_ registros",
+                  sZeroRecords: "No se encontraron resultados",
+                  sEmptyTable: "Ningún dato disponible en esta tabla",
+                  sInfo: "Mostrando un total de _TOTAL_ registros",
+                  sInfoEmpty: "Mostrando un total de 0 registros",
+                  sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+                  sSearch: "Buscar:",
+                  oPaginate: {
+                    sFirst: "Primero",
+                    sLast: "Último",
+                    sNext: "Siguiente",
+                    sPrevious: "Anterior"
+                  }
+                }
+              });
 
-      // Obtener el nuevo valor del input de código de barras
-      var codigoBarras = $("#codigo_barras_input").val();
-
-      // Limpiar el canvas
-      var canvas = document.getElementById("codigo_barras_canvas");
-      var ctx = canvas.getContext("2d");
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Generar el código de barras usando JsBarcode
-      JsBarcode(canvas, codigoBarras, {
-        format: "CODE128",
-        displayValue: true,
-        fontOptions: "bold",
-        textAlign: "center",
-        textMargin: 10,
-        fontSize: 14,
-        width: 2,
-        height: 30,
+              $('#buscar_registros').on('input', function () {
+                  table.search(this.value).draw();
+              }); 
+              setTimeout(ocultarAlertaCarga, 1000);
+            },
+            error: function () {
+              $("#tbody-bienes").html(`<tr><td colspan="7" class="text-danger">Error al obtener los datos.</td></tr>`);
+            }
+          });
+        });
       });
-     
-    }
-  );
-}
-function generarBarras() {
-  obj_id=$('#combo_obj_depe').val();
-  // Realizas la llamada AJAX para obtener los datos del servidor
-  $.ajax({
-      type: "POST",
-      url: "../../controller/dependencia.php?op=generarBarras", // Ruta al archivo PHP que procesa la solicitud
-      data: { obj_id: obj_id }, // Datos que envías al servidor (puedes ajustar según tus necesidades)
-      dataType: "json", // Especifica el tipo de datos que esperas recibir del servidor
-      success: function(response) {
-          // Llenas el campo con los datos obtenidos
-          $("#codigo_barras_input").val(response.codigo_cana);
-      },
-      error: function(xhr, status, error) {
-          // Manejo de errores
-          console.error(error);
-      }
-  });
-}
-
-function eliminarObjetoDepe(objdepe_id) {
-  swal
-    .fire({
-      title: "Eliminar!",
-      text: "Desea Eliminar el Registro?",
-      icon: "error",
-      confirmButtonText: "Si",
-      showCancelButton: true,
-      cancelButtonText: "No",
     })
-    .then((result) => {
-      if (result.value) {
-        $.post(
-          "../../controller/dependencia.php?op=eliminar",
-          { objdepe_id: objdepe_id },
-          function (data) {
-            $("#categoria_data").DataTable().ajax.reload();
-
-            Swal.fire({
-              title: "Correcto!",
-              text: "Se Elimino Correctamente",
-              icon: "success",
-              confirmButtonText: "Aceptar",
-            });
-          }
-        );
-      }
-    });
+    .catch(error => console.error("Error al cargar dependencias:", error));
 }
+function darDeBaja(bien_id) {
+  console.log("Dar de baja bien ID:", bien_id);
+  $('#modalBaja').modal('hide');
+  $('.modal-backdrop').remove();
 
-function ImprimirObjDepe(objdepe_id) {
-  redirect_by_post(
-    "../../controller/stick.php?op=imprimir",
-    { objdepe_id, objdepe_id },
-    true
-  );
-}
-function imprimirGrupo(depe_id) {
-  redirect_by_post(
-    "../../controller/stick.php?op=imprimirDependencia",
-    { depe_id, depe_id },
-    true
-  );
-}
+  // Paso 1: Confirmación inicial
+  Swal.fire({
+    title: '¿Estás seguro?',
+    text: "¡Esta acción no se puede deshacer!",
+    imageUrl: '../../static/gif/advertencia.gif',
+    imageWidth: 100,
+    imageHeight: 100,
+    showCancelButton: true,
+    confirmButtonColor: 'rgb(243, 18, 18)',
+    cancelButtonColor: '#000',
+    confirmButtonText: 'Sí, continuar',
+    didOpen: () => agregarBarraProgreso(40)
+  }).then((confirmResult) => {
+    if (confirmResult.isConfirmed) {
 
-function redirect_by_post(purl, pparameters, in_new_tab) {
-  pparameters = typeof pparameters == "undefined" ? {} : pparameters;
-  in_new_tab = typeof in_new_tab == "undefined" ? true : in_new_tab;
+      // Paso 2: Solicitar motivo
+      Swal.fire({
+        title: 'Motivo de Baja',
+        input: 'textarea',
+        inputPlaceholder: 'Ingrese el motivo de la baja...',
+        inputAttributes: { 'aria-label': 'Motivo de baja' },
+        showCancelButton: true,
+        confirmButtonText: 'Confirmar',
+        confirmButtonColor: 'rgb(243, 18, 18)',
+        cancelButtonColor: '#000',
+        inputValidator: (value) => {
+          if (!value.trim()) return 'Debes ingresar un motivo válido.';
+        },
+        didOpen: () => agregarBarraProgreso(70)
+      }).then((motivoResult) => {
+        if (motivoResult.isConfirmed) {
+          const motivoBaja = motivoResult.value.trim();
 
-  var form = document.createElement("form");
-  $(form)
-    .attr("id", "reg-form")
-    .attr("name", "reg-form")
-    .attr("action", purl)
-    .attr("method", "post")
-    .attr("enctype", "multipart/form-data");
-  if (in_new_tab) {
-    $(form).attr("target", "_blank");
-  }
-  $.each(pparameters, function (key) {
-    $(form).append(
-      '<input type="text" name="' + key + '" value="' + this + '" />'
-    );
+          // Paso 3: AJAX para dar de baja
+          $.ajax({
+            url: '../../controller/dependencia.php?op=baja_de_bien',
+            type: 'POST',
+            data: { bien_id, motivo: motivoBaja },
+            success: function () {
+              const depeId = document.querySelector(".list-group-item.active")?.dataset?.id;
+
+              if (depeId) {
+                // Actualizar tabla de bienes
+                $.ajax({
+                  url: "../../controller/dependencia.php?op=listar_bienes_por_dependencia2",
+                  type: "POST",
+                  data: { depe_id: depeId },
+                  dataType: "json",
+                  success: function (bienes) {
+                    if (bienes.length === 0) {
+                      Swal.fire({
+                        imageUrl: '../../static/gif/sin-datos.gif',
+                        imageWidth: 100,
+                        imageHeight: 100,
+                        title: 'Sin bienes restantes',
+                        text: 'Ya no hay bienes en esta dependencia.',
+                        confirmButtonColor: 'rgb(15, 4, 77)',
+                        confirmButtonText: 'Ok',
+                      });
+                      return;
+                    }
+
+                    let rows = "";
+                    $.each(bienes, function (index, b) {
+                      rows += `
+                        <tr>
+                          <td>${b.bien_codbarras || '-'}</td>
+                          <td>${b.obj_nombre || '-'}</td>
+                          <td>${b.bien_dim || '-'}</td>
+                          <td>${b.val_adq || '-'}</td>
+                          <td>${b.doc_adq || '-'}</td>
+                          <td>${b.bien_obs || '-'}</td>
+                          <td>
+                            <button class="btn btn-outline-dark" onclick="darDeBaja(${b.bien_id})">
+                              <i class="fa fa-trash"></i>
+                            </button>
+                          </td>
+                        </tr>`;
+                    });
+
+                    $('#dependencia_data').DataTable().destroy();
+                    $('#tbody-bienes').html(rows);
+                    $('#dependencia_data').DataTable({
+                      pageLength: 5,
+                      lengthChange: false,
+                      ordering: false,
+                      searching: true,
+                      language: {
+                        sProcessing: "Procesando...",
+                        sLengthMenu: "Mostrar _MENU_ registros",
+                        sZeroRecords: "No se encontraron resultados",
+                        sEmptyTable: "Ningún dato disponible en esta tabla",
+                        sInfo: "Mostrando un total de _TOTAL_ registros",
+                        sInfoEmpty: "Mostrando un total de 0 registros",
+                        sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+                        sSearch: "Buscar:",
+                        oPaginate: {
+                          sFirst: "Primero",
+                          sLast: "Último",
+                          sNext: "Siguiente",
+                          sPrevious: "Anterior"
+                        }
+                      }
+                    });
+
+                    // Alerta de éxito
+                    Swal.fire({
+                      title: '¡Dado de baja!',
+                      html: `<p>El bien ha sido dado de baja correctamente.</p>
+                             <div id="top-progress-bar-final" style="
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                height: 5px;
+                                width: 0%;
+                                background-color:rgb(243, 18, 18);
+                                transition: width 0.6s ease;">
+                             </div>`,
+                      imageUrl: '../../static/gif/verified.gif',
+                      imageWidth: 100,
+                      imageHeight: 100,
+                      showConfirmButton: true,
+                      confirmButtonColor: 'rgb(243, 18, 18)',
+                      didOpen: () => {
+                        setTimeout(() => {
+                          document.getElementById('top-progress-bar-final').style.width = '100%';
+                        }, 100);
+                      }
+                    });
+
+                    // Recargar DataTable resumen
+                    if ($.fn.DataTable.isDataTable('#dependencias_objetos')) {
+                      $('#dependencias_objetos').DataTable().ajax.reload(null, false);
+                    }
+
+                    // Actualizar lista lateral de dependencias
+                    fetch("../../controller/dependencia.php?op=listar_cantidad_bienes_por_dependencia")
+                      .then(response => response.json())
+                      .then(data => {
+                        const lista = document.getElementById("lista-items");
+                        let listaHTML = "";
+
+                        data.forEach(dep => {
+                          const icono = obtenerIconoPorDependencia(dep.depe_denominacion);
+                          const isActive = dep.depe_id == depeId ? "active" : "";
+                          listaHTML += `
+                            <div class="list-group-item d-flex align-items-start ${isActive}" data-id="${dep.depe_id}">
+                              <div class="me-3 pt-1">
+                                <i class="fa-solid ${icono} fa-lg text-primary"></i>
+                              </div>
+                              <div class="flex-grow-1">
+                                <a href="#" class="text-reset d-block fw-semibold text-decoration-none">${dep.depe_denominacion}</a>
+                                <div class="text-secondary mt-1 small">
+                                  ${dep.cantidad_bienes} bienes registrados
+                                </div>
+                              </div>
+                            </div>`;
+                        });
+
+                        lista.innerHTML = listaHTML;
+                      });
+                  },
+                  error: function () {
+                    Swal.fire({
+                      title: 'Error',
+                      text: 'No se pudo actualizar la lista de bienes.',
+                      icon: 'error'
+                    });
+                  }
+                });
+              }
+            },
+            error: function () {
+              Swal.fire({
+                title: 'Error',
+                text: 'No se pudo dar de baja.',
+                icon: 'error'
+              });
+            }
+          });
+        }
+      });
+    }
   });
-  document.body.appendChild(form);
-  form.submit();
-  document.body.removeChild(form);
-
-  return false;
 }
 
-initdependencia();
+// Función auxiliar para agregar barra de progreso en SweetAlert
+function agregarBarraProgreso(porcentaje = 40) {
+  const swalBox = Swal.getPopup();
+  const topBar = document.createElement('div');
+  topBar.id = 'top-progress-bar';
+  topBar.style.cssText = `
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 5px;
+    width: 0%;
+    background-color: rgb(243, 18, 18);
+    transition: width 0.4s ease;
+  `;
+  swalBox.appendChild(topBar);
+  setTimeout(() => {
+    topBar.style.width = porcentaje + '%';
+  }, 300);
+}

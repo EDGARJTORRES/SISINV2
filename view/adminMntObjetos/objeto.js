@@ -101,6 +101,16 @@ $(document).ready(function(){
     
   });
 });
+$(document).ready(function () {
+  $('button[type="reset"]').on('click', function () {
+    // Limpiar clases de validación
+    $('#obj_nombre, #codigo_cana')
+      .removeClass('is-valid is-invalid');
+
+    // Ocultar mensajes de error
+    $('#errorNombre, #errorCodigo').removeClass('active');
+  });
+});
 function cargarDataGrupoObj(gc_id){
    var table =$('#clase_grupo_obj_id').DataTable({
         "aProcessing": true,

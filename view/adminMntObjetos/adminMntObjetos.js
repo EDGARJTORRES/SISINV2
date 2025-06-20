@@ -1,6 +1,36 @@
 var usu_id = $("#usu_idx").val();
 
+function mostrarAlertaCarga() {
+  document.getElementById('alerta-carga').style.display = 'block';
+}
+
+// Ocultar alerta
+function ocultarAlertaCarga() {
+  document.getElementById('alerta-carga').style.display = 'none';
+}
+
 $(document).ready(function () {
+    let inicioCarga;
+    let tiempoMinimo = 3000; // 2 segundos
+
+    $('#clase_grupo_id').on('preXhr.dt', function () {
+        mostrarAlertaCarga();
+        inicioCarga = new Date().getTime();
+    });
+
+    $('#clase_grupo_id').on('xhr.dt', function () {
+        let finCarga = new Date().getTime();
+        let duracion = finCarga - inicioCarga;
+        let tiempoRestante = tiempoMinimo - duracion;
+
+        if (tiempoRestante > 0) {
+            setTimeout(function () {
+                ocultarAlertaCarga();
+            }, tiempoRestante);
+        } else {
+            ocultarAlertaCarga();
+        }
+    });
   $(".select2").select2();
   $.post("../../controller/grupogenerico.php?op=combo", function (data) {
     $("#combo_grupo_gen").html(data);

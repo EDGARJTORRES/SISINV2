@@ -9,7 +9,7 @@ class Bien extends Conectar{
             FROM 
                 sc_inventario.tb_bien
             WHERE
-                bien_est IN ('B', 'M', 'R', 'N')
+                bien_est <> 'I'
             GROUP BY 
                 bien_est
             ORDER BY 
@@ -39,9 +39,36 @@ class Bien extends Conectar{
             FROM 
                 sc_inventario.tb_bien
             WHERE
-                bien_est IN ('B', 'M', 'R', 'N');";
+                bien_est <> 'I';";
         $stmt = $conectar->prepare($sql);
         $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function get_total_bien() {
+        $conectar = parent::conexion();
+        parent::set_names();
+        $sql = "SELECT 
+                COUNT(*) AS total_bienes
+            FROM 
+                sc_inventario.tb_bien
+            WHERE
+                bien_est <> 'I';";
+        $stmt = $conectar->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function get_bienes_sin_dependencia() {
+        $conectar = parent::conexion();
+        parent::set_names();
+        $sql = "SELECT b.*, o.obj_nombre
+                FROM sc_inventario.tb_bien AS b
+                LEFT JOIN sc_inventario.tb_bien_dependencia AS bd ON b.bien_id = bd.bien_id
+                LEFT JOIN sc_inventario.tb_objeto AS o ON b.obj_id = o.obj_id
+                WHERE bd.bien_id IS NULL
+                AND b.bien_est <> 'I';"; 
+        $stmt = $conectar->prepare($sql);
+        $stmt->execute();
+        
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

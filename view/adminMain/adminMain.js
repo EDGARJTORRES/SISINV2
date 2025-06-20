@@ -16,77 +16,84 @@ $(document).ready(function(){
           $('#lbltotal_adq').html("No se encontró el total.");
       }
   });
-
-  $.post("../../controller/bien.php?op=contador_bien_estado", function(data) {
+  $.post("../../controller/bien.php?op=total_bienes", function(data) {
       data = JSON.parse(data);
-
-      const mapaEstados = {
-          'A': 'Activo',
-          'N': 'Nuevo',
-          'M': 'Malo',
-          'R': 'Regular',
-          'B': 'Bueno',
-          'I': 'Inactivo'
-      };
-
-      let seriesData = [];
-
-      data.forEach(function(item) {
-          const nombreEstado = mapaEstados[item.estado] || item.estado;
-          seriesData.push({
-              name: nombreEstado,
-              y: parseInt(item.cantidad)
-          });
-      });
-
-      // Generar colores monocromáticos a partir de un solo color base
-      const baseColor = '#00695C';  
-      const colors = [];
-
-      for (let i = 0; i < seriesData.length; i++) {
-          // El primer valor es el más oscuro, los siguientes más claros
-          colors.push(Highcharts.color(baseColor).brighten(i * 0.1 - 0.2).get());
+      if (data.length > 0 && data[0].total_bienes !== null) {
+          $('#lbltotabien').html(data[0].total_bienes);
+      } else {
+          $('#lbltotabien').html("No se encontró el total.");
       }
-
-      // Asignar colores generados a los datos
-      for (let i = 0; i < seriesData.length; i++) {
-          seriesData[i].color = colors[i];
-      }
-
-      Highcharts.chart('grafico_estados_bienes', {
-          chart: {
-              type: 'pie',
-              options3d: {
-                  enabled: true,
-                  alpha: 45,
-                  beta: 0
-              }
-          },
-          title: {
-              text: null,
-          },
-          tooltip: {
-              pointFormat: '{series.name}: <b>{point.y}</b>'
-          },
-          plotOptions: {
-              pie: {
-                  allowPointSelect: true,
-                  cursor: 'pointer',
-                  depth: 35,
-                  dataLabels: {
-                      enabled: true,
-                      format: '{point.name}: {point.y}'
-                  }
-              }
-          },
-          series: [{
-              name: 'Bienes',
-              data: seriesData
-          }]
-      });
   });
+  $.post("../../controller/dependencia.php?op=obtener_ultimo_bien_baja", function(data) {
+      data = JSON.parse(data); 
+      if (data) {
+          $('#lblultimabaja').html(data.obj_nombre);
+      } else {
+          $('#lblultimabaja').html("No se encontró el último equipo dado de baja.");
+      }
+  });
+
+ $.post("../../controller/bien.php?op=contador_bien_estado", function(data) {
+    data = JSON.parse(data);
+
+    const mapaEstados = {
+        'A': 'Activo',
+        'N': 'Nuevo',
+        'M': 'Malo',
+        'R': 'Regular',
+        'B': 'Bueno',
+        'I': 'Inactivo'
+    };
+
+    let categorias = [];
+    let valores = [];
+
+    data.forEach(function(item) {
+        const nombreEstado = mapaEstados[item.estado] || item.estado;
+        categorias.push(nombreEstado);
+        valores.push(parseInt(item.cantidad));
+    });
+
+    Highcharts.chart('grafico_estados_bienes', {
+        chart: {
+            type: 'line'  // <<< CAMBIO: tipo lineal
+        },
+        title: {
+            text: 'Cantidad de Bienes por Estado'
+        },
+        xAxis: {
+            categories: categorias,
+            title: {
+                text: 'Estado'
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'Cantidad'
+            },
+            allowDecimals: false
+        },
+        tooltip: {
+            pointFormat: '<b>{point.y}</b> bienes'
+        },
+        plotOptions: {
+            line: {
+                dataLabels: {
+                    enabled: true
+                },
+                enableMouseTracking: true
+            }
+        },
+        series: [{
+            name: 'Bienes',
+            data: valores,
+            color: '#00695C'
+        }]
+    });
+});
+
   function cargarGrafico() {
-  fetch('../../controller/dependencia.php?op=contador_objetos_por_dependencia')
+  fetch('../../controller/dependencia.php?op=contador_bienes_por_dependencia')
     .then(response => response.json())
     .then(data => {
       const categorias = data.map(item => item.depe_denominacion);

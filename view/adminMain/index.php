@@ -11,13 +11,23 @@ if (isset($_SESSION["usua_id_siin"])) {
    <link href="../../public/css/Breadcrumb.css" rel="stylesheet"/>
     <title>MPCH: Inicio</title>
     <style>
+      body:not([data-bs-theme="dark"]) .dropdown-item:hover,
+      body:not([data-bs-theme="dark"]) .nav-link:hover {
+          background-color: rgba(0, 0, 0, 0.03);
+          transition: all 0.2s ease-in-out;
+      }
       .btn-fixed {width: 100%;}
-      .btn1{border: 0.5px solid green; color:green}
-      .btn2{border: 0.5px solid blue;color:blue}
-      .btn3{ border: 0.5px solid purple;color:purple}
-      .btn4{ border: 0.5px solid red;color:red}
-      .btn5{border: 0.5px solid orange;color:orange}
+      .btn3{border: 0.5px solid black;color:black}
+      .btn4{border: 0.5px solid black;color:black}
+      .btn5{border: 0.5px solid black;color:black}
       .btn6{border: 0.5px solid black;color:black}
+      
+      .btn3:hover,
+      .btn4:hover,
+      .btn5:hover,
+      .btn6:hover {
+         box-shadow: 0px 4px 8px -2px rgba(135, 180, 197, 0.75);
+      }
     </style>
 </head>
 <body>
@@ -30,53 +40,46 @@ if (isset($_SESSION["usua_id_siin"])) {
             </div>
           </div>
           <div class="col-12 mb-3">
-            <div class="row mb-3">
-              <div class="col-12">
-                <h3 class="card-title text-center">ACCESOS DIRECTOS A LOS PROCESOS DE LA APLICACION</h3>
+            <div class="bg-dark text-white py-3 mb-3" style="border-radius: 0.5rem;">
+              <div class="container text-center">
+                <h2 class="mb-0">¡Bienvenido al Sistema de Gestión de Inventario!</h2>
+                <p class="text-muted">Accede rápidamente a los módulos principales de la aplicación</p>
               </div>
-              <div class="col-12">
-                <div class="row">
-                  <div class="col-2">
-                    <a href="../adminMntObjetos/" class="btn  btn1 btn-fixed position-relative">
-                      <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-devices  me-1"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 9a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-6a1 1 0 0 1 -1 -1v-10z" /><path d="M18 8v-3a1 1 0 0 0 -1 -1h-13a1 1 0 0 0 -1 1v12a1 1 0 0 0 1 1h9" /><path d="M16 9h2" /></svg>
-                      Mant. de Objetos
-                      <span class="badge bg-green badge-notification badge-blink"></span>
-                    </a>
-                  </div>
-                  <div class="col-2">
-                    <a href="../ConsultaBien/" class="btn btn2  btn-fixed position-relative">
-                      <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-eye me-1"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
-                      Consultar Bienes
-                      <span class="badge bg-blue badge-notification badge-blink"></span>
-                    </a>
-                  </div>
-                  <div class="col-2">
-                    <a href="../adminAsignacionBien/" class="btn btn3 btn-fixed position-relative">
-                       <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-augmented-reality me-1"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 8v-2a2 2 0 0 1 2 -2h2" /><path d="M4 16v2a2 2 0 0 0 2 2h2" /><path d="M16 4h2a2 2 0 0 1 2 2v2" /><path d="M16 20h2a2 2 0 0 0 2 -2v-2" /><path d="M12 12.5l4 -2.5" /><path d="M8 10l4 2.5v4.5l4 -2.5v-4.5l-4 -2.5z" /><path d="M8 10v4.5l4 2.5" /></svg>
-                      Asignacion Bienes
-                      <span class="badge bg-purple badge-notification badge-blink"></span>
-                     </a>
-                  </div>
-                  <div class="col-2">
-                    <a href="../adminDesplazamientoBien/" class="btn btn4 btn-fixed position-relative">
-                     <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrows-move me-1"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 9l3 3l-3 3" /><path d="M15 12h6" /><path d="M6 9l-3 3l3 3" /><path d="M3 12h6" /><path d="M9 18l3 3l3 -3" /><path d="M12 15v6" /><path d="M15 6l-3 -3l-3 3" /><path d="M12 3v6" /></svg>
-                      Desp. Bienes
-                      <span class="badge bg-red badge-notification badge-blink"></span>
-                    </a>
-                  </div>
-                  <div class="col-2">
-                    <a href="../adminAltaBien/" class="btn btn5 btn-fixed position-relative">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-device-imac-plus me-1"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12.5 17h-8.5a1 1 0 0 1 -1 -1v-12a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v8.5" /><path d="M3 13h13.5" /><path d="M8 21h4.5" /><path d="M10 17l-.5 4" /><path d="M16 19h6"/><path d="M19 16v6"/></svg>
-                      Alta de Bienes
-                      <span class="badge bg-orange badge-notification badge-blink"></span>
-                    </a>
-                  </div>
-                  <div class="col-2">
-                    <a href="../adminMntDependencias/" class="btn  btn6 btn-fixed position-relative">
-                       <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-device-ipad-minus me-1"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12.5 21h-6.5a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v10" /><path d="M9 18h3" /><path d="M16 19h6" /></svg>
-                      Baja de Bienes
-                      <span class="badge bg-black badge-notification badge-blink"></span>
-                     </a>
+            </div>
+            <div class="container position-relative" style="margin-top: -40px; z-index: 10;">
+              <div class="card m-3 " style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
+                <div class="row m-3">
+                  <div class="col-12">
+                    <div class="row">
+                      <div class="col-3">
+                        <a href="../adminAsignacionBien/" class="btn btn3 btn-fixed position-relative">
+                          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-augmented-reality me-1"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 8v-2a2 2 0 0 1 2 -2h2" /><path d="M4 16v2a2 2 0 0 0 2 2h2" /><path d="M16 4h2a2 2 0 0 1 2 2v2" /><path d="M16 20h2a2 2 0 0 0 2 -2v-2" /><path d="M12 12.5l4 -2.5" /><path d="M8 10l4 2.5v4.5l4 -2.5v-4.5l-4 -2.5z" /><path d="M8 10v4.5l4 2.5" /></svg>
+                          Asignacion Bienes
+                          <span class="badge bg-purple badge-notification badge-blink"></span>
+                        </a>
+                      </div>
+                      <div class="col-3">
+                        <a href="../adminDesplazamientoBien/" class="btn btn4 btn-fixed position-relative">
+                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrows-move me-1"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 9l3 3l-3 3" /><path d="M15 12h6" /><path d="M6 9l-3 3l3 3" /><path d="M3 12h6" /><path d="M9 18l3 3l3 -3" /><path d="M12 15v6" /><path d="M15 6l-3 -3l-3 3" /><path d="M12 3v6" /></svg>
+                          Desplazamiento Bienes
+                          <span class="badge bg-red badge-notification badge-blink"></span>
+                        </a>
+                      </div>
+                      <div class="col-3">
+                        <a href="../adminAltaBien/" class="btn btn5 btn-fixed position-relative">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-device-imac-plus me-1"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12.5 17h-8.5a1 1 0 0 1 -1 -1v-12a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v8.5" /><path d="M3 13h13.5" /><path d="M8 21h4.5" /><path d="M10 17l-.5 4" /><path d="M16 19h6"/><path d="M19 16v6"/></svg>
+                          Alta de Bienes
+                          <span class="badge bg-orange badge-notification badge-blink"></span>
+                        </a>
+                      </div>
+                      <div class="col-3">
+                        <a href="../adminMntDependencias/" class="btn  btn6 btn-fixed position-relative">
+                          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-device-ipad-minus me-1"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12.5 21h-6.5a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v10" /><path d="M9 18h3" /><path d="M16 19h6" /></svg>
+                          Baja de Bienes
+                          <span class="badge bg-black badge-notification badge-blink"></span>
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -90,11 +93,11 @@ if (isset($_SESSION["usua_id_siin"])) {
                   <div class="card-body">
                       <h3 class="card-title text-yellow">TOTAL DE BIENES</h3>
                       <div class="row text-center">
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
                           <img style ="height:60px;" src="../../static/gif/computadora.gif" alt="Cargando..." />
                         </div>
-                        <div class="col-lg-6" style=" align-content: center;">
-                            <h1 id="lblactivo" style="font-size: 3rem;"></h1>
+                        <div class="col-lg-8" style=" align-content: center;">
+                            <h2 id="lbltotabien"></h2>
                         </div>
                       </div>
                   </div>
@@ -108,10 +111,10 @@ if (isset($_SESSION["usua_id_siin"])) {
                   <div class="card-body">
                       <h3 class="card-title text-success">TOTAL VALOR ADQUISION</h3>
                       <div class="row text-center">
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
                           <img style ="height:60px;" src="../../static/gif/ordenador-portatil.gif" alt="Cargando..." />
                         </div>
-                        <div class="col-lg-6" style=" align-content: center;">
+                        <div class="col-lg-8" style=" align-content: center;">
                             <h4 id="lbltotal_adq"></h4>
                         </div>
                       </div>
@@ -126,11 +129,11 @@ if (isset($_SESSION["usua_id_siin"])) {
                   <div class="card-body">
                     <h3 class="card-title text-danger">ULTIMO BIEN REGISTRADO</h3>
                     <div class="row text-center">
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
                           <img style ="height:60px;" src="../../static/gif/vlogger.gif" alt="Cargando..." />
                         </div>
-                        <div class="col-lg-6" style=" align-content: center;">
-                            <h5 id="lblultimo"></h5>
+                        <div class="col-lg-8" style=" align-content: center;">
+                            <h6 id="lblultimo"></h6>
                         </div>
                       </div>
                   </div>
@@ -144,11 +147,11 @@ if (isset($_SESSION["usua_id_siin"])) {
                   <div class="card-body">
                       <h3 class="card-title text-blue">ULTIMA BAJA DE BIEN</h3>
                       <div class="row text-center">
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
                           <img style ="height:60px;" src="../../static/gif/presentacion.gif" alt="Cargando..." />
                         </div>
-                        <div class="col-lg-6">
-                            <h1 id="lbltotal" style="font-size: 3rem;"></h1>
+                        <div class="col-lg-8"  style=" align-content: center;">
+                            <h6 id="lblultimabaja"></h6>
                         </div>
                       </div>
                   </div>
@@ -166,12 +169,28 @@ if (isset($_SESSION["usua_id_siin"])) {
                       <div class="card-body">
                           <h3 class="card-title text-purple ">BIENES REGISTRADOS <span class="text-secondary"> (EVALUANDO SU ESTADO)</span> </h3>
                         <div class="row text-center">
-                          <div id="grafico_estados_bienes"></div>
+                          <div id="grafico_estados_bienes" style="height: 250px;"></div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+                <div class="row">
+                  <div class="col-12 mb-3">
+                    <div class="card" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
+                      <div class="ribbon ribbon-top bg-dark">
+                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-scale"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 20l10 0" /><path d="M6 6l6 -1l6 1" /><path d="M12 3l0 17" /><path d="M9 12l-3 -6l-3 6a3 3 0 0 0 6 0" /><path d="M21 12l-3 -6l-3 6a3 3 0 0 0 6 0" /></svg>
+                      </div>
+                      <div class="card-body">
+                          <h3 class="card-title text-purple ">B <span class="text-secondary"> (EVALUANDO )</span> </h3>
+                        <div class="row text-center">
+                          <div id="grafico_estados_bienes" style="height: 153px;"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
               </div>
               <div class="col-lg-7">
                 <div class="card" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
@@ -181,7 +200,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                   <div class="card-body">
                    <h3 class="card-title text-purple ">BIENES REGISTRADOS<span class="text-secondary"> (EVALUANDO SU DEPENDENCIA)</span> </h3>
                     <div class="row text-center">
-                      <div id="grafico_objetos_dependencia"></div>
+                      <div id="grafico_objetos_dependencia" style="height: 500px;"></div>
                     </div>
                   </div>
                 </div>

@@ -115,7 +115,7 @@ switch ($_GET["op"]) {
         if (is_array($datos) == true and count($datos) > 0) {
             $html = " <option label='Seleccione'></option>";
             foreach ($datos as $row) {
-                $html .= "<option value='" . $row['gc_id'] . "'>" . $row['clase_nom'] . "</option>";
+                $html .= "<option value='" . $row['gc_id'] . "'>" . $row['clase_cod'] . " - " . $row['clase_nom'] . "</option>";
             }
             echo $html;
         }

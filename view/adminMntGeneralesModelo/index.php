@@ -10,8 +10,13 @@ if (isset($_SESSION["usua_id_siin"])) {
     <title>MPCH::MantGenerales</title>
     <link href="../../public/css/estiloselect.css" rel="stylesheet"/>
     <link href="../../public/css/Breadcrumb.css" rel="stylesheet"/>
+    <link href="../../public/css/alerta.css" rel="stylesheet"/>
     <style>
-      
+      body:not([data-bs-theme="dark"]) .dropdown-item:hover,
+      body:not([data-bs-theme="dark"]) .nav-link:hover {
+          background-color: rgba(0, 0, 0, 0.03);
+          transition: all 0.2s ease-in-out;
+      }
       div.dataTables_filter {
         display: none !important;
       }
@@ -33,7 +38,7 @@ if (isset($_SESSION["usua_id_siin"])) {
       }
       .swal2-popup {
         background: rgb(255, 255, 255) !important;
-        box-shadow: rgba(24, 36, 51, 0.04) 0 2px 4px 0 !important;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px !important;
       }
       .select2-container--default .select2-selection--single .select2-selection__arrow b {
           border-color: #FF0000 transparent transparent transparent !important;
@@ -63,6 +68,33 @@ if (isset($_SESSION["usua_id_siin"])) {
       .modal-header{
         background-color: #252422;
       }
+      div.dt-button-background {
+        display: none !important;
+      }
+       #modelo_data {
+        border-collapse: collapse;
+      }
+
+      /* Encabezado con borde inferior */
+      #modelo_data thead th {
+        background-color: #f8f9fa;
+        border-top: 1px solid rgb(192, 192, 192);
+        border-bottom: 1px solid rgb(192, 192, 192);
+        border-left: 1px solid rgb(192, 192, 192);
+        border-right: 1px solid rgb(192, 192, 192);
+        vertical-align: middle;
+        text-align: center;
+      }
+
+      /* Celdas del cuerpo: solo bordes laterales */
+      #modelo_data tbody td {
+        border-top: none !important; /* asegúrate que no se herede */
+        border-bottom: none;
+        border-left: 1px solid rgb(192, 192, 192);
+        border-right: 1px solid rgb(192, 192, 192);
+        vertical-align: middle;
+        text-align: center;
+      }
     </style>
   </head>
 <body>
@@ -73,7 +105,7 @@ if (isset($_SESSION["usua_id_siin"])) {
           <nav class="breadcrumb mb-4">
             <a href="../adminMain/">Inicio</a>
             <svg class="breadcrumb-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10.1 16.3"><path fill="currentColor" d="M0,14.4l6.2-6.2L0,1.9L2,0l8.1,8.1L2,16.3L0,14.4z"/></svg>
-            <span>Mantenimientos Generales</span>
+            <span class="breadcrumb-item active">Mantenimientos Generales</span>
             <svg class="breadcrumb-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10.1 16.3"><path fill="currentColor" d="M0,14.4l6.2-6.2L0,1.9L2,0l8.1,8.1L2,16.3L0,14.4z"/></svg>
             <span>Modelo</span>
           </nav>
@@ -115,6 +147,10 @@ if (isset($_SESSION["usua_id_siin"])) {
                               Eliminar
                             </button>
                           </div>
+                          <div class="d-flex align-items-center gap-2">
+                            <div class="input-icon" id="contenedor-excel"> 
+                            </div>
+                          </div>
                           <div class="d-flex align-items-center gap-2 mx-3">
                             <label for="cantidad_registros" class="form-label mb-0">Mostrar:</label>
                             <div class="input-icon">
@@ -134,7 +170,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                                   <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-search">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
                                 </span>
-                                <input type="text" id="buscar_registros" placeholder="Buscar registro ..." class="form-control"> 
+                                <input type="text" id="buscar_registros" placeholder="Buscar registro . . ." class="form-control"> 
                             </div>
                           </div>
                         </div>
@@ -147,7 +183,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                         </div>
                        </div>
                      </div>
-                      <table id="modelo_data"  class="table card-table table-vcenter text-nowrap datatable">
+                      <table id="modelo_data"  class="table card-table table-vcenter text-nowrap datatable" style="width: 99%;">
                           <thead>
                               <tr>
                                 <th><input type="checkbox" id="modelo_id_all"></th>
@@ -166,6 +202,22 @@ if (isset($_SESSION["usua_id_siin"])) {
             </div>
         </div>
       </div>  
+    </div>
+    <div id="alerta-carga" class=" alerta-top-end alert-container"  style="display: none;">
+      <div class="success-alert">
+        <div class="content-left">
+          <div class="icon-bg">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon-check">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"></path>
+            </svg>
+          </div>
+          <div class="text-content">
+            <p class="title">Cargando Modelos... :)</p>
+            <p class="description">Espere mientras se obtienen los datos.</p>
+          </div>
+
+        </div>
+      </div>
     </div>
     <?php require_once("../html/footer.php"); ?>
     <?php require_once("../html/mainjs.php"); ?>

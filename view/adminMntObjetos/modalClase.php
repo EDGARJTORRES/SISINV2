@@ -1,13 +1,13 @@
 <div class="modal modal-blur fade" id="modalClase" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-3 modal-dialog-centered" role="document">
-        <div class="modal-content">
+        <div class="modal-content" style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
             <div class="modal-header">
                 <h5  id="lbltituloObj" class="modal-title" style="color:rgb(255, 255, 255); display: flex; align-items: center; gap: 10px; padding: 5px 5px;">
                     <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-location ms-3"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5" /></svg>
                     ACCIONES PARA CLASES:</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-              <form method="post" id="obj_form">
+            <form method="post" id="obj_form">
                 <input type="hidden" name="obj_id" id="obj_id" />
                 <div class="card-tabs m-4">
                     <ul class="nav nav-tabs" role="tablist">
@@ -63,7 +63,7 @@
                         </div>
                     </div>
                 </div>
-              </form>
+            </form>
         </div>
     </div>
 </div>

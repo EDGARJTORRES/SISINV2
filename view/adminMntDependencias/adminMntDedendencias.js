@@ -3,7 +3,7 @@ var usu_id = $("#usu_idx").val();
 $(document).ready(function(){
 
 
-  $('#dependencias_objetos').DataTable({
+  var table =  $('#dependencias_objetos').DataTable({
       "aProcessing": true,
       "aServerSide": true,
       dom: 'Bfrtip',
@@ -11,14 +11,14 @@ $(document).ready(function(){
       buttons: [
       ],
       "ajax":{
-          url:"../../controller/dependencia.php?op=listar",
+          url:"../../controller/dependencia.php?op=listarBienesBaja",
           type:"post"
       },
       "bDestroy": true,
-      "responsive": false,
-      "bInfo":false,
-      "iDisplayLength": 5,
-      "ordering": false, 
+      "responsive": true,
+      "bInfo":true,
+      "iDisplayLength":5,
+      "order": [[0, "desc"]], 
       "language": {
           "sProcessing":     "Procesando...",
           "sLengthMenu":     "Mostrar _MENU_ registros",
@@ -44,6 +44,21 @@ $(document).ready(function(){
           }
       },
   });
+    $('#buscar_dependencia').on('input', function () {
+        table.search(this.value).draw();
+    });
+    $('#filtro_bienes').on('input', function () {
+        const valorMaximo = parseInt($(this).val(), 10);
+        $('#valor_bienes').text(valorMaximo); 
+
+        $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+        const totalBienes = parseInt(data[2]) || 0; 
+        return totalBienes <= valorMaximo;
+        });
+
+        table.draw();
+        $.fn.dataTable.ext.search.pop();
+    });
 
 
 });

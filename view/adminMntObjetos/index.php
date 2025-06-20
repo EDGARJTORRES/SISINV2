@@ -8,8 +8,15 @@ if (isset($_SESSION["usua_id_siin"])) {
     <?php require_once("../html/mainHead.php"); ?>
     <link href="../../public/css/estiloselect.css" rel="stylesheet"/>
     <link href="../../public/css/Breadcrumb.css" rel="stylesheet"/>
+    <link href="../../public/css/alerta.css" rel="stylesheet"/>
     <title>MPCH::AltaBienes</title>
     <style>
+      body:not([data-bs-theme="dark"]) .dropdown-item:hover,
+      body:not([data-bs-theme="dark"]) .nav-link:hover {
+          background-color: rgba(0, 0, 0, 0.03);
+          transition: all 0.2s ease-in-out;
+          border-radius: none !important;
+      }
       div.dataTables_filter {
         display: none !important;
       }
@@ -60,14 +67,14 @@ if (isset($_SESSION["usua_id_siin"])) {
       .error-msg.active {
         display: block;
       }
-     .swal2-container {
+      .swal2-container {
         background-color: rgba(0, 0, 0, 0.25) !important;
         backdrop-filter: blur(2px);
         -webkit-backdrop-filter: blur(4px);
       }
       .swal2-popup {
         background: rgb(255, 255, 255) !important;
-        box-shadow: rgba(24, 36, 51, 0.04) 0 2px 4px 0 !important;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px !important;
       }
       .modal-header{
         background-color: #252422;
@@ -85,6 +92,30 @@ if (isset($_SESSION["usua_id_siin"])) {
         border-top-right-radius: 20px;
         border-bottom-right-radius: 20px;
         margin-left: -7px;
+      }
+      #clase_grupo_obj_id {
+        border-collapse: collapse;
+      }
+
+      /* Encabezado con borde inferior */
+      #clase_grupo_obj_id thead th {
+        background-color: #f8f9fa;
+        border-top: 1px solid rgb(192, 192, 192);
+        border-bottom: 1px solid rgb(192, 192, 192);
+        border-left: 1px solid rgb(192, 192, 192);
+        border-right: 1px solid rgb(192, 192, 192);
+        vertical-align: middle;
+        text-align: center;
+      }
+
+      /* Celdas del cuerpo: solo bordes laterales */
+      #clase_grupo_obj_id tbody td {
+        border-top: none !important; /* asegúrate que no se herede */
+        border-bottom: none;
+        border-left: 1px solid rgb(192, 192, 192);
+        border-right: 1px solid rgb(192, 192, 192);
+        vertical-align: middle;
+        text-align: center;
       }
     </style>
   </head>
@@ -176,7 +207,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                           </div>
                         </div>
                       </div>
-                      <table id="clase_grupo_obj_id"  class="table card-table table-vcenter text-nowrap datatable">
+                      <table id="clase_grupo_obj_id"  class="table card-table table-vcenter text-nowrap datatable" style="width: 99%;">
                         <thead>
                           <tr>
                             <th>ID</th>
@@ -194,11 +225,25 @@ if (isset($_SESSION["usua_id_siin"])) {
             </div>
         </div>  
     </div>
+     <div id="alerta-carga" class=" alerta-top-end alert-container"  style="display: none;">
+      <div class="success-alert">
+        <div class="content-left">
+          <div class="icon-bg">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon-check">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"></path>
+            </svg>
+          </div>
+          <div class="text-content">
+            <p class="title">Cargando Marcas... :)</p>
+            <p class="description">Espere mientras se obtienen los datos.</p>
+          </div>
+        </div>
+      </div>
+    </div>
     <?php require_once("../html/footer.php"); ?>
     <?php require_once("../html/mainjs.php"); ?>
     <?php require_once("modalObjeto.php"); ?>
     <?php require_once("modalClase.php"); ?>
-    <?php require_once("modalObjetoRotar.php"); ?>
     <script type="text/javascript" src="adminMntObjetos.js"></script>
     <script type="text/javascript" src="objeto.js"></script>
 </body>
