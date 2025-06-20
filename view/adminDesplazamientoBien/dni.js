@@ -9,9 +9,9 @@ function limitarADigitosDNI(input) {
         $("#pers_origen_nom").val('');
     }
     input.value = valor;
-}
+    }
 
-function limitarADigitosDNIdestino(input) {
+    function limitarADigitosDNIdestino(input) {
     let valor = input.value.toString().replace(/\D/g, '');
     if (valor.length > 8) {
         valor = valor.slice(0, 8);

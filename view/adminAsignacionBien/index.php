@@ -394,7 +394,7 @@ if (isset($_SESSION["usua_id_siin"])) {
     <script type="text/javascript" src="formato_crud.js"></script>
     <script type="text/javascript" src="impresion.js"></script>
     <script type="text/javascript" src="adminAsignacionBien.js"></script>
-    <script type="text/javascript" src="asignacion.js"></script>
+    <script type="text/javascript" src="dni.js"></script>
     <script type="text/javascript" src="init.js"></script>
 </body>
 </html>
