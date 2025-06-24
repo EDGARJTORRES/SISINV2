@@ -37,6 +37,7 @@
         public static function ruta() {
             return "http://localhost/SISINV2/";
         }*/
+        /*CONEXION DE MANERA LOCAL A BD */ 
         protected $dbh;
         protected function Conexion() {
             try {
