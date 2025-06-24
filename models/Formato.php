@@ -208,6 +208,7 @@ class Formato extends Conectar
         tdepe1.depe_denominacion as receptor,tdepe2.depe_denominacion as emisor
         from sc_inventario.tb_bien_dependencia tbp 
         inner join sc_inventario.tb_formato tbf on tbf.form_id= tbp.form_id
+        AND tbf.form_est = 1
 		left join tb_dependencia tdepe1 on tdepe1.depe_id = tbf.depe_receptor
 		left join tb_dependencia tdepe2 on tdepe2.depe_id = tbf.depe_emisor
         inner join sc_inventario.tb_tipoformato tbft on tbft.tif_id= tbf.tif_id

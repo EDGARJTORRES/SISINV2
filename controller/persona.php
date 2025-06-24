@@ -1,15 +1,12 @@
 <?php
-
 require_once("../config/conexion.php");
-
 require_once("../models/Persona.php");
 require_once("../models/Bitacora.php");
 $bitacora = new Bitacora();
 $persona = new Persona();
 
 switch ($_GET["op"]) {
-
-    case "buscarDNI":
+     case "buscarDNI":
         $datos = $persona->get_persona_dni($_POST["pers_dni"]);
         if (is_array($datos) == true and count($datos) <> 0) {
             foreach ($datos as $row) {
@@ -20,5 +17,11 @@ switch ($_GET["op"]) {
             echo json_encode($output);
         }
         break;
+    case "obtener_datos_generales":
+        $pers_id = $_SESSION["usua_id_siin"]; // ID del usuario logueado
+        $datos = $persona->obtenerDatosGenerales($pers_id);
+        echo json_encode($datos);
+    break;
+
 
 }

@@ -32,8 +32,7 @@ class Clase extends Conectar
         return $resultado = $sql->fetchAll();
     }
 
-    public function delete_clase($clase_id)
-    {
+    public function delete_clase($clase_id){
         $conectar = parent::conexion();
         parent::set_names();
         $sql = "UPDATE sc_inventario.tb_clase
@@ -41,10 +40,8 @@ class Clase extends Conectar
                     clase_est = 0
                 WHERE
                     clase_id = ?";
-        $sql = $conectar->prepare($sql);
-        $sql->bindValue(1, $clase_id);
-        $sql->execute();
-        return $resultado = $sql->fetchAll();
+        $stmt=$conectar->prepare($sql);
+        $stmt->execute([$clase_id]);
     }
 
     public function get_clase()

@@ -1,23 +1,47 @@
 var usu_id = $("#usu_idx").val();
 
+function mostrarAlertaCarga() {
+  document.getElementById('alerta-carga').style.display = 'block';
+}
+
+// Ocultar alerta
+function ocultarAlertaCarga() {
+  document.getElementById('alerta-carga').style.display = 'none';
+}
+
 $(document).ready(function () {
+    let inicioCarga;
+    let tiempoMinimo = 3000; // 2 segundos
+
+    $('#clase_grupo_id').on('preXhr.dt', function () {
+        mostrarAlertaCarga();
+        inicioCarga = new Date().getTime();
+    });
+
+    $('#clase_grupo_id').on('xhr.dt', function () {
+        let finCarga = new Date().getTime();
+        let duracion = finCarga - inicioCarga;
+        let tiempoRestante = tiempoMinimo - duracion;
+
+        if (tiempoRestante > 0) {
+            setTimeout(function () {
+                ocultarAlertaCarga();
+            }, tiempoRestante);
+        } else {
+            ocultarAlertaCarga();
+        }
+    });
   $(".select2").select2();
   $.post("../../controller/grupogenerico.php?op=combo", function (data) {
     $("#combo_grupo_gen").html(data);
   });
-
   $("#combo_grupo_gen").change(function () {
     var gg_id = $(this).val();
-
-    // Realizar la petición POST para obtener las clases asociadas al grupo genérico seleccionado
     $.post(
       "../../controller/clase.php?op=combo",
       { gg_id: gg_id },
       function (data) {
-        // Colocar la respuesta en el combo de clase
         $("#combo_clase_gen").html(data);
-
-        // Activar select2 para el nuevo contenido del combo de clase
         $("#combo_clase_gen").select2();
       }
     );
@@ -83,7 +107,7 @@ function listar_clases(gg_id) {
     bDestroy: true,
     responsive: true,
     bInfo: false,
-    iDisplayLength: 5,
+    iDisplayLength: 4,
     order: [[1, "asc"]],
     language: {
       sProcessing: "Procesando...",
@@ -165,8 +189,11 @@ function nuevaclase() {
     Swal.fire({
       title: "Error!",
       text: "Seleccionar Grupo Genérico",
-      icon: "error",
+      imageUrl: '../../static/gif/letra-x.gif',
+      imageWidth: 100,
+      imageHeight: 100,
       confirmButtonText: "Aceptar",
+      confirmButtonColor: 'rgb(243, 18, 18)'
     });
   } else {
     var gg_id = $("#combo_grupo_gen").val();
@@ -175,6 +202,7 @@ function nuevaclase() {
     $("#modalClase").modal("show");
   }
 }
+
 function registrardetalle() {
   table = $("#gg_clase_data").DataTable();
   var gg_id = $("#combo_grupo_gen").val();
@@ -192,11 +220,13 @@ function registrardetalle() {
     Swal.fire({
       title: "Error!",
       text: "Seleccionar Clases",
-      icon: "error",
+      imageUrl: '../../static/gif/letra-x.gif',
+      imageWidth: 100,
+      imageHeight: 100,
       confirmButtonText: "Aceptar",
+      confirmButtonColor: 'rgb(243, 18, 18)'
     });
   } else {
-    /* Creando formulario */
     const formData = new FormData($("#form_detalle")[0]);
     formData.append("gg_id", gg_id);
     formData.append("clase_id", clase_id);
@@ -209,24 +239,18 @@ function registrardetalle() {
       contentType: false,
       processData: false,
       success: function (data) {
-        console.log(data);
         data = JSON.parse(data);
       },
     });
-
     $.post(
       "../../controller/clase.php?op=combo",
       { gg_id: gg_id },
       function (data) {
-        // Colocar la respuesta en el combo de clase
         $("#combo_clase_gen").html(data);
-
-        // Activar select2 para el nuevo contenido del combo de clase
         $("#combo_clase_gen").select2();
       }
     );
     $("#gg_clase_data_actual").DataTable().ajax.reload();
-
     $("#gg_clase_data").DataTable().ajax.reload();
   }
 }

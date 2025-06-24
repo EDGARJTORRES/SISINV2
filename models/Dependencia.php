@@ -16,7 +16,6 @@
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
-
         public function update_registro_objeto($objdepe_id,  $fecharegistro, $depe_id,$obj_id, $marca_id, $objdepe_numserie, $objdepe_codbarras){
             $conectar= parent::conexion();
             parent::set_names();
@@ -41,7 +40,6 @@
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
-
         public function delete_dependencia($bien_id){
             $conectar= parent::conexion();
             parent::set_names();
@@ -55,7 +53,6 @@
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
-
         public function get_dependencia_datos(){
             $conectar= parent::conexion();
             parent::set_names();
@@ -81,8 +78,7 @@
             $sql->bindValue(1, $mov_id);
             $sql->execute();
             return $resultado=$sql->fetchAll();
-        }
-     
+        } 
         public function get_dependencia_objetos($depe_id,$gc_id){
             $conectar= parent::conexion();
             parent::set_names();
@@ -109,8 +105,6 @@
            
             return $resultado=$sql->fetchAll();
         }
-
-       
         public function get_dependencia_objetos_id($objdepe_id){
             $conectar= parent::conexion();
             parent::set_names();
@@ -137,6 +131,187 @@
         
             return $resultado;
         }
+        public function contadorBienesPorDependencia() {
+            $conectar = parent::conexion();
+            $sql = "SELECT
+                d.depe_denominacion,
+                COUNT(DISTINCT bd.bien_id) AS cantidad
+            FROM
+                  public.tb_dependencia d
+            JOIN 
+                sc_inventario.tb_bien_dependencia bd ON d.depe_id = bd.depe_id
+            WHERE 
+                 bd.bien_est <> 'I'
+            AND  
+			     d.depe_estado= 'A'
+            GROUP BY 
+                d.depe_id, d.depe_denominacion
+            ORDER BY 
+                d.depe_denominacion;";
+
+            $stmt = $conectar->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        public function listarCantidadBienesPorDependencia() {
+            $conectar = parent::conexion();
+            $sql = "SELECT   DISTINCT
+                        d.depe_id,
+                        d.depe_denominacion,
+                        COUNT(bd.bien_id) AS cantidad_bienes
+                    FROM 
+                        public.tb_dependencia d
+                    JOIN 
+                        sc_inventario.tb_bien_dependencia bd ON d.depe_id = bd.depe_id
+                    WHERE 
+                        bd.bien_est <> 'I'
+                    AND  
+			            d.depe_estado= 'A'
+                    GROUP BY 
+                        d.depe_id, d.depe_denominacion
+                    ORDER BY 
+                        d.depe_denominacion;";
+            
+            $stmt = $conectar->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        public function listarBienesPorDependencia($depe_id) {
+            $conectar = parent::conexion();
+            $sql = "SELECT  DISTINCT
+                b.bien_id,
+                b.bien_codbarras,
+                o.obj_nombre, 
+                (
+                    SELECT string_agg(c.color_nom, ', ')
+                    FROM public.tb_color c
+                    WHERE c.color_id = ANY(b.bien_color)
+                ) AS bien_color,
+                b.bien_dim,
+                b.val_adq,
+                b.doc_adq,
+                b.bien_obs
+            FROM 
+                sc_inventario.tb_bien_dependencia bd
+            INNER JOIN 
+                sc_inventario.tb_bien b ON b.bien_id = bd.bien_id
+            INNER JOIN 
+                sc_inventario.tb_objeto o ON b.obj_id = o.obj_id
+            INNER JOIN
+                public.tb_dependencia d ON d.depe_id = bd.depe_id
+            WHERE 
+                bd.depe_id       = ?        
+            AND bd.bien_est  <> 'I'        
+            AND d.depe_estado = 'A'       
+            ;";
+
+            $stmt = $conectar->prepare($sql);
+            $stmt->bindValue(1, $depe_id);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        public function listarBienesPorDependencia2($depe_id) {
+            $conectar = parent::conexion();
+            $sql = "SELECT  DISTINCT
+                        b.bien_id,
+                        b.bien_codbarras,
+                        o.obj_nombre, 
+                        b.bien_dim,
+                        b.val_adq,
+                        b.doc_adq,
+                        b.bien_obs
+                    FROM 
+                        sc_inventario.tb_bien_dependencia bd
+                    INNER JOIN 
+                        sc_inventario.tb_bien b ON b.bien_id = bd.bien_id
+                    INNER JOIN 
+                        sc_inventario.tb_objeto o ON b.obj_id = o.obj_id
+                    INNER JOIN 
+                        public.tb_dependencia d ON d.depe_id = bd.depe_id
+                    WHERE 
+                        bd.depe_id = ?
+                        AND bd.bien_est <> 'I'
+                        AND d.depe_estado = 'A';";
+
+            $stmt = $conectar->prepare($sql);
+            $stmt->bindValue(1, $depe_id);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        public function darDeBajaBien($bien_id, $motivo) {
+            $conectar = parent::conexion();
+            try {
+                $conectar->beginTransaction();
+                $sql1 = "UPDATE sc_inventario.tb_bien_dependencia 
+                        SET bien_est = 'I', motivo_baja = ?
+                        WHERE bien_id = ?";
+                $stmt1 = $conectar->prepare($sql1);
+                $stmt1->bindValue(1, $motivo);
+                $stmt1->bindValue(2, $bien_id);
+                $stmt1->execute();
+                $sql2 = "UPDATE sc_inventario.tb_bien 
+                        SET bien_est = 'I' 
+                        WHERE bien_id = ?";
+                $stmt2 = $conectar->prepare($sql2);
+                $stmt2->bindValue(1, $bien_id);
+                $stmt2->execute();
+
+                $conectar->commit();
+                return true;
+            } catch (Exception $e) {
+                $conectar->rollBack();
+                return false;
+            }
+        }
+
+
+        public function listarBienesBaja() {
+            $conectar = parent::conexion();
+            $sql = "SELECT
+                        d.depe_denominacion AS area,
+                        d.depe_representante AS representante,
+                        COUNT(DISTINCT bd.bien_id) AS cantidad_bienes
+                    FROM
+                        sc_inventario.tb_bien_dependencia bd
+                    JOIN
+                        public.tb_dependencia d ON bd.depe_id = d.depe_id
+                    WHERE
+                        bd.bien_est = 'I'
+                    GROUP BY
+                        d.depe_denominacion, d.depe_representante
+                    ORDER BY
+                        d.depe_denominacion;";
+
+            $stmt = $conectar->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        public function obtenerUltimoBienDeBaja() {
+            $conectar = parent::conexion();
+            try {
+                $sql = "SELECT 
+                            b.bien_id,
+                            o.obj_nombre,
+                            bd.fecha_baja,
+                            bd.bien_est
+                        FROM sc_inventario.tb_bien_dependencia bd
+                        INNER JOIN sc_inventario.tb_bien b ON bd.bien_id = b.bien_id
+                        INNER JOIN sc_inventario.tb_objeto o ON b.obj_id = o.obj_id
+                        WHERE bd.fecha_baja IS NOT NULL
+                        ORDER BY bd.fecha_baja DESC
+                        LIMIT 1";
+
+                $stmt = $conectar->prepare($sql);
+                $stmt->execute();
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+
+            } catch (Exception $e) {
+                // Manejo de error (puedes loguear el error si lo deseas)
+                return false;
+            }
+        }
+
+
 
     }
 ?>

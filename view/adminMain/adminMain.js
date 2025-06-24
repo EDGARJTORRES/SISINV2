@@ -1,6 +1,39 @@
 var usu_id = $("#usu_idx").val();
 $(document).ready(function(){
-   $.post("../../controller/bien.php?op=contador_bien_estado", function(data) {
+  $.post("../../controller/bien.php?op=ultimo", function(data){
+    data = JSON.parse(data); 
+    if (data) {
+        $('#lblultimo').html(data.obj_nombre);
+    } else {
+        $('#lblultimo').html("No se encontró el último equipo.");
+    }
+  });
+  $.post("../../controller/bien.php?op=total_adquision", function(data) {
+      data = JSON.parse(data);
+      if (data.length > 0 && data[0].total_valor_adquisicion !== null) {
+          $('#lbltotal_adq').html(data[0].total_valor_adquisicion);
+      } else {
+          $('#lbltotal_adq').html("No se encontró el total.");
+      }
+  });
+  $.post("../../controller/bien.php?op=total_bienes", function(data) {
+      data = JSON.parse(data);
+      if (data.length > 0 && data[0].total_bienes !== null) {
+          $('#lbltotabien').html(data[0].total_bienes);
+      } else {
+          $('#lbltotabien').html("No se encontró el total.");
+      }
+  });
+  $.post("../../controller/dependencia.php?op=obtener_ultimo_bien_baja", function(data) {
+      data = JSON.parse(data); 
+      if (data) {
+          $('#lblultimabaja').html(data.obj_nombre);
+      } else {
+          $('#lblultimabaja').html("No se encontró el último equipo dado de baja.");
+      }
+  });
+
+ $.post("../../controller/bien.php?op=contador_bien_estado", function(data) {
     data = JSON.parse(data);
 
     const mapaEstados = {
@@ -11,87 +44,103 @@ $(document).ready(function(){
         'B': 'Bueno',
         'I': 'Inactivo'
     };
-    const colores = {
-        'A': '#2196F3', 
-        'N': '#9C27B0',   
-        'M': '#F44336',  
-        'R': '#FF9800',  
-        'B': '#4CAF50',   
-        'I': '#9E9E9E'    
-    };
 
-    let seriesData = [];
+    let categorias = [];
+    let valores = [];
 
     data.forEach(function(item) {
-        const estadoInicial = item.estado;
-        const nombreEstado = mapaEstados[estadoInicial] || estadoInicial;
-        const color = colores[estadoInicial] || '#999999';
-
-        seriesData.push({
-            name: nombreEstado,
-            y: parseInt(item.cantidad),
-            color: color
-        });
+        const nombreEstado = mapaEstados[item.estado] || item.estado;
+        categorias.push(nombreEstado);
+        valores.push(parseInt(item.cantidad));
     });
 
     Highcharts.chart('grafico_estados_bienes', {
         chart: {
-            type: 'column',
-            options3d: {
-                enabled: true,
-                alpha: 15,
-                beta: 15,
-                depth: 50,
-                viewDistance: 25
-            },
-            spacingLeft: 0,
-            spacingRight: 0,
-            marginLeft: 0,
-            marginRight: 0
+            type: 'line'  // <<< CAMBIO: tipo lineal
         },
         title: {
-            text: null,
+            text: 'Cantidad de Bienes por Estado'
         },
         xAxis: {
-            categories: seriesData.map(e => e.name),
+            categories: categorias,
             title: {
                 text: 'Estado'
-            },
-            crosshair: true
+            }
         },
         yAxis: {
-            min: 0,
             title: {
-                text: 'Cantidad de Bienes',
+                text: 'Cantidad'
             },
             allowDecimals: false
         },
         tooltip: {
-            headerFormat: '<b>{point.key}</b><br>',
-            pointFormat: '{series.name}: {point.y}'
+            pointFormat: '<b>{point.y}</b> bienes'
         },
         plotOptions: {
-            column: {
-                depth: 25,
-                pointPadding: 0.2,
-                borderWidth: 0
+            line: {
+                dataLabels: {
+                    enabled: true
+                },
+                enableMouseTracking: true
             }
         },
         series: [{
             name: 'Bienes',
-            data: seriesData
+            data: valores,
+            color: '#00695C'
         }]
     });
 });
 
-    $.post("../../controller/bien.php?op=ultimo", function(data){
-        data = JSON.parse(data); 
-        if (data) {
-            $('#lblultimo').html(data.obj_nombre);
-        } else {
-            $('#lblultimo').html("No se encontró el último equipo.");
+  function cargarGrafico() {
+  fetch('../../controller/dependencia.php?op=contador_bienes_por_dependencia')
+    .then(response => response.json())
+    .then(data => {
+      const categorias = data.map(item => item.depe_denominacion);
+      const cantidades = data.map(item => parseInt(item.cantidad));
+
+      Highcharts.chart('grafico_objetos_dependencia', {
+        chart: {
+          type: 'bar'
+        },
+        title: {
+          text: null,
+        },
+        xAxis: {
+          categories: categorias,
+          title: {
+            text: 'Dependencias'
+          }
+        },
+        yAxis: {
+          min: 0,
+          title: {
+            text: 'Cantidad de Objetos',
+            align: 'high'
+          },
+          labels: {
+            overflow: 'justify'
+          }
+        },
+        plotOptions: {
+          bar: {
+            dataLabels: {
+              enabled: true
+            }
+          }
+        },
+        series: [{
+          name: 'Objetos',
+          data: cantidades
+        }],
+        credits: {
+          enabled: false
         }
-    }); 
+      });
+    })
+    .catch(error => console.error('Error al cargar datos:', error));
+    }
+    cargarGrafico();
 
 
 });

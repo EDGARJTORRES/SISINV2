@@ -4,30 +4,71 @@ class Bien extends Conectar{
         $conectar = parent::conexion();
         parent::set_names();
         $sql = "SELECT 
-                    bien_est AS estado,
-                    COUNT(*) AS cantidad
-                FROM 
-                    sc_inventario.tb_bien
-                GROUP BY 
-                    bien_est
-                ORDER BY 
-                    bien_est;";
+                bien_est AS estado,
+                COUNT(*) AS cantidad
+            FROM 
+                sc_inventario.tb_bien
+            WHERE
+                bien_est <> 'I'
+            GROUP BY 
+                bien_est
+            ORDER BY 
+                bien_est;";
         $stmt = $conectar->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     public function get_ultimo_bien(){
-    $conectar = parent::conexion(); 
-    parent::set_names();
-    $sql = 
+        $conectar = parent::conexion(); 
+        parent::set_names();
+        $sql = 
             "SELECT o.obj_nombre
-        FROM sc_inventario.tb_bien b
-        JOIN sc_inventario.tb_objeto o ON b.obj_id = o.obj_id
-        ORDER BY b.fecharegistro DESC
-        LIMIT 1;";
-    $sql = $conectar->prepare($sql);
-    $sql->execute();
-    return $resultado = $sql->fetch(PDO::FETCH_ASSOC);
+            FROM sc_inventario.tb_bien b
+            INNER JOIN sc_inventario.tb_objeto o ON b.obj_id = o.obj_id
+            ORDER BY b.fechacrea DESC
+            LIMIT 1;";
+        $sql = $conectar->prepare($sql);
+        $sql->execute();
+        return $resultado = $sql->fetch(PDO::FETCH_ASSOC);
     }
-
+    public function get_total_adquision_bien() {
+        $conectar = parent::conexion();
+        parent::set_names();
+        $sql = "SELECT 
+                SUM(val_adq) AS total_valor_adquisicion
+            FROM 
+                sc_inventario.tb_bien
+            WHERE
+                bien_est <> 'I';";
+        $stmt = $conectar->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function get_total_bien() {
+        $conectar = parent::conexion();
+        parent::set_names();
+        $sql = "SELECT 
+                COUNT(*) AS total_bienes
+            FROM 
+                sc_inventario.tb_bien
+            WHERE
+                bien_est <> 'I';";
+        $stmt = $conectar->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function get_bienes_sin_dependencia() {
+        $conectar = parent::conexion();
+        parent::set_names();
+        $sql = "SELECT b.*, o.obj_nombre
+                FROM sc_inventario.tb_bien AS b
+                LEFT JOIN sc_inventario.tb_bien_dependencia AS bd ON b.bien_id = bd.bien_id
+                LEFT JOIN sc_inventario.tb_objeto AS o ON b.obj_id = o.obj_id
+                WHERE bd.bien_id IS NULL
+                AND b.bien_est <> 'I';"; 
+        $stmt = $conectar->prepare($sql);
+        $stmt->execute();
+        
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

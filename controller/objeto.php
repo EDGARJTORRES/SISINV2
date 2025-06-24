@@ -1,12 +1,9 @@
 <?php
-
 require_once("../config/conexion.php");
-
 require_once("../models/Objeto.php");
 require_once("../models/Bitacora.php");
 $bitacora = new Bitacora();
 $objeto = new Objeto();
-
 switch ($_GET["op"]) {
     case "guardaryeditar":
         if (empty($_POST["obj_id"])) {
@@ -22,16 +19,39 @@ switch ($_GET["op"]) {
         echo json_encode(["success" => $resultado, "message" => $mensaje]);
         break;
     case "guardaryeditarbien":
+       $bien_color = is_array($_POST["bien_color"]) ? $_POST["bien_color"] : explode(',', $_POST["bien_color"]);
+       $bien_color_texto = '{' . implode(',', $bien_color) . '}';
         if (empty($_POST["bien_id"])) {
-
-            $bien_color_texto = "{" . $_POST["bien_color"] . "}";
-
-            echo $bien_color_texto;
-            $objeto->insert_registro_bien($_POST["fecharegistro"], $_POST["obj_id"], $_POST["modelo_id"], $_POST["bien_numserie"], $_POST["codigo_barras_input"], $bien_color_texto, $_POST["obj_dim"]);
-            $bitacora->update_bitacora($_SESSION["usua_id_siin"]);
+            // NUEVO
+            $objeto->insert_registro_bien(
+                $_POST["fecharegistro"],
+                $_POST["obj_id"],
+                $_POST["modelo_id"],
+                $_POST["bien_numserie"],
+                $_POST["codigo_barras_input"],
+                $bien_color_texto,
+                $_POST["obj_dim"],
+                $_POST["procedencia"],
+                $_POST["val_adq"],
+                $_POST["doc_adq"],
+                $_POST["bien_obs"]
+            );
         } else {
-            $objeto->update_registro_bien($_POST["bien_id"], $_POST["fecharegistro"], $_POST["edit_obj_id"], $_POST["modelo_id"], $_POST["bien_numserie"], $_POST["codigo_barras_input"], $bien_color_texto, $_POST["obj_dim"]);
-            $bitacora->update_bitacora($_SESSION["usua_id_siin"]);
+            // EDICIÓN ✅ CORREGIDO: usa obj_id (no edit_obj_id)
+            $objeto->update_registro_bien(
+                $_POST["bien_id"],
+                $_POST["fecharegistro"],
+                $_POST["obj_id"],  // ✅ aquí estaba el error
+                $_POST["modelo_id"],
+                $_POST["bien_numserie"],
+                $_POST["codigo_barras_input"],
+                $bien_color_texto,
+                $_POST["obj_dim"],
+                $_POST["procedencia"],
+                $_POST["val_adq"],
+                $_POST["doc_adq"],
+                $_POST["bien_obs"]
+            );
         }
         break;
 
@@ -41,7 +61,7 @@ switch ($_GET["op"]) {
         if (is_array($datos) == true and count($datos) <> 0) {
             foreach ($datos as $row) {
                 $output["obj_id"] = $row["obj_id"];
-                $output["cate_id"] = $row["cate_id"];
+                $output["codigo_cana"] = $row["codigo_cana"];
                 $output["obj_nombre"] = $row["obj_nombre"];
             }
             echo json_encode($output);
@@ -72,20 +92,11 @@ switch ($_GET["op"]) {
                 </a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="#" onclick="editarObjeto(' . $row["obj_id"] . ')">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon dropdown-item-icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                            <path d="M17 17v4h-10v-4" />
-                            <path d="M6 10v-5h12v5" />
-                            <path d="M6 14h12" />
-                            <path d="M9 17h6" />
-                        </svg>
+                         <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-edit mx-2 "><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>
                         Editar
                     </a>
-                    <a class="dropdown-item" href="#" onclick="eliminarObjeto(' .$row["obj_id"]  . ')">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon dropdown-item-icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                            <path d="M6 6l12 12" />
-                            <path d="M6 18l12 -12" />
+                    <a class="dropdown-item text-danger" href="#" onclick="eliminarObjeto(' .$row["obj_id"]  . ')">
+                        <svg xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-backspace mx-2"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20 6a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-11l-5 -5a1.5 1.5 0 0 1 0 -2l5 -5z" /><path d="M12 10l4 4m0 -4l-4 4" />
                         </svg>
                         Eliminar
                     </a>
@@ -102,80 +113,68 @@ switch ($_GET["op"]) {
         );
         echo json_encode($results);
         break;
+        
     case "listarBienRepre":
-        $datos = $objeto->get_bien_repre($_POST['pers_id']);
+        // Protege la entrada
+        $pers_id = $_POST['pers_id'] ?? null;
+
+        if (!$pers_id) {
+            echo json_encode([
+                "sEcho" => 1,
+                "iTotalRecords" => 0,
+                "iTotalDisplayRecords" => 0,
+                "aaData" => [],
+                "error" => "pers_id no proporcionado"
+            ]);
+            exit;
+        }
+
+        $datos = $objeto->get_bien_repre($pers_id);
         $data = array();
 
-        // Recorre los datos obtenidos de los bienes representados
         foreach ($datos as $row) {
             $sub_array = array();
             $sub_array[] = $row["bien_codbarras"];
             $sub_array[] = $row["obj_nombre"];
 
-            // Lista para almacenar los nombres de colores
+            // Obtener nombres de colores
             $colorNames = [];
-
-            // Eliminar signos de llaves de la cadena de colores
             $color_ids_string = trim($row["bien_color"], "{}");
-
-            // Separar los IDs de color por comas
             $color_ids = explode(",", $color_ids_string);
 
-            // Obtener los nombres de color para cada ID
             foreach ($color_ids as $color_id) {
                 $colorData = $objeto->get_color($color_id);
-
-                // Verificar si $colorData no está vacío antes de acceder a él
                 if (!empty($colorData) && isset($colorData[0]["color_nom"])) {
-                    // Agregar el nombre del color a la lista de nombres de color
                     $colorNames[] = $colorData[0]["color_nom"];
                 }
             }
 
-            // Unir los nombres de color en una cadena separada por comas
             $colorNameString = implode(", ", $colorNames);
-
-            // Agregar la cadena de colores concatenada al sub_array
             $sub_array[] = $colorNameString;
 
-            // Agrega los demás datos al sub_array
-            // Generar el select para el estado del bien
-            $estadoSelect =
-                "  <style>
-                table tr td select {
-                  width: 100%;
-                  padding: 0.5rem;
-                  border-radius: 0.25rem;
-                  border: 1px solid #ced4da;
-                  font-size: 1rem;
-                  background-color: white;
-                  color: #8e8ba1;
-                  outline: none;
-                }
-              </style><select class='form-select'>" .
-                "<option value='N'" .
-                ($row["bien_est"] === "N" ? " selected" : "") .
-                ">N - Nuevo</option>" .
-                "<option value='B'" .
-                ($row["bien_est"] === "B" ? " selected" : "") .
-                ">B - Bueno</option>" .
-                "<option value='R'" .
-                ($row["bien_est"] === "R" ? " selected" : "") .
-                ">R - Regular</option>" .
-                "<option value='M'" .
-                ($row["bien_est"] === "M" ? " selected" : "") .
-                ">M - Malo</option>" .
-                "</select>";
+            // Select de estado SIN incluir <style>
+            $estadoSelect = "<select class='form-select'>";
+            $estadoSelect .= "<option value='N'" . ($row["bien_est"] === "N" ? " selected" : "") . ">N - Nuevo</option>";
+            $estadoSelect .= "<option value='B'" . ($row["bien_est"] === "B" ? " selected" : "") . ">B - Bueno</option>";
+            $estadoSelect .= "<option value='R'" . ($row["bien_est"] === "R" ? " selected" : "") . ">R - Regular</option>";
+            $estadoSelect .= "<option value='M'" . ($row["bien_est"] === "M" ? " selected" : "") . ">M - Malo</option>";
+            $estadoSelect .= "</select>";
 
-            $sub_array[] = $estadoSelect; // Añadir el select al sub_array
+            $sub_array[] = $estadoSelect;
+
+            // Comentario input
             $sub_array[] = '<input type="text" class="form-control" placeholder="Comentario">';
-            $sub_array[] = '<button type="button"  onclick="verDatosbien(\''. $row["bien_codbarras"] .'\')" id="' . $row["bien_codbarras"] . '" class="btn btn-outline-warning btn-icon"><div><i class="fa fa-eye"></i></div></button>';
-            $sub_array[] = '<input type="checkbox" name="select_bien" value="' . $row["obj_id"] . '" style="transform: scale(1.5);" onclick="validarCheckbox(this)">';
+
+            // Botón ver
+            $sub_array[] = '<button type="button" onclick="verDatosbien(\'' . $row["bien_codbarras"] . '\')" id="' . $row["bien_codbarras"] . '" class="btn btn-outline-warning btn-icon"><div><i class="fa fa-eye"></i></div></button>';
+
+            // Checkbox con validación segura de obj_id
+            $obj_id = $row["obj_id"] ?? '';
+            $sub_array[] = '<input type="checkbox" name="select_bien" value="' . $obj_id . '" style="transform: scale(1.5);" onclick="validarCheckbox(this)">';
 
             $data[] = $sub_array;
         }
 
-        // Prepara la respuesta en formato JSON
         $results = array(
             "sEcho" => 1,
             "iTotalRecords" => count($data),
@@ -183,10 +182,8 @@ switch ($_GET["op"]) {
             "aaData" => $data
         );
 
-        // Devuelve la respuesta JSON
         echo json_encode($results);
         break;
-
     case "combo_clase":
         $datos = $objeto->get_objeto_categoria($_POST['gc_id']);
         if (is_array($datos) == true and count($datos) > 0) {
@@ -238,6 +235,7 @@ switch ($_GET["op"]) {
                 $output["obj_nombre"] = $row["obj_nombre"];
                 $output["bien_numserie"] = $row["bien_numserie"];
                 $output["bien_est"] = $row["bien_est"];
+                $output["procedencia"] = $row["procedencia"];
                 $output["bien_dim"] = $row["bien_dim"];
                 $output["bien_color"] = $row["bien_color"];
                 $output["depe_denominacion"] = $row["depe_denominacion"];
@@ -245,7 +243,7 @@ switch ($_GET["op"]) {
             echo json_encode($output);
         } else echo json_encode($output);
         break;
-        case "buscar_obj_barras_consultas":
+    case "buscar_obj_barras_consultas":
             $datos = $objeto->buscar_obj_barras_simple($_POST['cod_bar']);
             $output = array();
             if (is_array($datos) == true and count($datos) <> 0) {
@@ -254,9 +252,7 @@ switch ($_GET["op"]) {
                     $output["bien_codbarras"] = $row["bien_codbarras"];
                     $output["fecharegistro"] = $row["fecharegistro"];
                     $output["obj_nombre"] = $row["obj_nombre"];
-                    
                     $output["bien_numserie"] = $row["bien_numserie"];
-                    
                     if($row["bien_est"] =='A'){
                         $output["bien_est"] = 'Activo';
                     }else if($row["bien_est"] =='N'){
@@ -268,6 +264,7 @@ switch ($_GET["op"]) {
                     }else{
                         $output["bien_est"] = 'Malo';
                     }
+                    $output["procedencia"] = $row["procedencia"];
                     $output["bien_dim"] = $row["bien_dim"];
                     $output["bien_color"] = $row["bien_color"];
                     $output["depe_denominacion"] = $row["depe_denominacion"];
@@ -314,4 +311,36 @@ switch ($_GET["op"]) {
             echo json_encode($output);
         } else echo json_encode($output);
         break;
+    case "mostrar_bien_id":
+        $datos = $objeto->mostrar_bien_id($_POST['bien_id']);
+        $output = array();
+        if (is_array($datos) && count($datos) > 0) {
+            foreach ($datos as $row) {
+                $output["bien_id"] = $row["bien_id"];
+                $output["gc_id"] = $row["gc_id"];
+                $output["clase_nom"] = $row["clase_nom"];
+                $output["gg_id"] = $row["gg_id"];
+                $output["gg_nom"] = $row["gg_nom"];
+                $output["obj_id"] = $row["obj_id"];
+                $output["bien_codbarras"] = $row["bien_codbarras"];
+                $output["fecharegistro"] = $row["fecharegistro"];
+                $output["obj_nombre"] = $row["obj_nombre"];
+                $output["marca_id"] = $row["marca_id"];
+                $output["marca_nom"] = $row["marca_nom"];
+                $output["modelo_id"] = $row["modelo_id"];
+                $output["modelo_nom"] = $row["modelo_nom"];
+                $output["bien_numserie"] = $row["bien_numserie"];
+                $output["bien_est"] = $row["bien_est"];
+                $output["bien_dim"] = $row["bien_dim"];
+                $output["bien_color"] = $row["bien_color"];
+                $output["depe_denominacion"] = $row["depe_denominacion"];
+                $output["val_adq"] = $row["val_adq"];
+                $output["doc_adq"] = $row["doc_adq"];
+                $output["bien_obs"] = $row["bien_obs"];
+                $output["procedencia"] = $row["procedencia"];
+            }
+        }
+        echo json_encode($output);
+    break;
+
 }

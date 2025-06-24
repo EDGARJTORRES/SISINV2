@@ -157,34 +157,35 @@ switch ($_GET["op"]) {
             $sub_array[] = $row["tif_nom"];
             $sub_array[] = $row["emisor"];
             $sub_array[] = $row["receptor"];
-            $sub_array[] = $row["count"];
             $sub_array[] = $row["pers_nombre"];
             $sub_array[] = '
-            <div class="dropdown">
-            <a class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
-            Acciones
+            <div class="dropdown text-center">
+            <a href="#" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                Acciones
             </a>
-            <div class="dropdown-menu">
+            <ul class="dropdown-menu">
+                <li>
                 <a class="dropdown-item" href="#" onclick="imprimirFormato(' . $row["form_id"] . ')">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon dropdown-item-icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                    <path d="M17 17v4h-10v-4" />
-                    <path d="M6 10v-5h12v5" />
-                    <path d="M6 14h12" />
-                    <path d="M9 17h6" />
-                </svg>
-                Imprimir
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-printer mx-2"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" /><path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" /><path d="M7 13m0 2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2z" /></svg>
+                    Imprimir
                 </a>
-                <a class="dropdown-item" href="#" onclick="eliminarformato(' . $row["form_id"] . ')">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon dropdown-item-icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                </li>
+                <li>
+                <a class="dropdown-item text-danger" href="#" onclick="eliminarFormato(' . $row["form_id"] . ')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash mx-2" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                    <path d="M6 6l12 12" />
-                    <path d="M6 18l12 -12" />
-                </svg>
-                Eliminar
+                    <path d="M4 7h16" />
+                    <path d="M10 11v6" />
+                    <path d="M14 11v6" />
+                    <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                    <path d="M9 7v-3h6v3" />
+                    </svg>
+                    Eliminar
                 </a>
-            </div>
+                </li>
+            </ul>
             </div>';
+
             $data[] = $sub_array;
         }
 
@@ -212,8 +213,6 @@ switch ($_GET["op"]) {
         $bitacora->update_bitacora($_SESSION["usua_id_siin"]);
         break;
     case "imprimir_formato":
-
-        // Obtener los datos de la función get_formato_id()
         $datos = $formato->get_formato_id($_POST["form_id"]);
         $titulo = $datos[0]['tif_nom'];
         $datos_emisor = $formato->get_dependenciadatos($datos[0]['depe_emisor']);
@@ -299,9 +298,9 @@ switch ($_GET["op"]) {
         /*  $pdf->Cell(0, 10, $t, 0, 1, "C"); */
         $t_id = $datos[0]['tif_id'];
         if ($t_id == 1) {
-            $pdf->Cell(0, 10, utf8_decode('ANEXO N°1: FORMATO ASIGNACIÓN DE BIENES EN USO'), 0, 1, "C");
+            $pdf->Cell(0, 10, utf8_decode('ANEXO N 1: FORMATO ASIGNACIÓN DE BIENES EN USO'), 0, 1, "C");
         } else if ($t_id == 2) {
-            $pdf->Cell(0, 10, utf8_decode('ANEXO N°2: FORMATO AUTORIZACIÓN DE DESPLAZAMIENTO EXTERNO DE BIENES PATRIMONIALES '), 0, 1, "C");
+            $pdf->Cell(0, 10, utf8_decode('ANEXO N 2: FORMATO AUTORIZACIÓN DE DESPLAZAMIENTO EXTERNO DE BIENES PATRIMONIALES '), 0, 1, "C");
         }
 
 
@@ -325,10 +324,8 @@ switch ($_GET["op"]) {
         // Posición para los datos del emisor (columna izquierda)
         $pdf->SetXY(20, 25); // Ajusta las coordenadas según la ubicación deseada
         $pdf->SetFont("Arial", "B", 10);
-        $pdf->Cell(100, $espaciado, "Datos del Emisor:", 0, 1);
+        $pdf->Cell(100, $espaciado, "Datos del Receptor:", 0, 1);
         $pdf->SetFont("Arial", "", 8);
-
-
         // Imprime los datos del emisor
         $tletra =6  ;
         // Gerencia
@@ -362,13 +359,20 @@ switch ($_GET["op"]) {
         $pdf->Cell(100, $espaciado, utf8_encode($datos[0]["form_repre_emisor_nom"]), 0, 1); // Imprime el valor con salto de línea
         // Dibuja línea de separación justo debajo
         $pdf->Line(50, $pdf->GetY() - 1, 130, $pdf->GetY() - 1);
-
-
+        $pdf->SetX(20);
+        // Sub-Gerencia
+        $pdf->SetFont("Arial", "", 8);
+        $pdf->Cell(65, $espaciado, "DOCUMENTO QUE AUTORIZA EL TRASLADO : ", 0, 0); // Imprime la etiqueta sin salto de línea
+        $pdf->SetFont("Arial", "", $tletra );
+        $pdf->Cell(120, $espaciado, '', 0, 1);  // Imprime el valor con salto de línea
+        // Dibuja línea de separación justo debajo
+        $pdf->Line(85, $pdf->GetY() - 1, 250, $pdf->GetY() - 1);
+        $pdf->SetX(20);
 
         // Posición para los datos del receptor (columna derecha)
         $pdf->SetXY(160, 25); // Ajusta las coordenadas según la ubicación deseada
         $pdf->SetFont("Arial", "B", 10);
-        $pdf->Cell(100, $espaciado, "Datos del Receptor:", 0, 1);
+        $pdf->Cell(100, $espaciado, "Datos del Responsable:", 0, 1);
         $pdf->SetFont("Arial", "", 8);
 
         // Imprime los datos del receptor
@@ -408,7 +412,7 @@ switch ($_GET["op"]) {
         // Suponiendo que $data es un array de datos que contiene los objetos con `bien_id`
 
         // Configura la posición inicial para la tabla en el PDF
-        $pdf->SetXY(10, $pdf->GetY() + 5);
+        $pdf->SetXY(10, $pdf->GetY() + 12);
 
         // Configura el estilo de fuente para el encabezado de la tabla
         $pdf->SetWidths([10, 30, 20, 70, 20, 20, 30, 25, 12, 38]);
@@ -545,7 +549,7 @@ switch ($_GET["op"]) {
         $pdf->Cell($anchoCelda, $espaciado, "INTEGRANTES DE B. PATRIMONIALES", 0, 0, 'C');
         $pdf->Cell($anchoCelda, $espaciado, "FIRMA DEL REPRESENTANTE", 0, 1, 'C');
 
-        // Continúa con el resto de tu código para generar el PDF
+        ob_clean();
         $pdf->Output();
 
         break;

@@ -75,34 +75,36 @@ function buscarBien() {
 }
 
 function mostrarDatosObjeto(data, nombresColores) {
-  const contenedor = document.querySelector(".respuesta");
+const contenedor = document.querySelector(".respuesta");
 
-  // Crear contenedor principal
-  const mainContainer = document.createElement("div");
-  mainContainer.className = "row g-3";
+const mainContainer = document.createElement("div");
+mainContainer.className = "row g-3";
 
-  const colEstado = document.createElement("div");
-  colEstado.className = "col-lg-3 d-flex flex-column align-items-center"; 
-  colEstado.innerHTML = `
-    <div class="text-title mb-0"><h3>Estado del Bien</h3></div>
-    <div class="card text-white w-100" style="background-color: ${obtenerColorPorEstado(data.bien_est)}; max-width: 220px; font-size: 13px;">
-      <div class="card-body py-2 px-3 text-center">
-        <div class="text-uppercase fw-semibold d-flex align-items-center justify-content-center" style="gap: 6px;">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-shareplay">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-            <path d="M18 18a3 3 0 0 0 3 -3v-8a3 3 0 0 0 -3 -3h-12a3 3 0 0 0 -3 3v8a3 3 0 0 0 3 3" />
-            <path d="M9 20h6l-3 -5z" />
-          </svg>
-          ${data.bien_est}
-        </div>
+const colEstado = document.createElement("div");
+colEstado.className = "col-lg-3 d-flex align-items-center justify-content-center"; 
+
+const innerWrapper = document.createElement("div");
+innerWrapper.className = "d-flex flex-column align-items-center"; 
+innerWrapper.innerHTML = `
+  <div class="text-title mb-0"><h3>Estado del Bien</h3></div>
+  <div class="card text-white w-100" style="background-color: ${obtenerColorPorEstado(data.bien_est)}; max-width: 220px; font-size: 13px;">
+    <div class="card-body py-2 px-3 text-center">
+      <div class="text-uppercase fw-semibold d-flex align-items-center justify-content-center" style="gap: 6px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-shareplay">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <path d="M18 18a3 3 0 0 0 3 -3v-8a3 3 0 0 0 -3 -3h-12a3 3 0 0 0 -3 3v8a3 3 0 0 0 3 3" />
+          <path d="M9 20h6l-3 -5z" />
+        </svg>
+        ${data.bien_est}
       </div>
     </div>
-    <div class="mt-2 w-100 d-flex justify-content-center">
-      <img src="../../static/illustrations/19197619.jpg" alt="Estado del bien" class="img-fluid" style="max-width: 220px;">
-    </div>
-  `;
+  </div>
+  <div class="mt-2 w-100 d-flex justify-content-center">
+    <img src="../../static/illustrations/2020202.jpg" alt="Estado del bien" class="img-fluid" style="max-width: 220px;">
+  </div>
+`;
 
-
+  colEstado.appendChild(innerWrapper);
   mainContainer.appendChild(colEstado);
 
   // Crear contenedor de las filas de datos
@@ -116,9 +118,8 @@ function mostrarDatosObjeto(data, nombresColores) {
    <div class="col-12">
    <div class="card" style="
    background: white;
-   border-radius: 12px;
-   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease;">
+        <div class="card-status-start bg-primary"></div>
         <div class="card-body d-flex">
           <div class="w-100">
             <h4 style="background-color: #f0f4f8; color:rgb(10, 78, 173);  padding: 8px 8px; border-radius: 8px; text-transform: uppercase; font-weight: 600; font-size: 18px; display: flex; align-items: center; gap: 8px;">
@@ -133,29 +134,33 @@ function mostrarDatosObjeto(data, nombresColores) {
               <div class="row mb-3">
                 <div class="col-lg-3">
                   <strong>Código de barras:</strong><br>
-                  ${data.bien_codbarras}
+                  ${data.bien_codbarras ? data.bien_codbarras : 'No asignado'}
                 </div>
                 <div class="col-lg-5">
                   <strong>Denominación:</strong><br>
-                  ${data.obj_nombre}
+                  ${data.obj_nombre ? data.obj_nombre : 'Sin denominación'}
                 </div>
                 <div class="col-lg-4">
-                  <strong>Fecha de Registro:</strong><br>
-                  ${data.fecharegistro}
+                  <strong>Fecha Adquision:</strong><br>
+                  ${data.fecharegistro ? data.fecharegistro : 'No registrada'}
                 </div>
               </div>
               <div class="row">
                 <div class="col-lg-3">
                   <strong>Número de Serie:</strong><br>
-                  ${data.bien_numserie}
+                  ${data.bien_numserie ? data.bien_numserie : 'No tiene número de serie'}
                 </div>
-                <div class="col-lg-5">
+                <div class="col-lg-3">
                   <strong>Dimensiones:</strong><br>
-                  ${data.bien_dim}
+                  ${data.bien_dim ? data.bien_dim : 'No especificadas'}
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-3">
+                  <strong>Procedencia:</strong><br>
+                  ${data.procedencia ? data.procedencia : 'No registrada'}
+                </div>
+                <div class="col-lg-3">
                   <strong>Color:</strong><br>
-                  ${nombresColores.join(", ")}
+                  ${(nombresColores && nombresColores.length > 0) ? nombresColores.join(", ") : 'Sin color asignado'}
                 </div>
               </div>
             </div>
@@ -171,9 +176,8 @@ rowDependencia.innerHTML = `
   <div class="col-lg-6 d-flex">
     <div class="card h-100 w-100" style="
       background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       transition: box-shadow 0.3s ease;">
+      <div class="card-status-start bg-orange"></div>
       <div class="card-body d-flex flex-column">
         <div class="w-100">
           <h4 style="background-color:rgb(243, 209, 159); padding: 8px 8px; color:rgb(255, 115, 0); border-radius: 8px; text-transform: uppercase; font-weight: 600; font-size: 18px; display: flex; align-items: center; gap: 8px;">
@@ -183,7 +187,8 @@ rowDependencia.innerHTML = `
             Datos de la Dependencia
           </h4>
           <div class="text-muted">
-            <strong>Dependencia Origen:</strong><br> ${data.depe_denominacion}
+            <strong>Dependencia Origen:</strong><br>
+            ${data.depe_denominacion ? data.depe_denominacion : 'No tiene Área asignada'}
           </div>
         </div>
       </div>
@@ -193,9 +198,8 @@ rowDependencia.innerHTML = `
   <div class="col-lg-6 d-flex">
     <div class="card h-100 w-100" style="
       background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       transition: box-shadow 0.3s ease;">
+      <div class="card-status-start bg-green"></div>
       <div class="card-body d-flex flex-column">
         <div class="w-100">
           <h4 style="background-color:rgb(138, 240, 155);padding: 8px 8px; color:rgb(30, 117, 4); border-radius: 8px; text-transform: uppercase; font-weight: 600; font-size: 18px; display: flex; align-items: center; gap: 8px;">
@@ -207,10 +211,12 @@ rowDependencia.innerHTML = `
           <div class="text-muted">
             <div class="row">
               <div class="col-lg-6">
-                <strong>Representante:</strong><br> ${data.nombre_completo}
+                <strong>Representante:</strong><br>
+                ${data.nombre_completo ? data.nombre_completo : 'No registrado'}
               </div>
               <div class="col-lg-6">
-                <strong>DNI:</strong><br> ${data.pers_dni}
+                <strong>DNI:</strong><br>
+                ${data.pers_dni ? data.pers_dni : 'No especificado'}
               </div>
             </div>
           </div>
@@ -232,8 +238,6 @@ rowDependencia.innerHTML = `
 
 function obtenerColorPorEstado(estado) {
   switch (estado) {
-    case "Activo":
-      return "#37b24d"; // Tabler green
     case "Nuevo":
       return "#228be6"; // Tabler blue
     case "Bueno":
@@ -247,16 +251,14 @@ function obtenerColorPorEstado(estado) {
 
 function obtenerColor2PorEstado(estado) {
   switch (estado) {
-    case "Activo":
-      return "#d3f9d8"; // Light green
     case "Nuevo":
       return "#d0ebff"; // Light blue
     case "Bueno":
       return "#e9fac8"; // Light lime
     case "Regular":
-      return "#ffe8cc"; // Light orange
+      return "#ffe8cc"; 
     default:
-      return "#ffe3e3"; // Light red
+      return "#ffe3e3"; 
   }
 }
 

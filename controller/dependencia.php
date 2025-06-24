@@ -1,14 +1,11 @@
 <?php
-
 require_once("../config/conexion.php");
-
 require_once("../models/Dependencia.php");
 require_once("../models/Bitacora.php");
 require_once("../models/Stick.php");
 $bitacora = new Bitacora();
 $dependencia = new Dependencia();
 $stick = new Stick();
-
 switch ($_GET["op"]) {
     case "guardaryeditar":
         if (empty($_POST["objdepe_id"])) {
@@ -46,8 +43,6 @@ switch ($_GET["op"]) {
         $datos = $dependencia->get_dependencia_datos();
         $datosRetirados = $dependencia->get_dependencia_tipo_mov(5);
         $datosRotados = $dependencia->get_dependencia_tipo_mov(4);
-
-        // Combinar los datos de las tres consultas en una sola estructura de datos
         $data = array();
         foreach ($datos as $row) {
             $id = $row["depe_id"];
@@ -58,24 +53,18 @@ switch ($_GET["op"]) {
                 "objetos_rotados" => 0
             );
         }
-
-        // Actualizar los valores de objetos retirados
         foreach ($datosRetirados as $row) {
             $id = $row["depe_id"];
             if (isset($data[$id])) {
                 $data[$id]["objetos_retirados"] = $row["count"];
             }
         }
-
-        // Actualizar los valores de objetos rotados
         foreach ($datosRotados as $row) {
             $id = $row["depe_id"];
             if (isset($data[$id])) {
                 $data[$id]["objetos_rotados"] = $row["count"];
             }
         }
-
-        // Construir las filas de la tabla
         $rows = array();
         foreach ($data as $id => $row) {
             $sub_array = array(
@@ -142,13 +131,85 @@ switch ($_GET["op"]) {
             echo $html;
         }
         break;
-        case "generarBarras":
-            $datos = $stick->get_nro_patrimonial($_POST['obj_id']);
-            $cod_cana = $datos['codigo_cana'];
-            $lid = $stick->get_last_id();
-            $codinterno = $lid['objdepe_id'];
-            $output["codigo_cana"] = $cod_cana; // Se corrige el acceso a la variable $datos
-            $output["objdepe_id"] = $codinterno; // Se corrige el nombre de la variable $lid
-            echo json_encode($output);
-            break;
+    case "generarBarras":
+        $datos = $stick->get_nro_patrimonial($_POST['obj_id']);
+        $cod_cana = $datos['codigo_cana'];
+        $lid = $stick->get_last_id();
+        $codinterno = $lid['objdepe_id'];
+        $output["codigo_cana"] = $cod_cana; // Se corrige el acceso a la variable $datos
+        $output["objdepe_id"] = $codinterno; // Se corrige el nombre de la variable $lid
+        echo json_encode($output);
+        break;
+    case "contador_bienes_por_dependencia":
+        $datos = $dependencia->contadorBienesPorDependencia();
+        echo json_encode($datos);
+       break;
+    case "listar_cantidad_bienes_por_dependencia":
+        $datos = $dependencia->listarCantidadBienesPorDependencia();
+        echo json_encode($datos);
+       break;
+    case "listar_bienes_por_dependencia":
+        $depe_id = isset($_POST["depe_id"]) ? intval($_POST["depe_id"]) : 0;
+        $datos = $dependencia->listarBienesPorDependencia($depe_id);
+        echo json_encode($datos);
+       break;
+    case "listar_bienes_por_dependencia2":
+        $depe_id = isset($_POST["depe_id"]) ? intval($_POST["depe_id"]) : 0;
+        $datos = $dependencia->listarBienesPorDependencia2($depe_id);
+        echo json_encode($datos);
+       break;
+    case "baja_de_bien":
+        $bien_id = isset($_POST["bien_id"]) ? $_POST["bien_id"] : null;
+        $motivo = isset($_POST["motivo"]) ? $_POST["motivo"] : null;
+
+        if ($bien_id && $motivo) {
+            $dependencia->darDeBajaBien($bien_id, $motivo);
+        } else {
+            echo json_encode(["status" => "error", "message" => "Faltan datos obligatorios."]);
+        }
+        break;
+    case "listarBienesBaja":
+     $datos = $dependencia->listarBienesBaja();
+     $data = array();
+
+     foreach ($datos as $row) {
+        $sub_array = array();
+        $sub_array[] = $row["area"];
+        $sub_array[] = $row["representante"];
+        $sub_array[] = $row["cantidad_bienes"];
+        $sub_array[] = '
+                <td>
+                    <div class="dropdown">
+                         <a class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                           <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-settings"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" /><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /></svg>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#" onclick="verBienesBaja(\'' . $row["area"] . '\')">
+                                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-history mx-2"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 8l0 4l2 2" /><path d="M3.05 11a9 9 0 1 1 .5 4m-.5 5v-5h5" /></svg>Ver Historial
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            ';
+
+        $data[] = $sub_array;
+       }
+
+        $results = array(
+            "sEcho" => 1,
+            "iTotalRecords" => count($data),
+            "iTotalDisplayRecords" => count($data),
+            "aaData" => $data
+        );
+
+         echo json_encode($results);
+       break;
+    case "obtener_ultimo_bien_baja":
+        $datos = $dependencia->obtenerUltimoBienDeBaja();
+        echo json_encode($datos);
+     break;
+
+
+
+            
 }
