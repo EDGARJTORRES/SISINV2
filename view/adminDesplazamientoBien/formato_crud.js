@@ -205,6 +205,44 @@ function enviarDatosAlServidor(dataDict, depeReceptor, depeEmisor) {
     ocultarLoader();
   });
 }
+function resetCampos() {
+  const campos = document.querySelectorAll('input, select, textarea');
+  campos.forEach(campo => {
+    const tag = campo.tagName.toUpperCase();
+    if (tag === 'INPUT') {
+      switch (campo.type) {
+        case 'text':
+        case 'password':
+        case 'email':
+        case 'number':
+        case 'search':
+        case 'tel':
+        case 'url':
+        case 'date':
+        case 'datetime-local':
+        case 'time':
+        case 'month':
+        case 'week':
+          campo.value = '';
+          break;
+        case 'checkbox':
+        case 'radio':
+          campo.checked = false;
+          break;
+      }
+
+    } else if (tag === 'SELECT') {
+      if (campo.classList.contains('select2-hidden-accessible')) {
+        $(campo).val(null).trigger('change');
+      } else {
+        campo.selectedIndex = 0;
+      }
+
+    } else if (tag === 'TEXTAREA') {
+      campo.value = '';
+    }
+  });
+}
 function verFormatoDatos() {
   $("#modalFormato").modal("show");
 }

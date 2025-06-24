@@ -37,20 +37,19 @@ switch ($_GET["op"]) {
                 $_POST["bien_obs"]
             );
         } else {
-            // EDICIÓN ✅ CORREGIDO: usa obj_id (no edit_obj_id)
             $objeto->update_registro_bien(
                 $_POST["bien_id"],
                 $_POST["fecharegistro"],
-                $_POST["obj_id"],  // ✅ aquí estaba el error
+                $_POST["obj_id"], 
                 $_POST["modelo_id"],
                 $_POST["bien_numserie"],
                 $_POST["codigo_barras_input"],
                 $bien_color_texto,
                 $_POST["obj_dim"],
-                $_POST["procedencia"],
                 $_POST["val_adq"],
                 $_POST["doc_adq"],
-                $_POST["bien_obs"]
+                $_POST["bien_obs"],
+                $_POST["procedencia"]
             );
         }
         break;

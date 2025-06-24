@@ -71,4 +71,33 @@ class Bien extends Conectar{
         
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function get_valores_adquisicion_y_baja() {
+        $conectar = parent::conexion();
+        parent::set_names();
+
+        $sql = "
+            SELECT 
+                (SELECT COALESCE(SUM(val_adq)::numeric, 0)
+                FROM sc_inventario.tb_bien 
+                WHERE bien_est != 'I') AS total_adquisicion,
+
+                (SELECT COALESCE(SUM(b.val_adq)::numeric, 0)
+                FROM sc_inventario.tb_bien b
+                WHERE b.bien_est = 'I'
+                AND EXISTS (
+                    SELECT 1 
+                    FROM sc_inventario.tb_bien_dependencia bd
+                    WHERE bd.bien_id = b.bien_id
+                        AND bd.biendepe_est = 1
+                )
+                ) AS total_baja
+        ";
+
+        $stmt = $conectar->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+
 }

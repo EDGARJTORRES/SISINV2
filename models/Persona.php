@@ -58,6 +58,24 @@ class Persona extends Conectar
     }
 
     return $data;
-}
+    
+    }
+    public function get_personas_combo() {
+        $conectar = parent::conexion();
+        parent::set_names();
+
+        $sql = "SELECT 
+                    pers_id,
+                    pers_dni,
+                    pers_apelpat || ' ' || pers_apelmat || ', ' || pers_nombre AS nombre_completo
+                FROM 
+                    sc_escalafon.tb_persona
+                ORDER BY pers_apelpat, pers_apelmat, pers_nombre ASC";
+
+        $stmt = $conectar->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 
 }

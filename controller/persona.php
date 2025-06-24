@@ -22,6 +22,14 @@ switch ($_GET["op"]) {
         $datos = $persona->obtenerDatosGenerales($pers_id);
         echo json_encode($datos);
     break;
+    case "combo":
+        $datos = $persona->get_personas_combo();
+        echo '<option value="" disabled selected>Seleccione</option>';
+        foreach ($datos as $row) {
+            echo '<option value="' . $row["pers_id"] . '">' . $row["pers_dni"] . ' - ' . htmlspecialchars($row["nombre_completo"]) . '</option>';
+        }
+        break;
+    
 
 
 }

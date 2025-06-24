@@ -80,6 +80,10 @@ switch ($_GET["op"]) {
         );
         echo json_encode($results);
     break;
+    case "grafico_valor_bienes":
+        $datos = $bien->get_valores_adquisicion_y_baja();
+        echo json_encode($datos);
+    break;
     
 
 }

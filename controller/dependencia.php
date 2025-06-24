@@ -208,6 +208,10 @@ switch ($_GET["op"]) {
         $datos = $dependencia->obtenerUltimoBienDeBaja();
         echo json_encode($datos);
      break;
+    case "select_areas":
+        $data = $dependencia->obtener_areas_con_baja();
+        echo json_encode($data);
+     break;
 
 
 

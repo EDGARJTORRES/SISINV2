@@ -184,7 +184,7 @@ class Objeto extends Conectar
                     inner join sc_escalafon.tb_persona tp on tp.pers_id = td.repre_id
                     inner join sc_inventario.tb_bien tb on tb.bien_id = td.bien_id
                     left join sc_inventario.tb_objeto tob on tob.obj_id = tb.obj_id
-                    where td.repre_id = ? and td.biendepe_est =1";
+                    where td.repre_id = ? and td.biendepe_est =1 and td.bien_est <> 'I';";
             $sql = $conectar->prepare($sql);
             $sql->bindValue(1, $pers_id);
             $sql->execute();
