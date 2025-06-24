@@ -165,6 +165,7 @@ if (isset($_SESSION["usua_id_siin"])) {
         <div class="row mb-3">
             <div class="col-12 mb-4">
                 <div class="card border-0" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
+                <div class="card-status-start bg-primary"></div>
                 <div class="card-header">
                     <h3 class="card-title">
                     <i class="fa-solid fa-folder-open text-primary me-2"></i> LISTADO DE DOCUMENTOS SUBIDOS

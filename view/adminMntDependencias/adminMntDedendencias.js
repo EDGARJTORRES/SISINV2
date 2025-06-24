@@ -51,8 +51,8 @@ $(document).ready(function () {
         option.value = area.depe_denominacion; 
         option.textContent = area.depe_denominacion;
         select.appendChild(option);
-      });
     });
+  });
 
   $('#filtro_dependencia').on('change', function () {
     const selected = this.value;
@@ -106,3 +106,4 @@ function limpiarFiltros() {
   $.fn.dataTable.ext.search = []; 
   table.draw();
 }
+

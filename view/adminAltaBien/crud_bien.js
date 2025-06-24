@@ -60,7 +60,6 @@ function guardaryeditarbienes(e) {
       enviarRegistros(registros, cantidad);
     });
   } else {
-    // Modo edición - solo 1 bien
     let formData = new FormData($("#bien_form")[0]);
 
     formData.set("bien_id", bien_id);

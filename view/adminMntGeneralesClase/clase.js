@@ -229,7 +229,35 @@ $(document).ready(function () {
     $('#clase_id_all').on('change', function () {
         let isChecked = $(this).is(':checked');
         $('.clase-checkbox').prop('checked', isChecked);
-    });  
+    }); 
+    const sliderElement = document.getElementById('slider_rango');
+    noUiSlider.create(sliderElement, {
+      start: [1, 100],
+      connect: true,
+      range: {
+        'min': 1,
+        'max': 100
+      },
+      tooltips: [false, false],
+      format: {
+        to: value => Math.round(value),
+        from: value => Number(value)
+      }
+    }); 
+    sliderElement.noUiSlider.on('update', function (values) {
+      const min = parseInt(values[0]);
+      const max = parseInt(values[1]);
+      document.getElementById('min_valor').textContent = min;
+      document.getElementById('max_valor').textContent = max;
+
+      $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+        const cantidad = parseInt(data[1]) || 0;
+        return cantidad >= min && cantidad <= max;
+      });
+
+      table.draw();
+      $.fn.dataTable.ext.search.pop();
+    });
 });
 
 let idsSeleccionados = new Set();
@@ -388,6 +416,20 @@ $(document).on('change', '.clase-checkbox', function () {
   });
 
 
+function limpiarFiltros() {
+  $('#buscar_dependencia').val('');
+  $('#filtro_dependencia').val('');
+  const slider = document.getElementById('slider_rango').noUiSlider;
+  slider.set([1, 100]); 
+  document.getElementById('min_valor').textContent = 1;
+  document.getElementById('max_valor').textContent = 100;
+  const table = $('#dependencias_objetos').DataTable();
+  table.search('').draw(); 
+  $.fn.dataTable.ext.search = []; 
+  table.draw();
+}
+
+
 
 function editarclase(clase_id){
     $.post("../../controller/clase.php?op=mostrar",{clase_id : clase_id}, function (data) {
@@ -402,85 +444,97 @@ function editarclase(clase_id){
         $('#clase_nom').val(data.clase_nom);
         $('#clase_cod').val(data.clase_cod);
         $('#lbltitulo').html('<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-mood-edit"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20.955 11.104a9 9 0 1 0 -9.895 9.847" /><path d="M9 10h.01" /><path d="M15 10h.01" /><path d="M9.5 15c.658 .672 1.56 1 2.5 1c.126 0 .251 -.006 .376 -.018" /><path d="M18.42 15.61a2.1 2.1 0 0 1 2.97 2.97l-3.39 3.42h-3v-3l3.42 -3.39z" /></svg> EDITAR CLASE REGISTRADA');
+        const ahora = dayjs(); // si usas dayjs
+        mostrarUltimaAccion(`Editó la clase "${data.clase_nom}"`, ahora.toISOString());
     });
    
     $('#modalClase').modal('show');
 }
 
 function eliminarclase(clase_id) {
-    Swal.fire({
-        title: '¿Estás seguro?',
-        text: "¡Esta acción no se puede deshacer!",
-        imageUrl: '../../static/gif/advertencia.gif',
-        imageWidth: 100,
-        imageHeight: 100,
-        showCancelButton: true,
-         confirmButtonColor: 'rgb(243, 18, 18)', 
-        cancelButtonColor: '#000', 
-        confirmButtonText: 'Sí, eliminarlo',
-        backdrop: true,
-        didOpen: () => {
-            const swalBox = Swal.getPopup();
-            const topBar = document.createElement('div');
-            topBar.id = 'top-progress-bar';
-            topBar.style.cssText = `
-                position: absolute;
-                top: 0;
-                left: 0;
-                height: 5px;
-                width: 0%;
-                background-color:rgb(243, 18, 18);
-                transition: width 0.4s ease;
-            `;
-            swalBox.appendChild(topBar);
+  $.post("../../controller/clase.php?op=mostrar", { clase_id: clase_id }, function (data) {
+    data = JSON.parse(data);
+    const nombre_clase = data.clase_nom;
 
-            setTimeout(() => {
-                topBar.style.width = '40%';
-            }, 300);
-        }
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "¡Esta acción no se puede deshacer!",
+      imageUrl: '../../static/gif/advertencia.gif',
+      imageWidth: 100,
+      imageHeight: 100,
+      showCancelButton: true,
+      confirmButtonColor: 'rgb(243, 18, 18)',
+      cancelButtonColor: '#000',
+      confirmButtonText: 'Sí, eliminarlo',
+      backdrop: true,
+      didOpen: () => {
+        const swalBox = Swal.getPopup();
+        const topBar = document.createElement('div');
+        topBar.id = 'top-progress-bar';
+        topBar.style.cssText = `
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 5px;
+          width: 0%;
+          background-color:rgb(243, 18, 18);
+          transition: width 0.4s ease;
+        `;
+        swalBox.appendChild(topBar);
+
+        setTimeout(() => {
+          topBar.style.width = '40%';
+        }, 300);
+      }
     }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-              url: '../../controller/clase.php?op=eliminar',
-                type: 'POST',
-               data: {clase_id : clase_id},
-                success: function (response) {
-                   $('#clase_data').DataTable().ajax.reload();
-                    Swal.fire({
-                        title: '¡Eliminado!',
-                        html: `
-                            <p>La clase ha sido eliminado correctamente.</p>
-                            <div id="top-progress-bar-final" style="
-                                position: absolute;
-                                top: 0;
-                                left: 0;
-                                height: 5px;
-                                width: 0%;
-                                background-color:rgb(243, 18, 18);
-                                transition: width 0.6s ease;
-                            "></div>
-                        `,
-                        imageUrl: '../../static/gif/verified.gif',
-                        imageWidth: 100,
-                        imageHeight: 100,
-                        showConfirmButton: true,
-                        confirmButtonColor: 'rgb(243, 18, 18)',
-                        backdrop: true,
-                        didOpen: () => {
-                            const bar = document.getElementById('top-progress-bar-final');
-                            setTimeout(() => {
-                                bar.style.width = '100%';
-                            }, 100);
-                        }
-                    });
-                },
-                error: function () {
-                    Swal.fire('Error', 'No se pudo eliminar el usuario.', 'error');
-                }
+      if (result.isConfirmed) {
+        $.ajax({
+          url: '../../controller/clase.php?op=eliminar',
+          type: 'POST',
+          data: { clase_id: clase_id },
+          success: function (response) {
+            $('#clase_data').DataTable().ajax.reload();
+
+            const ahora = dayjs();
+            mostrarUltimaAccion(`Eliminó la clase "${nombre_clase}"`, ahora.toISOString());
+
+            Swal.fire({
+              title: '¡Eliminado!',
+              html: `
+                <p>La clase <strong>${nombre_clase}</strong> ha sido eliminada correctamente.</p>
+                <div id="top-progress-bar-final" style="
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  height: 5px;
+                  width: 0%;
+                  background-color:rgb(243, 18, 18);
+                  transition: width 0.6s ease;
+                "></div>
+              `,
+              imageUrl: '../../static/gif/verified.gif',
+              imageWidth: 100,
+              imageHeight: 100,
+              showConfirmButton: true,
+              confirmButtonColor: 'rgb(243, 18, 18)',
+              backdrop: true,
+              didOpen: () => {
+                const bar = document.getElementById('top-progress-bar-final');
+                setTimeout(() => {
+                  bar.style.width = '100%';
+                }, 100);
+              }
             });
-        }
+          },
+          error: function () {
+            Swal.fire('Error', 'No se pudo eliminar el usuario.', 'error');
+          }
+        });
+      }
     });
+  });
 }
+
 
 $('#clase_form').on('reset', function () {
   setTimeout(function () {

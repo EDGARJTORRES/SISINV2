@@ -28,7 +28,7 @@ switch ($_GET["op"]) {
         break;
 
     case "eliminar":
-        $clase->delete_color($_POST["color_id"]);
+        $color->delete_color($_POST["color_id"]);
         $bitacora->update_bitacora($_SESSION["usua_id_siin"]);
         break;
     case "listar":

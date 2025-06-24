@@ -383,7 +383,6 @@ class Objeto extends Conectar
                 tob.gc_id,  
                 tgc.gg_id, 
                 tgg.gg_nom,
-                -- CAMPOS PARA FORMULARIO DE EDICIÓN
                 tbb.val_adq,
                 tbb.doc_adq,
                 tbb.bien_obs,
