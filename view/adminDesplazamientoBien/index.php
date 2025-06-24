@@ -221,7 +221,7 @@ if (isset($_SESSION["usua_id_siin"])) {
               </div>
             </h2>
           </div>
-          <div class="card mb-4" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
+          <div class="card border-0 mb-4" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
             <div class="card-header">
               <div class="row">
                 <div class="col-lg-12">

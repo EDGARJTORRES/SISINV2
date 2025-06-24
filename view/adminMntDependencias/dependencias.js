@@ -1,11 +1,9 @@
 function mostrarAlertaCarga() {
   document.getElementById('alerta-carga').style.display = 'block';
 }
-
 function ocultarAlertaCarga() {
   document.getElementById('alerta-carga').style.display = 'none';
 }
-
 function obtenerIconoPorDependencia(nombre) {
   const n = nombre.toUpperCase();
   if (n.includes("TURISMO") || n.includes("CULTURA")) return "fa-map-marked-alt";
@@ -33,12 +31,10 @@ function obtenerIconoPorDependencia(nombre) {
   if (n.includes("TRIBUTACION") || n.includes("RENTAS")) return "fa-receipt";
   return "fa-building";
 }
-
 function nuevobaja() {
   $('#modalBaja').modal('show');
   cargarListadoBienesEnModal();
 }
-
 function cargarListadoBienesEnModal() {
   fetch("../../controller/dependencia.php?op=listar_cantidad_bienes_por_dependencia")
     .then(response => response.json())
@@ -116,17 +112,22 @@ function cargarListadoBienesEnModal() {
 
           detalle.innerHTML = `
             <h5 class="mb-3">${nombre}</h5>
-            <div class="d-flex align-items-center gap-4 mb-2">
-              <div class="input-icon" style="width: 400px;">
-                  <span class="input-icon-addon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-search">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
-                  </span>
-                  <input type="text" id="buscar_registros" placeholder="Buscar registro..." class="form-control"> 
+            <div class="mb-2 w-100">
+              <div class="input-icon w-100">
+                <span class="input-icon-addon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="icon icon-tabler icons-tabler-outline icon-tabler-search">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+                    <path d="M21 21l-6 -6" />
+                  </svg>
+                </span>
+                <input type="text" id="buscar_registros" placeholder="Buscar registro..." class="form-control w-100">
               </div>
             </div>
             <div class="table-responsive">
-              <table id="dependencia_data" class="table card-table table-vcenter text-nowrap datatable">
+              <table id="dependencia_data" class="table card-table table-vcenter text-nowrap datatable" style="width: 95%;">
                 <thead>
                   <tr>
                     <th>Código</th>
@@ -212,11 +213,8 @@ function cargarListadoBienesEnModal() {
     .catch(error => console.error("Error al cargar dependencias:", error));
 }
 function darDeBaja(bien_id) {
-  console.log("Dar de baja bien ID:", bien_id);
   $('#modalBaja').modal('hide');
   $('.modal-backdrop').remove();
-
-  // Paso 1: Confirmación inicial
   Swal.fire({
     title: '¿Estás seguro?',
     text: "¡Esta acción no se puede deshacer!",
@@ -230,8 +228,6 @@ function darDeBaja(bien_id) {
     didOpen: () => agregarBarraProgreso(40)
   }).then((confirmResult) => {
     if (confirmResult.isConfirmed) {
-
-      // Paso 2: Solicitar motivo
       Swal.fire({
         title: 'Motivo de Baja',
         input: 'textarea',
@@ -248,17 +244,13 @@ function darDeBaja(bien_id) {
       }).then((motivoResult) => {
         if (motivoResult.isConfirmed) {
           const motivoBaja = motivoResult.value.trim();
-
-          // Paso 3: AJAX para dar de baja
           $.ajax({
             url: '../../controller/dependencia.php?op=baja_de_bien',
             type: 'POST',
             data: { bien_id, motivo: motivoBaja },
             success: function () {
               const depeId = document.querySelector(".list-group-item.active")?.dataset?.id;
-
               if (depeId) {
-                // Actualizar tabla de bienes
                 $.ajax({
                   url: "../../controller/dependencia.php?op=listar_bienes_por_dependencia2",
                   type: "POST",
@@ -277,7 +269,6 @@ function darDeBaja(bien_id) {
                       });
                       return;
                     }
-
                     let rows = "";
                     $.each(bienes, function (index, b) {
                       rows += `
@@ -295,7 +286,6 @@ function darDeBaja(bien_id) {
                           </td>
                         </tr>`;
                     });
-
                     $('#dependencia_data').DataTable().destroy();
                     $('#tbody-bienes').html(rows);
                     $('#dependencia_data').DataTable({
@@ -320,8 +310,6 @@ function darDeBaja(bien_id) {
                         }
                       }
                     });
-
-                    // Alerta de éxito
                     Swal.fire({
                       title: '¡Dado de baja!',
                       html: `<p>El bien ha sido dado de baja correctamente.</p>
@@ -345,19 +333,14 @@ function darDeBaja(bien_id) {
                         }, 100);
                       }
                     });
-
-                    // Recargar DataTable resumen
                     if ($.fn.DataTable.isDataTable('#dependencias_objetos')) {
                       $('#dependencias_objetos').DataTable().ajax.reload(null, false);
                     }
-
-                    // Actualizar lista lateral de dependencias
                     fetch("../../controller/dependencia.php?op=listar_cantidad_bienes_por_dependencia")
                       .then(response => response.json())
                       .then(data => {
                         const lista = document.getElementById("lista-items");
                         let listaHTML = "";
-
                         data.forEach(dep => {
                           const icono = obtenerIconoPorDependencia(dep.depe_denominacion);
                           const isActive = dep.depe_id == depeId ? "active" : "";
@@ -374,7 +357,6 @@ function darDeBaja(bien_id) {
                               </div>
                             </div>`;
                         });
-
                         lista.innerHTML = listaHTML;
                       });
                   },
@@ -401,8 +383,6 @@ function darDeBaja(bien_id) {
     }
   });
 }
-
-// Función auxiliar para agregar barra de progreso en SweetAlert
 function agregarBarraProgreso(porcentaje = 40) {
   const swalBox = Swal.getPopup();
   const topBar = document.createElement('div');

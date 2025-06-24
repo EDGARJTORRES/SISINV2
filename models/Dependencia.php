@@ -263,8 +263,6 @@
                 return false;
             }
         }
-
-
         public function listarBienesBaja() {
             $conectar = parent::conexion();
             $sql = "SELECT
@@ -310,8 +308,19 @@
                 return false;
             }
         }
+        public function obtener_areas_con_baja(){
+             $conectar = parent::conexion();
+              $sql = "SELECT DISTINCT d.depe_id, d.depe_denominacion
+                        FROM sc_inventario.tb_bien_dependencia bd
+                        JOIN public.tb_dependencia d ON bd.depe_id = d.depe_id
+                        WHERE bd.bien_est = 'I'
+                        ORDER BY d.depe_denominacion
+                ";
+                $stmt = $conectar->prepare($sql);
+                $stmt->execute();
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-
+        }
 
     }
 ?>

@@ -102,13 +102,18 @@ document.addEventListener("DOMContentLoaded", function () {
           // Tabla inicial
           detalle.innerHTML = `
             <h5 class="mb-3">${nombre}</h5>
-            <div class="d-flex align-items-center gap-4 mb-2">
-              <div class="input-icon"  style="width: 400px;">
-                  <span class="input-icon-addon">
-                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-search">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
-                  </span>
-                  <input type="text" id="buscar_registros" placeholder="Buscar registro  . . . " class="form-control"> 
+            <div class="mb-2 w-100">
+              <div class="input-icon w-100">
+                <span class="input-icon-addon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="icon icon-tabler icons-tabler-outline icon-tabler-search">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+                    <path d="M21 21l-6 -6" />
+                  </svg>
+                </span>
+                <input type="text" id="buscar_registros" placeholder="Buscar registro..." class="form-control w-100">
               </div>
             </div>
             <div class="table-responsive">

@@ -96,6 +96,17 @@ if (isset($_SESSION["usua_id_siin"])) {
         word-wrap: break-word;
         overflow-wrap: break-word;
       }
+      #slider_rango .noUi-connect {
+      background: #0d6efd; /* azul Bootstrap */
+      }
+      #slider_rango .noUi-handle {
+        border: none;
+        background: #0054a6;
+        box-shadow: none;
+      }
+      #slider_rango {
+        height: 10px;
+      }
       </style>
   </head>
 <body>
@@ -138,7 +149,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                   <div class="col-md-4">
                     
                     <!-- Card: Descripción -->
-                    <div class="card mb-3" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
+                    <div class="card border-0 mb-3" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
                       <div class="card-status-start bg-primary"></div>
                       <div class="card-header">
                         <h3 class="card-title">
@@ -151,7 +162,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                         </p>
                       </div>
                     </div>
-                    <div class="card"  style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
+                    <div class="card border-0"  style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
                       <div class="card-status-start bg-primary"></div>
                       <div class="card-header">
                         <h3 class="card-title">
@@ -160,11 +171,14 @@ if (isset($_SESSION["usua_id_siin"])) {
                       </div>
                       <div class="card-body">
                         <div class="my-2">
-                          <label class="form-label">
-                            Filtrar Bienes (máx): <span id="valor_bienes">100</span>
-                            <span style="color:red"> *</span>
+                          <label for="slider_rango" class="form-label">
+                            Filtrar por cantidad de bienes: <span style="color:red">*</span>
                           </label>
-                          <input type="range" class="form-range" min="0" max="100" step="1" id="filtro_bienes" value="100">
+                          <div id="slider_rango" class="m-4"></div>
+                          <div class="d-flex justify-content-between mx-4 mt-2">
+                            <span><strong>Mín:</strong> <span id="min_valor">1</span></span>
+                            <span><strong>Máx:</strong> <span id="max_valor">100</span></span>
+                          </div>
                         </div>
                         <div class="my-2">
                           <label class="form-label">Buscar Área:<span style="color:red"> *</span></label>
@@ -174,12 +188,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                            </select>
                         </div>
                         <div class="row mb-2">
-                          <div class="col-md-6 d-grid mt-3">
-                            <button class="btn btn-sm btn-primary" onclick="filtrarTabla()">
-                              <i class="fa-solid fa-magnifying-glass m-2"></i> APLICAR FILTROS
-                            </button>
-                          </div>
-                          <div class="col-md-6 d-grid mt-3">
+                          <div class="col-md-12 d-grid mt-3">
                             <button class="btn btn-sm btn-secondary" onclick="limpiarFiltros()">
                               <i class="fa-solid fa-eraser m-2"></i> LIMPIAR FILTROS
                             </button>
@@ -189,7 +198,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                     </div>
                   </div>
                   <div class="col-md-8">
-                    <div class="card" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
+                    <div class="card border-0" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
                       <div class="card-header">
                         <h3 class="card-title">
                           <i class="fa-solid fa-table-list me-2 text-primary"></i>
@@ -202,7 +211,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                           </div>
                         </div>
                         <div class="d-flex align-items-center gap-4 my-4 mx-3">
-                          <div class="input-icon"  style="width: 350px;">
+                          <div class="input-icon"  style="width: 100%;">
                               <span class="input-icon-addon">
                                 <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-search">
                                   <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
