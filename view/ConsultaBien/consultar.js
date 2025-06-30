@@ -134,33 +134,55 @@ innerWrapper.innerHTML = `
               <div class="row mb-3">
                 <div class="col-lg-3">
                   <strong>Código de barras:</strong><br>
-                  ${data.bien_codbarras ? data.bien_codbarras : 'No asignado'}
+                  ${data.bien_codbarras ? data.bien_codbarras.toUpperCase() : 'NO ASIGNADO'}
                 </div>
-                <div class="col-lg-5">
+                <div class="col-lg-3">
                   <strong>Denominación:</strong><br>
-                  ${data.obj_nombre ? data.obj_nombre : 'Sin denominación'}
+                  ${data.obj_nombre ? data.obj_nombre.toUpperCase() : 'SIN DENOMINACIÓN'}
                 </div>
-                <div class="col-lg-4">
-                  <strong>Fecha Adquision:</strong><br>
-                  ${data.fecharegistro ? data.fecharegistro : 'No registrada'}
+                <div class="col-lg-3">
+                  <strong>Fecha Adquisición:</strong><br>
+                  ${data.fecharegistro ? data.fecharegistro.toUpperCase() : 'NO REGISTRADA'}
+                </div>
+                <div class="col-lg-3">
+                  <strong>Valor Adquisición:</strong><br>
+                  ${data.val_adq ? data.val_adq.toString().toUpperCase() : 'SIN VALOR ASIGNADO'}
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-lg-3">
+                  <strong>Doc. Adquisición:</strong><br>
+                  ${data.doc_adq ? data.doc_adq.toUpperCase() : 'NO ASIGNADO'}
+                </div>
+                <div class="col-lg-3">
+                  <strong>Observación:</strong><br>
+                  ${data.bien_obs ? data.bien_obs.toUpperCase() : 'SIN OBSERVACIONES'}
+                </div>
+                <div class="col-lg-3">
+                  <strong>Marca:</strong><br>
+                  ${data.marca_nom ? data.marca_nom.toUpperCase() : 'SIN MARCA ASIGNADA'}
+                </div>
+                <div class="col-lg-3">
+                  <strong>Modelo:</strong><br>
+                  ${data.modelo_nom ? data.modelo_nom.toUpperCase() : 'SIN MODELO ASIGNADO'}
                 </div>
               </div>
               <div class="row">
                 <div class="col-lg-3">
                   <strong>Número de Serie:</strong><br>
-                  ${data.bien_numserie ? data.bien_numserie : 'No tiene número de serie'}
+                  ${data.bien_numserie ? data.bien_numserie.toUpperCase() : 'NO TIENE NÚMERO DE SERIE'}
                 </div>
                 <div class="col-lg-3">
                   <strong>Dimensiones:</strong><br>
-                  ${data.bien_dim ? data.bien_dim : 'No especificadas'}
+                  ${data.bien_dim ? data.bien_dim.toUpperCase() : 'NO ESPECIFICADAS'}
                 </div>
                 <div class="col-lg-3">
                   <strong>Procedencia:</strong><br>
-                  ${data.procedencia ? data.procedencia : 'No registrada'}
+                  ${data.procedencia ? data.procedencia.toUpperCase() : 'NO REGISTRADA'}
                 </div>
                 <div class="col-lg-3">
                   <strong>Color:</strong><br>
-                  ${(nombresColores && nombresColores.length > 0) ? nombresColores.join(", ") : 'Sin color asignado'}
+                  ${(nombresColores && nombresColores.length > 0) ? nombresColores.map(c => c.toUpperCase()).join(", ") : 'SIN COLOR ASIGNADO'}
                 </div>
               </div>
             </div>
@@ -212,11 +234,11 @@ rowDependencia.innerHTML = `
             <div class="row">
               <div class="col-lg-6">
                 <strong>Representante:</strong><br>
-                ${data.nombre_completo ? data.nombre_completo : 'No registrado'}
+                ${data.nombre_completo ? data.nombre_completo.toUpperCase() : 'NO REGISTRADO'}
               </div>
               <div class="col-lg-6">
                 <strong>DNI:</strong><br>
-                ${data.pers_dni ? data.pers_dni : 'No especificado'}
+                ${data.pers_dni ? data.pers_dni.toUpperCase() : 'NO ESPECIFICADO'}
               </div>
             </div>
           </div>

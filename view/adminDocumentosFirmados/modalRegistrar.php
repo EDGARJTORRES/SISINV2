@@ -6,30 +6,31 @@
                 </h3>
                 <button type="button" class="btn-close-white btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method="post" id="documento_form">
-                <div class="modal-body m-4">
+            <form method="post" id="documento_form" enctype="multipart/form-data">
+                <div class="modal-body mx-4 my-2">
+                    <input type="hidden" name="doc_ruta" id="doc_ruta" />
                     <input type="hidden" name="doc_id" id="doc_id"/>
                     <div class="row">
                         <div class="row mt-2">
                           <!-- Tipo -->
                           <div class="col-2">
                             <label class="form-label">Documento <span class="text-danger">*</span></label>
-                            <select class="form-select" name="tipo_documento" required>
+                            <select class="form-select" name="doc_tipo" id="doc_tipo" required>
                                 <option value="">Seleccione</option>
-                                <option value="asignacion">Asignación</option>
-                                <option value="desplazamiento">Desplazamiento</option>
-                                <option value="baja">Baja</option>
+                                <option value="Asignacion">Asignación</option>
+                                <option value="Desplazamiento">Desplazamiento</option>
+                                <option value="Baja">Baja</option>
                             </select>
                           </div>
                           <div class="col-5">
                             <label class="form-label">Área / Dependencia <span class="text-danger">*</span></label>
-                            <select class="form-select select2" id="area_asignacion_combo" name="area_asignacion_combo"  data-placeholder="Seleccione Dependencia" style="width: 100%;">
+                            <select class="form-select select2" id="area_asignacion_combo" name="depe_id"  data-placeholder="Seleccione Dependencia" style="width: 100%;">
                             <option value="" disabled selected>Seleccione</option>
                             </select>
                           </div>
                           <div class="col-5">
                             <label class="form-label">DNI/ Usuario <span class="text-danger">*</span></label>
-                            <select class="form-select select2" id="usuario_combo" name="usuario_combo" data-placeholder="Seleccione Usuario" style="width: 100%;">
+                            <select class="form-select select2" id="usuario_combo" name="pers_id" data-placeholder="Seleccione Usuario" style="width: 100%;">
                             <option value="" disabled selected>Seleccione</option>
                             </select>
                           </div>
@@ -37,7 +38,7 @@
                           <!-- Descripción -->
                           <div class="col-12 mt-2">
                           <label class="form-label">Descripción <span class="text-danger">*</span></label>
-                          <textarea class="form-control" name="descripcion" placeholder="Ej. Formato firmado por oficina de logística"></textarea>
+                          <textarea class="form-control" name="doc_desc" id="doc_desc" placeholder="Ej. Formato firmado por oficina de logística"></textarea>
                           </div>
                           <div class="col-12 mt-2">
                             <label class="form-label">Archivo PDF <span class="text-danger">*</span></label>
@@ -72,7 +73,7 @@
                             </button>
 
                             <!-- Input real de archivo (oculto) -->
-                            <input type="file" name="archivo_pdf" id="archivo_pdf" accept="application/pdf" required style="display: none;">
+                            <input type="file" name="archivo_pdf" id="archivo_pdf" accept="application/pdf" style="display: none;">
                           </div>
                       </div>
                     </div>

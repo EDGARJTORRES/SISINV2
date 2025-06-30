@@ -150,6 +150,9 @@ function enviarDatosAlServidor(dataDict, depeReceptor, depeEmisor) {
   var persOrigenId = $("#pers_origen_id").val();
   var persDestinoId = $("#pers_destino_id").val();
 
+  // Obtener el valor del documento que autoriza el traslado
+  var docTraslado = $("#doc_traslado").val();
+
   console.table(persOrigenId);
   console.table(persDestinoId);
   // Enviar los datos al servidor
@@ -162,6 +165,7 @@ function enviarDatosAlServidor(dataDict, depeReceptor, depeEmisor) {
       depe_emisor: depeEmisor,
       pers_origen_id: persOrigenId,
       pers_destino_id: persDestinoId,
+      doc_traslado: docTraslado // <-- Agrega aquí el campo
     },
     function (response) {
       // Manejar la respuesta del servidor

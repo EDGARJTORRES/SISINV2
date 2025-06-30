@@ -148,7 +148,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                     </button>
                   </div>
                 </div>
-                <div class="card border-0 mt-3" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;" id="card_ultima_accion" style="display: none;">
+                <div class="card border-0 mt-3" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;" id="card_ultima_accion">
                   <div class="card-status-start bg-primary"></div>
                   <div class="card-body">
                     <h6 class="text-muted mb-2">Última acción</h6>
@@ -192,7 +192,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                   </div>
                   <div class="card-body">
                     <div class="table-responsive mx-4">
-                      <div class="row my-4">
+                      <div class="row my-3">
                         <div class="col-lg-12">
                           <div class="d-flex flex-wrap align-items-center gap-3">
                             <div class="d-flex align-items-center">
@@ -272,15 +272,18 @@ if (isset($_SESSION["usua_id_siin"])) {
             <p class="title">Cargando Clases... :)</p>
             <p class="description">Espere mientras se obtienen los datos.</p>
           </div>
-
         </div>
       </div>
     </div>
     <?php require_once("../html/footer.php"); ?>
     <?php require_once("../html/mainjs.php"); ?>
     <?php require_once("modalClase.php"); ?>
-    <script type="text/javascript" src="clase.js"></script>
+    <script type="text/javascript" src="alerts.js"></script>
+    <script type="text/javascript" src="eliminacioncheckbox.js"></script>
     <script type="text/javascript" src="acciones.js"></script>
+    <script type="text/javascript" src="datatable.js"></script>
+    <script type="text/javascript" src="crud.js"></script>
+    <script type="text/javascript" src="init.js"></script>
 </body>
 </body>
 </html>

@@ -1,6 +1,5 @@
 function nuevoBien() {
   modoEdicion = false;
-
   $("#bien_form")[0].reset();
   $("#cod_interno").closest(".form-group").show();
   $("#cod_interno").prop("readonly", true);
@@ -12,7 +11,6 @@ function nuevoBien() {
     .prop("readonly", false)
     .removeAttr("disabled") 
     .off("keydown mousewheel"); // quita bloqueo si se activó antes
-
   $("#combo_gg_bien_obj").val("").trigger("change").prop("disabled", false);
   $("#combo_clase_bien_obj").empty().prop("disabled", false);
   $("#combo_obj_bien").empty().prop("disabled", false);
@@ -20,10 +18,7 @@ function nuevoBien() {
   $("#combo_modelo_obj").prop("disabled", false);
   $("#procedencia").val("").trigger("change").prop("disabled", false);
   $("#combo_color_bien").val("").trigger("change");
-
   $("#edit_block").hide();
-
-  // Obtener el nuevo código
   $.post("../../controller/objeto.php?op=getcodinterno", function (data) {
     const cod = parseInt(data) + 1;
     const formattedCod = cod.toString().padStart(4, "0");

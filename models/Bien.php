@@ -92,7 +92,6 @@ class Bien extends Conectar{
                 )
                 ) AS total_baja
         ";
-
         $stmt = $conectar->prepare($sql);
         $stmt->execute();
 

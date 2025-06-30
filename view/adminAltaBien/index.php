@@ -12,190 +12,8 @@ if (isset($_SESSION["usua_id_siin"])) {
     <link href="../../public/css/Breadcrumb.css" rel="stylesheet"/>
     <link href="../../public/css/alerta.css" rel="stylesheet"/>
     <link href="../../public/css/loader.css" rel="stylesheet"/>
+    <link href="../../public/css/alta.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <style>
-      body:not([data-bs-theme="dark"]) .dropdown-item:hover,
-      body:not([data-bs-theme="dark"]) .nav-link:hover {
-          background-color: rgba(0, 0, 0, 0.03);
-          transition: all 0.2s ease-in-out;
-      }
-      #lock {
-        display: none;
-      }
-      .lock-label {
-          width: 45px;
-          height: 45px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background-color: rgb(80, 80, 80);
-          border-radius: 15px;
-          cursor: pointer;
-          transition: all 0.3s;
-      }
-      .lock-wrapper {
-          width: fit-content;
-          height: fit-content;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          transform: rotate(-10deg);
-      }
-      .shackle {
-          background-color: transparent;
-          height: 9px;
-          width: 14px;
-          border-top-right-radius: 10px;
-          border-top-left-radius: 10px;
-          border-top: 3px solid white;
-          border-left: 3px solid white;
-          border-right: 3px solid white;
-          transition: all 0.3s;
-      }
-      .lock-body {
-          width: 15px;
-      }
-      #lock:checked+.lock-label .lock-wrapper .shackle {
-          transform: rotateY(150deg) translateX(3px);
-          transform-origin: right;
-      }
-      #lock:checked+.lock-label {
-          background-color: rgb(167, 71, 245);
-      }
-      .lock-label:active {
-          transform: scale(0.9);
-      }
-      div.dataTables_filter {
-        display: none !important;
-      }
-     th{
-      color: #0054a6 !important;
-     }
-     .select2-container--default .select2-selection--single .select2-selection__arrow b {
-          border-color:rgb(255, 38, 0) transparent transparent transparent !important;
-      }
-      input[type="date"]::-webkit-calendar-picker-indicator {
-          filter: invert(45%) sepia(100%) saturate(2000%) hue-rotate(10deg) brightness(1.2) contrast(1.2) !important;
-      }
-
-     th, td {
-        max-width: 170px !important;     
-        white-space: normal;      
-        word-break: break-word;   
-        overflow-wrap: break-word; 
-        vertical-align: middle;  
-      }
-     .swal2-container {
-        background-color: rgba(0, 0, 0, 0.25) !important;
-        backdrop-filter: blur(2px);
-        -webkit-backdrop-filter: blur(4px);
-      }
-      .swal2-popup {
-        background: rgb(255, 255, 255) !important;
-        box-shadow: rgba(24, 36, 51, 0.04) 0 2px 4px 0 !important;
-      }
-      .steps .step-item {
-        color: #6c757d; 
-        font-weight: 500;
-      }
-      .steps .step-item.active {
-        color: #f76707; 
-        font-weight: 600;
-      }
-      .error-msg {
-        color: red;
-        font-size: 0.9em;
-        margin-top: 4px;
-        display: none;
-      }
-      .error-msg.active {
-        display: block;
-      }
-      .nav-tabs {
-        background-color: #182433;
-        display: flex;
-        justify-content: center;
-        align-items: center;   
-        gap: 30px;           
-        border: none;
-      }
-      .nav-tabs .nav-link {
-        padding: 8px 30px; 
-        width: auto;        
-        min-width: auto;        
-        max-width: 100%;   
-        background-color: #182433;
-        color: #FFFFFF;       
-        white-space: nowrap;    
-      }
-      .nav-tabs .nav-link:hover {
-        background-color: #182433;
-        border: 1px solid rgb(255, 255, 255);
-        color: #FFFFFF;
-      }
-      .nav-tabs .nav-link.active {
-        border: 1px solid rgb(255, 38, 0);
-        background-color: #182433;
-        color: #FFFFFF;
-      }
-      div.style-five {
-      height: 75px;
-      background-size: 80px 75px;
-      margin-left: -40px;
-      }
-      hr.style-five
-      {
-      width: 95%;
-      margin-top: -40px;
-      border: 0;
-      border-bottom: 1px dashed black;
-      background: #70A8FF;
-      }
-      #bienes_data {
-        font-size: 13px;
-      }
-      div.dt-button-background {
-        display: none !important;
-      }
-      #contenedor-excel .dt-button {
-        width: 100%;
-      }
-      .selectable {
-        user-select: text !important;
-        -webkit-user-select: text !important;
-        -moz-user-select: text !important;
-        -ms-user-select: text !important;
-      }
-     #bienes_data {
-      border-collapse: collapse;
-    }
-
-    /* Encabezado con borde inferior */
-    #bienes_data thead th {
-      background-color: #f8f9fa;
-      border-top: 1px solid rgb(192, 192, 192);
-      border-bottom: 1px solid rgb(192, 192, 192);
-      border-left: 1px solid rgb(192, 192, 192);
-      border-right: 1px solid rgb(192, 192, 192);
-      vertical-align: middle;
-      text-align: center;
-    }
-
-    /* Celdas del cuerpo: solo bordes laterales */
-    #bienes_data tbody td {
-      border-top: none !important; /* asegúrate que no se herede */
-      border-bottom: none;
-      border-left: 1px solid rgb(192, 192, 192);
-      border-right: 1px solid rgb(192, 192, 192);
-      vertical-align: middle;
-      text-align: center;
-    }
-    #contenedor-excel {
-      display: inline-block;
-    }
-
-  </style>
   </head>
 <body>
     <?php require_once("../html/mainProfile.php"); ?>
@@ -340,13 +158,13 @@ if (isset($_SESSION["usua_id_siin"])) {
     <?php require_once("../html/footer.php"); ?>
     <?php require_once("../html/mainjs.php"); ?>
     <?php require_once("modalObjetoCate.php"); ?>
-    <script type="text/javascript" src="adminAltaBien.js"></script>
-    <script type="text/javascript" src="init.js"></script>
-    <script type="text/javascript" src="codigobarras.js"></script>
     <script type="text/javascript" src="autocompletar.js"></script>
     <script type="text/javascript" src="dinamico_bien.js"></script>
     <script type="text/javascript" src="crud_bien.js"></script>
     <script type="text/javascript" src="formulario_bien.js"></script>
+    <script type="text/javascript" src="adminAltaBien.js"></script>
+    <script type="text/javascript" src="codigobarras.js"></script>
+    <script type="text/javascript" src="init.js"></script>
 </body>
 </html>
 <?php

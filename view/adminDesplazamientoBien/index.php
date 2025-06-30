@@ -272,6 +272,14 @@ if (isset($_SESSION["usua_id_siin"])) {
 
                   </div>
                 </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group mb-3">
+                      <label class="form-label">Documento  que autoriza el traslado:<span  style="color:red"> *</span></label>
+                      <input type="text" class="form-control" id="doc_traslado" name="doc_traslado" placeholder=" Documento de traslado" required >
+                    </div> 
+                  </div> 
+                </div>  
                 <div class="table-responsive m-4">
                   <table id="obj_formato"  class="table card-table table-vcenter text-nowrap datatable">
                   <thead>

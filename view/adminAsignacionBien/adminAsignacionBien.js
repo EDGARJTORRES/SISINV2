@@ -1,8 +1,5 @@
 var usu_id = $("#usu_idx").val();
-
 $(document).ready(function(){
-
-
   $('#formatos_data').DataTable({
       "aProcessing": true,
       "aServerSide": true,
@@ -44,8 +41,4 @@ $(document).ready(function(){
           }
       },
   });
-
-
 });
-
-

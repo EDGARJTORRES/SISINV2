@@ -8,7 +8,7 @@ $bitacora = new Bitacora();
 $formato = new Formato();
 $objeto = new Objeto();
 switch ($_GET["op"]) {
-    case "asignar":
+   case "asignar":
         // Obtener datos enviados desde el frontend
         $dataDict = json_decode($_POST['dataDict'], true);
         $depe_receptor_depe = $formato->get_dependenciadatos($_POST['depe_receptor']);
@@ -64,6 +64,7 @@ switch ($_GET["op"]) {
         $depe_emisor_depe = $formato->get_dependenciadatos($_POST['depe_emisor']);
         $depe_emisor = $formato->get_repe_datos($_POST['pers_origen_id']);
         $depe_receptor = $formato->get_repe_datos($_POST['pers_destino_id']);
+        $doc_traslado = isset($_POST['doc_traslado']) ? $_POST['doc_traslado'] : '';
 
 
         // Crear formato
@@ -79,7 +80,8 @@ switch ($_GET["op"]) {
             $depe_emisor[0]['pers_dni'],
             $depe_receptor[0]['pers_dni'],
             $depe_emisor[0]['nombre_completo'],
-            $depe_receptor[0]['nombre_completo']
+            $depe_receptor[0]['nombre_completo'],
+            $doc_traslado
         );
         $bitacora->update_bitacora($_SESSION["usua_id_siin"]);
 
@@ -362,11 +364,11 @@ switch ($_GET["op"]) {
         $pdf->SetX(20);
         // Sub-Gerencia
         $pdf->SetFont("Arial", "", 8);
-        $pdf->Cell(65, $espaciado, "DOCUMENTO QUE AUTORIZA EL TRASLADO : ", 0, 0); // Imprime la etiqueta sin salto de línea
+        $pdf->Cell(50, $espaciado, "Documento que Autoriza el traslado : ", 0, 0); // Imprime la etiqueta sin salto de línea
         $pdf->SetFont("Arial", "", $tletra );
-        $pdf->Cell(120, $espaciado, '', 0, 1);  // Imprime el valor con salto de línea
+        $pdf->Cell(0, $espaciado, strtoupper(utf8_encode($datos[0]['doc_traslado'])), 0, 1); // Imprime el valor con salto de línea
         // Dibuja línea de separación justo debajo
-        $pdf->Line(85, $pdf->GetY() - 1, 250, $pdf->GetY() - 1);
+        $pdf->Line(70, $pdf->GetY() - 0.5, 200, $pdf->GetY() - 1);
         $pdf->SetX(20);
 
         // Posición para los datos del receptor (columna derecha)

@@ -265,6 +265,11 @@ switch ($_GET["op"]) {
                     }
                     $output["procedencia"] = $row["procedencia"];
                     $output["bien_dim"] = $row["bien_dim"];
+                    $output["val_adq"] = $row["val_adq"];
+                    $output["doc_adq"] = $row["doc_adq"];
+                    $output["bien_obs"] = $row["bien_obs"];
+                    $output["marca_nom"] = $row["marca_nom"];
+                    $output["modelo_nom"] = $row["modelo_nom"];
                     $output["bien_color"] = $row["bien_color"];
                     $output["depe_denominacion"] = $row["depe_denominacion"];
                     $output["nombre_completo"] = $row["nombre_completo"];

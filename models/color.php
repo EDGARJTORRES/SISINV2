@@ -18,12 +18,12 @@ class Color extends Conectar
         parent::set_names();
         $sql = "UPDATE tb_color
                 SET
-                    color_nom = ?,
+                    color_nom = ?
                 WHERE
                     color_id = ?";
         $sql = $conectar->prepare($sql);
         $sql->bindValue(1, $color_nom);
-        $sql->bindValue(3, $color_id);
+        $sql->bindValue(2, $color_id);
         $sql->execute();
         return $resultado = $sql->fetchAll();
     }

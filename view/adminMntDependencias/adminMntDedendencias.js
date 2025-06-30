@@ -11,10 +11,21 @@ $(document).ready(function () {
       url: "../../controller/dependencia.php?op=listarBienesBaja",
       type: "post"
     },
+    "columnDefs": [
+      {
+        targets: 1,
+        render: function (data) {
+          if (!data || data.trim() === "" || data.trim() === ".") {
+            return "N/A";
+          }
+          return data;
+        }
+      }
+    ],
     "bDestroy": true,
     "responsive": true,
     "bInfo": true,
-    "iDisplayLength": 5,
+    "iDisplayLength": 6,
     "order": [[0, "desc"]],
     "language": {
       "sProcessing": "Procesando...",

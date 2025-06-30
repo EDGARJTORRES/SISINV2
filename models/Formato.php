@@ -1,11 +1,8 @@
 <?php
 class Formato extends Conectar
 {
-
-
     public function asigna_bienes($bien_id, $form_id, $depe_id, $biendepe_obs, $bien_color, $bien_est, $pers_id, $repre_id)
     {
-
         $conectar = parent::conexion();
         parent::set_names();
         $sql = "INSERT INTO sc_inventario.tb_bien_dependencia(bien_id,form_id,depe_id,biendepe_obs, bien_color, bien_est, pers_id,repre_id  ) 
@@ -51,7 +48,8 @@ class Formato extends Conectar
         $sql->execute();
         return $resultado = $sql->fetchAll();
     }
-    public function crear_formato_desplaza($tif_id, $pers_id, $depe_emisor, $depe_receptor, $form_repre_emisor, $form_repre_receptor, $form_depe_deno_emisor, $form_depe_deno_receptor, $form_dni_repre_emisor, $form_dni_repre_receptor, $form_repre_emisor_nom, $form_repre_receptor_nom)
+    public function crear_formato_desplaza($tif_id, $pers_id, $depe_emisor, $depe_receptor, $form_repre_emisor, $form_repre_receptor, $form_depe_deno_emisor, $form_depe_deno_receptor, $form_dni_repre_emisor, $form_dni_repre_receptor, $form_repre_emisor_nom, $form_repre_receptor_nom,
+    $doc_traslado)
     {
         $conectar = parent::conexion();
         parent::set_names();
@@ -62,8 +60,9 @@ class Formato extends Conectar
         } */
 
         $sql = "INSERT INTO sc_inventario.tb_formato(tif_id, pers_id, depe_emisor, depe_receptor, form_repre_emisor, form_repre_receptor, form_depe_deno_emisor, 
-        form_depe_deno_receptor, form_dni_repre_emisor, form_dni_repre_receptor, form_repre_emisor_nom, form_repre_receptor_nom) 
-        VALUES (?, ?, ?, ?, ?,?,?,?,?,?,?,?)";
+        form_depe_deno_receptor, form_dni_repre_emisor, form_dni_repre_receptor, form_repre_emisor_nom, form_repre_receptor_nom,
+        doc_traslado) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $sql = $conectar->prepare($sql);
         $sql->bindValue(1, $tif_id);
         $sql->bindValue(2, $pers_id);
@@ -77,6 +76,7 @@ class Formato extends Conectar
         $sql->bindValue(10, $form_dni_repre_receptor);
         $sql->bindValue(11, $form_repre_emisor_nom);
         $sql->bindValue(12, $form_repre_receptor_nom);
+        $sql->bindValue(13, $doc_traslado);
         $sql->execute();
         return $resultado = $sql->fetchAll();
     }
@@ -227,7 +227,7 @@ class Formato extends Conectar
         $sql = "select tbp.biendepe_id, tbp.bien_id, tbp.form_id, tbf.form_fechacrea, 
 		tbft.tif_nom, tbft.tif_id, tbf.depe_emisor, tbf.depe_receptor, tbf.form_repre_emisor, tbf.form_repre_receptor, tbf.form_depe_deno_emisor,
 		tbf.form_depe_deno_receptor, tbf.form_dni_repre_emisor, tbf.form_dni_repre_receptor,
-		tbf.form_repre_emisor_nom, tbf.form_repre_receptor_nom
+		tbf.form_repre_emisor_nom, tbf.form_repre_receptor_nom ,tbf.doc_traslado
         from sc_inventario.tb_bien_dependencia tbp 
         inner join sc_inventario.tb_formato tbf on tbf.form_id= tbp.form_id
         inner join sc_inventario.tb_tipoformato tbft on tbft.tif_id= tbf.tif_id

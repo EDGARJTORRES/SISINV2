@@ -10,78 +10,7 @@ if (isset($_SESSION["usua_id_siin"])) {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <link href="../../public/css/Breadcrumb.css" rel="stylesheet"/>
   <link href="../../public/css/alerta.css" rel="stylesheet"/>
-  <style>
-      div.dataTables_filter {
-        display: none !important;
-      }
-      body:not([data-bs-theme="dark"]) .dropdown-item:hover,
-      body:not([data-bs-theme="dark"]) .nav-link:hover {
-          background-color: rgba(0, 0, 0, 0.03);
-          transition: all 0.2s ease-in-out;
-      }
-       th{
-        color: #0054a6 !important;
-      }
-      .tabler-loader {
-        animation: spin 1s linear infinite;
-        width: 24px;
-        height: 24px;
-        stroke-width: 2;
-        stroke: currentColor;
-      }
-
-      @keyframes spin {
-        100% { transform: rotate(360deg); }
-      }
-      .list-group-item:hover {
-        background-color: #f0f0f5;
-        transition: background-color 0.2s ease-in-out;
-        cursor: pointer;
-      }
-      #lista-items {
-        max-height: 600px;
-        overflow-y: auto;
-        border-right: 1px solid #e0e0e0;
-        scrollbar-width: none;        
-        -ms-overflow-style: none;      
-      }
-
-      #lista-items::-webkit-scrollbar {
-        display: none;                 
-      }
-    #dependencia_data {
-      border-collapse: collapse;
-    }
-
-    /* Encabezado con borde inferior */
-    #dependencia_data thead th {
-      background-color: #f8f9fa;
-      border-top: 1px solid rgb(192, 192, 192);
-      border-bottom: 1px solid rgb(192, 192, 192);
-      border-left: 1px solid rgb(192, 192, 192);
-      border-right: 1px solid rgb(192, 192, 192);
-      vertical-align: middle;
-      text-align: center;
-      font-size: 10px;
-    }
-
-    /* Celdas del cuerpo: solo bordes laterales */
-    #dependencia_data tbody td {
-      border-top: none !important; /* asegúrate que no se herede */
-      border-bottom: none;
-      border-left: 1px solid rgb(192, 192, 192);
-      border-right: 1px solid rgb(192, 192, 192);
-      vertical-align: middle;
-      text-align: center;
-      font-size: 10px;
-    }
-    #dependencia_data td {
-      white-space: normal !important;
-      word-wrap: break-word;
-      overflow-wrap: break-word;
-    }
-
-  </style>
+  <link href="../../public/css/consultadependencia.css" rel="stylesheet"/>
 </head>
 <body>
     <?php require_once("../html/mainProfile.php"); ?>

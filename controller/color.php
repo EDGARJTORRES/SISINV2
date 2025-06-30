@@ -6,13 +6,21 @@ $bitacora = new Bitacora();
 $color = new Color();
 switch ($_GET["op"]) {
     case "guardaryeditar":
-        if (empty($_POST["color_id"])) {
-            $color->insert_color($_POST["color_nom"]);
-            $bitacora->update_bitacora($_SESSION["usua_id_siin"]);
-        } else {
-            $color->update_color($_POST["color_id"],$_POST["color_nom"]);
-            $bitacora->update_bitacora($_SESSION["usua_id_siin"]);
+        $color_nom = $_POST["color_nom"] ?? null;
+        $color_id = $_POST["color_id"] ?? null;
+
+        if ($color_nom === null || trim($color_nom) === "") {
+            echo "Error: El campo 'color_nom' es obligatorio.";
+            exit();
         }
+
+        if (empty($color_id)) {
+            $color->insert_color($color_nom);
+        } else {
+            $color->update_color($color_id, $color_nom);
+        }
+
+        $bitacora->update_bitacora($_SESSION["usua_id_siin"]);
         break;
 
 

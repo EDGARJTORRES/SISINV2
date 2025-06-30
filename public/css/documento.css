@@ -1,0 +1,114 @@
+ body:not([data-bs-theme="dark"]) .dropdown-item:hover,
+      body:not([data-bs-theme="dark"]) .nav-link:hover {
+        background-color: rgba(0, 0, 0, 0.03);
+        transition: all 0.2s ease-in-out;
+      }
+      div.dataTables_filter {
+        display: none !important;
+      }
+      th {
+        color: #0054a6 !important;
+      }
+  
+      .swal2-container {
+        background-color: rgba(0, 0, 0, 0.25) !important;
+        backdrop-filter: blur(2px);
+      }
+      .swal2-popup {
+        background: #fff !important;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px !important;
+      }
+      .form-text {
+        font-size: 12px;
+        color: #6c757d;
+      }
+      .modal-header{
+        background-color: #252422;
+      }
+      th, td {
+        max-width: 600px !important;     
+        white-space: normal;      
+        word-break: break-word;   
+        overflow-wrap: break-word; 
+        vertical-align: middle;   
+      }
+     #documento_data {
+      border-collapse: collapse;
+    }
+
+    /* Encabezado con borde inferior */
+    #documento_data thead th {
+      background-color: #f8f9fa;
+      border-top: 1px solid rgb(192, 192, 192);
+      border-bottom: 1px solid rgb(192, 192, 192);
+      border-left: 1px solid rgb(192, 192, 192);
+      border-right: 1px solid rgb(192, 192, 192);
+      vertical-align: middle;
+      text-align: center;
+    }
+
+    /* Celdas del cuerpo: solo bordes laterales */
+    #documento_data tbody td {
+      border-top: none !important; /* asegúrate que no se herede */
+      border-bottom: none;
+      border-left: 1px solid rgb(192, 192, 192);
+      border-right: 1px solid rgb(192, 192, 192);
+      vertical-align: middle;
+      text-align: center;
+      font-size: 12px;
+    }
+
+.upload-area {
+  margin-top: 1.25rem;
+  background-color: transparent;
+  padding: 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px dashed #6a6b76;
+}
+
+.upload-area:hover,
+.upload-area:focus {
+  cursor: pointer;
+  border: 1px solid #6a6b76;
+}
+
+.upload-area:hover .upload-area-icon,
+.upload-area:focus .upload-area-icon {
+  transform: scale(1.3);
+  transition-duration: 0.3s;
+}
+
+.upload-area-icon {
+  display: block;
+  width: 2.25rem;
+  height: 2.25rem;
+  fill: #1cc972;
+  margin: 0 auto; /* Centrado horizontal */
+}
+
+
+.upload-area-title {
+  margin-top: 1rem;
+  display: block;
+  font-weight: 700;
+  color: #0d0f21;
+}
+
+.upload-area-description {
+  display: block;
+  color: #6a6b76;
+}
+
+.upload-area-description strong {
+  color: #1cc972;
+  font-weight: 700;
+}
+.upload-area.highlight {
+  border: 2px dashed #28a745;
+  background-color: rgba(40, 167, 69, 0.05);
+  transition: all 0.2s ease-in-out;
+}
+

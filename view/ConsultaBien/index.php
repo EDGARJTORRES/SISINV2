@@ -9,24 +9,7 @@ if (isset($_SESSION["usua_id_siin"])) {
   <title>MPCH::AltaBienes</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <link href="../../public/css/Breadcrumb.css" rel="stylesheet"/>
-  <style>
-      body:not([data-bs-theme="dark"]) .dropdown-item:hover,
-      body:not([data-bs-theme="dark"]) .nav-link:hover {
-          background-color: rgba(0, 0, 0, 0.03);
-          transition: all 0.2s ease-in-out;
-      }
-      .tabler-loader {
-        animation: spin 1s linear infinite;
-        width: 24px;
-        height: 24px;
-        stroke-width: 2;
-        stroke: currentColor;
-      }
-
-      @keyframes spin {
-        100% { transform: rotate(360deg); }
-      }
-  </style>
+  <link href="../../public/css/Consulta.css" rel="stylesheet"/> 
 </head>
 <body>
     <?php require_once("../html/mainProfile.php"); ?>

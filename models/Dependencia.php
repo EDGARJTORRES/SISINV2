@@ -180,6 +180,7 @@
             $conectar = parent::conexion();
             $sql = "SELECT  DISTINCT
                 b.bien_id,
+                tp.pers_apelpat || ' ' || tp.pers_apelmat || ', ' || tp.pers_nombre AS nombre_completo, 
                 b.bien_codbarras,
                 o.obj_nombre, 
                 (
@@ -189,8 +190,7 @@
                 ) AS bien_color,
                 b.bien_dim,
                 b.val_adq,
-                b.doc_adq,
-                b.bien_obs
+                b.doc_adq
             FROM 
                 sc_inventario.tb_bien_dependencia bd
             INNER JOIN 
@@ -199,6 +199,8 @@
                 sc_inventario.tb_objeto o ON b.obj_id = o.obj_id
             INNER JOIN
                 public.tb_dependencia d ON d.depe_id = bd.depe_id
+            LEFT JOIN 
+                sc_escalafon.tb_persona tp on tp.pers_id = bd.repre_id
             WHERE 
                 bd.depe_id       = ?        
             AND bd.bien_est  <> 'I'        
@@ -266,6 +268,7 @@
         public function listarBienesBaja() {
             $conectar = parent::conexion();
             $sql = "SELECT
+                        d.depe_id,
                         d.depe_denominacion AS area,
                         d.depe_representante AS representante,
                         COUNT(DISTINCT bd.bien_id) AS cantidad_bienes
@@ -276,7 +279,7 @@
                     WHERE
                         bd.bien_est = 'I'
                     GROUP BY
-                        d.depe_denominacion, d.depe_representante
+                        d.depe_id, d.depe_denominacion, d.depe_representante
                     ORDER BY
                         d.depe_denominacion;";
 
@@ -321,6 +324,38 @@
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         }
+        public function listarBienesDadosDeBajaPorDependencia($depe_id) {
+            $conectar = parent::conexion();
+            parent::set_names();
+            $sql = "SELECT
+                bd.fecha_baja,
+                COALESCE(p.pers_nombre || ' ' || p.pers_apelpat || ' ' || p.pers_apelmat, '---') AS usuario_baja,
+                b.bien_codbarras,
+                COALESCE(o.obj_nombre, '---') AS obj_nombre,
+                COALESCE(ma.marca_nom, '---') AS marca_nom,
+                COALESCE(mo.modelo_nom, '---') AS modelo_nom,
+                b.bien_numserie,
+                b.procedencia,
+                b.val_adq,
+                bd.motivo_baja
+            FROM
+                sc_inventario.tb_bien_dependencia bd
+            JOIN public.tb_dependencia d ON bd.depe_id = d.depe_id
+            JOIN sc_inventario.tb_bien b ON bd.bien_id = b.bien_id
+            LEFT JOIN sc_inventario.tb_objeto o ON b.obj_id = o.obj_id
+            LEFT JOIN sc_escalafon.tb_persona p ON bd.pers_id = p.pers_id
+            LEFT JOIN sc_inventario.tb_modelo mo ON b.modelo_id = mo.modelo_id
+            LEFT JOIN sc_inventario.tb_marca ma ON mo.marca_id = ma.marca_id
+            WHERE bd.bien_est = 'I' AND d.depe_id = ?
+            ORDER BY bd.fecha_baja DESC;";
+
+            $stmt = $conectar->prepare($sql);
+            $stmt->bindValue(1, $depe_id);
+            $stmt->execute();
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
 
     }
 ?>

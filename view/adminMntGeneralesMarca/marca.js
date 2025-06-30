@@ -1,6 +1,5 @@
 
 var usu_id = $('#usu_idx').val();
-
 function initmarca(){
     $("#marca_form").on("submit",function(e){
     e.preventDefault();
@@ -391,12 +390,17 @@ function editarmarca(marca_id){
         $('#marca_nom').val(data.marca_nom);
         $('#lbltitulo').html('<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-screen-share ms-3"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M21 12v3a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-10a1 1 0 0 1 1 -1h9" /><path d="M7 20l10 0" /><path d="M9 16l0 4" /><path d="M15 16l0 4" /><path d="M17 4h4v4" /><path d="M16 9l5 -5" /></svg> EDITAR MARCA');
         $('#lblsubtitulo').html('MODIFICAR EL NOMBRE DE LA MARCA');
+        const ahora = dayjs(); // si usas dayjs
+        mostrarUltimaAccion(`Editó la marca "${data.marca_nom}"`, ahora.toISOString());
     });
    
     $('#modalMarca').modal('show');
 }
 
 function eliminarmarca(marca_id) {
+  $.post("../../controller/marca.php?op=mostrar", { marca_id: marca_id }, function (data) {
+    data = JSON.parse(data);
+    const nombre_marca = data.marca_nom;
     Swal.fire({
         title: '¿Estás seguro?',
         text: "¡Esta acción no se puede deshacer!",
@@ -435,10 +439,12 @@ function eliminarmarca(marca_id) {
                data: {marca_id : marca_id},
                 success: function (response) {
                    $('#marca_data').DataTable().ajax.reload();
+                   const ahora = dayjs();
+                   mostrarUltimaAccion(`Eliminó la marca "${nombre_marca}"`, ahora.toISOString());
                     Swal.fire({
                         title: '¡Eliminado!',
                         html: `
-                            <p>La marca ha sido eliminado correctamente.</p>
+                            <p>La marca <strong>${nombre_marca}</strong> ha sido eliminado correctamente.</p>
                             <div id="top-progress-bar-final" style="
                                 position: absolute;
                                 top: 0;
@@ -469,6 +475,7 @@ function eliminarmarca(marca_id) {
             });
         }
     });
+  });
 }
 $('#marca_form').on('reset', function () {
   setTimeout(function () {

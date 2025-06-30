@@ -1,0 +1,85 @@
+body:not([data-bs-theme="dark"]) .dropdown-item:hover,
+    body:not([data-bs-theme="dark"]) .nav-link:hover {
+        background-color: rgba(0, 0, 0, 0.03);
+        transition: all 0.2s ease-in-out;
+    }
+    div.dataTables_filter {
+      display: none !important;
+    }
+    th{
+    color: #0054a6 !important;
+    }
+
+    th, td {
+      max-width: 170px !important;     
+      white-space: normal;      
+      word-break: break-word;   
+      overflow-wrap: break-word; 
+      vertical-align: middle;  
+    }
+    .swal2-container {
+        background-color: rgba(0, 0, 0, 0.25) !important;
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(4px);
+      }
+      .swal2-popup {
+        background: rgb(255, 255, 255) !important;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px !important;
+      }
+    .gg-checkbox {
+      width: 16px;
+      height: 16px;
+      border: 1px solid #000;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .error-msg {
+      color: red;
+      font-size: 0.9em;
+      margin-top: 4px;
+      display: none;
+    }
+    .error-msg.active {
+      display: block;
+    }
+    .modal-header{
+      background-color: #252422;
+    }
+    div.dt-button-background {
+      display: none !important;
+    }
+    #GG_data {
+      border-collapse: collapse;
+    }
+
+    /* Encabezado con borde inferior */
+    #GG_data thead th {
+      background-color: #f8f9fa;
+      border-top: 1px solid rgb(192, 192, 192);
+      border-bottom: 1px solid rgb(192, 192, 192);
+      border-left: 1px solid rgb(192, 192, 192);
+      border-right: 1px solid rgb(192, 192, 192);
+      vertical-align: middle;
+      text-align: center;
+    }
+
+    /* Celdas del cuerpo: solo bordes laterales */
+    #GG_data tbody td {
+      border-top: none !important; /* asegúrate que no se herede */
+      border-bottom: none;
+      border-left: 1px solid rgb(192, 192, 192);
+      border-right: 1px solid rgb(192, 192, 192);
+      vertical-align: middle;
+      text-align: center;
+    }
+    #slider_rango .noUi-connect {
+      background: #0d6efd; /* azul Bootstrap */
+    }
+    #slider_rango .noUi-handle {
+      border: none;
+      background: #0054a6;
+      box-shadow: none;
+    }
+    #slider_rango {
+      height: 10px;
+    }

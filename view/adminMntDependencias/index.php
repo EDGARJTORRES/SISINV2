@@ -10,104 +10,8 @@ if (isset($_SESSION["usua_id_siin"])) {
     <link href="../../public/css/Breadcrumb.css" rel="stylesheet"/>
     <link href="../../public/css/botones.css" rel="stylesheet" />
     <link href="../../public/css/alerta.css" rel="stylesheet"/>
+    <link href="../../public/css/baja.css" rel="stylesheet"/>
     <title>MPCH::AsignacionBienes</title>
-    <style>
-      div.dataTables_filter {
-        display: none !important;
-      }
-      body:not([data-bs-theme="dark"]) .dropdown-item:hover,
-      body:not([data-bs-theme="dark"]) .nav-link:hover {
-          background-color: rgba(0, 0, 0, 0.03);
-          transition: all 0.2s ease-in-out;
-      }
-       th{
-        color: #0054a6 !important;
-      }
-      .swal2-container {
-        background-color: rgba(0, 0, 0, 0.25) !important;
-        backdrop-filter: blur(2px);
-        -webkit-backdrop-filter: blur(4px);
-      }
-      .swal2-popup {
-        background: rgb(255, 255, 255) !important;
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px !important;
-      }
-      .tabler-loader {
-        animation: spin 1s linear infinite;
-        width: 24px;
-        height: 24px;
-        stroke-width: 2;
-        stroke: currentColor;
-      }
-
-      @keyframes spin {
-        100% { transform: rotate(360deg); }
-      }
-      .list-group-item:hover {
-        background-color: #f0f0f5;
-        transition: background-color 0.2s ease-in-out;
-        cursor: pointer;
-      }
-      #lista-items {
-        max-height: 470px;
-        overflow-y: auto;
-        border-right: 1px solid #e0e0e0;
-        scrollbar-width: none;        
-        -ms-overflow-style: none;      
-      }
-
-      #lista-items::-webkit-scrollbar {
-        display: none;                 
-      }
-      #dependencia_data,
-      #dependencias_objetos {
-        border-collapse: collapse;
-      }
-
-      /* Encabezado con bordes */
-      #dependencia_data thead th,
-      #dependencias_objetos thead th {
-        background-color: #f8f9fa;
-        border-top: 1px solid rgb(192, 192, 192);
-        border-bottom: 1px solid rgb(192, 192, 192);
-        border-left: 1px solid rgb(192, 192, 192);
-        border-right: 1px solid rgb(192, 192, 192);
-        vertical-align: middle;
-        text-align: center;
-        font-size: 10px;
-      }
-
-      /* Cuerpo de la tabla: solo bordes laterales */
-      #dependencia_data tbody td,
-      #dependencias_objetos tbody td {
-        border-top: none !important;
-        border-bottom: none;
-        border-left: 1px solid rgb(192, 192, 192);
-        border-right: 1px solid rgb(192, 192, 192);
-        vertical-align: middle;
-        text-align: center;
-        font-size: 10px;
-      }
-
-      /* Estilo para contenido de celdas */
-      #dependencia_data td,
-      #dependencias_objetos td {
-        white-space: normal !important;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-      }
-      #slider_rango .noUi-connect {
-      background: #0d6efd; /* azul Bootstrap */
-      }
-      #slider_rango .noUi-handle {
-        border: none;
-        background: #0054a6;
-        box-shadow: none;
-      }
-      #slider_rango {
-        height: 10px;
-      }
-      </style>
   </head>
 <body>
     <?php require_once("../html/mainProfile.php"); ?>
@@ -170,7 +74,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                         </h3>
                       </div>
                       <div class="card-body">
-                        <div class="my-2">
+                        <div class="my-3">
                           <label for="slider_rango" class="form-label">
                             Filtrar por cantidad de bienes: <span style="color:red">*</span>
                           </label>
@@ -180,7 +84,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                             <span><strong>Máx:</strong> <span id="max_valor">100</span></span>
                           </div>
                         </div>
-                        <div class="my-2">
+                        <div class="my-3">
                           <label class="form-label">Buscar Área:<span style="color:red"> *</span></label>
                            <select class="form-select" id="filtro_dependencia" style="width: 100%;">
                             <option value="">Seleccione un área</option>
@@ -188,8 +92,8 @@ if (isset($_SESSION["usua_id_siin"])) {
                            </select>
                         </div>
                         <div class="row mb-2">
-                          <div class="col-md-12 d-grid mt-3">
-                            <button class="btn btn-sm btn-secondary" onclick="limpiarFiltros()">
+                          <div class="col-md-12 d-grid mt-1">
+                            <button class="btn btn-6 btn-outline-dark" onclick="limpiarFiltros()">
                               <i class="fa-solid fa-eraser m-2"></i> LIMPIAR FILTROS
                             </button>
                           </div>
@@ -210,7 +114,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                           <div class="input-icon" id="contenedor-excel"> 
                           </div>
                         </div>
-                        <div class="d-flex align-items-center gap-4 my-4 mx-3">
+                        <div class="d-flex align-items-center gap-4 mt-2 mb-3 mx-3">
                           <div class="input-icon"  style="width: 100%;">
                               <span class="input-icon-addon">
                                 <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-search">

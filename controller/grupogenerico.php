@@ -18,7 +18,7 @@ switch ($_GET["op"]){
 
 
     case "mostrar":
-        $datos = $grupogenerico->get_grupogenerico_id($_POST["gg_id_input"]);
+        $datos = $grupogenerico->get_grupogenerico_id($_POST["gg_id"]);
         if (is_array($datos) == true and count($datos) <> 0) {
             foreach ($datos as $row) {
                 $output["gg_id"] = $row["gg_id"];

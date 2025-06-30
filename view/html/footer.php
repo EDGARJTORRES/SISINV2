@@ -3,7 +3,6 @@
     <div class="row text-center align-items-center flex-row-reverse">
       <div class="col-lg-auto ms-lg-auto">
         <ul class="list-inline list-inline-dots mb-0">
-
           <li class="list-inline-item">
             <a href="https://www.gob.pe/munichiclayo" target="_blank" class="link-secondary" rel="noopener">
               <!-- Download SVG icon from http://tabler-icons.io/i/heart -->

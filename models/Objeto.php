@@ -319,14 +319,15 @@ class Objeto extends Conectar
             $conectar = parent::conexion();
             parent::set_names();
             $sql = "SELECT tbb.bien_id,tbd.biendepe_est, tp.pers_dni,  tp.pers_apelpat || ' ' || tp.pers_apelmat || ', ' || tp.pers_nombre AS nombre_completo, tbb.bien_est, tbm.marca_id, tbb.modelo_id , tob.obj_nombre, tbb.bien_codbarras, tbb.fecharegistro, tbb.bien_numserie, 
-            tbb.procedencia, tbb.bien_dim, tbb.bien_color,  td.depe_denominacion 
+            tbb.procedencia, tbb.bien_dim, tbb.val_adq, tbb.doc_adq,tbb.bien_obs, tbb.bien_color,  td.depe_denominacion , tbm.marca_id,tm.marca_nom,tbb.modelo_id,tbm.modelo_nom
             from sc_inventario.tb_bien tbb
             left join sc_inventario.tb_bien_dependencia tbd on tbb.bien_id = tbd.bien_id
             left join tb_dependencia td on td.depe_id = tbd.depe_id
             left join sc_inventario.tb_objeto tob on tob.obj_id = tbb.obj_id
             left join sc_inventario.tb_modelo tbm on tbm.modelo_id = tbb.modelo_id
+            LEFT JOIN sc_inventario.tb_marca tm ON tm.marca_id = tbm.marca_id
             left join sc_escalafon.tb_persona tp on tp.pers_id = tbd.repre_id
-            where tbb.bien_codbarras = ? and tbb.bien_est in ('A','N','B','R','M') order by  tbd.biendepe_est desc limit 1";
+            where tbb.bien_codbarras = ? and tbb.bien_est in ('N','B','R','M') order by  tbd.biendepe_est desc limit 1";
             $sql = $conectar->prepare($sql);
             $sql->bindValue(1, $cod_barras);
             $sql->execute();

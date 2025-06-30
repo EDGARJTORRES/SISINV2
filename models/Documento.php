@@ -22,4 +22,44 @@ class Documento extends Conectar {
         $sql->execute();
         return $sql->fetchAll();
     }
+    public function insert_documento($doc_tipo, $depe_id, $doc_desc, $doc_ruta, $pers_id) {
+        $conectar = parent::Conexion();
+        parent::set_names();
+        $sql = "INSERT INTO sc_inventario.tb_documento (doc_tipo, depe_id, doc_desc, doc_ruta, pers_id, doc_est, fecha_carga)
+                VALUES (?, ?, ?, ?, ?, 1, NOW())";
+        $stmt = $conectar->prepare($sql);
+        $stmt->execute([$doc_tipo, $depe_id, $doc_desc, $doc_ruta, $pers_id]);
+    }
+    public function update_documento($doc_id, $doc_tipo, $depe_id, $doc_desc, $doc_ruta, $pers_id) {
+        $conectar = parent::Conexion();
+        parent::set_names();
+        $sql = "UPDATE sc_inventario.tb_documento
+                SET doc_tipo = ?, depe_id = ?, doc_desc = ?, doc_ruta = ?, pers_id = ?
+                WHERE doc_id = ?";
+        $stmt = $conectar->prepare($sql);
+        $stmt->execute([$doc_tipo, $depe_id, $doc_desc, $doc_ruta, $pers_id, $doc_id]);
+    }
+    public function delete_documento($doc_id) {
+        $conectar = parent::Conexion();
+        parent::set_names();
+        $sql = "UPDATE sc_inventario.tb_documento
+                SET doc_est = 0
+                WHERE doc_id = ?";
+        $stmt = $conectar->prepare($sql);
+        $stmt->execute([$doc_id]);
+    }
+    public function get_documento_por_id($doc_id) {
+        $conectar = parent::Conexion();
+        parent::set_names();
+        $sql = "SELECT 
+                    doc_id, doc_tipo, depe_id, doc_desc, doc_ruta, pers_id
+                FROM sc_inventario.tb_documento
+                WHERE doc_id = ?";
+        $stmt = $conectar->prepare($sql);
+        $stmt->execute([$doc_id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+
+
 }

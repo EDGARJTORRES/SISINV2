@@ -19,31 +19,27 @@
         </div>
         <div class="modal-body">
           <div class="col-12">
-            <div class="card"> 
-                <div class="card-body">
-                    <div class="table-responsive">
-                    <table id="tblHistorial" class="table table-striped table-bordered" style="width:100%">
-                        <thead>
-                        <tr>
-                            <th>Fecha Eliminacion</th>
-                            <th>Usuario</th>
-                            <th>Codigo Barras</th>
-                            <th>Nombre</th>
-                            <th>Marca</th>
-                            <th>Modelo</th>
-                            <th>Serie</th>
-                            <th>Procedencia</th>
-                            <th>Estado</th>
-                            <th>Motivo Eliminacion</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                    </div>
-                </div>
+            <div class="table-responsive">
+              <table id="tblHistorial" class="table" style="width:100%">
+                  <thead>
+                  <tr>
+                    <th>Fech. Baja</th>
+                    <th>Usuario</th>
+                    <th>Cód. Barras</th>
+                    <th>Nombre</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Serie</th>
+                    <th>Proc.</th>
+                    <th>Valor</th>
+                    <th>Motivo</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+              </table>
+              </div>
             </div>
-          </div>
         </div>
     </div>
   </div>

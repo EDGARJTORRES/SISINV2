@@ -184,7 +184,7 @@ switch ($_GET["op"]) {
                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-settings"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" /><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /></svg>
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#" onclick="verBienesBaja(\'' . $row["area"] . '\')">
+                            <a class="dropdown-item" href="#" onclick="verBienesBaja(\'' . $row["depe_id"] . '\')">
                                 <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-history mx-2"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 8l0 4l2 2" /><path d="M3.05 11a9 9 0 1 1 .5 4m-.5 5v-5h5" /></svg>Ver Historial
                             </a>
                         </div>
@@ -212,8 +212,35 @@ switch ($_GET["op"]) {
         $data = $dependencia->obtener_areas_con_baja();
         echo json_encode($data);
      break;
+     case "listarBienesBajaPorArea":
+        $depe_id = $_POST["depe_id"] ?? 0; 
+        $datos = $dependencia->listarBienesDadosDeBajaPorDependencia($depe_id);
+        $data = array();
 
+        foreach ($datos as $row) {
+            $sub_array = array();
+            $sub_array[] = explode(' ', $row["fecha_baja"])[0];
+            $sub_array[] = $row["usuario_baja"];
+            $sub_array[] = '<span class="badge bg-red-lt selectable">' . $row["bien_codbarras"] . '</span>';
+            $sub_array[] = $row["obj_nombre"];
+            $sub_array[] = $row["marca_nom"];
+            $sub_array[] = $row["modelo_nom"];
+            $sub_array[] = $row["bien_numserie"];
+            $sub_array[] = $row["procedencia"];
+            $sub_array[] = $row["val_adq"];
+            $sub_array[] = $row["motivo_baja"];
 
+            $data[] = $sub_array;
+        }
 
-            
+        $results = array(
+            "sEcho" => 1,
+            "iTotalRecords" => count($data),
+            "iTotalDisplayRecords" => count($data),
+            "aaData" => $data
+        );
+
+        echo json_encode($results);
+        break;
+      
 }

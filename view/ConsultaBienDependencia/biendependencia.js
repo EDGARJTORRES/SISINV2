@@ -39,6 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
   fetch("../../controller/dependencia.php?op=listar_cantidad_bienes_por_dependencia")
     .then(response => response.json())
     .then(data => {
+      console.log(data);
       const lista = document.getElementById("lista-items");
       const detalle = document.getElementById("detalle-contenido");
       const mensajeInicial = document.getElementById("mensaje-inicial");
@@ -84,7 +85,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
 
-      // Eventos click en cada dependencia
       const items = document.querySelectorAll('#lista-items .list-group-item');
       items.forEach(item => {
         item.addEventListener('click', function (e) {
@@ -121,19 +121,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 <thead >
                   <tr>
                     <th>Código Barras</th>
+                    <th>Representante</th>
                     <th>Denominación</th>
                     <th>Color</th>
                     <th>Dimensión</th>
                     <th>Valor Adq.</th>
-                    <th>Documento Adq.</th>
-                    <th>Obs. Bien</th>
+                    <th>Doc. Adq.</th>
                   </tr>
                 </thead>
                 <tbody id="tbody-bienes"></tbody>
               </table>
             </div>`;
-
-          // AJAX para cargar los datos
           $.ajax({
             url: "../../controller/dependencia.php?op=listar_bienes_por_dependencia",
             type: "POST",
@@ -146,12 +144,12 @@ document.addEventListener("DOMContentLoaded", function () {
                   rows += `
                     <tr>
                       <td><span class="badge bg-red-lt selectable">${b.bien_codbarras || '-'}</span></td>
-                      <td>${b.obj_nombre || '-'}</td>
-                      <td>${b.bien_color || '-'}</td>
-                      <td>${b.bien_dim || '-'}</td>
-                      <td>${b.val_adq || '-'}</td>
-                      <td>${b.doc_adq || '-'}</td>
-                      <td>${b.bien_obs || '-'}</td>
+                      <td>${b.nombre_completo || 'N/A'}</td>
+                      <td>${b.obj_nombre || 'N/A'}</td>
+                      <td>${b.bien_color || 'N/A'}</td>
+                      <td>${b.bien_dim || 'N/A'}</td>
+                      <td>${b.val_adq || 'N/A'}</td>
+                      <td>${b.doc_adq || 'N/A'}</td>
                     </tr>`;
                 });
               } else {
@@ -164,9 +162,8 @@ document.addEventListener("DOMContentLoaded", function () {
               if ($.fn.DataTable.isDataTable("#dependencia_data")) {
                 $("#dependencia_data").DataTable().destroy();
               }
-
               const table =  $("#dependencia_data").DataTable({
-                pageLength: 5,
+                pageLength: 9,
                 lengthChange: false,
                 ordering: false,
                 searching: true, 

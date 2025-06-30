@@ -52,5 +52,17 @@ $(document).ready(function(){
     $('#buscar_registros').on('input', function () {
         table.search(this.value).draw();
     });
+    $('#filtro_anexo').on('change', function () {
+        let value = $(this).val();
+
+        if (value === "0") {
+            // Mostrar todos
+            table.column(1).search('').draw();
+        } else if (value === "Asignacion") {
+            table.column(1).search('ASIGNACIÓN', true, false).draw();
+        } else if (value === "Desplazamiento") {
+            table.column(1).search('DESPLAZAMIENTO', true, false).draw();
+        }
+    });
 
 });

@@ -9,95 +9,9 @@ if (isset($_SESSION["usua_id_siin"])) {
   <link href="../../public/css/botones.css" rel="stylesheet"/>
   <link href="../../public/css/Breadcrumb.css" rel="stylesheet"/>
   <link href="../../public/css/alerta.css" rel="stylesheet"/>
+  <link href="../../public/css/gg.css" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
   <title>MPCH::MantGenerales</title>
-  <style>
-    body:not([data-bs-theme="dark"]) .dropdown-item:hover,
-    body:not([data-bs-theme="dark"]) .nav-link:hover {
-        background-color: rgba(0, 0, 0, 0.03);
-        transition: all 0.2s ease-in-out;
-    }
-    div.dataTables_filter {
-      display: none !important;
-    }
-    th{
-    color: #0054a6 !important;
-    }
-
-    th, td {
-      max-width: 170px !important;     
-      white-space: normal;      
-      word-break: break-word;   
-      overflow-wrap: break-word; 
-      vertical-align: middle;  
-    }
-    .swal2-container {
-        background-color: rgba(0, 0, 0, 0.25) !important;
-        backdrop-filter: blur(2px);
-        -webkit-backdrop-filter: blur(4px);
-      }
-      .swal2-popup {
-        background: rgb(255, 255, 255) !important;
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px !important;
-      }
-    .gg-checkbox {
-      width: 16px;
-      height: 16px;
-      border: 1px solid #000;
-      border-radius: 50%;
-      cursor: pointer;
-    }
-    .error-msg {
-      color: red;
-      font-size: 0.9em;
-      margin-top: 4px;
-      display: none;
-    }
-    .error-msg.active {
-      display: block;
-    }
-    .modal-header{
-      background-color: #252422;
-    }
-    div.dt-button-background {
-      display: none !important;
-    }
-    #GG_data {
-      border-collapse: collapse;
-    }
-
-    /* Encabezado con borde inferior */
-    #GG_data thead th {
-      background-color: #f8f9fa;
-      border-top: 1px solid rgb(192, 192, 192);
-      border-bottom: 1px solid rgb(192, 192, 192);
-      border-left: 1px solid rgb(192, 192, 192);
-      border-right: 1px solid rgb(192, 192, 192);
-      vertical-align: middle;
-      text-align: center;
-    }
-
-    /* Celdas del cuerpo: solo bordes laterales */
-    #GG_data tbody td {
-      border-top: none !important; /* asegúrate que no se herede */
-      border-bottom: none;
-      border-left: 1px solid rgb(192, 192, 192);
-      border-right: 1px solid rgb(192, 192, 192);
-      vertical-align: middle;
-      text-align: center;
-    }
-    #slider_rango .noUi-connect {
-      background: #0d6efd; /* azul Bootstrap */
-    }
-    #slider_rango .noUi-handle {
-      border: none;
-      background: #0054a6;
-      box-shadow: none;
-    }
-    #slider_rango {
-      height: 10px;
-    }
-    </style>
   </head>
 <body>
     <?php require_once("../html/mainProfile.php"); ?>
@@ -148,7 +62,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                     </button>
                   </div>
                 </div>
-                <div class="card border-0 mt-3" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;" id="card_ultima_accion" style="display: none;">
+                <div class="card border-0 mt-3" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;" id="card_ultima_accion">
                   <div class="card-status-start bg-primary"></div>
                   <div class="card-body">
                     <h6 class="text-muted mb-2">Última acción</h6>
@@ -192,7 +106,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                   </div>
                   <div class="card-body">
                     <div class="table-responsive mx-4">
-                      <div class="row my-4">
+                      <div class="row my-3">
                         <div class="col-lg-12">
                           <div class="d-flex flex-wrap align-items-center gap-3">
                             <div class="d-flex align-items-center gap-2">
@@ -204,11 +118,11 @@ if (isset($_SESSION["usua_id_siin"])) {
                                 Eliminar
                               </button>
                             </div>
-                            <div class="d-flex align-items-center gap-2 mx-2">
+                            <div class="d-flex align-items-center gap-2 mx-4">
                               <div class="input-icon" id="contenedor-excel"> 
                               </div>
                             </div>
-                            <div class="d-flex align-items-center gap-2 mx-3">
+                            <div class="d-flex align-items-center gap-2 ">
                               <label for="cantidad_registros" class="form-label mb-0">Mostrar:</label>
                               <div class="input-icon">
                                   <span class="input-icon-addon">
@@ -273,15 +187,18 @@ if (isset($_SESSION["usua_id_siin"])) {
             <p class="title">Cargando Grupos Genericos... :)</p>
             <p class="description">Espere mientras se obtienen los datos.</p>
           </div>
-
         </div>
       </div>
     </div>
     <?php require_once("../html/footer.php"); ?>
     <?php require_once("../html/mainjs.php"); ?>
     <?php require_once("modalGG.php"); ?>
-    <script type="text/javascript" src="grupogenerico.js"></script>
+    <script type="text/javascript" src="alerts.js"></script>
+    <script type="text/javascript" src="eliminacioncheckbox.js"></script>
     <script type="text/javascript" src="acciones.js"></script>
+    <script type="text/javascript" src="datatable.js"></script>
+    <script type="text/javascript" src="crud.js"></script>
+    <script type="text/javascript" src="init.js"></script>
 </body>
 </body>
 </html>
