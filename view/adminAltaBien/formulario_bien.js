@@ -11,9 +11,6 @@ function nuevoBien() {
     .prop("readonly", false)
     .removeAttr("disabled") 
     .off("keydown mousewheel"); // quita bloqueo si se activó antes
-  $("#combo_gg_bien_obj").val("").trigger("change").prop("disabled", false);
-  $("#combo_clase_bien_obj").empty().prop("disabled", false);
-  $("#combo_obj_bien").empty().prop("disabled", false);
   $("#combo_marca_obj").val("").trigger("change").prop("disabled", false);
   $("#combo_modelo_obj").prop("disabled", false);
   $("#procedencia").val("").trigger("change").prop("disabled", false);
@@ -25,6 +22,9 @@ function nuevoBien() {
     $("#cod_interno").val(formattedCod);
     $("#codigo_barras_input").val(formattedCod);
     generarCodigoBarras(formattedCod);
+  });
+  $.post("../../controller/objeto.php?op=combo_objetos_todos", function (objetos) {
+    $("#combo_obj_bien").html(objetos);
   });
 
   $("#bien_id").val("");

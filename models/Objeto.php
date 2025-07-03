@@ -404,5 +404,25 @@ class Objeto extends Conectar
             $sql->execute();
             return $sql->fetchAll();
         }
+    public function get_todos_objetos()
+        {
+            $conectar = parent::conexion();
+            parent::set_names();
+
+            $sql = "SELECT 
+                    obj_id,
+                    codigo_cana,
+                    obj_nombre 
+                    FROM sc_inventario.tb_objeto 
+                    WHERE est = '1' 
+                    ORDER BY obj_nombre ASC";
+
+            $stmt = $conectar->prepare($sql);
+            $stmt->execute();
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        
 
 }

@@ -104,7 +104,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                         <table id="bienes_data"  class="table card-table table-vcenter text-nowrap datatable " style="width: 99%;">
                           <thead>
                             <tr>
-                              <th><span title="Codigo Interno">Cod</span></th>
+                              <th style="display:none;"><span title="Codigo Interno">Cod</span></th>
                               <th><span title="Codigo de Barras">Cod Barras</span></th>
                               <th><span title="Denominacion del bien">Denominacion</span></th>
                               <th><span title="Fecha Registro">Fecha</span></th>

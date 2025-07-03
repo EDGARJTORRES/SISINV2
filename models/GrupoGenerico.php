@@ -96,7 +96,8 @@
             INNER JOIN sc_inventario.tb_clase tc ON gc.clase_id = tc.clase_id
             INNER JOIN sc_inventario.tb_grupogenerico gg ON gc.gg_id = gg.gg_id
             LEFT JOIN sc_inventario.tb_bien_dependencia tbd ON tbb.bien_id = tbd.bien_id
-            WHERE tbb.bien_est <> 'I';";
+            WHERE tbb.bien_est <> 'I'
+            ORDER BY tbb.bien_id DESC;";
             $sql=$conectar->prepare($sql);
             $sql->execute();
             return $resultado=$sql->fetchAll();

@@ -46,29 +46,56 @@ if (isset($_SESSION["usua_id_siin"])) {
         <div class="row mb-3">
             <div class="col-12 mb-4">
                 <div class="card border-0" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
-                <div class="card-status-start bg-primary"></div>
-                <div class="card-header">
-                    <h3 class="card-title">
-                    <i class="fa-solid fa-folder-open text-primary me-2"></i> LISTADO DE DOCUMENTOS SUBIDOS
-                    </h3>
-                </div>
-                <div class="table-responsive m-4">
-                    <input type="text" id="buscar_documento" class="form-control mb-3" placeholder="Buscar documento...">
-                    <table id="documento_data" class="table card-table table-vcenter text-nowrap datatable" style="width: 99%;">
-                    <thead>
-                      <tr>
-                        <th>Tipo</th>
-                        <th>Área</th>
-                        <th>Usuario</th>
-                        <th>Descripción</th>
-                        <th>Fecha</th>
-                        <th>Acciones</th>
-                      </tr>
-                    </thead>
-                      <tbody>
-                      </tbody>
-                    </table>
-                </div>
+                  <div class="card-status-start bg-primary"></div>
+                  <div class="card-header">
+                      <h3 class="card-title">
+                      <i class="fa-solid fa-folder-open text-primary me-2"></i> LISTADO DE DOCUMENTOS SUBIDOS
+                      </h3>
+                  </div>
+                  <div class="table-responsive m-4">
+                      <div class="row ">
+                        <div class="col-lg-2 mb-3">
+                          <input type="date" id="fecha_inicio" class="form-control" placeholder="Fecha inicio">
+                        </div>
+                        <div class="col-lg-2  mb-3">
+                          <input type="date" id="fecha_fin" class="form-control" placeholder="Fecha fin">
+                        </div>
+                        <div class="col-lg-2  mb-3">
+                            <div class="input-icon">
+                                <span class="input-icon-addon">
+                                 <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-filter"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 4h16v2.172a2 2 0 0 1 -.586 1.414l-4.414 4.414v7l-6 2v-8.5l-4.48 -4.928a2 2 0 0 1 -.52 -1.345v-2.227z" /></svg>
+                                </span>
+                              <select id="filtro_tipo" class="form-select" style="width: 100%; padding-left: 40px;" placeholder="Filtrar Tipos">
+                                  <option value="0">Todos</option>
+                                  <option value="Asignacion">Asignacion</option>
+                                  <option value="Desplazamiento">Desplazamiento</option>
+                              </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 mb-3">
+                           <input type="text" id="buscar_documento" class="form-control mb-3" placeholder="Buscar documento...">
+                        </div>
+                        <div class="col-lg-2  mb-3">
+                          <button class="btn btn-6 btn-outline-secundary" onclick="limpiarFiltros()">
+                            <i class="fa-solid fa-eraser"></i>LIMPIAR FILTROS
+                          </button>
+                        </div>
+                      </div>
+                      <table id="documento_data" class="table card-table table-vcenter text-nowrap datatable" style="width: 99%;">
+                        <thead>
+                          <tr>
+                            <th>Tipo</th>
+                            <th>Área</th>
+                            <th>Usuario</th>
+                            <th>Descripción</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                  </div>
                 </div>
             </div>
         </div>

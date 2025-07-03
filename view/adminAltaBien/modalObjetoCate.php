@@ -58,19 +58,7 @@
                 <div class="tab-pane fade show active" id="step1" role="tabpanel">
                     <div class="row g-3" >
                         <div class="hr-text hr-text-center hr-text-spaceless my-4 fs-4">Clasificación Patrimonial</div>
-                        <div class="col-lg-3">
-                            <label class="form-label">Grupo Genérico <span class="text-danger">*</span></label>
-                            <select class="form-select select2 required" id="combo_gg_bien_obj"  name="gg_id">
-                            <option value="" disabled selected>Seleccione</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-3">
-                            <label class="form-label">Clase <span class="text-danger">*</span></label>
-                            <select class="form-select select2 required" id="combo_clase_bien_obj" name="gc_id">
-                            <option value="" disabled selected>Seleccione</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-3">
+                        <div class="col-lg-9">
                             <label class="form-label">Objeto <span class="text-danger">*</span></label>
                             <select class="form-select select2 required" id="combo_obj_bien" name="obj_id">
                             <option value="" disabled selected>Seleccione</option>

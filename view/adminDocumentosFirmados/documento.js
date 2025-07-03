@@ -55,15 +55,43 @@ $(document).ready(function () {
             ocultarAlertaCarga();
         }
     });
+    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+    let min = $('#fecha_inicio').val();
+    let max = $('#fecha_fin').val();
+    let fecha = data[4]; // Columna "Fecha" (índice 4)
+
+    if (!min && !max) return true; // sin filtros
+
+    // Convertir formato dd/mm/yyyy a Date
+    const parseFecha = (str) => {
+        const [d, m, y] = str.split('/');
+        return new Date(`${y}-${m}-${d}`);
+    };
+
+    let fechaDoc = parseFecha(fecha);
+    let minFecha = min ? new Date(min) : null;
+    let maxFecha = max ? new Date(max) : null;
+
+    if ((minFecha === null || fechaDoc >= minFecha) &&
+        (maxFecha === null || fechaDoc <= maxFecha)) {
+        return true;
+    }
+    return false;
+});
   var table = $('#documento_data').DataTable({
     "aProcessing": true,
-    "aServerSide": true,
+    "aServerSide": false,
     dom: 'Bfrtip',
     searching: true,
      buttons: [],
     "ajax": {
       url: "../../controller/documento.php?op=get_documentos_firmados",
-      type: "post"
+      type: "post",
+      data: function (d) {
+        d.fecha_inicio = $('#fecha_inicio').val();
+        d.fecha_fin = $('#fecha_fin').val();
+        d.tipo = $('#filtro_tipo').val();
+      }
     },
     "bDestroy": true,
     "responsive": true,
@@ -95,7 +123,30 @@ $(document).ready(function () {
   $('#buscar_documento').on('input', function () {
     table.search(this.value).draw();
   });
+  $('#filtro_tipo').on('change', function () {
+      let value = $(this).val();
+      if (value === "0") {
+          // Mostrar todos
+          table.column(0).search('').draw();
+      } else if (value === "Asignacion") {
+          table.column(0).search('ASIGNACIÓN', true, false).draw();
+      } else if (value === "Desplazamiento") {
+          table.column(0).search('DESPLAZAMIENTO', true, false).draw();
+      }
+  });
+  $('#fecha_inicio, #fecha_fin').on('change', function () {
+    table.draw();
+  });
 });
+function limpiarFiltros() {
+    $('#fecha_inicio').val('');
+    $('#fecha_fin').val('');
+    $('#filtro_tipo').val('0');
+    $('#buscar_documento').val('');
+    table.column(0).search('').draw();
+    table.search('').draw();           
+    table.draw();                    
+}
 
 function editarDocumento(doc_id) {
   $.post("../../controller/documento.php?op=mostrar", { doc_id: doc_id }, function (data) {
@@ -212,8 +263,6 @@ function eliminarDocumento(doc_id) {
         }
     });
 }
-
-
 function guardaryeditar() {
   mostrarLoader();
   const form = document.getElementById('documento_form');
@@ -284,7 +333,6 @@ function guardaryeditar() {
     }
   });
 }
-
 
 function nuevoregistro() {
   const form = document.getElementById('documento_form');

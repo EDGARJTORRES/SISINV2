@@ -313,7 +313,7 @@ if (isset($_SESSION["usua_id_siin"])) {
           <div style="display: flex; z-index:1000; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
             <img src="../../static/illustrations/logo_mpch.png" height="90" width="90" alt="Municipal logo " />
               <h3></h3>
-            <h3 class="titulo">Generando Formato...</h3>
+            <h3 class="titulo">Generando Dezplazamiento...</h3>
           </div>
       </div>
     </div>

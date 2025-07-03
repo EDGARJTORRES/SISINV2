@@ -345,6 +345,15 @@ switch ($_GET["op"]) {
             }
         }
         echo json_encode($output);
-    break;
+       break;
+    case "combo_objetos_todos":
+        $datos = $objeto->get_todos_objetos();
+        $html = "<option value='' disabled selected>Seleccione</option>";
+        foreach ($datos as $row) {
+            $texto = $row['codigo_cana'] . " - " . $row['obj_nombre'];
+            $html .= "<option value='" . $row['obj_id'] . "' data-codigo-cana='" . $row['codigo_cana'] . "'>" . $texto . "</option>";
+        }
+        echo $html;
+        break;
 
 }

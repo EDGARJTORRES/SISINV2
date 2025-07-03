@@ -98,7 +98,14 @@ $(document).ready(function () {
       "responsive": true,
       "bInfo": true,
       "iDisplayLength": parseInt($('#cantidad_registros').val()),
-      "order": [[0, 'desc']],
+      "columnDefs": [
+        {
+            targets: [0],       
+            visible: false,
+            searchable: false
+        }
+      ],
+      "order": [[0, 'desc']] ,
       "language": {
         "sProcessing": "Procesando...",
         "sLengthMenu": "Mostrar _MENU_ registros",

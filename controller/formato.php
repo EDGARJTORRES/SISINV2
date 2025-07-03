@@ -8,7 +8,7 @@ $bitacora = new Bitacora();
 $formato = new Formato();
 $objeto = new Objeto();
 switch ($_GET["op"]) {
-   case "asignar":
+    case "asignar":
         // Obtener datos enviados desde el frontend
         $dataDict = json_decode($_POST['dataDict'], true);
         $depe_receptor_depe = $formato->get_dependenciadatos($_POST['depe_receptor']);
@@ -155,7 +155,7 @@ switch ($_GET["op"]) {
         $data = array();
         foreach ($datos as $row) {
             $sub_array = array();
-            $sub_array[] = $row["form_fechacrea"];
+            $sub_array[] = '<span class="badge bg-blue-lt selectable">'.substr($row["form_fechacrea"], 0, 10).'</span>';
             $sub_array[] = $row["tif_nom"];
             $sub_array[] = $row["emisor"];
             $sub_array[] = $row["receptor"];
@@ -425,7 +425,7 @@ switch ($_GET["op"]) {
         // Encabezado de la tabla
         $header = [utf8_decode("N°"), utf8_decode("Código Patrimonial"), utf8_decode("Código Interno"), utf8_decode("Denominación"), "Marca", "Modelo", "Color", utf8_decode("Serie/Dimensión"), "Estado", utf8_decode("Observación")];
         $pdf->Row($header);
-        $pdf->SetFont('Helvetica', '', 7.6);
+        $pdf->SetFont('Helvetica', '', 6.5);
         $count = 0;
         // Itera sobre cada objeto en `data` para obtener su `bien_id`
         $coun = 0; // Inicializa el contador de filas
