@@ -21,7 +21,7 @@ if (isset($_SESSION["usua_id_siin"])) {
       color: #0054a6 !important;
       }
      th, td {
-        max-width: 200px !important;     
+        max-width:300px !important;     
         white-space: normal;      
         word-break: break-word;   
         overflow-wrap: break-word; 

@@ -1,151 +1,150 @@
 
 var usu_id = $('#usu_idx').val();
-function initdocumento(){
-    $("#documento_form").on("submit",function(e){
-    e.preventDefault();
-    guardaryeditar(); 
-    });
-}
-function mostrarLoader() {
-  const loader = document.getElementById('page');
-  loader.style.visibility = 'visible';
-  loader.style.opacity = '1';
-  loader.style.pointerEvents = 'auto';
-}
-function ocultarLoader() {
-  const loader = document.getElementById('page');
-  loader.style.visibility = 'hidden';
-  loader.style.opacity = '0';
-  loader.style.pointerEvents = 'none';
-}
-
-function mostrarAlertaCarga() {
-  document.getElementById('alerta-carga').style.display = 'block';
-}
-
-// Ocultar alerta
-function ocultarAlertaCarga() {
-  document.getElementById('alerta-carga').style.display = 'none';
-}
+let table;
 
 $(document).ready(function () {
-   setTimeout(() => {
-       $('.buttons-collection')
-      .removeClass('btn-secondary')
-      .addClass('btn');
-    }, 300);
-    let inicioCarga;
-    let tiempoMinimo = 3000; 
-
-    $('#documento_data').on('preXhr.dt', function () {
-        mostrarAlertaCarga();
-        inicioCarga = new Date().getTime();
-    });
-
-    $('#documento_data').on('xhr.dt', function () {
-        let finCarga = new Date().getTime();
-        let duracion = finCarga - inicioCarga;
-        let tiempoRestante = tiempoMinimo - duracion;
-
-        if (tiempoRestante > 0) {
-            setTimeout(function () {
-                ocultarAlertaCarga();
-            }, tiempoRestante);
-        } else {
-            ocultarAlertaCarga();
+    mostrarAlertaCarga();
+    table = $('#documento_data').DataTable({
+        aProcessing: true,
+        aServerSide: false,
+        ajax: {
+            url: "../../controller/documento.php?op=get_documentos_firmados",
+            type: "post",
+            data: function (d) {
+                d.fecha_inicio = $('#fecha_inicio').val();
+                d.fecha_fin = $('#fecha_fin').val();
+                d.tipo = $('#filtro_tipo').val();
+            }
+        },
+        bDestroy: true,
+        responsive: true,
+        bInfo: true,
+        iDisplayLength: 10,
+        order: [[4, "desc"]],
+        searching: true,
+        dom: 'Bfrtip',
+        buttons: [],
+        language: {
+            sProcessing: "Procesando...",
+            sLengthMenu: "Mostrar _MENU_ registros",
+            sZeroRecords: "No se encontraron resultados",
+            sEmptyTable: "Ningún dato disponible en esta tabla",
+            sInfo: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            sInfoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
+            sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+            sSearch: "Buscar:",
+            sLoadingRecords: "Cargando...",
+            oPaginate: {
+                sFirst: "Primero",
+                sLast: "Último",
+                sNext: "Siguiente",
+                sPrevious: "Anterior"
+            },
+            oAria: {
+                sSortAscending: ": Activar para ordenar de forma ascendente",
+                sSortDescending: ": Activar para ordenar de forma descendente"
+            }
+        },
+        initComplete: function () {
+            ocultarAlertaCarga(); // se oculta cuando termina de cargar
         }
     });
+
+    // Estilizar botones (si se usan)
+    setTimeout(() => {
+        $('.buttons-collection')
+            .removeClass('btn-secondary')
+            .addClass('btn');
+    }, 300);
+
+    // Filtro por búsqueda general
+    $('#buscar_documento').on('input', function () {
+        table.search(this.value).draw();
+    });
+
+    // Filtro por tipo
+    $('#filtro_tipo').on('change', function () {
+        const value = $(this).val();
+        if (value === "0") {
+            table.column(0).search('').draw();
+        } else {
+            table.column(0).search('^' + value + '$', true, false).draw();
+        }
+    });
+
+    // Filtro personalizado por fecha (con hora)
     $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
-    let min = $('#fecha_inicio').val();
-    let max = $('#fecha_fin').val();
-    let fecha = data[4]; // Columna "Fecha" (índice 4)
+        const min = $('#fecha_inicio').val();
+        const max = $('#fecha_fin').val();
 
-    if (!min && !max) return true; // sin filtros
+        const div = document.createElement('div');
+        div.innerHTML = data[4]; // Columna "Fecha"
+        const fechaStr = div.textContent.trim(); // "dd/mm/yyyy hh:mm"
 
-    // Convertir formato dd/mm/yyyy a Date
-    const parseFecha = (str) => {
-        const [d, m, y] = str.split('/');
-        return new Date(`${y}-${m}-${d}`);
-    };
+        if (!min && !max) return true;
 
-    let fechaDoc = parseFecha(fecha);
-    let minFecha = min ? new Date(min) : null;
-    let maxFecha = max ? new Date(max) : null;
+        const [fechaParte, horaParte] = fechaStr.split(' ');
+        const [d, m, y] = fechaParte.split('/');
+        const [hh, mm] = horaParte ? horaParte.split(':') : ['00', '00'];
 
-    if ((minFecha === null || fechaDoc >= minFecha) &&
-        (maxFecha === null || fechaDoc <= maxFecha)) {
-        return true;
-    }
-    return false;
+        const fechaDoc = new Date(y, m - 1, d, hh, mm);
+        const minFecha = min ? new Date(min + 'T00:00:00') : null;
+        const maxFecha = max ? new Date(max + 'T23:59:59') : null;
+
+        if ((minFecha === null || fechaDoc >= minFecha) &&
+            (maxFecha === null || fechaDoc <= maxFecha)) {
+            return true;
+        }
+        return false;
+    });
+
+    $('#fecha_inicio, #fecha_fin').on('change', function () {
+        table.draw();
+    });
 });
-  var table = $('#documento_data').DataTable({
-    "aProcessing": true,
-    "aServerSide": false,
-    dom: 'Bfrtip',
-    searching: true,
-     buttons: [],
-    "ajax": {
-      url: "../../controller/documento.php?op=get_documentos_firmados",
-      type: "post",
-      data: function (d) {
-        d.fecha_inicio = $('#fecha_inicio').val();
-        d.fecha_fin = $('#fecha_fin').val();
-        d.tipo = $('#filtro_tipo').val();
-      }
-    },
-    "bDestroy": true,
-    "responsive": true,
-    "bInfo": true,
-    "iDisplayLength":10,
-    "order": [[4, "desc"]],
-    "language": {
-      "sProcessing": "Procesando...",
-      "sLengthMenu": "Mostrar _MENU_ registros",
-      "sZeroRecords": "No se encontraron resultados",
-      "sEmptyTable": "Ningún dato disponible en esta tabla",
-      "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-      "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-      "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-      "sSearch": "Buscar:",
-      "sLoadingRecords": "Cargando...",
-      "oPaginate": {
-        "sFirst": "Primero",
-        "sLast": "Último",
-        "sNext": "Siguiente",
-        "sPrevious": "Anterior"
-      },
-      "oAria": {
-        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-      }
+
+// Mostrar/ocultar loader general
+function mostrarLoader() {
+    const loader = document.getElementById('page');
+    loader.style.visibility = 'visible';
+    loader.style.opacity = '1';
+    loader.style.pointerEvents = 'auto';
+}
+function ocultarLoader() {
+    const loader = document.getElementById('page');
+    loader.style.visibility = 'hidden';
+    loader.style.opacity = '0';
+    loader.style.pointerEvents = 'none';
+}
+
+// Alerta de carga (específica)
+function mostrarAlertaCarga() {
+    document.getElementById('alerta-carga').style.display = 'block';
+}
+function ocultarAlertaCarga() {
+    document.getElementById('alerta-carga').style.display = 'none';
+}
+
+// Inicializar evento de formulario
+function initdocumento() {
+    const form = document.getElementById('documento_form');
+    if (form) {
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            guardaryeditar();
+        });
     }
-  });
-  $('#buscar_documento').on('input', function () {
-    table.search(this.value).draw();
-  });
-  $('#filtro_tipo').on('change', function () {
-      let value = $(this).val();
-      if (value === "0") {
-          // Mostrar todos
-          table.column(0).search('').draw();
-      } else if (value === "Asignacion") {
-          table.column(0).search('ASIGNACIÓN', true, false).draw();
-      } else if (value === "Desplazamiento") {
-          table.column(0).search('DESPLAZAMIENTO', true, false).draw();
-      }
-  });
-  $('#fecha_inicio, #fecha_fin').on('change', function () {
-    table.draw();
-  });
-});
+}
+
+// Limpiar todos los filtros
 function limpiarFiltros() {
     $('#fecha_inicio').val('');
     $('#fecha_fin').val('');
     $('#filtro_tipo').val('0');
     $('#buscar_documento').val('');
-    table.column(0).search('').draw();
-    table.search('').draw();           
-    table.draw();                    
+    table.column(0).search('');
+    table.search('');
+    table.draw();
 }
 
 function editarDocumento(doc_id) {

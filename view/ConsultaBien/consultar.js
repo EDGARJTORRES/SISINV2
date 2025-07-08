@@ -100,7 +100,7 @@ innerWrapper.innerHTML = `
     </div>
   </div>
   <div class="mt-2 w-100 d-flex justify-content-center">
-    <img src="../../static/illustrations/2020202.jpg" alt="Estado del bien" class="img-fluid" style="max-width: 220px;">
+    <img src="../../static/illustrations/inventario.png" alt="Estado del bien" class="img-fluid" style="max-width: 220px;">
   </div>
 `;
 

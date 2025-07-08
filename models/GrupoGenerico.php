@@ -63,7 +63,6 @@
             $stmt=$conectar->prepare($sql);
             $stmt->execute([$gg_id]);
         }
-
         public function get_grupogenerico(){
             $conectar= parent::conexion();
             parent::set_names();
@@ -74,35 +73,36 @@
             return $resultado=$sql->fetchAll();
         }
         public function get_grupogenerico_bienes(){
-            $conectar= parent::conexion();
+            $conectar = parent::conexion();
             parent::set_names();
-            $sql="SELECT 
-                tbb.bien_id, 
-                tob.obj_nombre, 
-                tbb.fecharegistro, 
-                tbb.bien_codbarras, 
-                tbb.bien_est,
-                tbb.procedencia, 
-                tbb.val_adq, 
-                tc.clase_cod, 
-                gg.gg_cod,
-                CASE 
-                    WHEN tbd.bien_id IS NULL THEN 'Sin dependencia'
-                    ELSE 'Con dependencia'
-                END AS estado_dependencia
-            FROM sc_inventario.tb_bien tbb
-            LEFT JOIN sc_inventario.tb_objeto tob ON tob.obj_id = tbb.obj_id
-            LEFT JOIN sc_inventario.tb_grupo_clase gc ON gc.gc_id = tob.gc_id
-            INNER JOIN sc_inventario.tb_clase tc ON gc.clase_id = tc.clase_id
-            INNER JOIN sc_inventario.tb_grupogenerico gg ON gc.gg_id = gg.gg_id
-            LEFT JOIN sc_inventario.tb_bien_dependencia tbd ON tbb.bien_id = tbd.bien_id
-            WHERE tbb.bien_est <> 'I'
-            ORDER BY tbb.bien_id DESC;";
-            $sql=$conectar->prepare($sql);
-            $sql->execute();
-            return $resultado=$sql->fetchAll();
-        }
 
+            $sql = "SELECT DISTINCT ON (tbb.bien_id)
+                        tbb.bien_id, 
+                        tob.obj_nombre, 
+                        tbb.fecharegistro, 
+                        tbb.bien_codbarras, 
+                        tbb.bien_est,
+                        tbb.procedencia, 
+                        tbb.val_adq, 
+                        tc.clase_cod, 
+                        gg.gg_cod,
+                        CASE 
+                            WHEN tbd.bien_id IS NULL THEN 'Sin dependencia'
+                            ELSE 'Con dependencia'
+                        END AS estado_dependencia
+                    FROM sc_inventario.tb_bien tbb
+                    LEFT JOIN sc_inventario.tb_objeto tob ON tob.obj_id = tbb.obj_id
+                    LEFT JOIN sc_inventario.tb_grupo_clase gc ON gc.gc_id = tob.gc_id
+                    INNER JOIN sc_inventario.tb_clase tc ON gc.clase_id = tc.clase_id
+                    INNER JOIN sc_inventario.tb_grupogenerico gg ON gc.gg_id = gg.gg_id
+                    LEFT JOIN sc_inventario.tb_bien_dependencia tbd ON tbb.bien_id = tbd.bien_id
+                    WHERE tbb.bien_est NOT IN ('I', 'E')
+                    ORDER BY tbb.bien_id DESC;";
+
+            $stmt = $conectar->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        }
         public function get_grupogenerico_id($gg_id){
             $conectar= parent::conexion();
             parent::set_names();

@@ -114,14 +114,14 @@ if (isset($_SESSION["usua_id_siin"])) {
     <div class="page-wrapper">
       <div class="page-header d-print-none">
         <div class="container-xl">
-          <nav class="breadcrumb mb-4">
+          <nav class="breadcrumb mb-3">
             <a href="../adminMain/">Inicio</a>
             <svg class="breadcrumb-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10.1 16.3"><path fill="currentColor" d="M0,14.4l6.2-6.2L0,1.9L2,0l8.1,8.1L2,16.3L0,14.4z"/></svg>
             <span class="breadcrumb-item active">Procesos</span>
             <svg class="breadcrumb-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10.1 16.3"><path fill="currentColor" d="M0,14.4l6.2-6.2L0,1.9L2,0l8.1,8.1L2,16.3L0,14.4z"/></svg>
             <span>Dezplazamiento de Bienes</span>
           </nav>
-          <div class="row g-2  mb-5 align-items-center">
+          <div class="row g-2  mb-3 align-items-center">
               <div class="col-lg-8">
                 <h2 class="page-title"> DESPLAZAMIENTO DE BIENES PARA EL SISTEMA DE INVENTARIO
               </div> 

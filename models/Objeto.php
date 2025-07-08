@@ -1,6 +1,6 @@
 <?php
 class Objeto extends Conectar
-{
+    {
     public function insert_objeto($obj_nombre, $codigo_cana, $gc_id)
         {
             $conectar = parent::conexion();
@@ -143,21 +143,29 @@ class Objeto extends Conectar
             $sql->execute();
             return $resultado = $sql->fetchAll();
         }
-    public function delete_bien($bien_id)
-        {
-            $conectar = parent::conexion();
-            parent::set_names();
-            $sql = "UPDATE sc_inventario.tb_bien
-                    SET
-                        bien_est = 'I'
-                    WHERE
-                    bien_id = ?";
-            $sql = $conectar->prepare($sql);
-            $sql->bindValue(1, $bien_id);
-            $sql->execute();
-            return $resultado = $sql->fetchAll();
-        }
+    public function verificar_historial_bien($bien_id) {
+        $conectar = parent::conexion();
+        parent::set_names();
 
+        $sql = "SELECT COUNT(*) AS total FROM sc_inventario.tb_bien_dependencia WHERE bien_id = ?";
+        $stmt = $conectar->prepare($sql);
+        $stmt->bindValue(1, $bien_id);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $row['total'] > 0; // true si tiene historial, false si no
+    }
+    public function delete_bien($bien_id) {
+        $conectar = parent::conexion();
+        parent::set_names();
+        $sql = "UPDATE sc_inventario.tb_bien
+                SET bien_est = 'E'
+                WHERE bien_id = ?";
+        $stmt = $conectar->prepare($sql);
+        $stmt->bindValue(1, $bien_id);
+        $stmt->execute();
+        return true;
+    }
     public function get_objeto($gc_id)
         {
             $conectar = parent::conexion();

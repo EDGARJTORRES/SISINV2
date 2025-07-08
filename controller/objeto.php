@@ -72,10 +72,22 @@ switch ($_GET["op"]) {
         $bitacora->update_bitacora($_SESSION["usua_id_sisgi"]);
         break;
     case "eliminarBien":
-        $objeto->delete_bien($_POST["bien_id"]);
-        $bitacora->update_bitacora($_SESSION["usua_id_sisgi"]);
+        header('Content-Type: application/json');
+        $bien_id = $_POST["bien_id"];
+        $tieneHistorial = $objeto->verificar_historial_bien($bien_id);
+        if ($tieneHistorial) {
+            echo json_encode([
+                "status" => "error",
+                "message" => "Este bien tiene historial o dependencias asignadas."
+            ]);
+        } else {
+            $objeto->delete_bien($bien_id); // ← ya no lanza error
+            echo json_encode([
+                "status" => "success",
+                "message" => "El bien ha sido eliminado correctamente."
+            ]);
+        }
         break;
-
     case "listar":
         $datos = $objeto->get_objeto($_POST['gc_id']);
         $data = array();

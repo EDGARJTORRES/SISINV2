@@ -223,7 +223,8 @@ if (isset($_SESSION["usua_id_siin"])) {
     </div>
     <?php require_once("../html/footer.php"); ?>
     <?php require_once("../html/mainjs.php"); ?>
-   <script type="text/javascript" src="adminMain.js"></script>
+    <script type="text/javascript" src="adminMain.js"></script>
+    <script src="/SISINV2/view/adminMntDependencias/historial.js"></script>
 </body>
 </html>
 <?php

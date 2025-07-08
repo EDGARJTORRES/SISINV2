@@ -76,10 +76,9 @@ switch ($_GET["op"]) {
             $sub_array = array();
             $sub_array[] = htmlspecialchars($row["doc_tipo"]);
             $sub_array[] = htmlspecialchars($row["depe_denominacion"]);
-            $sub_array[] = htmlspecialchars($row["nombre_completo"]);
+            $sub_array[] = ucwords(strtolower(htmlspecialchars($row["nombre_completo"])));
             $sub_array[] = htmlspecialchars($row["doc_desc"]);
-            $sub_array[] = '<span class="badge bg-blue-lt">' . date("d/m/Y", strtotime($row["fecha_carga"])) . '</span>';
-
+            $sub_array[] = '<span class="badge bg-blue-lt">' . date("d/m/Y H:i", strtotime($row["fecha_carga"])) . '</span>';
             $ruta = ltrim($row["doc_ruta"], "/");
             $doc_id = intval($row["doc_id"]);
 

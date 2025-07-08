@@ -155,7 +155,8 @@ switch ($_GET["op"]) {
         $data = array();
         foreach ($datos as $row) {
             $sub_array = array();
-            $sub_array[] = '<span class="badge bg-blue-lt selectable">'.substr($row["form_fechacrea"], 0, 10).'</span>';
+            $fechaHora = date('d/m/Y H:i', strtotime($row["form_fechacrea"]));
+            $sub_array[] = '<span class="badge bg-blue-lt selectable">' . $fechaHora . '</span>';
             $sub_array[] = $row["tif_nom"];
             $sub_array[] = $row["emisor"];
             $sub_array[] = $row["receptor"];

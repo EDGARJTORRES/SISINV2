@@ -69,6 +69,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                                   <option value="0">Todos</option>
                                   <option value="Asignacion">Asignacion</option>
                                   <option value="Desplazamiento">Desplazamiento</option>
+                                  <option value="Baja">Baja</option>
                               </select>
                             </div>
                         </div>

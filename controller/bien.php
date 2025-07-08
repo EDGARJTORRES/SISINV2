@@ -16,12 +16,13 @@ switch ($_GET["op"]) {
         }
     break;
     case "total_adquision":
-         $datos = $bien->get_total_adquision_bien();  
-        if ($datos) {  
-            echo json_encode($datos);  
-        } else {
-            echo json_encode(["error" => "No se encontró el total bien."]); 
-        }
+    $datos = $bien->get_total_y_variacion_adquisicion();
+
+    $total_actual = (float)$datos['total_actual'];
+
+    echo json_encode([[
+        "total_valor_adquisicion" => round($total_actual, 2)
+    ]]);
     break;
     case "total_bienes":
          $datos = $bien->get_total_bien();  

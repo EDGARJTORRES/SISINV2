@@ -313,7 +313,7 @@ function darDeBaja(bien_id) {
                     Swal.fire({
                       title: '¡Dado de baja!',
                       html: `<p>El bien ha sido dado de baja correctamente.</p>
-                             <div id="top-progress-bar-final" style="
+                            <div id="top-progress-bar-final" style="
                                 position: absolute;
                                 top: 0;
                                 left: 0;
@@ -321,16 +321,19 @@ function darDeBaja(bien_id) {
                                 width: 0%;
                                 background-color:rgb(243, 18, 18);
                                 transition: width 0.6s ease;">
-                             </div>`,
+                            </div>`,
                       imageUrl: '../../static/gif/verified.gif',
                       imageWidth: 100,
                       imageHeight: 100,
-                      showConfirmButton: true,
-                      confirmButtonColor: 'rgb(243, 18, 18)',
+                      showConfirmButton: false,
+                      timer: 1800, // espera 1.8 segundos y luego redirige
                       didOpen: () => {
                         setTimeout(() => {
                           document.getElementById('top-progress-bar-final').style.width = '100%';
                         }, 100);
+                      },
+                      willClose: () => {
+                        window.location.href = "/SISINV2/view/adminMntDependencias/vistabajaDocumento.php?bien_id=" + bien_id;
                       }
                     });
                     if ($.fn.DataTable.isDataTable('#dependencias_objetos')) {

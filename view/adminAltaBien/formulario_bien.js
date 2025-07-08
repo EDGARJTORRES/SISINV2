@@ -101,72 +101,46 @@ function eliminarBien(bien_id) {
         imageWidth: 100,
         imageHeight: 100,
         showCancelButton: true,
-        confirmButtonColor: 'rgb(243, 18, 18)', 
-        cancelButtonColor: '#000', 
-        confirmButtonText: 'Sí, eliminarlo',
-        backdrop: true,
-        didOpen: () => {
-            const swalBox = Swal.getPopup();
-            const topBar = document.createElement('div');
-            topBar.id = 'top-progress-bar';
-            topBar.style.cssText = `
-                position: absolute;
-                top: 0;
-                left: 0;
-                height: 5px;
-                width: 0%;
-                background-color:rgb(243, 18, 18);
-                transition: width 0.4s ease;
-            `;
-            swalBox.appendChild(topBar);
-
-            setTimeout(() => {
-                topBar.style.width = '40%';
-            }, 300);
-        }
+        confirmButtonColor: 'rgb(243, 18, 18)',
+        cancelButtonColor: '#000',
+        confirmButtonText: 'Sí, eliminarlo'
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-              url: '../../controller/objeto.php?op=eliminarBien',
-              type: 'POST',
-               data: { bien_id: bien_id },
+                url: '../../controller/objeto.php?op=eliminarBien',
+                type: 'POST',
+                data: { bien_id: bien_id },
+                dataType: 'json',
                 success: function (response) {
-                   $("#bienes_data").DataTable().ajax.reload();
-                    Swal.fire({
-                        title: '¡Eliminado!',
-                        html: `
-                            <p>El Bien ha sido eliminado correctamente.</p>
-                            <div id="top-progress-bar-final" style="
-                                position: absolute;
-                                top: 0;
-                                left: 0;
-                                height: 5px;
-                                width: 0%;
-                                background-color:rgb(243, 18, 18);
-                                transition: width 0.6s ease;
-                            "></div>
-                        `,
-                        imageUrl: '../../static/gif/verified.gif',
-                        imageWidth: 100,
-                        imageHeight: 100,
-                        showConfirmButton: true,
-                        confirmButtonColor: 'rgb(243, 18, 18)',
-                        backdrop: true,
-                        didOpen: () => {
-                            const bar = document.getElementById('top-progress-bar-final');
-                            setTimeout(() => {
-                                bar.style.width = '100%';
-                            }, 100);
-                        }
-                    });
+                    if (response.status === 'success') {
+                        $("#bienes_data").DataTable().ajax.reload();
+                        Swal.fire({
+                            title: '¡Eliminado!',
+                            text: response.message,
+                            icon: 'success',
+                            confirmButtonColor: 'rgb(243, 18, 18)'
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'No se puede eliminar',
+                            text: response.message || 'Este bien tiene historial o dependencias asignadas.',
+                            confirmButtonColor: '#d33'
+                        });
+                    }
                 },
                 error: function () {
-                    Swal.fire('Error', 'No se pudo eliminar el usuario.', 'error');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Respuesta inválida del servidor.'
+                    });
                 }
             });
         }
     });
 }
+
 function imprimirBien(bien_id) {
   redirect_by_post(
     "../../controller/stick.php?op=imprimir",

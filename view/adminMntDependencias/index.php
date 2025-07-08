@@ -11,7 +11,7 @@ if (isset($_SESSION["usua_id_siin"])) {
     <link href="../../public/css/botones.css" rel="stylesheet" />
     <link href="../../public/css/alerta.css" rel="stylesheet"/>
     <link href="../../public/css/baja.css" rel="stylesheet"/>
-    <title>MPCH::AsignacionBienes</title>
+    <title>MPCH::BajaBienes</title>
   </head>
 <body>
     <?php require_once("../html/mainProfile.php"); ?>
@@ -25,7 +25,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                 <svg class="breadcrumb-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10.1 16.3"><path fill="currentColor" d="M0,14.4l6.2-6.2L0,1.9L2,0l8.1,8.1L2,16.3L0,14.4z"/></svg>
                 <span>Baja de Bien</span>
               </nav>
-              <div class="row g-2  mb-5 align-items-center">
+              <div class="row g-2  mb-3 align-items-center">
                   <div class="col">
                       <h2 class="page-title">
                         BAJA DE BIEN PATRIMONIAL
@@ -49,10 +49,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                   </div>
               </div>
                 <div class="row mb-3">
-                  <!-- Columna izquierda: Información y filtros -->
                   <div class="col-md-4">
-                    
-                    <!-- Card: Descripción -->
                     <div class="card border-0 mb-3" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
                       <div class="card-status-start bg-primary"></div>
                       <div class="card-header">
@@ -88,7 +85,6 @@ if (isset($_SESSION["usua_id_siin"])) {
                           <label class="form-label">Buscar Área:<span style="color:red"> *</span></label>
                            <select class="form-select" id="filtro_dependencia" style="width: 100%;">
                             <option value="">Seleccione un área</option>
-                            <!-- Opciones dinámicas con JS -->
                            </select>
                         </div>
                         <div class="row mb-2">
@@ -110,12 +106,8 @@ if (isset($_SESSION["usua_id_siin"])) {
                         </h3>
                       </div>
                       <div class="table-responsive m-4">
-                        <div class="d-flex align-items-center gap-2">
-                          <div class="input-icon" id="contenedor-excel"> 
-                          </div>
-                        </div>
                         <div class="d-flex align-items-center gap-4 mt-2 mb-3 mx-3">
-                          <div class="input-icon"  style="width: 100%;">
+                          <div class="input-icon" style="width: 100%;">
                               <span class="input-icon-addon">
                                 <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-search">
                                   <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
@@ -133,7 +125,6 @@ if (isset($_SESSION["usua_id_siin"])) {
                             </tr>
                           </thead>
                           <tbody>
-                            <!-- Cuerpo dinámico con JS -->
                           </tbody>
                         </table>
                       </div>

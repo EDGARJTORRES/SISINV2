@@ -134,28 +134,27 @@
         public function contadorBienesPorDependencia() {
             $conectar = parent::conexion();
             $sql = "SELECT
-                d.depe_denominacion,
-                COUNT(DISTINCT bd.bien_id) AS cantidad
-            FROM
-                  public.tb_dependencia d
-            JOIN 
-                sc_inventario.tb_bien_dependencia bd ON d.depe_id = bd.depe_id
-            WHERE 
-                 bd.bien_est <> 'I'
-            AND  
-			     d.depe_estado= 'A'
-            GROUP BY 
-                d.depe_id, d.depe_denominacion
-            ORDER BY 
-                d.depe_denominacion;";
-
+                        d.depe_denominacion,
+                        COUNT(DISTINCT bd.bien_id) AS cantidad
+                    FROM
+                        public.tb_dependencia d
+                    JOIN 
+                        sc_inventario.tb_bien_dependencia bd ON d.depe_id = bd.depe_id
+                    WHERE 
+                        bd.bien_est NOT IN ('I', 'E')
+                    AND  
+                        d.depe_estado = 'A'
+                    GROUP BY 
+                        d.depe_id, d.depe_denominacion
+                    ORDER BY 
+                        d.depe_denominacion;";
             $stmt = $conectar->prepare($sql);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
         public function listarCantidadBienesPorDependencia() {
             $conectar = parent::conexion();
-            $sql = "SELECT   DISTINCT
+            $sql = "SELECT DISTINCT
                         d.depe_id,
                         d.depe_denominacion,
                         COUNT(bd.bien_id) AS cantidad_bienes
@@ -164,9 +163,9 @@
                     JOIN 
                         sc_inventario.tb_bien_dependencia bd ON d.depe_id = bd.depe_id
                     WHERE 
-                        bd.bien_est <> 'I'
+                        bd.bien_est NOT IN ('I', 'E')
                     AND  
-			            d.depe_estado= 'A'
+                        d.depe_estado = 'A'
                     GROUP BY 
                         d.depe_id, d.depe_denominacion
                     ORDER BY 
@@ -178,34 +177,33 @@
         }
         public function listarBienesPorDependencia($depe_id) {
             $conectar = parent::conexion();
-            $sql = "SELECT  DISTINCT
-                b.bien_id,
-                tp.pers_apelpat || ' ' || tp.pers_apelmat || ', ' || tp.pers_nombre AS nombre_completo, 
-                b.bien_codbarras,
-                o.obj_nombre, 
-                (
-                    SELECT string_agg(c.color_nom, ', ')
-                    FROM public.tb_color c
-                    WHERE c.color_id = ANY(b.bien_color)
-                ) AS bien_color,
-                b.bien_dim,
-                b.val_adq,
-                b.doc_adq
-            FROM 
-                sc_inventario.tb_bien_dependencia bd
-            INNER JOIN 
-                sc_inventario.tb_bien b ON b.bien_id = bd.bien_id
-            INNER JOIN 
-                sc_inventario.tb_objeto o ON b.obj_id = o.obj_id
-            INNER JOIN
-                public.tb_dependencia d ON d.depe_id = bd.depe_id
-            LEFT JOIN 
-                sc_escalafon.tb_persona tp on tp.pers_id = bd.repre_id
-            WHERE 
-                bd.depe_id       = ?        
-            AND bd.bien_est  <> 'I'        
-            AND d.depe_estado = 'A'       
-            ;";
+            $sql = "SELECT DISTINCT
+                        b.bien_id,
+                        tp.pers_apelpat || ' ' || tp.pers_apelmat || ', ' || tp.pers_nombre AS nombre_completo, 
+                        b.bien_codbarras,
+                        o.obj_nombre, 
+                        (
+                            SELECT string_agg(c.color_nom, ', ')
+                            FROM public.tb_color c
+                            WHERE c.color_id = ANY(b.bien_color)
+                        ) AS bien_color,
+                        b.bien_dim,
+                        b.val_adq,
+                        b.doc_adq
+                    FROM 
+                        sc_inventario.tb_bien_dependencia bd
+                    INNER JOIN 
+                        sc_inventario.tb_bien b ON b.bien_id = bd.bien_id
+                    INNER JOIN 
+                        sc_inventario.tb_objeto o ON b.obj_id = o.obj_id
+                    INNER JOIN
+                        public.tb_dependencia d ON d.depe_id = bd.depe_id
+                    LEFT JOIN 
+                        sc_escalafon.tb_persona tp on tp.pers_id = bd.repre_id
+                    WHERE 
+                        bd.depe_id = ?        
+                    AND bd.bien_est NOT IN ('I', 'E')     
+                    AND d.depe_estado = 'A';";
 
             $stmt = $conectar->prepare($sql);
             $stmt->bindValue(1, $depe_id);
@@ -214,7 +212,7 @@
         }
         public function listarBienesPorDependencia2($depe_id) {
             $conectar = parent::conexion();
-            $sql = "SELECT  DISTINCT
+            $sql = "SELECT DISTINCT
                         b.bien_id,
                         b.bien_codbarras,
                         o.obj_nombre, 
@@ -232,7 +230,7 @@
                         public.tb_dependencia d ON d.depe_id = bd.depe_id
                     WHERE 
                         bd.depe_id = ?
-                        AND bd.bien_est <> 'I'
+                        AND bd.bien_est NOT IN ('I', 'E')
                         AND d.depe_estado = 'A';";
 
             $stmt = $conectar->prepare($sql);
@@ -328,6 +326,7 @@
             $conectar = parent::conexion();
             parent::set_names();
             $sql = "SELECT
+                b.bien_id,               
                 bd.fecha_baja,
                 COALESCE(p.pers_nombre || ' ' || p.pers_apelpat || ' ' || p.pers_apelmat, '---') AS usuario_baja,
                 b.bien_codbarras,
@@ -355,7 +354,49 @@
 
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
+        public function obtenerBienBajaPorId($bien_id) {
+            $conectar = parent::conexion();
+            parent::set_names();
 
+            $sql = "SELECT
+                        b.bien_id,
+                        b.fecharegistro,
+                        bd.fecha_baja,
+                        bd.motivo_baja,
+                        bd.bien_color,
+                        COALESCE(p.pers_nombre || ' ' || p.pers_apelpat || ' ' || p.pers_apelmat, '---') AS usuario_baja,
+                        b.bien_codbarras,
+                        b.bien_obs,
+                        bd.repre_id,
+                        b.bien_numserie,
+                        b.procedencia,
+                        bd.biendepe_obs,
+                        b.bien_dim,
+                        o.codigo_cana,
+                        bd.bien_est,
+                        REPLACE(REPLACE(b.val_adq::text, 'S/', ''), ',', '')::numeric AS val_adq,
+                        b.fechacrea,
+                        COALESCE(o.obj_nombre, '---') AS obj_nombre,
+                        COALESCE(ma.marca_nom, '---') AS marca_nom,
+                        COALESCE(mo.modelo_nom, '---') AS modelo_nom,
+                        COALESCE(gg.vida_util, 10) AS vida_util -- 🔽 agregado desde grupo genérico
+                    FROM
+                        sc_inventario.tb_bien_dependencia bd
+                    JOIN sc_inventario.tb_bien b ON bd.bien_id = b.bien_id
+                    LEFT JOIN sc_inventario.tb_objeto o ON b.obj_id = o.obj_id
+                    LEFT JOIN sc_inventario.tb_grupo_clase gc ON o.gc_id = gc.gc_id
+                    LEFT JOIN sc_inventario.tb_grupogenerico gg ON gc.gg_id = gg.gg_id
+                    LEFT JOIN sc_escalafon.tb_persona p ON bd.pers_id = p.pers_id
+                    LEFT JOIN sc_inventario.tb_modelo mo ON b.modelo_id = mo.modelo_id
+                    LEFT JOIN sc_inventario.tb_marca ma ON mo.marca_id = ma.marca_id
+                    WHERE b.bien_id = ? AND bd.bien_est = 'I'
+                    LIMIT 1";
 
+            $stmt = $conectar->prepare($sql);
+            $stmt->bindValue(1, $bien_id);
+            $stmt->execute();
+
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
     }
 ?>

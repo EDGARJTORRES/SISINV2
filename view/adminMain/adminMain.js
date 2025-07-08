@@ -47,6 +47,14 @@ function cargarValorAdquisicion() {
     let contenidoFinal = "";
 
     if (data.length > 0 && data[0].total_valor_adquisicion !== null) {
+      const total = parseFloat(data[0].total_valor_adquisicion);
+
+      const formatoSoles = new Intl.NumberFormat('es-PE', {
+        style: 'currency',
+        currency: 'PEN',
+        minimumFractionDigits: 2
+      });
+
       contenidoFinal = `
         <h3 class="card-title text-success">TOTAL VALOR ADQUISICIÓN</h3>
         <div class="row text-center">
@@ -54,7 +62,7 @@ function cargarValorAdquisicion() {
             <img style="height:60px;" src="../../static/gif/ordenador-portatil.gif" alt="Cargando..." />
           </div>
           <div class="col-lg-8" style="align-content: center;">
-            <h4 id="lbltotal_adq">${data[0].total_valor_adquisicion}</h4>
+            <h4 id="lbltotal_adq" class="mb-1">${formatoSoles.format(total)}</h4>
           </div>
         </div>
       `;
@@ -72,7 +80,6 @@ function cargarValorAdquisicion() {
       `;
     }
 
-    // Reemplazar contenido y quitar clase de placeholder
     $('#placeholder-adquisicion').removeClass('placeholder-glow').html(contenidoFinal);
   });
 }
@@ -99,14 +106,34 @@ function cargarUltimaBaja() {
   $.post("../../controller/dependencia.php?op=obtener_ultimo_bien_baja", function(data) {
     data = JSON.parse(data);
 
-    const contenidoFinal = `
+    let contenidoFinal = `
       <h3 class="card-title text-blue">ÚLTIMA BAJA DE BIEN</h3>
       <div class="row text-center">
-        <div class="col-lg-4">
+        <div class="col-lg-3">
           <img style="height:60px;" src="../../static/gif/presentacion.gif" alt="Cargando..." />
         </div>
-        <div class="col-lg-8" style="align-content: center;">
-          <h6 id="lblultimabaja">${data ? data.obj_nombre : 'No se encontró el último equipo dado de baja.'}</h6>
+        <div class="col-lg-9 d-flex flex-column align-items-center justify-content-center">`;
+
+    if (data && data.bien_id && data.obj_nombre) {
+      contenidoFinal += `
+          <div class="d-flex align-items-center gap-2">
+            <h6 id="lblultimabaja" class="mb-0">${data.obj_nombre}</h6>
+            <button class="btn btn-outline-primary px-2 text-center" onclick="verFormato(${data.bien_id})" title="Ver detalle del bien" style="width:auto;">
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-description mx-1" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                <path d="M17 21H7a2 2 0 0 1 -2 -2V5a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+                <path d="M9 17h6" />
+                <path d="M9 13h6" />
+              </svg>
+            </button>
+          </div>`;
+    } else {
+      contenidoFinal += `
+          <h6 id="lblultimabaja">No se encontró el último equipo dado de baja.</h6>`;
+    }
+
+    contenidoFinal += `
         </div>
       </div>
     `;
