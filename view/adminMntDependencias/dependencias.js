@@ -159,7 +159,23 @@ function cargarListadoBienesEnModal() {
                         <td>${b.bien_dim || '-'}</td>
                         <td>${b.val_adq || '-'}</td>
                         <td>${b.doc_adq || '-'}</td>
-                        <td>${b.bien_obs || '-'}</td>
+                        <td>
+                          <span class="${
+                            b.bien_est === 'B' ? 'bg-success text-white px-3 py-1 rounded' :
+                            b.bien_est === 'N' ? 'bg-purple text-white px-3 py-1 rounded' :
+                            b.bien_est === 'R' ? 'bg-warning text-white px-3 py-1 rounded' :
+                            b.bien_est === 'M' ? 'bg-danger text-white px-3 py-1 rounded' :
+                            'bg-secondary text-white px-2 py-1 rounded'
+                          }">
+                            ${
+                              b.bien_est === 'B' ? 'Bueno' :
+                              b.bien_est === 'M' ? 'Malo' :
+                              b.bien_est === 'R' ? 'Regular' :
+                              b.bien_est === 'N' ? 'Nuevo' :
+                              '-'
+                            }
+                          </span>
+                        </td>
                         <td>
                           <button class="btn btn-outline-dark" onclick="darDeBaja(${b.bien_id})">
                             <i class="fa fa-trash"></i>
@@ -266,6 +282,9 @@ function darDeBaja(bien_id) {
                         text: 'Ya no hay bienes en esta dependencia.',
                         confirmButtonColor: 'rgb(15, 4, 77)',
                         confirmButtonText: 'Ok',
+                      }).then(() => {
+                        window.location.href = "/SISINV2/view/adminMntDependencias/vistabajaDocumento.php?bien_id=" + bien_id;
+
                       });
                       return;
                     }

@@ -38,7 +38,6 @@
                   <thead>
                   <tr>
                     <th>Fech. Baja</th>
-                    <th>Usuario Eliminador</th>
                     <th>Cód. Barras</th>
                     <th>Nombre</th>
                     <th>Marca</th>

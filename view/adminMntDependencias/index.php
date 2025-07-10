@@ -59,7 +59,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                       </div>
                       <div class="card-body">
                         <p class="text-justify" style="font-size: 13px; line-height: 2.5;">
-                          La <strong>baja patrimonial</strong> retira del inventario los bienes deteriorados, extraviados o inservibles. Verifique el estado antes de continuar, haga clic <a href="../adminAltaBien/" class="text-primary fw-semibold text-decoration-underline">aquí</a>.
+                          La <strong>BAJA PATRIMONIAL</strong> retira del inventario los bienes deteriorados, extraviados o inservibles. Verifique el estado antes de continuar, haga clic <a href="../adminAltaBien/" class="text-primary fw-semibold text-decoration-underline">aquí</a>.
                         </p>
                       </div>
                     </div>

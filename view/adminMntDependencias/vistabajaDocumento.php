@@ -30,118 +30,9 @@ if (isset($_SESSION["usua_id_siin"])) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <link href="../../public/css/sinasignacion.css" rel="stylesheet"/>
     <link href="../../public/css/Breadcrumb.css" rel="stylesheet"/>
+    <link href="../../public/css/vistaDocumento.css" rel="stylesheet"/>
     <title>MPCH::</title>
-    <style>
-  @page {
-    size: A4 portrait;
-    margin:1cm;
-  }
-
-  body {
-    font-family: Arial, sans-serif;
-  }
-
-  h2 {
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 14pt;
-    margin-bottom: 20px;
-  }
-
-  .encabezado {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .encabezado div {
-    width: 32%;
-  }
-
-  .label {
-    font-weight: bold;
-    display: inline-block;
-    width: 160px;
-    vertical-align: top;
-  }
-  .section-title {
-    background: #f0f0f0;
-    font-weight: bold;
-    padding: 5px;
-    margin: 25px 0 10px;
-    border: 1px solid #ccc;
-  }
-
-  .double-column {
-    display: flex;
-    justify-content: space-between;
-    gap: 0px;
-    font-size: 12px;
-  }
-
-  .double-column .col {
-    width: 45%;
-  }
-
-  .observaciones {
-    min-height: 60px;
-    border: 1px solid #000;
-    padding: 6px;
-    margin-top: 20px;
-  }
-
-  /* 🔽 Fuerza impresión a ancho completo */
-  @media print {
-    .page-header,
-    .btn,
-    .d-print-none {
-      display: none !important;
-    }
-
-    #formato-baja {
-      width: 100% !important;
-      margin: 0;
-      padding: 0;
-      border: none !important;
-      box-shadow: none !important;
-    }
-    .container-xl,
-    .card,
-    .col-lg-6,
-    .col {
-      width: 100% !important;
-      max-width: 100% !important;
-      padding: 0 !important;
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-    }
-    
-.tg .tg-0lax{text-align:left;vertical-align:top}
-  }
-      .styled-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-family: Arial, sans-serif;
-        font-size: 14px;
-        margin-top: 20px;
-    }
-
-    .styled-table th, .styled-table td {
-        border: 1px solid #cccccc;
-        padding: 10px;
-        vertical-align: top;
-        text-align: left;
-    }
-
-    .styled-table thead th {
-        background-color: #f2f2f2;
-        font-weight: bold;
-        text-align: center;
-    }
-</style>
-  </head>
+</head>
 <body>
     <?php require_once("../html/mainProfile.php"); ?>
      <div class="page-wrapper">
@@ -211,11 +102,11 @@ if (isset($_SESSION["usua_id_siin"])) {
                             </tr>
                             <tr>
                                 <td style="border: none;"><strong>Responsable del Bien</strong></td>
-                                <td style="border: none; font-size: 12px;">: <?php echo ucfirst(strtolower($datos["repre_id"])); ?></td>
+                                <td style="border: none; font-size: 12px;">: <?php echo ucwords(strtolower($datos["nombre_completo"])); ?></td>
                             </tr>
                             <tr>
                                 <td style="border: none;"><strong>Fecha Asignación</strong></td>
-                                <td style="border: none;"><span class="respuesta-sm">:</span></td>
+                                <td style="border: none;"><span class="respuesta-sm">: <?php echo date("d/m/Y", strtotime($datos["fecha_asignacion"])); ?></td>
                             </tr>
                         </table>
                         <table style="width: 50%; border-collapse: collapse;">
@@ -242,9 +133,9 @@ if (isset($_SESSION["usua_id_siin"])) {
                             </colgroup>
                             <tbody>
                                 <tr>
-                                    <th style="text-align: center;"><strong>Identificación del Bien</strong></th>
-                                    <th style="text-align: center;"><strong>Ingreso del Bien</strong></th>
-                                    <th style="text-align: center;"><strong>Fecha</strong>
+                                    <th style="text-align: center;"><strong>IDENTIFICACION DEL BIEN</strong></th>
+                                    <th style="text-align: center;"><strong>INGRESO DEL BIEN</strong></th>
+                                    <th style="text-align: center;"><strong>FECHA</strong>
                                 </th> 
                                 </tr>
                                 <tr>
@@ -292,7 +183,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                                             </tr>
                                             <tr>
                                                 <td style="border: none;"><strong>Nro Pecosa:</strong></td>
-                                                <td style="border: none;"> :<?php echo '---'; ?></td>
+                                                <td style="border: none;"><span class="respuesta-sm">: <?php echo str_pad($datos["form_id"], 6, '0', STR_PAD_LEFT); ?></span></td>
                                             </tr>
                                         </table>
                                     </td>
@@ -310,7 +201,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                                             </tr>
                                             <tr>
                                                 <td style="border: none;"><strong>Valor en Libros S/.</strong></td>
-                                                <td style="border: none;">:<?php echo $formato_valor_libros; ?></td>
+                                                <td style="border: none;">: <?php echo $formato_valor_libros; ?></td>
                                             </tr>
                                             <tr>
                                                 <td style="border: none;"><strong>Valor Tasado S/.</strong></td>
@@ -330,8 +221,8 @@ if (isset($_SESSION["usua_id_siin"])) {
                                 <tr>
                                 </tr>
                                 <tr>
-                                    <th style="text-align: center;"><strong>Especificaciones Técnicas</strong></th>
-                                    <th colspan="2" style="text-align: center;"><strong>Baja del Bien</strong></th>
+                                    <th style="text-align: center;"><strong>ESPECIFICACIONES TECNICAS</strong></th>
+                                    <th colspan="2" style="text-align: center;"><strong>BAJA DEL BIEN</strong></th>
                                 </tr>
                                 <tr>
                                    <td rowspan="2">
@@ -389,11 +280,11 @@ if (isset($_SESSION["usua_id_siin"])) {
                                         <table style="width:100%; border-collapse: collapse;">
                                             <tr>
                                                 <td style="width: 50%; border: none;"><strong>Proveedor:</strong></td>
-                                                <td style="border: none;"><?php echo '---'; ?></td>
+                                                <td style="border: none;">: <?php echo '---'; ?></td>
                                             </tr>
                                             <tr>
                                                 <td style="width: 50%; border: none;"><strong>Pais:</strong></td>
-                                                <td style="border: none;"><?php echo '---'; ?></td>
+                                                <td style="border: none;">: <?php echo 'Perú'; ?></td>
                                             </tr>
                                         </table>
                                     </td>
@@ -414,149 +305,9 @@ if (isset($_SESSION["usua_id_siin"])) {
     </div>
     <?php require_once("../html/footer.php"); ?>
     <?php require_once("../html/mainjs.php"); ?>
+    <script type="text/javascript" src="impresion.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <script>
-        function imprimirFormatoBaja() {
-            const ahora = new Date();
-            const fecha = ahora.toLocaleDateString('es-PE');
-            const hora = ahora.toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit' });
-
-            // ✅ Actualiza el DOM visible también
-            document.getElementById('fecha-impresion').textContent = fecha;
-            document.getElementById('hora-impresion').textContent = hora;
-
-            const contenidoOriginal = document.getElementById('formato-baja').cloneNode(true);
-
-            // ✅ Actualiza el contenido clonado
-            contenidoOriginal.querySelector('#fecha-impresion').textContent = fecha;
-            contenidoOriginal.querySelector('#hora-impresion').textContent = hora;
-
-            const ventana = window.open('', '_blank', 'width=900,height=1000');
-
-            ventana.document.write(`
-                <html>
-                <head>
-                    <title>Impresión de Baja</title>
-                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css">
-                    <link href="../../public/css/sinasignacion.css" rel="stylesheet"/>
-                    <style>
-                    @page { size: A4 portrait; margin: 1cm; }
-                    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-                    h2 { text-align: center; text-transform: uppercase; font-size: 14px; margin-bottom: 20px; }
-                    .encabezado { display: flex; justify-content: space-between; }
-                    .encabezado div { width: 32%; }
-                    .value { display: inline-block; width: calc(100% - 190px);}
-                    .section-title { background: #f0f0f0; font-weight: bold border: 1px solid #ccc; }
-                    .double-column {
-                        display: flex;
-                        gap: 0;
-                        font-size: 11px;
-                    }
-
-                    .double-column table {
-                        width: 100%;
-                        border-collapse: collapse;
-                    }
-
-                    .double-column td {
-                        padding: 2px;
-                        vertical-align: top;
-                        font-size: 12px; /* Aplica también a <td> directamente */
-                    }
-
-                    .double-column strong {
-                        font-size: 11px;
-                        font-weight: bold;
-                    }
-
-                    .respuesta-sm {
-                        font-size: 11px;
-                    }
-                    .observaciones { min-height: 60px; border: 1px solid #000; padding: 6px; margin-top: 20px; }
-                 
-            .styled-table {
-                width: 100%;
-                border-collapse: collapse;
-                font-family: Arial, sans-serif;
-                font-size: 12px;
-                margin-top: 10px;
-            }
-
-            .styled-table th, .styled-table td {
-                border: 1px solid #cccccc;
-                padding: 7px 10PX;
-                vertical-align: top;
-                text-align: left;
-            }
-
-            .styled-table thead th {
-                background-color: #f2f2f2;
-                font-weight: bold;
-                text-align: center;
-            }
-
-            .styled-table tr:nth-child(even) {
-                background-color: #fafafa;
-            }
-
-            .styled-table tr:hover {
-                background-color: #f1f1f1;
-            }
-
-            .styled-table td[colspan="2"], .styled-table td[colspan="3"] {
-                font-weight: normal;
-                background-color: #f9f9f9;
-            }
-                    </style>
-                </head>
-                <body onload="window.print(); setTimeout(() => window.close(), 100);">
-                    ${contenidoOriginal.innerHTML}
-                </body>
-                </html>
-            `);
-
-            ventana.document.close();
-        }
-        function descargarimgFormatoBaja() {
-            const elemento = document.getElementById("formato-baja");
-
-            // Actualiza fecha y hora antes de capturar
-            const ahora = new Date();
-            const fecha = ahora.toLocaleDateString('es-PE');
-            const hora = ahora.toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit' });
-
-            document.getElementById('fecha-impresion').textContent = fecha;
-            document.getElementById('hora-impresion').textContent = hora;
-
-            html2canvas(elemento, { scale: 2 }).then(canvas => {
-                const link = document.createElement("a");
-                link.download = `formato_baja_${fecha.replace(/\//g, '-')}.png`;
-                link.href = canvas.toDataURL("image/png");
-                link.click();
-            });
-        }
-        function descargarPDFFormatoBaja() {
-            const elemento = document.getElementById("formato-baja");
-
-            // Actualiza fecha y hora antes de exportar
-            const ahora = new Date();
-            const fecha = ahora.toLocaleDateString('es-PE').replace(/\//g, '-');
-            const hora = ahora.toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit' });
-
-            document.getElementById('fecha-impresion').textContent = ahora.toLocaleDateString('es-PE');
-            document.getElementById('hora-impresion').textContent = hora;
-
-            const opciones = {
-                filename:     `formato_baja_${fecha}.pdf`,
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true },
-                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
-            };
-
-            html2pdf().set(opciones).from(elemento).save();
-        }
-    </script>
 </body>
 </html>
 <?php

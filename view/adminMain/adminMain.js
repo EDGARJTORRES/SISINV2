@@ -108,7 +108,7 @@ function cargarUltimaBaja() {
 
     let contenidoFinal = `
       <h3 class="card-title text-blue">ÚLTIMA BAJA DE BIEN</h3>
-      <div class="row text-center">
+      <div class="row text-center g-0">
         <div class="col-lg-3">
           <img style="height:60px;" src="../../static/gif/presentacion.gif" alt="Cargando..." />
         </div>
@@ -116,7 +116,7 @@ function cargarUltimaBaja() {
 
     if (data && data.bien_id && data.obj_nombre) {
       contenidoFinal += `
-          <div class="d-flex align-items-center gap-2">
+          <div class="d-flex align-items-center gap-2 m-0">
             <h6 id="lblultimabaja" class="mb-0">${data.obj_nombre}</h6>
             <button class="btn btn-outline-primary px-2 text-center" onclick="verFormato(${data.bien_id})" title="Ver detalle del bien" style="width:auto;">
               <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-description mx-1" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -130,7 +130,7 @@ function cargarUltimaBaja() {
           </div>`;
     } else {
       contenidoFinal += `
-          <h6 id="lblultimabaja">No se encontró el último equipo dado de baja.</h6>`;
+          <h6 id="lblultimabaja" class="mb-0 text-muted">No se encontró el último bien dado de baja.</h6>`;
     }
 
     contenidoFinal += `
@@ -141,6 +141,7 @@ function cargarUltimaBaja() {
     $('#placeholder-ultima-baja').removeClass('placeholder-glow').html(contenidoFinal);
   });
 }
+
 function cargarGraficoEstadoBienes() {
   $.post("../../controller/bien.php?op=contador_bien_estado", function(data) {
     data = JSON.parse(data);

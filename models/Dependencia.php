@@ -60,6 +60,7 @@
             FROM tb_dependencia td
             INNER JOIN sc_escalafon.tb_local_municipal tblm ON td.lomu_id = tblm.lomu_id
 			where td.nior_id in(1,2,3,4,5)
+            AND  td.depe_estado= 'A'
             ORDER BY td.depe_denominacion DESC";
             $sql=$conectar->prepare($sql);
             $sql->execute();
@@ -142,7 +143,9 @@
                         sc_inventario.tb_bien_dependencia bd ON d.depe_id = bd.depe_id
                     WHERE 
                         bd.bien_est NOT IN ('I', 'E')
-                    AND  
+                    AND 
+                        bd.biendepe_est = 1
+                    AND 
                         d.depe_estado = 'A'
                     GROUP BY 
                         d.depe_id, d.depe_denominacion
@@ -166,6 +169,8 @@
                         bd.bien_est NOT IN ('I', 'E')
                     AND  
                         d.depe_estado = 'A'
+                    AND 
+                        bd.biendepe_est = 1
                     GROUP BY 
                         d.depe_id, d.depe_denominacion
                     ORDER BY 
@@ -203,6 +208,7 @@
                     WHERE 
                         bd.depe_id = ?        
                     AND bd.bien_est NOT IN ('I', 'E')     
+                    AND bd.biendepe_est = 1
                     AND d.depe_estado = 'A';";
 
             $stmt = $conectar->prepare($sql);
@@ -219,7 +225,7 @@
                         b.bien_dim,
                         b.val_adq,
                         b.doc_adq,
-                        b.bien_obs
+                        b.bien_est
                     FROM 
                         sc_inventario.tb_bien_dependencia bd
                     INNER JOIN 
@@ -231,6 +237,7 @@
                     WHERE 
                         bd.depe_id = ?
                         AND bd.bien_est NOT IN ('I', 'E')
+                        AND bd.biendepe_est = 1
                         AND d.depe_estado = 'A';";
 
             $stmt = $conectar->prepare($sql);
@@ -240,8 +247,14 @@
         }
         public function darDeBajaBien($bien_id, $motivo) {
             $conectar = parent::conexion();
+            parent::set_names();
             try {
                 $conectar->beginTransaction();
+                $sqlGetEstado = "SELECT bien_est FROM sc_inventario.tb_bien WHERE bien_id = ?";
+                $stmtGet = $conectar->prepare($sqlGetEstado);
+                $stmtGet->bindValue(1, $bien_id);
+                $stmtGet->execute();
+                $estadoActual = $stmtGet->fetchColumn(); 
                 $sql1 = "UPDATE sc_inventario.tb_bien_dependencia 
                         SET bien_est = 'I', motivo_baja = ?
                         WHERE bien_id = ?";
@@ -250,10 +263,51 @@
                 $stmt1->bindValue(2, $bien_id);
                 $stmt1->execute();
                 $sql2 = "UPDATE sc_inventario.tb_bien 
-                        SET bien_est = 'I' 
+                        SET bien_est = 'I', bien_est_anterior = ?
                         WHERE bien_id = ?";
                 $stmt2 = $conectar->prepare($sql2);
-                $stmt2->bindValue(1, $bien_id);
+                $stmt2->bindValue(1, $estadoActual); 
+                $stmt2->bindValue(2, $bien_id);
+                $stmt2->execute();
+                $conectar->commit();
+                return true;
+
+            } catch (Exception $e) {
+                $conectar->rollBack();
+                return false;
+            }
+        }
+        public function restaurarBien($bien_id) {
+            $conectar = parent::conexion();
+            parent::set_names();
+            try {
+                $conectar->beginTransaction();
+
+                $sql = "SELECT bien_est_anterior FROM sc_inventario.tb_bien WHERE bien_id = ?";
+                $stmt = $conectar->prepare($sql);
+                $stmt->bindValue(1, $bien_id);
+                $stmt->execute();
+                $estadoAnterior = $stmt->fetchColumn();
+
+                if (!$estadoAnterior) {
+                    $conectar->rollBack();
+                    return false;
+                }
+
+                $sql1 = "UPDATE sc_inventario.tb_bien
+                        SET bien_est = ?, bien_est_anterior = NULL
+                        WHERE bien_id = ?";
+                $stmt1 = $conectar->prepare($sql1);
+                $stmt1->bindValue(1, $estadoAnterior);
+                $stmt1->bindValue(2, $bien_id);
+                $stmt1->execute();
+
+                $sql2 = "UPDATE sc_inventario.tb_bien_dependencia
+                        SET bien_est = ?
+                        WHERE bien_id = ?";
+                $stmt2 = $conectar->prepare($sql2);
+                $stmt2->bindValue(1, $estadoAnterior);
+                $stmt2->bindValue(2, $bien_id);
                 $stmt2->execute();
 
                 $conectar->commit();
@@ -276,6 +330,8 @@
                         public.tb_dependencia d ON bd.depe_id = d.depe_id
                     WHERE
                         bd.bien_est = 'I'
+                    AND
+                        bd.biendepe_est = 1
                     GROUP BY
                         d.depe_id, d.depe_denominacion, d.depe_representante
                     ORDER BY
@@ -297,6 +353,8 @@
                         INNER JOIN sc_inventario.tb_bien b ON bd.bien_id = b.bien_id
                         INNER JOIN sc_inventario.tb_objeto o ON b.obj_id = o.obj_id
                         WHERE bd.fecha_baja IS NOT NULL
+                        AND bd.biendepe_est = 1
+                        and bd.bien_est='I'
                         ORDER BY bd.fecha_baja DESC
                         LIMIT 1";
 
@@ -315,6 +373,7 @@
                         FROM sc_inventario.tb_bien_dependencia bd
                         JOIN public.tb_dependencia d ON bd.depe_id = d.depe_id
                         WHERE bd.bien_est = 'I'
+                        AND bd.biendepe_est = 1
                         ORDER BY d.depe_denominacion
                 ";
                 $stmt = $conectar->prepare($sql);
@@ -328,7 +387,6 @@
             $sql = "SELECT
                 b.bien_id,               
                 bd.fecha_baja,
-                COALESCE(p.pers_nombre || ' ' || p.pers_apelpat || ' ' || p.pers_apelmat, '---') AS usuario_baja,
                 b.bien_codbarras,
                 COALESCE(o.obj_nombre, '---') AS obj_nombre,
                 COALESCE(ma.marca_nom, '---') AS marca_nom,
@@ -345,7 +403,7 @@
             LEFT JOIN sc_escalafon.tb_persona p ON bd.pers_id = p.pers_id
             LEFT JOIN sc_inventario.tb_modelo mo ON b.modelo_id = mo.modelo_id
             LEFT JOIN sc_inventario.tb_marca ma ON mo.marca_id = ma.marca_id
-            WHERE bd.bien_est = 'I' AND d.depe_id = ?
+            WHERE bd.bien_est = 'I' AND bd.biendepe_est = 1 AND d.depe_id = ?
             ORDER BY bd.fecha_baja DESC;";
 
             $stmt = $conectar->prepare($sql);
@@ -357,40 +415,45 @@
         public function obtenerBienBajaPorId($bien_id) {
             $conectar = parent::conexion();
             parent::set_names();
-
             $sql = "SELECT
-                        b.bien_id,
-                        b.fecharegistro,
-                        bd.fecha_baja,
-                        bd.motivo_baja,
-                        bd.bien_color,
-                        COALESCE(p.pers_nombre || ' ' || p.pers_apelpat || ' ' || p.pers_apelmat, '---') AS usuario_baja,
-                        b.bien_codbarras,
-                        b.bien_obs,
-                        bd.repre_id,
-                        b.bien_numserie,
-                        b.procedencia,
-                        bd.biendepe_obs,
-                        b.bien_dim,
-                        o.codigo_cana,
-                        bd.bien_est,
-                        REPLACE(REPLACE(b.val_adq::text, 'S/', ''), ',', '')::numeric AS val_adq,
-                        b.fechacrea,
-                        COALESCE(o.obj_nombre, '---') AS obj_nombre,
-                        COALESCE(ma.marca_nom, '---') AS marca_nom,
-                        COALESCE(mo.modelo_nom, '---') AS modelo_nom,
-                        COALESCE(gg.vida_util, 10) AS vida_util -- 🔽 agregado desde grupo genérico
-                    FROM
-                        sc_inventario.tb_bien_dependencia bd
-                    JOIN sc_inventario.tb_bien b ON bd.bien_id = b.bien_id
-                    LEFT JOIN sc_inventario.tb_objeto o ON b.obj_id = o.obj_id
-                    LEFT JOIN sc_inventario.tb_grupo_clase gc ON o.gc_id = gc.gc_id
-                    LEFT JOIN sc_inventario.tb_grupogenerico gg ON gc.gg_id = gg.gg_id
-                    LEFT JOIN sc_escalafon.tb_persona p ON bd.pers_id = p.pers_id
-                    LEFT JOIN sc_inventario.tb_modelo mo ON b.modelo_id = mo.modelo_id
-                    LEFT JOIN sc_inventario.tb_marca ma ON mo.marca_id = ma.marca_id
-                    WHERE b.bien_id = ? AND bd.bien_est = 'I'
-                    LIMIT 1";
+                    b.bien_id,
+                    b.fecharegistro,
+                    p.pers_apelpat || ' ' || p.pers_apelmat || ', ' || p.pers_nombre AS nombre_completo,
+                    bd.fecha_baja,
+                    bd.motivo_baja,
+                    bd.bien_color,
+                    b.bien_codbarras,
+                    b.bien_obs,
+                    bd.repre_id,
+                    b.bien_numserie,
+                    b.procedencia,
+                    bd.biendepe_obs,
+                    b.bien_dim,
+                    o.codigo_cana,
+                    bd.bien_est,
+                    REPLACE(REPLACE(b.val_adq::text, 'S/', ''), ',', '')::numeric AS val_adq,
+                    b.fechacrea,
+                    COALESCE(o.obj_nombre, '---') AS obj_nombre,
+                    COALESCE(ma.marca_nom, '---') AS marca_nom,
+                    COALESCE(mo.modelo_nom, '---') AS modelo_nom,
+                    COALESCE(gg.vida_util, 10) AS vida_util,
+                    f.form_id,
+                    f.form_fechacrea AS fecha_asignacion  -- ← Fecha de asignación real
+                FROM
+                    sc_inventario.tb_bien_dependencia bd
+                JOIN sc_inventario.tb_bien b ON bd.bien_id = b.bien_id
+                LEFT JOIN sc_inventario.tb_objeto o ON b.obj_id = o.obj_id
+                LEFT JOIN sc_inventario.tb_grupo_clase gc ON o.gc_id = gc.gc_id
+                LEFT JOIN sc_inventario.tb_grupogenerico gg ON gc.gg_id = gg.gg_id
+                LEFT JOIN sc_escalafon.tb_persona p ON bd.repre_id = p.pers_id
+                LEFT JOIN sc_inventario.tb_modelo mo ON b.modelo_id = mo.modelo_id
+                LEFT JOIN sc_inventario.tb_marca ma ON mo.marca_id = ma.marca_id
+                LEFT JOIN sc_inventario.tb_formato f ON bd.form_id = f.form_id  -- ← Enlace por form_id
+                WHERE
+                    b.bien_id = ?
+                    AND bd.bien_est = 'I'
+                    AND bd.biendepe_est = 1
+                LIMIT 1;";
 
             $stmt = $conectar->prepare($sql);
             $stmt->bindValue(1, $bien_id);

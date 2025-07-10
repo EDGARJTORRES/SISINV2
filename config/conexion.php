@@ -1,7 +1,7 @@
 <?php
     session_start();
     class Conectar {
-          /* 
+        /* 
            protected $dbh;
             protected function conexion() {
                 try {
@@ -21,7 +21,7 @@
             return "http://10.10.10.16/SISINV2/";
         }
         */
-
+         
         protected $dbh;
         protected function conexion() {
             try {
@@ -40,8 +40,8 @@
         public static function ruta() {
             return "http://localhost/SISINV2/";
         }
-        
         /* 
+        
         Protected $dbh;
         protected function Conexion() {
             try {
@@ -58,7 +58,7 @@
         public static function ruta() {
             return "http://localhost:/SISINV2/";
         }
-        */
+         */ 
         
     }
     

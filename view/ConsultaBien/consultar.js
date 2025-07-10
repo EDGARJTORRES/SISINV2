@@ -38,23 +38,30 @@ function buscarBien() {
           });
           return;
         }
-        var colores = data.bien_color.replace(/[{}]/g, "").split(",");
+        var colores = data.bien_color.replace(/[{}]/g, "").trim();
 
-        // Obtener los nombres de los colores
+        if (colores === "") {
+          // No hay colores asignados
+          mostrarDatosObjeto(data, []);  // Pasamos lista vacía
+          $("#cod_bar").val("");
+          return;
+        }
+        var listaColores = colores.split(",");
         var nombresColores = [];
         var completedRequests = 0;
-        colores.forEach(function (color_id) {
-          get_color_string(color_id.trim(), function (color_nom) {
-            nombresColores.push(color_nom);
-            completedRequests++;
+        listaColores.forEach(function (color_id) {
+          color_id = color_id.trim();
+          if (color_id) {
+            get_color_string(color_id, function (color_nom) {
+              nombresColores.push(color_nom || "SIN COLOR");
+              completedRequests++;
 
-            // Si se han obtenido todos los nombres de colores
-            if (completedRequests === colores.length) {
-              // Mostrar los datos del objeto en un SweetAlert con dos botones
-              mostrarDatosObjeto(data, nombresColores);
-              $("#cod_bar").val("");
-            }
-          });
+              if (completedRequests === listaColores.filter(c => c.trim() !== "").length) {
+                mostrarDatosObjeto(data, nombresColores);
+                $("#cod_bar").val("");
+              }
+            });
+          }
         });
       } catch (error) {
         console.error("Error al analizar la respuesta JSON:", error);
@@ -286,7 +293,6 @@ function obtenerColor2PorEstado(estado) {
 
 
 function get_color_string(color_id, callback) {
-  console.log(color_id);
   $.post(
     "../../controller/objeto.php?op=get_color",
     { color_id: color_id },

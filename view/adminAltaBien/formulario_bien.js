@@ -10,7 +10,7 @@ function nuevoBien() {
     .val(1)
     .prop("readonly", false)
     .removeAttr("disabled") 
-    .off("keydown mousewheel"); // quita bloqueo si se activó antes
+    .off("keydown mousewheel");
   $("#combo_marca_obj").val("").trigger("change").prop("disabled", false);
   $("#combo_modelo_obj").prop("disabled", false);
   $("#procedencia").val("").trigger("change").prop("disabled", false);
@@ -69,6 +69,7 @@ function editarBien(bien_id) {
     $("#doc_adq").val(bienData.doc_adq);
     $("#bien_obs").val(bienData.bien_obs);
     $("#procedencia").val(bienData.procedencia).trigger("change");
+    $("#bien_cuenta").val(bienData.bien_cuenta);
     generarCodigoBarras(bienData.bien_codbarras);
 
     const colorArray = bienData.bien_color ? bienData.bien_color.replace(/[{}"]/g, "").split(",") : [];
@@ -140,7 +141,6 @@ function eliminarBien(bien_id) {
         }
     });
 }
-
 function imprimirBien(bien_id) {
   redirect_by_post(
     "../../controller/stick.php?op=imprimir",

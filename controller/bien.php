@@ -16,13 +16,13 @@ switch ($_GET["op"]) {
         }
     break;
     case "total_adquision":
-    $datos = $bien->get_total_y_variacion_adquisicion();
+        $datos = $bien->get_total_y_variacion_adquisicion();
 
-    $total_actual = (float)$datos['total_actual'];
+        $total_actual = (float)$datos['total_actual'];
 
-    echo json_encode([[
-        "total_valor_adquisicion" => round($total_actual, 2)
-    ]]);
+        echo json_encode([[
+            "total_valor_adquisicion" => round($total_actual, 2)
+        ]]);
     break;
     case "total_bienes":
          $datos = $bien->get_total_bien();  
@@ -85,6 +85,5 @@ switch ($_GET["op"]) {
         $datos = $bien->get_valores_adquisicion_y_baja();
         echo json_encode($datos);
     break;
-    
 
 }

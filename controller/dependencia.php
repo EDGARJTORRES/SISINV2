@@ -160,14 +160,33 @@ switch ($_GET["op"]) {
        break;
     case "baja_de_bien":
         $bien_id = isset($_POST["bien_id"]) ? $_POST["bien_id"] : null;
-        $motivo = isset($_POST["motivo"]) ? $_POST["motivo"] : null;
-
+        $motivo  = isset($_POST["motivo"])  ? $_POST["motivo"]  : null;
         if ($bien_id && $motivo) {
-            $dependencia->darDeBajaBien($bien_id, $motivo);
+            $resultado = $dependencia->darDeBajaBien($bien_id, $motivo);
+            if ($resultado) {
+                echo json_encode(["status" => "success"]);
+            } else {
+                echo json_encode(["status" => "error", "message" => "Error al dar de baja el bien."]);
+            }
         } else {
             echo json_encode(["status" => "error", "message" => "Faltan datos obligatorios."]);
         }
         break;
+    case "restaurarBien":
+        header('Content-Type: application/json');
+        ob_clean();
+        $bien_id = isset($_POST["bien_id"]) ? $_POST["bien_id"] : null;
+        if ($bien_id) {
+            $result = $dependencia->restaurarBien($bien_id);
+            if ($result) {
+                echo json_encode(['status' => 'success']);
+            } else {
+                echo json_encode(['status' => 'error', 'message' => 'No se pudo restaurar el bien.']);
+            }
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'ID de bien no proporcionado.']);
+        }
+        exit;
     case "listarBienesBaja":
      $datos = $dependencia->listarBienesBaja();
      $data = array();
@@ -222,8 +241,7 @@ switch ($_GET["op"]) {
             $bien_id = $row["bien_id"];
             $sub_array = [];
             $sub_array[] = explode(' ', $row["fecha_baja"])[0];
-            $sub_array[] = htmlspecialchars($row["usuario_baja"]);
-            $sub_array[] = '<span class="badge bg-red-lt selectable">' . htmlspecialchars($row["bien_codbarras"]) . '</span>';
+            $sub_array[] = '<span class="badge bg-red-lt selectable">' . $row["bien_codbarras"] . '</span>';
             $sub_array[] = htmlspecialchars($row["obj_nombre"]);
             $sub_array[] = htmlspecialchars($row["marca_nom"]);
             $sub_array[] = htmlspecialchars($row["modelo_nom"]);
@@ -267,6 +285,7 @@ switch ($_GET["op"]) {
 
         echo json_encode($results);
         break;
+        
 
       
 }

@@ -35,6 +35,7 @@ function guardaryeditarbienes(e) {
           formData.append("obj_dim", $("#obj_dim").val());
           formData.append("bien_numserie", $("#bien_numserie").val());
           formData.append("bien_obs", $("#bien_obs").val());
+          formData.append("bien_cuenta", $("#bien_cuenta").val());
           formData.append("bien_color", $("#combo_color_bien").val());
           formData.append("procedencia", $("#procedencia").val());
           formData.append("fecharegistro", $("#fecharegistro").val());
@@ -47,6 +48,7 @@ function guardaryeditarbienes(e) {
           formData.append("obj_dim", $(`input[name='obj_dim_${i}']`).val());
           formData.append("bien_numserie", $(`input[name='bien_numserie_${i}']`).val());
           formData.append("bien_obs", $(`textarea[name='bien_obs_${i}']`).val());
+          formData.append("bien_cuenta", $(`input[name='bien_cuenta_${i}']`).val());
           formData.append("bien_color", $(`#color_${i}`).val());
           formData.append("procedencia", $(`select[name='procedencia_${i}']`).val());
           formData.append("fecharegistro", $(`input[name='fecharegistro_${i}']`).val());
@@ -61,11 +63,9 @@ function guardaryeditarbienes(e) {
     });
   } else {
     let formData = new FormData($("#bien_form")[0]);
-
     formData.set("bien_id", bien_id);
     formData.set("codigo_barras_input", $("#codigo_barras_input").val());
     formData.set("cod_interno", $("#cod_interno").val());
-
     formData.set("modelo_id", $("#combo_modelo_obj").val());
     formData.set("marca_id", $("#combo_marca_obj").val());
     formData.set("obj_id", $("#combo_obj_bien").val());
@@ -77,6 +77,7 @@ function guardaryeditarbienes(e) {
     formData.set("obj_dim", $("#obj_dim").val());
     formData.set("val_adq", $("#val_adq").val());
     formData.set("doc_adq", $("#doc_adq").val());
+    formData.set("bien_cuenta", $("#bien_cuenta").val());
     formData.set("fecharegistro", $("#fecharegistro").val());
     formData.set("bien_obs", $("#bien_obs").val());
     formData.set("cantidad_bienes", "1"); // fijo en edición

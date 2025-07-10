@@ -51,23 +51,23 @@ function generarCamposIdentificacion(i) {
     </div>
     <div class="col-lg-3 extra-campo">
       <label class="form-label">Marca <span class="text-danger">*</span></label>
-      <select class="form-select select2 required" name="marca_id_${i}" id="marca_${i}">
-        <option value="" disabled selected>Seleccione</option>
+      <select  data-placeholder="Seleccione la marca" class="form-select select2 required" name="marca_id_${i}" id="marca_${i}">
+        <option></option>
       </select>
     </div>
     <div class="col-lg-3 extra-campo">
       <label class="form-label">Modelo <span class="text-danger">*</span></label>
-      <select class="form-select select2 required" name="modelo_id_${i}" id="modelo_${i}">
-        <option value="" disabled selected>Seleccione</option>
+      <select  data-placeholder="Seleccione el modelo" class="form-select select2 required" name="modelo_id_${i}" id="modelo_${i}">
+        <option></option>
       </select>
     </div>
     <div class="col-lg-3 extra-campo">
       <label class="form-label">Dimensiones <span class="text-danger">*</span></label>
-      <input type="text" class="form-control required" name="obj_dim_${i}" />
+      <input type="text" placeholder="Ej: 40x30x20 cm" class="form-control required" name="obj_dim_${i}" />
     </div>
     <div class="col-lg-3 extra-campo">
       <label class="form-label">N° Serie <span class="text-danger">*</span></label>
-      <input type="text" class="form-control required" name="bien_numserie_${i}" />
+      <input  placeholder="Ingrese el N° de serie" type="text" class="form-control required" name="bien_numserie_${i}" />
     </div>`;
 }
 
@@ -81,17 +81,21 @@ function generarCamposCaracteristicas(i) {
         </button>
       </div>
     </div>
-    <div class="col-lg-4 extra-campo">
-      <label class="form-label">Observaciones <span class="text-danger">*</span></label>
-      <textarea name="bien_obs_${i}" class="form-control" rows="1" style="resize: none;"></textarea>
+    <div class="col-lg-3 extra-campo">
+      <label class="form-label">Características <span class="text-danger">*</span></label>
+      <textarea placeholder="Describa las características..." name="bien_obs_${i}" class="form-control" rows="1" style="resize: none;"></textarea>
     </div>
-    <div class="col-lg-4 extra-campo">
+    <div class="col-lg-3 extra-campo">
+      <label class="form-label">N° Cuenta Contable <span class="text-danger">*</span></label>
+      <input type="text" name="bien_cuenta_${i}" placeholder="Ej: 1503.020502" class="form-control" />
+    </div>
+    <div class="col-lg-3 extra-campo">
       <label class="form-label">Color <span class="text-danger">*</span></label>
-      <select class="form-select select2 required" name="bien_color_${i}" id="color_${i}" multiple></select>
+      <select  data-placeholder="Seleccione uno o más colores" class="form-select select2 required" name="bien_color_${i}" id="color_${i}" multiple></select>
     </div>
-    <div class="col-lg-4 extra-campo">
+    <div class="col-lg-3 extra-campo">
       <label class="form-label">Procedencia <span class="text-danger">*</span></label>
-      <select class="form-select" name="procedencia_${i}">
+      <select  data-placeholder="Seleccione la procedencia" class="form-select" name="procedencia_${i}">
         <option value="NACIONAL">Nacional</option>
         <option value="DONADO">Donado</option>
       </select>
@@ -110,15 +114,15 @@ function generarCamposAdquisicion(i) {
     </div>
     <div class="col-lg-4 extra-campo">
       <label class="form-label">Fecha de Adquisición <span class="text-danger">*</span></label>
-      <input type="text" class="form-control required" name="fecharegistro_${i}" />
+      <input type="text" placeholder="Año/Mes/Dia" class="form-control required" name="fecharegistro_${i}" />
     </div>
     <div class="col-lg-4 extra-campo">
-      <label class="form-label">Valor <span class="text-danger">*</span></label>
-      <input type="text" class="form-control required" name="val_adq_${i}" />
+      <label class="form-label">Valor de Adquisición <span class="text-danger">*</span></label>
+      <input type="text" placeholder="Ej: S/ 1,200.00" class="form-control required" name="val_adq_${i}" />
     </div>
     <div class="col-lg-4 extra-campo">
       <label class="form-label">N° Doc. Adquision <span class="text-danger">*</span></label>
-      <input type="text" class="form-control required" name="doc_adq_${i}" />
+      <input type="text" placeholder="Ej: NEA 2001, O/C 716" class="form-control required" name="doc_adq_${i}" />
     </div>`;
 }
 
@@ -127,6 +131,7 @@ function autocompletar(i) {
   $(`#modelo_${i}`).val($("#combo_modelo_obj").val());
   $(`input[name='obj_dim_${i}']`).val($("#obj_dim").val());
   $(`input[name='bien_numserie_${i}']`).val($("#bien_numserie").val());
+  $(`input[name='bien_cuenta_${i}']`).val($("#bien_cuenta").val());
   $(`textarea[name='bien_obs_${i}']`).val($("#bien_obs").val());
   $(`#color_${i}`).val($("#combo_color_bien").val()).trigger("change");
   $(`select[name='procedencia_${i}']`).val($("#procedencia").val());

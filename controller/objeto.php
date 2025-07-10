@@ -34,7 +34,8 @@ switch ($_GET["op"]) {
                 $_POST["procedencia"],
                 $_POST["val_adq"],
                 $_POST["doc_adq"],
-                $_POST["bien_obs"]
+                $_POST["bien_obs"],
+                $_POST["bien_cuenta"]
             );
         } else {
             $objeto->update_registro_bien(
@@ -49,12 +50,11 @@ switch ($_GET["op"]) {
                 $_POST["val_adq"],
                 $_POST["doc_adq"],
                 $_POST["bien_obs"],
+                $_POST["bien_cuenta"],
                 $_POST["procedencia"]
             );
         }
         break;
-
-
     case "mostrar":
         $datos = $objeto->get_objeto_id($_POST["obj_id"]);
         if (is_array($datos) == true and count($datos) <> 0) {
@@ -353,6 +353,7 @@ switch ($_GET["op"]) {
                 $output["val_adq"] = $row["val_adq"];
                 $output["doc_adq"] = $row["doc_adq"];
                 $output["bien_obs"] = $row["bien_obs"];
+                $output["bien_cuenta"] = $row["bien_cuenta"];
                 $output["procedencia"] = $row["procedencia"];
             }
         }

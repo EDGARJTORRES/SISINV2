@@ -60,8 +60,8 @@
                         <div class="hr-text hr-text-center hr-text-spaceless my-4 fs-4">Clasificación Patrimonial</div>
                         <div class="col-lg-9">
                             <label class="form-label">Objeto <span class="text-danger">*</span></label>
-                            <select class="form-select select2 required" id="combo_obj_bien" name="obj_id">
-                            <option value="" disabled selected>Seleccione</option>
+                            <select class="form-select select2 required" id="combo_obj_bien" name="obj_id" data-placeholder="Seleccione el Objeto">
+                                <option></option> 
                             </select>
                         </div>
                         <div class="col-lg-3">
@@ -77,40 +77,48 @@
                         <div class="hr-text hr-text-center hr-text-spaceless my-4 fs-4"> Identificación Técnica del Bien</div>
                         <div class="col-lg-3">
                             <label class="form-label">Marca <span class="text-danger">*</span></label>
-                            <select class="form-select select2 required" id="combo_marca_obj" name="marca_id">
-                            <option value="" disabled selected>Seleccione</option>
+                            <select class="form-select select2 required" id="combo_marca_obj" name="marca_id" data-placeholder="Seleccione la marca">
+                                <option></option> <!-- Obligatorio para Select2 mostrar placeholder -->
                             </select>
                         </div>
                         <div class="col-lg-3">
                             <label class="form-label">Modelo <span class="text-danger">*</span></label>
-                            <select class="form-select select2 required" id="combo_modelo_obj" name="modelo_id">
-                            <option value="" disabled selected>Seleccione</option>
+                            <select class="form-select select2 required" id="combo_modelo_obj" name="modelo_id" data-placeholder="Seleccione el modelo">
+                                <option></option>
                             </select>
                         </div>
                         <div class="col-lg-3">
                             <label class="form-label">Dimensiones <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control required" id="obj_dim" name="obj_dim">
+                            <input type="text" class="form-control required" id="obj_dim" name="obj_dim" placeholder="Ej: 40x30x20 cm">
                         </div>
+
+                        <!-- N° Serie -->
                         <div class="col-lg-3">
                             <label class="form-label">N° Serie <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control required" id="bien_numserie" name="bien_numserie">
+                            <input type="text" class="form-control required" id="bien_numserie" name="bien_numserie" placeholder="Ingrese el N° de serie">
                         </div>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="step3" role="tabpanel">
                     <div class="hr-text hr-text-center hr-text-spaceless my-5 fs-4">  Características Generales del Bien</div>
                     <div class="row g-3"  id="contenedor_caracteristicas">
-                            <div class="col-lg-4">
-                            <label class="form-label">Observaciones <span class="text-danger">*</span></label>
-                            <textarea class="form-control" name="bien_obs" id="bien_obs" rows="1" style="resize: none;"></textarea>
+                        <div class="col-lg-3">
+                            <label class="form-label">Características <span class="text-danger">*</span></label>
+                            <textarea class="form-control required" name="bien_obs" id="bien_obs" rows="1" placeholder="Describa las características..." style="resize: none;"></textarea>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-3">
+                            <label class="form-label">N° Cuenta Contable <span class="text-danger"> *</span></label>
+                            <input type="text" class="form-control" id="bien_cuenta" name="bien_cuenta" placeholder="Ej: 1503.020502">
+                        </div>
+                        <div class="col-lg-3">
                             <label class="form-label">Color <span class="text-danger">*</span></label>
-                            <select class="form-select select2 required" id="combo_color_bien"  name="bien_color" multiple></select>
+                            <select class="form-select select2 required" id="combo_color_bien" name="bien_color" data-placeholder="Seleccione uno o más colores" multiple>
+                            <option></option>
+                            </select>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-3">
                             <label class="form-label">Procedencia:<span style="color:red"> *</span></label>
-                            <select class="form-select select2 required" id="procedencia"  name="procedencia">
+                            <select class="form-select select2 required" id="procedencia"  name="procedencia" data-placeholder="Seleccione la procedencia">
                                 <option value="NACIONAL">Nacional</option>
                                 <option value="DONADO">Donado</option>
                             </select>  
@@ -123,16 +131,17 @@
                         <div class="col-lg-3">
                             <label class="form-label">Fecha de Adquisición <span class="text-danger">*</span></label>
                             <div class="input-group" >
-                                <input id="fecharegistro" name ="fecharegistro" type="text" class="form-control" placeholder="YYYY/MM/DD">
+                                <input id="fecharegistro" name ="fecharegistro" type="text" class="form-control" placeholder="Año/Mes/Dia">
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <label class="form-label">Valor de Adquisición <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="val_adq" name="val_adq" required>
+                            <input type="text" class="form-control" id="val_adq" name="val_adq" placeholder="Ej: S/ 1,200.00" required>
                         </div>
                         <div class="col-lg-3">
-                            <label class="form-label">N° Doc. Adquision <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="doc_adq" name="doc_adq" required>
+                            <label class="form-label">N° Doc. Adquisición <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="doc_adq" name="doc_adq" placeholder="Ej: NEA 2001, O/C 716" required>
+
                         </div>
                         <div class="col-lg-3">
                             <label class="form-label">Codigo Interno:<span style="color:red"> *</span></label>

@@ -47,7 +47,7 @@ class Objeto extends Conectar
             }
         }
 
-    public function insert_registro_bien($fecharegistro, $obj_id, $modelo_id, $bien_numserie,    $bien_codbarras, $bien_color, $bien_dim,$procedencia, $val_adq, $doc_adq, $bien_obs){
+    public function insert_registro_bien($fecharegistro, $obj_id, $modelo_id, $bien_numserie,    $bien_codbarras, $bien_color, $bien_dim,$procedencia, $val_adq, $doc_adq, $bien_obs,$bien_cuenta){
         $conectar = parent::conexion();
         parent::set_names();
         
@@ -62,8 +62,9 @@ class Objeto extends Conectar
                     procedencia,
                     val_adq, 
                     doc_adq, 
-                    bien_obs
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    bien_obs,
+                    bien_cuenta
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
         $sql = $conectar->prepare($sql);
         $sql->bindValue(1, $fecharegistro, PDO::PARAM_STR);
         $sql->bindValue(2, $obj_id);
@@ -74,8 +75,9 @@ class Objeto extends Conectar
         $sql->bindValue(7, $bien_dim, PDO::PARAM_STR);
         $sql->bindValue(8, $procedencia, PDO::PARAM_STR);
         $sql->bindValue(9, $val_adq);        
-        $sql->bindValue(10, $doc_adq, PDO::PARAM_STR);
-        $sql->bindValue(11, $bien_obs, PDO::PARAM_STR);
+        $sql->bindValue(10,$doc_adq, PDO::PARAM_STR);
+        $sql->bindValue(11,$bien_obs, PDO::PARAM_STR);
+        $sql->bindValue(12,$bien_cuenta, PDO::PARAM_STR);
         $sql->execute();
         return $resultado = $sql->fetchAll();
         }
@@ -92,6 +94,7 @@ class Objeto extends Conectar
         $val_adq,
         $doc_adq,
         $bien_obs,
+        $bien_cuenta,
         $procedencia
        ) {
         $conectar = parent::conexion();
@@ -108,6 +111,7 @@ class Objeto extends Conectar
                     val_adq = ?,
                     doc_adq = ?,
                     bien_obs = ?,
+                    bien_cuenta = ?,
                     procedencia = ?
                 WHERE bien_id = ?";
 
@@ -122,8 +126,9 @@ class Objeto extends Conectar
         $sql->bindValue(8, $val_adq, PDO::PARAM_STR);
         $sql->bindValue(9, $doc_adq, PDO::PARAM_STR);
         $sql->bindValue(10, $bien_obs, PDO::PARAM_STR);
-        $sql->bindValue(11, $procedencia, PDO::PARAM_STR);
-        $sql->bindValue(12, $bien_id, PDO::PARAM_INT);
+        $sql->bindValue(11, $bien_cuenta, PDO::PARAM_STR);
+        $sql->bindValue(12, $procedencia, PDO::PARAM_STR);
+        $sql->bindValue(13, $bien_id, PDO::PARAM_INT);
 
         $sql->execute();
 
@@ -395,6 +400,7 @@ class Objeto extends Conectar
                 tbb.val_adq,
                 tbb.doc_adq,
                 tbb.bien_obs,
+                tbb.bien_cuenta,
                 tbb.procedencia
             FROM sc_inventario.tb_bien tbb 
             LEFT JOIN sc_inventario.tb_objeto tob ON tob.obj_id = tbb.obj_id

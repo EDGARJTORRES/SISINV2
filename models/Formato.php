@@ -151,32 +151,20 @@ class Formato extends Conectar
     }
     public function deleteBienDepe($bien_id)
     {
-        // Obtener la dependencia del bien
         $bienDepeData = $this->getBienDepe($bien_id);
-
-        // Verificar si hay datos de la dependencia del bien
         if (!$bienDepeData) {
-            return false; // No se encontró ninguna dependencia activa para el bien
+            return false; 
         }
-
-        // Obtener la conexión a la base de datos
         $conectar = parent::conexion();
         parent::set_names();
-
-        // Consulta SQL para actualizar el estado de la dependencia del bien
         $sql = "UPDATE sc_inventario.tb_bien_dependencia 
                 SET biendepe_est = 0
                 WHERE biendepe_id = ?";
-
-        // Preparar y ejecutar la consulta
         $stmt = $conectar->prepare($sql);
         $stmt->bindValue(1, $bienDepeData[0]['biendepe_id']);
         $stmt->execute();
-
-        // Verificar si la actualización fue exitosa
         return $stmt->rowCount() > 0;
     }
-
     public function getBienDepe($bien_id)
     {
         // Obtener la conexión a la base de datos
@@ -198,8 +186,6 @@ class Formato extends Conectar
         // Retornar los resultados de la consulta
         return $stmt->fetchAll();
     }
-
-
     public function get_formato()
     {
         $conectar = parent::conexion();

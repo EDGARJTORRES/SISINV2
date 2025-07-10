@@ -117,8 +117,8 @@ switch ($_GET["op"]) {
                     $idf,
                     $_POST["depe_receptor"],
                     $comentarioBien,
-                    $color, // Asigna el color específico para este bien
-                    $estado, // Asigna el estado específico para este bien
+                    $color, 
+                    $estado,
                     $_SESSION["usua_id_siin"],
                     $_POST['pers_destino_id']
 
