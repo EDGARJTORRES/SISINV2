@@ -11,6 +11,7 @@ if (isset($_SESSION["usua_id_siin"])) {
     <link href="../../public/css/botones.css" rel="stylesheet" />
     <link href="../../public/css/alerta.css" rel="stylesheet"/>
     <link href="../../public/css/baja.css" rel="stylesheet"/>
+    <link href="../../public/css/iconos.css" rel="stylesheet"/>
     <title>MPCH::BajaBienes</title>
   </head>
 <body>
@@ -33,7 +34,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                   </div>
                   <div class="col-auto ms-auto d-print-none">
                     <div class="btn-list">
-                      <button class="button2" id="add_button" onclick="nuevobaja()">
+                      <button class="button2" id="add_button" onclick="nuevobaja()" title="Registrar baja de bien Patrimonial">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round"
@@ -82,7 +83,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                           </div>
                         </div>
                         <div class="my-3">
-                          <label class="form-label">Buscar Área:<span style="color:red"> *</span></label>
+                          <label class="form-label">Buscar Área / Dependencia :<span style="color:red"> *</span></label>
                            <select class="form-select" id="filtro_dependencia" style="width: 100%;">
                             <option value="">Seleccione un área</option>
                            </select>
@@ -118,7 +119,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                         <table id="dependencias_objetos"class="table card-table table-vcenter text-nowrap datatable" style="width: 95%;">
                           <thead>
                             <tr>
-                              <th>Área</th> 
+                              <th>Área / Dependencia</th> 
                               <th>Jefe de Área</th>  
                               <th>Total de Bienes</th>
                               <th>Ver</th>

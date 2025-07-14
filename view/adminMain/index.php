@@ -10,6 +10,7 @@ if (isset($_SESSION["usua_id_siin"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../../public/css/Breadcrumb.css" rel="stylesheet"/>
     <link href="../../public/css/inicio.css" rel="stylesheet"/>
+    <link href="../../public/css/iconos.css" rel="stylesheet"/>
     <title>MPCH: Inicio</title>
 </head>
 <body>

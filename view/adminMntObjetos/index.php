@@ -9,115 +9,9 @@ if (isset($_SESSION["usua_id_siin"])) {
     <link href="../../public/css/estiloselect.css" rel="stylesheet"/>
     <link href="../../public/css/Breadcrumb.css" rel="stylesheet"/>
     <link href="../../public/css/alerta.css" rel="stylesheet"/>
+    <link href="../../public/css/objeto.css" rel="stylesheet"/>
+    <link href="../../public/css/iconos.css" rel="stylesheet"/>
     <title>MPCH::AltaBienes</title>
-    <style>
-      body:not([data-bs-theme="dark"]) .dropdown-item:hover,
-      body:not([data-bs-theme="dark"]) .nav-link:hover {
-          background-color: rgba(0, 0, 0, 0.03);
-          transition: all 0.2s ease-in-out;
-          border-radius: none !important;
-      }
-      div.dataTables_filter {
-        display: none !important;
-      }
-      th{
-        color: #0054a6 !important;
-      }
-      .titulo {
-        color: #004085;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        background-color: rgb(247, 249, 250);
-        padding: 10px 10px;
-        border-left: 5px solid #17a2b8;
-        border-radius: 6px;
-      }
-      .header-title {
-      font-size: 1.5rem;
-      background-color: #17a2b8;
-      font-weight: 700;
-      text-align: center;
-      color: white;
-      border-radius: 5px;
-      display: flex;
-      width: 90%;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      margin: 0 auto; 
-      }
-
-      .header-title .icon {
-      font-size: 1.5rem; 
-      color:white;                
-      } 
-      .error-msg {
-        color: red;
-        font-size: 0.9em;
-        margin-top: 4px;
-        display: none;
-      }
-      .error-msg.active {
-        display: block;
-      }
-      .select2-container--default .select2-selection--single .select2-selection__arrow b {
-          border-color:rgb(14, 155, 221) transparent transparent transparent !important;
-      }
-      .error-msg.active {
-        display: block;
-      }
-      .swal2-container {
-        background-color: rgba(0, 0, 0, 0.25) !important;
-        backdrop-filter: blur(2px);
-        -webkit-backdrop-filter: blur(4px);
-      }
-      .swal2-popup {
-        background: rgb(255, 255, 255) !important;
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px !important;
-      }
-      .modal-header{
-        background-color: #252422;
-      }
-      .btn-izquierdo{
-        box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-        border-top-left-radius: 20px;
-        border-bottom-left-radius: 20px;
-      }
-      .btn-derecho{
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-        border-top-right-radius: 20px;
-        border-bottom-right-radius: 20px;
-        margin-left: -7px;
-      }
-      #clase_grupo_obj_id {
-        border-collapse: collapse;
-      }
-
-      /* Encabezado con borde inferior */
-      #clase_grupo_obj_id thead th {
-        background-color: #f8f9fa;
-        border-top: 1px solid rgb(192, 192, 192);
-        border-bottom: 1px solid rgb(192, 192, 192);
-        border-left: 1px solid rgb(192, 192, 192);
-        border-right: 1px solid rgb(192, 192, 192);
-        vertical-align: middle;
-        text-align: center;
-      }
-
-      /* Celdas del cuerpo: solo bordes laterales */
-      #clase_grupo_obj_id tbody td {
-        border-top: none !important; /* asegúrate que no se herede */
-        border-bottom: none;
-        border-left: 1px solid rgb(192, 192, 192);
-        border-right: 1px solid rgb(192, 192, 192);
-        vertical-align: middle;
-        text-align: center;
-      }
-    </style>
   </head>
 <body>
     <?php require_once("../html/mainProfile.php"); ?>
@@ -129,7 +23,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                   <svg class="breadcrumb-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10.1 16.3"><path fill="currentColor" d="M0,14.4l6.2-6.2L0,1.9L2,0l8.1,8.1L2,16.3L0,14.4z"/></svg>
                   <span>Mantenimientos de Objetos</span>
                 </nav>
-                <div class="row g-2  mb-5 align-items-center">
+                <div class="row g-2  mb-3 align-items-center">
                     <div class="col">
                         <h2 class="page-title">
                           ADMINISTRADOR DE OBJETOS

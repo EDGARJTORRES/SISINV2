@@ -10,104 +10,9 @@ if (isset($_SESSION["usua_id_siin"])) {
   <link href="../../public/css/estiloselect.css" rel="stylesheet"/>
   <link href="../../public/css/Breadcrumb.css" rel="stylesheet"/>
   <link href="../../public/css/loader.css" rel="stylesheet"/>
+  <link href="../../public/css/iconos.css" rel="stylesheet"/>
+   <link href="../../public/css/desplazamiento.css" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  <style>
-    body:not([data-bs-theme="dark"]) .dropdown-item:hover,
-    body:not([data-bs-theme="dark"]) .nav-link:hover {
-        background-color: rgba(0, 0, 0, 0.03);
-        transition: all 0.2s ease-in-out;
-    }
-    div.dataTables_filter {
-      display: none !important;
-    }
-    th{
-    color: #0054a6 !important;
-    }
-    th, td {
-      max-width: 170px !important;     
-      white-space: normal;      
-      word-break: break-word;   
-      overflow-wrap: break-word; 
-      vertical-align: middle;  
-    }
-    .swal2-container {
-      background-color: rgba(0, 0, 0, 0.25) !important;
-      backdrop-filter: blur(2px);
-      -webkit-backdrop-filter: blur(4px);
-    }
-    .swal2-popup {
-      background: rgb(255, 255, 255) !important;
-      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px !important;
-    }
-    .select2-container--default .select2-selection--single .select2-selection__arrow b {
-        border-color: #FF0000 transparent transparent transparent !important;
-    }
-    .tabler-loader {
-      animation: spin 1s linear infinite;
-      width: 24px;
-      height: 24px;
-      stroke-width: 2;
-      stroke: currentColor;
-    }
-
-    @keyframes spin {
-      100% { transform: rotate(360deg); }
-    }
-    .modal-header{
-      background-color: #252422;
-    }
-      /*lista de botones*/
-    .button {
-      text-decoration: none;
-      line-height: 1;
-      overflow: hidden;
-      position: relative;
-      box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;
-      background-color: #fff;
-      color: #121212;
-      border: none;
-      cursor: pointer;
-    }
-    .button-decor {
-      position: absolute;
-      inset: 0;
-      background-color: var(--clr);
-      transform: translateX(-100%);
-      transition: transform 0.3s;
-      z-index: 0;
-    }
-    .button-content {
-      display: flex;
-      align-items: center;
-      font-weight: 600;
-      position: relative;
-      overflow: hidden;
-      
-    }
-     .button__icon {
-      width: 48px;
-      height: 40px;
-      background-color: var(--clr);
-      display: grid;
-      place-items: center;
-    }
-    .button__text {
-      display: inline-block;
-      transition: color 0.2s;
-      padding: 2px 0.5rem 2px;
-      padding-left: 0.75rem;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-    .button:hover .button__text {
-      color: #fff;
-    }
-
-    .button:hover .button-decor {
-      transform: translate(0);
-    }
-  </style>
 </head>
   <body>
     <?php require_once("../html/mainProfile.php"); ?>
@@ -240,7 +145,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                     <div class="form-group mb-3">
                       <input type="hidden" name="pers_origen_id" id="pers_origen_id" />
                       <input type="hidden" name="pers_destino_id" id="pers_destino_id" />
-                      <label class="form-label">Área Origen:<span  style="color:red"> *</span></label>
+                      <label class="form-label">Área / Dependencia Origen:<span  style="color:red"> *</span></label>
                       <select class="form-control select2" style="max-width: 100%;" id="area_origen_combo" name="area_origen_combo" required>
                         <!-- Aquí puedes agregar opciones del select -->
                       </select>
@@ -256,7 +161,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                   </div>
                   <div class="col-md-6">
                     <div class="form-group mb-3">
-                      <label class="form-label">Área Destino:<span style="color:red"> *</span></label>
+                      <label class="form-label">Área / Dependencia Destino:<span style="color:red"> *</span></label>
                       <select class="form-control select2" style="max-width: 100%;" id="area_destino_combo" name="area_destino_combo" required>
                         <!-- Aquí puedes agregar opciones del select -->
                       </select>

@@ -42,6 +42,10 @@
 <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/relativeTime.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/dayjs@1/locale/es.js"></script>
+<!-- Jstoptip -->
+<script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
+<script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
+<!-- No borrar -->
 <script>
   dayjs.extend(dayjs_plugin_relativeTime);
   dayjs.locale('es'); // 👈 Esto activa el español

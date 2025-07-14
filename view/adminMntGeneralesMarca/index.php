@@ -10,6 +10,7 @@ if (isset($_SESSION["usua_id_siin"])) {
   <link href="../../public/css/Breadcrumb.css" rel="stylesheet"/>
   <link href="../../public/css/alerta.css" rel="stylesheet"/>
   <link href="../../public/css/marca.css" rel="stylesheet"/>
+  <link href="../../public/css/iconos.css" rel="stylesheet"/>
   <title>MPCH::MantGenerales</title>
 </head>
 <body>

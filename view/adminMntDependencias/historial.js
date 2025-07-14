@@ -106,7 +106,7 @@ function verBienesBaja(depe_id) {
 function restaurarBien(bien_id) {
     Swal.fire({
         title: '¿Restaurar este bien?',
-        text: "Se restablecerá su estado anterior.",
+        text: "Se restablecerá su estado anterior y su Historial.",
         imageUrl: '../../static/gif/pregunta.gif',
         imageWidth: 100,
         imageHeight: 100,

@@ -13,6 +13,7 @@ if (isset($_SESSION["usua_id_siin"])) {
     <link href="../../public/css/botones.css" rel="stylesheet" />
     <link href="../../public/css/alerta.css" rel="stylesheet"/>
     <link href="../../public/css/documento.css" rel="stylesheet"/>
+    <link href="../../public/css/iconos.css" rel="stylesheet"/>
     <title>MPCH::DocumentosFirmados</title>
 </head>
 <body>

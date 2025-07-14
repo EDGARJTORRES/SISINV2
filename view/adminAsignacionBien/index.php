@@ -11,6 +11,7 @@ if (isset($_SESSION["usua_id_siin"])) {
   <link href="../../public/css/Breadcrumb.css" rel="stylesheet"/>
   <link href="../../public/css/loader.css" rel="stylesheet"/>
   <link href="../../public/css/asignacionBien.css" rel="stylesheet"/>
+  <link href="../../public/css/iconos.css" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   </head>
 <body >
@@ -32,7 +33,8 @@ if (isset($_SESSION["usua_id_siin"])) {
                       </h2>
                   </div>
                   <div class="col-auto ms-auto d-print-none">
-                      <button type="submit" name="action" value="add" onclick="nuevoFormato()" class="button" style="--clr: #00ad54; border-left:1px solid #00ad54;">
+                      <button type="submit" name="action" value="add" onclick="nuevoFormato()" title="Guardar asignacion del bien patrimonial" class="button" 
+                        style="--clr: #00ad54; border-left:1px solid #00ad54;">
                         <span class="button-decor"></span>
                         <div class="button-content">
                           <div class="button__icon">
@@ -78,7 +80,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                           <span class="button__text">Guardar</span>
                         </div>
                       </button>
-                      <button type="reset" onclick="resetCampos()" class="button mx-2" style="--clr: #00c2c5;">
+                      <button type="reset" onclick="resetCampos()" title="Cancelar y limpiar todos los campos del formulario" class="button mx-2" style="--clr: #00c2c5;">
                         <span class="button-decor"></span>
                         <div class="button-content">
                           <div class="button__icon">
@@ -124,7 +126,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                           <span class="button__text">Cancelar</span>
                         </div>
                       </button>
-                      <button onclick="window.location.href='../adminSinAsignacionBien/'" class="button" style="--clr: #7808d0;">
+                      <button onclick="window.location.href='../adminSinAsignacionBien/'" title="Ir al módulo de bienes sin asignación" class="button" style="--clr: #7808d0;">
                         <span class="button-decor"></span>
                         <div class="button-content">
                           <div class="button__icon">
@@ -183,7 +185,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                     <div class="row">
                       <div class="col-lg-6">
                           <div class="mb-3">
-                          <label class="form-label">Área Destino:<span style="color:red"> *</span></label>
+                          <label class="form-label">Área / Dependencia Destino:<span style="color:red"> *</span></label>
                           <select class="form-select select2" id="area_asignacion_combo" name="area_asignacion_combo"  data-placeholder="Seleccione Destino" style="width: 100%;">
                           <option value="" disabled selected>Seleccione</option>
                           </select>

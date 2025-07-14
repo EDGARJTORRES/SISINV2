@@ -6,9 +6,9 @@ if (isset($_SESSION["usua_id_siin"])) {
 <html lang="es">
 <head>
     <?php require_once("../html/mainHead.php"); ?>
-    <link href="../../public/css/botones.css" rel="stylesheet"/>
     <link href="../../public/css/Breadcrumb.css" rel="stylesheet"/>
     <link href="../../public/css/sinasignacion.css" rel="stylesheet"/>
+    <link href="../../public/css/iconos.css" rel="stylesheet"/>
     <title>MPCH::MantGenerales</title>
   </head>
 <body>
@@ -29,11 +29,11 @@ if (isset($_SESSION["usua_id_siin"])) {
           </nav>
           <div class="row g-2  mb-5 align-items-center">
             <div class="col">
-                <button class="Btn" onclick="window.location.href = '../adminAsignacionBien/';">
-                  <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-back-up-double"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 14l-4 -4l4 -4" /><path d="M8 14l-4 -4l4 -4" /><path d="M9 10h7a4 4 0 1 1 0 8h-1" /></svg>
-                  Regresar
-                </button>
-              </div>
+              <button class="Btn" onclick="window.location.href = '../adminAsignacionBien/';">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-back-up-double"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 14l-4 -4l4 -4" /><path d="M8 14l-4 -4l4 -4" /><path d="M9 10h7a4 4 0 1 1 0 8h-1" /></svg>
+                Regresar
+              </button>
+            </div>
             </div>
             <div class="col-12 mb-3">
               <div class="card border-0" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">

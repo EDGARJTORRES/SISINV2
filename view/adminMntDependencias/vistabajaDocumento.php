@@ -92,7 +92,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                     <div class="double-column my-2">
                         <table style="width: 50%; border-collapse: collapse;">
                             <tr>
-                                <td style="width: 30%; border: none;"><strong>Ejecutora:</strong></td>
+                                <td style="width: 30%; border: none;"><strong>Ejecutora</strong></td>
                                 <td style="border: none;"><span class="respuesta-sm"> : 001 MUNICIPALIDAD PROVINCIAL DE CHICLAYO</span></td>
                             </tr>
                             <tr>
@@ -150,15 +150,15 @@ if (isset($_SESSION["usua_id_siin"])) {
                                                 <td style="border: none; font-size: 12px;">: <?php echo $datos["bien_codbarras"]; ?></td>
                                             </tr>
                                             <tr>
-                                                <td style="border: none;"><strong>Descripción:</strong></td>
+                                                <td style="border: none;"><strong>Descripción</strong></td>
                                                 <td style="border: none; font-size: 12px;">: <?php echo ucfirst(strtolower($datos["obj_nombre"])); ?></td>
                                             </tr>
                                             <tr>
-                                                <td style="border: none;"><strong>Cuenta Contable:</strong></td>
-                                                <td style="border: none; font-size: 12px;">: <?php echo '---'; ?></td>
+                                                <td style="border: none;"><strong>Cuenta Contable</strong></td>
+                                                <td style="border: none; font-size: 12px;">: <?php echo ucfirst(strtolower($datos["bien_cuenta"])); ?></td>
                                             </tr>
                                             <tr>
-                                                <td style="border: none;"><strong>Estado del Bien:</strong></td>
+                                                <td style="border: none;"><strong>Estado del Bien</strong></td>
                                                 <td style="border: none; font-size: 12px;">
                                                     : <?php
                                                         echo ($datos["bien_est"] === 'I') ? 'Inactivo - Chatarra' : ucfirst(strtolower($datos["bien_est"]));
@@ -166,11 +166,11 @@ if (isset($_SESSION["usua_id_siin"])) {
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="border: none;"><strong>Procedencia:</strong></td>
+                                                <td style="border: none;"><strong>Procedencia</strong></td>
                                                 <td style="border: none; font-size: 12px;">: <?php echo ucfirst(strtolower($datos["procedencia"])); ?></td>
                                             </tr>
                                             <tr>
-                                                <td style="border: none;"><strong>Características:</strong></td>
+                                                <td style="border: none;"><strong>Características</strong></td>
                                                 <td style="border: none; font-size: 12px;">: <?php echo ucfirst(strtolower($datos["bien_obs"])); ?></td>
                                             </tr>
                                         </table>
@@ -182,7 +182,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                                                  <td style="border: none; font-size: 12px;">: <?php echo ucfirst(strtolower($datos["bien_id"])); ?></td>
                                             </tr>
                                             <tr>
-                                                <td style="border: none;"><strong>Nro Pecosa:</strong></td>
+                                                <td style="border: none;"><strong>Nro Pecosa</strong></td>
                                                 <td style="border: none;"><span class="respuesta-sm">: <?php echo str_pad($datos["form_id"], 6, '0', STR_PAD_LEFT); ?></span></td>
                                             </tr>
                                         </table>
@@ -245,7 +245,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                                             </tr>
                                             <tr>
                                                 <td style="border: none;"><strong>Color</strong></td>
-                                                <td style="border: none; font-size: 12px;">: <?php echo ucfirst(strtolower($datos["bien_color"])); ?></td>
+                                               <td style="border: none; font-size: 12px;">: <?php echo ucfirst(strtolower($datos["colores"])); ?></td>
                                             </tr>
                                             <tr>
                                                 <td style="border: none;"><strong>Vida Útil</strong></td>
@@ -279,11 +279,11 @@ if (isset($_SESSION["usua_id_siin"])) {
                                     <td colspan="2">
                                         <table style="width:100%; border-collapse: collapse;">
                                             <tr>
-                                                <td style="width: 50%; border: none;"><strong>Proveedor:</strong></td>
+                                                <td style="width: 50%; border: none;"><strong>Proveedor</strong></td>
                                                 <td style="border: none;">: <?php echo '---'; ?></td>
                                             </tr>
                                             <tr>
-                                                <td style="width: 50%; border: none;"><strong>Pais:</strong></td>
+                                                <td style="width: 50%; border: none;"><strong>Pais</strong></td>
                                                 <td style="border: none;">: <?php echo 'Perú'; ?></td>
                                             </tr>
                                         </table>
@@ -306,6 +306,7 @@ if (isset($_SESSION["usua_id_siin"])) {
     <?php require_once("../html/footer.php"); ?>
     <?php require_once("../html/mainjs.php"); ?>
     <script type="text/javascript" src="impresion.js"></script>
+    <script type="text/javascript" src="color.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </body>

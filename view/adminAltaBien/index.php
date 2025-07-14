@@ -13,6 +13,7 @@ if (isset($_SESSION["usua_id_siin"])) {
     <link href="../../public/css/alerta.css" rel="stylesheet"/>
     <link href="../../public/css/loader.css" rel="stylesheet"/>
     <link href="../../public/css/alta.css" rel="stylesheet"/>
+    <link href="../../public/css/iconos.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   </head>
 <body>
@@ -27,7 +28,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                 <svg class="breadcrumb-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10.1 16.3"><path fill="currentColor" d="M0,14.4l6.2-6.2L0,1.9L2,0l8.1,8.1L2,16.3L0,14.4z"/></svg>
                 <span>Alta de Bien</span>
               </nav>
-                <div class="row g-2  mb-5 align-items-center">
+                <div class="row g-2  mb-3 align-items-center">
                     <div class="col">
                         <h2 class="page-title">
                           ALTA DE BIEN PATRIMONIAL
@@ -35,7 +36,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                     </div>
                     <div class="col-auto ms-auto d-print-none">
                       <div class="btn-list">
-                        <button class="button2" id="add_button" 
+                        <button class="button2" id="add_button"  title="Registrar nuevo bien Patrimonial"
                         onclick=" nuevoBien()">
                           <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-device-imac-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12.5 17h-8.5a1 1 0 0 1 -1 -1v-12a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v8.5" /><path d="M3 13h13.5" /><path d="M8 21h4.5" /><path d="M10 17l-.5 4" /><path d="M16 19h6" /><path d="M19 16v6" /></svg>
                             REGISTRAR BIEN

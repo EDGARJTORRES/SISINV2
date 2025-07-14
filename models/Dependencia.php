@@ -421,7 +421,8 @@
                     p.pers_apelpat || ' ' || p.pers_apelmat || ', ' || p.pers_nombre AS nombre_completo,
                     bd.fecha_baja,
                     bd.motivo_baja,
-                    bd.bien_color,
+                    b.bien_color,
+                    b.bien_cuenta,
                     b.bien_codbarras,
                     b.bien_obs,
                     bd.repre_id,
@@ -438,7 +439,8 @@
                     COALESCE(mo.modelo_nom, '---') AS modelo_nom,
                     COALESCE(gg.vida_util, 10) AS vida_util,
                     f.form_id,
-                    f.form_fechacrea AS fecha_asignacion  -- ← Fecha de asignación real
+                    f.form_fechacrea AS fecha_asignacion,
+                    COALESCE(string_agg(DISTINCT c.color_nom, ', '), '---') AS colores
                 FROM
                     sc_inventario.tb_bien_dependencia bd
                 JOIN sc_inventario.tb_bien b ON bd.bien_id = b.bien_id
@@ -446,14 +448,21 @@
                 LEFT JOIN sc_inventario.tb_grupo_clase gc ON o.gc_id = gc.gc_id
                 LEFT JOIN sc_inventario.tb_grupogenerico gg ON gc.gg_id = gg.gg_id
                 LEFT JOIN sc_escalafon.tb_persona p ON bd.repre_id = p.pers_id
+                LEFT JOIN LATERAL unnest(b.bien_color) AS bc(color_id) ON TRUE
+                LEFT JOIN public.tb_color c ON c.color_id = bc.color_id
                 LEFT JOIN sc_inventario.tb_modelo mo ON b.modelo_id = mo.modelo_id
                 LEFT JOIN sc_inventario.tb_marca ma ON mo.marca_id = ma.marca_id
-                LEFT JOIN sc_inventario.tb_formato f ON bd.form_id = f.form_id  -- ← Enlace por form_id
+                LEFT JOIN sc_inventario.tb_formato f ON bd.form_id = f.form_id
                 WHERE
                     b.bien_id = ?
                     AND bd.bien_est = 'I'
                     AND bd.biendepe_est = 1
-                LIMIT 1;";
+                GROUP BY
+                    b.bien_id, b.fecharegistro, p.pers_apelpat, p.pers_apelmat, p.pers_nombre,
+                    bd.fecha_baja, bd.motivo_baja, b.bien_color, b.bien_cuenta, b.bien_codbarras,
+                    b.bien_obs, bd.repre_id, b.bien_numserie, b.procedencia, bd.biendepe_obs,
+                    b.bien_dim, o.codigo_cana, bd.bien_est, b.val_adq, b.fechacrea, o.obj_nombre,
+                    ma.marca_nom, mo.modelo_nom, gg.vida_util, f.form_id, f.form_fechacrea;";
 
             $stmt = $conectar->prepare($sql);
             $stmt->bindValue(1, $bien_id);

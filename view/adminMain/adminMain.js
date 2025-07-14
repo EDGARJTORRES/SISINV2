@@ -1,28 +1,14 @@
 var usu_id = $("#usu_idx").val();
+var usu_id = $("#usu_idx").val();
 function cargarTotalBienes() {
   $.post("../../controller/bien.php?op=contador_bien_estado", function(data) {
     data = JSON.parse(data);
-
-    const mapaEstados = {
-        'N': 'NUEVO',
-        'M': 'MALO',
-        'R': 'REGULAR',
-        'B': 'BUENO'
-    };
-
     let total = 0;
-    let htmlDetalle = '<div class="detalle-hover"><ul class="mb-0 ps-3" style="list-style-type: none;">';
 
     data.forEach(function(item) {
-        const nombreEstado = mapaEstados[item.estado] || item.estado;
-        const cantidad = parseInt(item.cantidad);
-        total += cantidad;
-        htmlDetalle += `<li>${nombreEstado}: ${cantidad}</li>`;
+      total += parseInt(item.cantidad);
     });
 
-    htmlDetalle += '</ul></div>';
-
-    // ✅ REEMPLAZA TODO EL CONTENIDO DEL CONTENEDOR DEL PLACEHOLDER
     $('#placeholder-totales').removeClass('placeholder-glow').html(`
       <h3 class="card-title text-yellow">TOTAL DE BIENES</h3>
       <div class="row text-center">
@@ -30,11 +16,10 @@ function cargarTotalBienes() {
           <img style="height:60px;" src="../../static/gif/computadora.gif" alt="Cargando..." />
         </div>
         <div class="col-lg-8" style="align-content: center;">
-          <h2 id="lbltotabien">
-            <div class="resumen-total-hover">
-              <span style="font-size: 18px;">${total}</span>
-              ${htmlDetalle}
-            </div>
+          <h2>
+            <span id="lbltotabien" style="font-size: 30px; color:#ff6f00">
+              ${total}
+            </span>
           </h2>
         </div>
       </div>
@@ -62,7 +47,7 @@ function cargarValorAdquisicion() {
             <img style="height:60px;" src="../../static/gif/ordenador-portatil.gif" alt="Cargando..." />
           </div>
           <div class="col-lg-8" style="align-content: center;">
-            <h4 id="lbltotal_adq" class="mb-1">${formatoSoles.format(total)}</h4>
+            <h4 id="lbltotal_adq" class="mb-1" style="font-size: 18px;color: #2e7d32;">${formatoSoles.format(total)}</h4>
           </div>
         </div>
       `;

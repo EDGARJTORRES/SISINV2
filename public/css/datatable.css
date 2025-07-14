@@ -510,7 +510,6 @@ table.dataTable td {
 .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
     color: white !important;
     border: 1px solid #0054a6;
-    background-color: #0054a6;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
     font-weight: bold;
@@ -522,23 +521,12 @@ table.dataTable td {
 .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover,
 .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
     cursor: default;
-    color: #aaa !important;
+    color: white !important;
     border: 1px solid transparent;
     background-color: transparent;
     box-shadow: none;
 }
 
-/* Botón hover (pasar el mouse) */
-.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-    color: white !important;
-    border: 1px solid #0054a6;
-    background-color: #0054a6;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-}
-
-/* Botón presionado (active) */
 .dataTables_wrapper .dataTables_paginate .paginate_button:active {
     color: white !important;
     border: 1px solid #0054a6;
@@ -655,7 +643,7 @@ html.dark .dataTables_wrapper .dataTables_paginate .paginate_button.current, htm
   background: rgba(255, 255, 255, 0.15);
 }
 html.dark .dataTables_wrapper .dataTables_paginate .paginate_button.disabled, html.dark .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, html.dark .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
-  color: #666 !important;
+   color: white !important;
 }
 html.dark .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
   border: 1px solid rgb(53, 53, 53);

@@ -7,6 +7,7 @@ if (isset($_SESSION["usua_id_siin"])) {
 <head>
     <?php require_once("../html/mainHead.php"); ?>
     <link href="../../public/css/Breadcrumb.css" rel="stylesheet"/>
+    <link href="../../public/css/iconos.css" rel="stylesheet"/>
     <title>MPCH::ManGenerales</title>
     <style>
       body:not([data-bs-theme="dark"]) .dropdown-item:hover,
