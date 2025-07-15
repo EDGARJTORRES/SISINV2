@@ -148,10 +148,25 @@ function imprimirBien(bien_id) {
     true
   );
 }
-function imprimirGrupo(depe_id) {
+function imprimirBienesSeleccionados() {
+  const checkboxes = document.querySelectorAll('.gb-checkbox:checked');
+  const bien_ids = Array.from(checkboxes).map(cb => cb.value);
+  if (bien_ids.length === 0) {
+    Swal.fire({
+      title: '¡Atención!',
+      text: 'Seleccione al menos un bien para imprimir.',
+      imageUrl: '../../static/gif/tarjeta.gif',
+      imageWidth: 100,
+      imageHeight: 100,
+      confirmButtonText: 'Entendido',
+      confirmButtonColor: 'rgb(243, 18, 18)', 
+    });
+    return;
+  }
   redirect_by_post(
-    "../../controller/stick.php?op=imprimirDependencia",
-    { depe_id, depe_id },
+    "../../controller/stick.php?op=imprimir_multiple", 
+    { bien_id: bien_ids },
     true
   );
 }
+

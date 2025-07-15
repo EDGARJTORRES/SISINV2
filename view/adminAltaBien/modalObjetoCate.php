@@ -108,7 +108,7 @@
                         </div>
                         <div class="col-lg-3">
                             <label class="form-label">N° Cuenta Contable <span class="text-danger"> *</span></label>
-                            <input type="text" class="form-control" id="bien_cuenta" name="bien_cuenta" placeholder="Ej: 1503.020502">
+                            <input type="text" class="form-control" id="bien_cuenta" name="bien_cuenta" placeholder="Ej: 9105.0301">
                         </div>
                         <div class="col-lg-3">
                             <label class="form-label">Color <span class="text-danger">*</span></label>

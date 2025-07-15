@@ -63,11 +63,21 @@ if (isset($_SESSION["usua_id_siin"])) {
                       <div class="table-responsive mx-4">
                         <div class="row my-4">
                           <div class="col-lg-2">
+                             <button class="btn btn-6 btn-outline-secundary" onclick="imprimirBienesSeleccionados()" >
+                              <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-codesandbox"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20 7.5v9l-4 2.25l-4 2.25l-4 -2.25l-4 -2.25v-9l4 -2.25l4 -2.25l4 2.25z" /><path d="M12 12l4 -2.25l4 -2.25" /><path d="M12 12l0 9" /><path d="M12 12l-4 -2.25l-4 -2.25" /><path d="M20 12l-4 2v4.75" /><path d="M4 12l4 2l0 4.75" /><path d="M8 5.25l4 2.25l4 -2.25" /></svg>
+                                 Imprimir Codigos   
+                             </button>
+                          </div>
+                          <div class="col-lg-2">
+                            <div class="input-icon" id="contenedor-excel">
+                            </div>
+                          </div>
+                          <div class="col-lg-2">
                             <div class="input-icon">
                                 <span class="input-icon-addon">
                                  <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-filter"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 4h16v2.172a2 2 0 0 1 -.586 1.414l-4.414 4.414v7l-6 2v-8.5l-4.48 -4.928a2 2 0 0 1 -.52 -1.345v-2.227z" /></svg>
                                 </span>
-                              <select id="filtro_estado" class="form-select" style="width: 100%; padding-left: 40px;" placeholder="Filtrar Estados">
+                              <select id="filtro_estado" class="form-select" style="width: 170px; padding-left: 40px;" placeholder="Filtrar Estados">
                                 <option value="" disabled selected>Filtrar Estados</option>
                                 <option value="Nuevo">Nuevo</option>
                                 <option value="Bueno">Bueno</option>
@@ -76,25 +86,13 @@ if (isset($_SESSION["usua_id_siin"])) {
                               </select>
                             </div>
                           </div>
-                          <div class="col-lg-2 text-center">
-                            <div class="input-icon" id="contenedor-excel">
-                            </div>
-                          </div>
-                          <div class=" col-lg-3 d-flex align-items-center gap-2 mx-3">
-                            <label for="cantidad_registros" class="form-label mb-0">Mostrar:</label>
-                            <div class="input-icon">
-                                <span class="input-icon-addon">
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
-                                    <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
-                                    <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
-                                  </svg>
-                                </span>
-                                <input type="number" id="cantidad_registros"   style="width: 90px;" class="form-control" min="1" max="25" value="10"> 
-                              </div>
-                            <label>Registros</label>  
+                          <div class="col-lg-2">
+                            <button class="btn btn-6 btn-outline-secundary" onclick="limpiarFiltros()">
+                              <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-eraser mx-1"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19 20h-10.5l-4.21 -4.3a1 1 0 0 1 0 -1.41l10 -10a1 1 0 0 1 1.41 0l5 5a1 1 0 0 1 0 1.41l-9.2 9.3" /><path d="M18 13.3l-6.3 -6.3" /></svg> LIMPIAR FILTROS
+                            </button>
                           </div>
                           <div class="col-lg-4">
-                            <div class="input-icon" style="width: 390px;">
+                            <div class="input-icon" style="width: 340px;">
                                 <span class="input-icon-addon">
                                   <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
                                 </span>
@@ -106,6 +104,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                           <thead>
                             <tr>
                               <th style="display:none;"><span title="Codigo Interno">Cod</span></th>
+                              <th><input type="checkbox" id="gb_id_all"> </th>
                               <th><span title="Codigo de Barras">Cod Barras</span></th>
                               <th><span title="Denominacion del bien">Denominacion</span></th>
                               <th><span title="Fecha Registro">Fecha</span></th>

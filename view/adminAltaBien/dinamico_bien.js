@@ -87,7 +87,7 @@ function generarCamposCaracteristicas(i) {
     </div>
     <div class="col-lg-3 extra-campo">
       <label class="form-label">N° Cuenta Contable <span class="text-danger">*</span></label>
-      <input type="text" name="bien_cuenta_${i}" placeholder="Ej: 1503.020502" class="form-control" />
+      <input type="text" name="bien_cuenta_${i}" placeholder="Ej: 9105.0301" class="form-control" />
     </div>
     <div class="col-lg-3 extra-campo">
       <label class="form-label">Color <span class="text-danger">*</span></label>

@@ -4,7 +4,12 @@
             try {
                 $conectar = parent::conexion();
                 parent::set_names();
-                $sql = "SELECT bien_codbarras FROM sc_inventario.tb_bien where bien_id = ?";
+                $sql = "SELECT 
+                            b.bien_codbarras,
+                            o.obj_nombre 
+                        FROM sc_inventario.tb_bien b 
+                        LEFT JOIN sc_inventario.tb_objeto o ON o.obj_id = b.obj_id
+                        where bien_id = ?";
                 $stmt = $conectar->prepare($sql);
                 $stmt->bindValue(1, $bien_id);
                 $stmt->execute();

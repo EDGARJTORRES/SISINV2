@@ -17,8 +17,9 @@ function ocultarLoader() {
   loader.style.pointerEvents = 'none';
 }
 function redirect_by_post(purl, pparameters, in_new_tab) {
-  pparameters = typeof pparameters == "undefined" ? {} : pparameters;
-  in_new_tab = typeof in_new_tab == "undefined" ? true : in_new_tab;
+  pparameters = typeof pparameters === "undefined" ? {} : pparameters;
+  in_new_tab = typeof in_new_tab === "undefined" ? true : in_new_tab;
+
   var form = document.createElement("form");
   $(form)
     .attr("id", "reg-form")
@@ -26,18 +27,31 @@ function redirect_by_post(purl, pparameters, in_new_tab) {
     .attr("action", purl)
     .attr("method", "post")
     .attr("enctype", "multipart/form-data");
+
   if (in_new_tab) {
     $(form).attr("target", "_blank");
   }
-  $.each(pparameters, function (key) {
-    $(form).append(
-      '<input type="text" name="' + key + '" value="' + this + '" />'
-    );
+
+  // Manejar parámetros
+  $.each(pparameters, function (key, value) {
+    if (Array.isArray(value)) {
+      value.forEach(function (v) {
+        $(form).append(
+          '<input type="hidden" name="' + key + '[]" value="' + v + '" />'
+        );
+      });
+    } else {
+      $(form).append(
+        '<input type="hidden" name="' + key + '" value="' + value + '" />'
+      );
+    }
   });
+
   document.body.appendChild(form);
   form.submit();
   document.body.removeChild(form);
 
   return false;
 }
+
 initbienes();

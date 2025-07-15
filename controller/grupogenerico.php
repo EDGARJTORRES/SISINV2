@@ -114,31 +114,43 @@ switch ($_GET["op"]){
         foreach ($datos as $row) {
             $sub_array = array();
             $sub_array[] = $row["bien_id"];
-            $sub_array[] = '<span class="badge bg-red-lt selectable">' . $row["bien_codbarras"] . '</span>';
+            $sub_array[] = '
+            <label class="checkbox-wrapper-46">
+                <input type="checkbox" class="inp-cbx gb-checkbox" data-id="' . htmlspecialchars($row["bien_id"]) . '" value="' . htmlspecialchars($row["bien_id"]) . '" />
+                <span class="cbx">
+                <span>
+                    <svg viewBox="0 0 12 10" height="10px" width="12px">
+                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                    </svg>
+                </span>
+                <span></span>
+                </span>
+            </label>';
+            $sub_array[] = '<span class="badge bg-cyan text-cyan-fg selectable copiar-codbarras" data-codigo="' . $row["bien_codbarras"] . '">' . $row["bien_codbarras"] . '</span>';
             $sub_array[] = $row["obj_nombre"];
             $sub_array[] = date("Y-m-d", strtotime($row["fecharegistro"]));
             $sub_array[] = $row["gg_cod"];
             $sub_array[] = $row["clase_cod"];
-            $estado = strtolower($row["bien_est"]); 
+            $estado = strtolower($row["bien_est"]);
             switch ($estado) {
                 case 'n':
-                    $badge_class = 'bg-purple';
+                    $badge_class = 'bg-purple-lt';
                     $estado_text = 'Nuevo';
-                break;
+                    break;
                 case 'r':
-                    $badge_class = 'bg-warning';
+                    $badge_class = 'bg-orange-lt';
                     $estado_text = 'Regular';
                     break;
                 case 'm':
-                    $badge_class = 'bg-danger';
+                    $badge_class = 'bg-red-lt';
                     $estado_text = 'Malo';
                     break;
                 case 'b':
-                    $badge_class = 'bg-success';
+                    $badge_class = 'bg-green-lt';
                     $estado_text = 'Bueno';
                     break;
                 default:
-                    $badge_class = 'bg-secondary';
+                    $badge_class = 'bg-secondary-lt';
                     $estado_text = 'Inactivo';
             }
            $sub_array[] = '<span class="d-inline-block ' . $badge_class . ' text-white text-center px-0 py-0 rounded-pill" style="min-width: 70px;">' . $estado_text . '</span>';

@@ -79,7 +79,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                         </div>
                         <div class="col-lg-2  mb-3">
                           <button class="btn btn-6 btn-outline-secundary" onclick="limpiarFiltros()">
-                            <i class="fa-solid fa-eraser"></i>LIMPIAR FILTROS
+                            <i class="fa-solid fa-eraser mx-2"></i>LIMPIAR
                           </button>
                         </div>
                       </div>

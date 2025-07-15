@@ -8,27 +8,8 @@ if (isset($_SESSION["usua_id_siin"])) {
     <?php require_once("../html/mainHead.php"); ?>
     <link href="../../public/css/Breadcrumb.css" rel="stylesheet"/>
     <link href="../../public/css/iconos.css" rel="stylesheet"/>
+    <link href="../../public/css/marca.css" rel="stylesheet"/>
     <title>MPCH::ManGenerales</title>
-    <style>
-      body:not([data-bs-theme="dark"]) .dropdown-item:hover,
-      body:not([data-bs-theme="dark"]) .nav-link:hover {
-          background-color: rgba(0, 0, 0, 0.03);
-          transition: all 0.2s ease-in-out;
-      }
-      div.dataTables_filter {
-        display: none !important;
-      }
-      th{
-      color: #0054a6 !important;
-      }
-     th, td {
-        max-width:300px !important;     
-        white-space: normal;      
-        word-break: break-word;   
-        overflow-wrap: break-word; 
-        vertical-align: middle;   
-      }
-    </style>
   </head>
 <body>
     <?php require_once("../html/mainProfile.php"); ?>
@@ -89,7 +70,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                           </div>
                         </div>
                       </div>
-                      <table id="formatos_data"  class="table card-table table-vcenter text-nowrap datatable">
+                      <table id="formatos_data" class="table card-table table-vcenter text-nowrap datatable">
                           <thead>
                               <tr>
                                   <th>Fecha</th>

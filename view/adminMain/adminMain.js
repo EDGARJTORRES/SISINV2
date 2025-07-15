@@ -1,5 +1,4 @@
 var usu_id = $("#usu_idx").val();
-var usu_id = $("#usu_idx").val();
 function cargarTotalBienes() {
   $.post("../../controller/bien.php?op=contador_bien_estado", function(data) {
     data = JSON.parse(data);
@@ -41,7 +40,7 @@ function cargarValorAdquisicion() {
       });
 
       contenidoFinal = `
-        <h3 class="card-title text-success">TOTAL VALOR ADQUISICIÓN</h3>
+        <h3 class="card-title text-success">VALOR ADQUISICIÓN</h3>
         <div class="row text-center">
           <div class="col-lg-4">
             <img style="height:60px;" src="../../static/gif/ordenador-portatil.gif" alt="Cargando..." />
@@ -95,7 +94,7 @@ function cargarUltimaBaja() {
       <h3 class="card-title text-blue">ÚLTIMA BAJA DE BIEN</h3>
       <div class="row text-center g-0">
         <div class="col-lg-3">
-          <img style="height:60px;" src="../../static/gif/presentacion.gif" alt="Cargando..." />
+          <img style="height:60px;" src="../../static/gif/presentacion2.gif" alt="Cargando..." />
         </div>
         <div class="col-lg-9 d-flex flex-column align-items-center justify-content-center">`;
 
@@ -126,7 +125,6 @@ function cargarUltimaBaja() {
     $('#placeholder-ultima-baja').removeClass('placeholder-glow').html(contenidoFinal);
   });
 }
-
 function cargarGraficoEstadoBienes() {
   $.post("../../controller/bien.php?op=contador_bien_estado", function(data) {
     data = JSON.parse(data);
