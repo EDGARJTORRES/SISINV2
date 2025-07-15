@@ -18,6 +18,7 @@ $(document).ready(function () {
           showConfirmButton: false,
           timer: 1000,
           timerProgressBar: true,
+          width: '350px',
           customClass: {
             popup: 'swal2-toast'
           }

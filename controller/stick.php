@@ -11,54 +11,64 @@ switch ($_GET["op"]) {
     case 'imprimir':
         if (class_exists('TCPDF')) {
             ob_clean();
-            class MYPDF extends TCPDF
-            {
-                public function Header()
-                {
-                }
+            class MYPDF extends TCPDF {
+                public function Header() {}
             }
-            $pdf = new MYPDF('L', 'mm', array(500, 250), true, 'UTF-8', false);
-            $datos = $stick->get_nro_imprimir($_POST['bien_id']);
+            $pdf = new MYPDF('L', 'mm', array(50.8, 101.6), true, 'UTF-8', false);
             $pdf->SetMargins(0, 0, 0);
             $pdf->SetAutoPageBreak(false);
             $pdf->AddPage();
-            if (is_array($datos) == true && count($datos) <> 0) {
-                foreach ($datos as $row) {
+
+            $id = $_POST['bien_id'];
+            $datos = $stick->get_nro_imprimir($id);
+
+            if (is_array($datos) && count($datos) > 0) {
+                foreach ($datos as $index => $row) {
                     $ruta = Conectar::ruta();
-                    $url = $ruta . 'public/barcode.php?text=' . $row["bien_codbarras"] . '&size=20&orientation=horizontal&codetype=CODE128&print=true';
-                    $logo = $ruta . 'public/LOGOMPCH.png';
-                    $image_data = file_get_contents($url);
-                    $image_data2 = file_get_contents($logo);
-                    $pdf->SetMargins(0, 0, 0);
-                    if ($image_data !== false) {
-                        $width = 450;
-                        $height = 150;
-                        $x = (950 / 2) - $width; 
-                        $y = (500 / 2) - $height;
-                        $x2 = 60;
-                        $y2 = 10;
-                        $pdf->Image('@' . $image_data2, $x2, $y2, 160, 80, '', '', '', false, 100, '', false, false, 0, false, false, false);
-                        $pdf->SetFont('times', 'B', 70);
-                        $pdf->SetTextColor(0, 0, 0); 
-                        $pdf->setY(1);
-                        $pdf->setX(230);
-                        $pdf->Cell(0, 0, "Municipalidad", 0, 1, 'L');
-                        $pdf->setX(230);
-                        $pdf->Cell(0, 0, "Provincial", 0, 1, 'L');
-                        $pdf->setX(230);
-                        $pdf->Cell(0, 0, "De Chiclayo", 0, 1, 'L');
-                        $pdf->Image('@' . $image_data, $x, $y, $width, $height, '', '', '', false, 100, '', false, false, 0, false, false, false);
-                        $pdf->Ln(2);
-                        $pdf->SetFont('times', '', 80);
+                    $barcode_url = $ruta . 'public/barcode.php?text=' . $row["bien_codbarras"] . '&size=20&orientation=horizontal&codetype=CODE128&print=true';
+                    $logo = $ruta . 'public/logo_mpch2.png';
+                    $logo2 = $ruta . 'public/LOGOMPCH.png';
+                    $barcode_data = file_get_contents($barcode_url);
+                    $logo_data = file_get_contents($logo);
+                    $logo2_data = file_get_contents($logo2);
+
+                    if ($barcode_data !== false && $logo_data !== false && $logo2_data !== false) {
+                        $logo_width = 18;
+                        $second_logo_width = 18;
+                        $space_between = 2;
+                        $total_width = $logo_width + $space_between + $second_logo_width;
+                        $start_x = ((101.6 - $total_width) / 2);
+                        $y_position = 6;
+
+                        $pdf->Image('@' . $logo_data, $start_x, $y_position, $logo_width, 15, '', '', '', false, 100);
+                        $second_logo_x = $start_x + $logo_width + $space_between;
+                        $pdf->Image('@' . $logo2_data, $second_logo_x, $y_position, $second_logo_width, 15, '', '', '', false, 100);
+
+                        $text_x = $second_logo_x + $second_logo_width + 2;
+                        $text_y = $y_position + 1.5;
+                        $pdf->SetFont('times', 'B', 14);
                         $pdf->SetTextColor(0, 0, 0);
-                        $pdf->setY(200);
-                        $pdf->Cell(0, 10, "Inventario 2024", 0, 1, 'C');
+                        $pdf->SetXY($text_x, $text_y);
+                        $pdf->Cell(0, 4, "Inventario", 0, 1, 'L');
+
+                        $pdf->SetFont('times', 'B', 22);
+                        $pdf->SetXY($text_x, $text_y + 5);
+                        $pdf->Cell(0, 4, "2025", 0, 1, 'L');
+
+                        $barcode_width = 0;
+                        $barcode_height = 20;
+                        $barcode_x = ((101.6 - 70) / 2) + 7;
+                        $barcode_y = 23;
+                        $pdf->Image('@' . $barcode_data, $barcode_x, $barcode_y, 0, $barcode_height, '', '', '', false, 100);
                     } else {
-                        echo "No se pudo obtener la imagen desde la URL.";
+                        echo "No se pudo obtener una o más imágenes.";
+                        exit;
                     }
                 }
+                $pdf->Output('codigo_individual.pdf', 'I');
+            } else {
+                echo "No se encontraron datos.";
             }
-            $pdf->Output('qrbien.pdf', 'I');
         } else {
             echo "Error: No se pudo cargar la clase TCPDF.";
         }
@@ -212,7 +222,7 @@ switch ($_GET["op"]) {
             class MYPDF extends TCPDF {
                 public function Header() {}
             }
-            $pdf = new MYPDF('L', 'mm', array(500, 250), true, 'UTF-8', false);
+            $pdf = new MYPDF('L', 'mm', array(50.8, 101.6), true, 'UTF-8', false);
             $pdf->SetMargins(0, 0, 0);
             $pdf->SetAutoPageBreak(false);
             $pdf->AddPage();
@@ -228,34 +238,44 @@ switch ($_GET["op"]) {
                 }
             }
             if (count($datos) > 0) {
-                foreach ($datos as $row) {
+                foreach ($datos as $index => $row) {
                     $ruta = Conectar::ruta();
                     $barcode_url = $ruta . 'public/barcode.php?text=' . $row["bien_codbarras"] . '&size=20&orientation=horizontal&codetype=CODE128&print=true';
-                    $logo = $ruta . 'public/LOGOMPCH.png';
+                    $logo = $ruta . 'public/logo_mpch2.png';
+                    $logo2 = $ruta . 'public/LOGOMPCH.png';
                     $barcode_data = file_get_contents($barcode_url);
                     $logo_data = file_get_contents($logo);
-                    if ($barcode_data !== false && $logo_data !== false) {
-                        $width = 450;
-                        $height = 150;
-                        $x = (950 / 2) - $width;
-                        $y = (500 / 2) - $height;
-                        $pdf->Image('@' . $logo_data, 60, 10, 160, 80, '', '', '', false, 100);
-                        $pdf->SetFont('times', 'B', 70);
+                    $logo2_data = file_get_contents($logo2);
+                    if ($barcode_data !== false && $logo_data !== false && $logo2_data !== false) {
+                        $logo_width = 18;
+                        $second_logo_width = 18;
+                        $space_between = 2;
+                        $total_width = $logo_width + $space_between + $second_logo_width;
+                        $start_x = ((101.6 - $total_width) / 2); // Mueve todo el bloque más a la derecha
+                        $y_position = 6;
+                        $pdf->Image('@' . $logo_data, $start_x, $y_position, $logo_width, 15, '', '', '', false, 100);
+                        $second_logo_x = $start_x + $logo_width + $space_between;
+                        $pdf->Image('@' . $logo2_data, $second_logo_x, $y_position, $second_logo_width, 15, '', '', '', false, 100);
+                        $text_x = $second_logo_x + $second_logo_width + 2;
+                        $text_y = $y_position + 1.5; 
+                        $pdf->SetFont('times', 'B', 14);
                         $pdf->SetTextColor(0, 0, 0);
-                        $pdf->setY(1);
-                        $pdf->setX(230);
-                        $pdf->Cell(0, 0, "Municipalidad", 0, 1, 'L');
-                        $pdf->setX(230);
-                        $pdf->Cell(0, 0, "Provincial", 0, 1, 'L');
-                        $pdf->setX(230);
-                        $pdf->Cell(0, 0, "De Chiclayo", 0, 1, 'L');
-                        $pdf->Image('@' . $barcode_data, $x, $y, $width, $height, '', '', '', false, 100);
-                        $pdf->SetY(210); 
-                        $pdf->SetFont('times', '', 70);
-                        $pdf->Cell(0, 10, "Inventario 2024", 0, 1, 'C');
-                        $pdf->AddPage();
+                        $pdf->SetXY($text_x, $text_y);
+                        $pdf->Cell(0, 4, "Inventario", 0, 1, 'L');
+                        $pdf->SetFont('times', 'B', 22);
+                        $pdf->SetXY($text_x, $text_y + 5);
+                        $pdf->Cell(0, 4, "2025", 0, 1, 'L');
+                        $barcode_width = 0;
+                        $barcode_height = 20;
+                        $barcode_x = ((101.6 - 70) / 2) + 7; // ajusta solo la posición horizontal
+                        $barcode_y = 23;
+
+                        $pdf->Image('@' . $barcode_data, $barcode_x, $barcode_y, 0, $barcode_height, '', '', '', false, 100);
+                        if ($index < count($datos) - 1) {
+                            $pdf->AddPage();
+                        }
                     } else {
-                        echo "No se pudo obtener las imágenes.";
+                        echo "No se pudo obtener una o más imágenes.";
                         exit;
                     }
                 }
@@ -267,4 +287,5 @@ switch ($_GET["op"]) {
             echo "Error: No se pudo cargar la clase TCPDF.";
         }
         break;
+
 }
