@@ -241,7 +241,7 @@ switch ($_GET["op"]) {
             $bien_id = $row["bien_id"];
             $sub_array = [];
             $sub_array[] = explode(' ', $row["fecha_baja"])[0];
-            $sub_array[] = '<span class="badge bg-red-lt selectable">' . $row["bien_codbarras"] . '</span>';
+            $sub_array[] = '<span class="badge bg-cyan text-cyan-fg selectable copiar-codbarras" data-codigo="' . $row["bien_codbarras"] . '">' . $row["bien_codbarras"] . '</span>';
             $sub_array[] = htmlspecialchars($row["obj_nombre"]);
             $sub_array[] = htmlspecialchars($row["marca_nom"]);
             $sub_array[] = htmlspecialchars($row["modelo_nom"]);

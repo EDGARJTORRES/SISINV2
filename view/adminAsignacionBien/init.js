@@ -41,7 +41,12 @@ $(document).ready(function () {
   $.post("../../controller/dependencia.php?op=combo", function (data) {
     $("#area_asignacion_combo").html(data);
   });
+  $("#cod_bar").on("input", function () {
+    let valor = $(this).val();
+    $(this).val(valor.replace(/'/g, "-"));
+  });
 });
+
 function nuevoFormato() {
   var rows = $("#obj_formato tbody tr");
   if (rows.length === 0) {
@@ -275,7 +280,7 @@ function buscarCodigoRepetido(cod_bar) {
 }
 function buscarBien() {
   var botonBuscar = $("#buscaObjeto");
-  var cod_bar = $("#cod_bar").val(); 
+  var cod_bar = $("#cod_bar").val().replace(/'/g, "-");
   if (buscarCodigoRepetido(cod_bar)) {
     Swal.fire({
         title: "Error",

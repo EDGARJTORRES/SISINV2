@@ -50,7 +50,6 @@ class Objeto extends Conectar
     public function insert_registro_bien($fecharegistro, $obj_id, $modelo_id, $bien_numserie,    $bien_codbarras, $bien_color, $bien_dim,$procedencia, $val_adq, $doc_adq, $bien_obs,$bien_cuenta){
         $conectar = parent::conexion();
         parent::set_names();
-        
         $sql = "INSERT INTO sc_inventario.tb_bien(
                     fecharegistro, 
                     obj_id, 
@@ -81,7 +80,6 @@ class Objeto extends Conectar
         $sql->execute();
         return $resultado = $sql->fetchAll();
         }
-
     public function update_registro_bien(
         $bien_id,
         $fecharegistro,
@@ -159,7 +157,7 @@ class Objeto extends Conectar
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         return $row['total'] > 0; // true si tiene historial, false si no
-    }
+        }
     public function delete_bien($bien_id) {
         $conectar = parent::conexion();
         parent::set_names();
@@ -170,7 +168,7 @@ class Objeto extends Conectar
         $stmt->bindValue(1, $bien_id);
         $stmt->execute();
         return true;
-    }
+        }
     public function get_objeto($gc_id)
         {
             $conectar = parent::conexion();

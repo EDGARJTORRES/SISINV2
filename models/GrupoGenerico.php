@@ -1,6 +1,5 @@
 <?php
     class GrupoGenerico extends Conectar{
-
         public function insert_grupogenerico($gg_nom, $gg_cod){
             $conectar= parent::conexion();
             parent::set_names();
@@ -11,7 +10,6 @@
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
-
         public function update_grupogenerico($gg_id,$gg_nom, $gg_cod){
             $conectar= parent::conexion();
             parent::set_names();
@@ -39,7 +37,6 @@
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
-
         public function insert_gg_clase($gg_id, $clase_id) {
             $conectar = parent::conexion();
             parent::set_names();            
@@ -82,7 +79,7 @@
                         tbb.fecharegistro, 
                         tbb.bien_codbarras, 
                         tbb.bien_est,
-                        tbb.procedencia, 
+                        tbb.bien_numserie, 
                         tbb.val_adq, 
                         tc.clase_cod, 
                         gg.gg_cod,
@@ -138,10 +135,6 @@
             $sql->bindValue(1, $grupogenericousu_id);
             $sql->execute();
             return $resultado=$sql->fetchAll();
-        }
-      
-        
-
-        
+        }      
     }
 ?>

@@ -154,7 +154,7 @@ function cargarListadoBienesEnModal() {
                 $.each(bienes, function (index, b) {
                   rows += `
                       <tr>
-                        <td><span class="badge bg-red-lt selectable">${b.bien_codbarras || '-'}</span></td>
+                        <td><span class="badge bg-cyan text-cyan-fg selectable">${b.bien_codbarras || '-'}</span></td>
                         <td>${b.obj_nombre || '-'}</td>
                         <td>${b.bien_dim || '-'}</td>
                         <td>${b.val_adq || '-'}</td>

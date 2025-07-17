@@ -111,7 +111,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                               <th><span title="Codigo del Grupo Generico">Grupo</span></th>
                               <th><span title="Código de la clase">Clase</span></th>
                               <th><span title="Estado del bien"></span>Estado</th>
-                              <th><span title="Procedencia del Bien">Proc.</span></th>
+                              <th><span title="Procedencia del Bien">N° Serie.</span></th>
                               <th><span title="Valor Adquision del bien">Valor Adq.</span></th>
                               <th></th>
                             </tr>
