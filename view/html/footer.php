@@ -6,7 +6,7 @@
           <li class="list-inline-item">
             <a href="https://www.gob.pe/munichiclayo" target="_blank" class="link-secondary" rel="noopener">
               <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
-              <span class="flag flag-country-pe"></span>
+               <img src="../../static/illustrations/Pe.png" alt="MPCH" style="height: 36px;">
               <!-- <p>MPCH</p> -->
             </a>
           </li>

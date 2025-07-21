@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
       $("#contenedor_adquisicion").append(generarCamposAdquisicion(i));
 
       // Aplicar select2
-      $(`#marca_${i}, #modelo_${i}, #color_${i}`).select2({
+      $(`#marca_${i}, #modelo_${i}, #color_${i}, #bien_cuenta_${i}`).select2({
         dropdownParent: $("#modalObjetoCate"),
         dropdownPosition: "below",
       });
@@ -34,6 +34,10 @@ document.addEventListener("DOMContentLoaded", function () {
       $.post("../../controller/objeto.php?op=combo_color", function (data) {
         $(`#color_${i}`).html(data);
         $(`#color_${i}`).val($("#combo_color_bien").val()).trigger("change");
+      });
+      $.post("../../controller/cuenta.php?op=combo", function (data) {
+        $(`#bien_cuenta_${i}`).html(data);
+        $(`#bien_cuenta_${i}`).val($("#bien_cuenta").val()).trigger("change");
       });
     }
   });
@@ -87,7 +91,9 @@ function generarCamposCaracteristicas(i) {
     </div>
     <div class="col-lg-3 extra-campo">
       <label class="form-label">N° Cuenta Contable <span class="text-danger">*</span></label>
-      <input type="text" name="bien_cuenta_${i}" placeholder="Ej: 9105.0301" class="form-control" />
+      <select  data-placeholder="Seleccione la cuenta contable" class="form-select select2 required" name="bien_cuenta_${i}" id="bien_cuenta_${i}">
+        <option></option>
+      </select>
     </div>
     <div class="col-lg-3 extra-campo">
       <label class="form-label">Color <span class="text-danger">*</span></label>
@@ -129,9 +135,9 @@ function generarCamposAdquisicion(i) {
 function autocompletar(i) {
   $(`#marca_${i}`).val($("#combo_marca_obj").val()).trigger("change");
   $(`#modelo_${i}`).val($("#combo_modelo_obj").val());
+  $(`#cuenta_contable_${i}`).val($("#cuent_contable").val()).trigger("change");
   $(`input[name='obj_dim_${i}']`).val($("#obj_dim").val());
   $(`input[name='bien_numserie_${i}']`).val($("#bien_numserie").val());
-  $(`input[name='bien_cuenta_${i}']`).val($("#bien_cuenta").val());
   $(`textarea[name='bien_obs_${i}']`).val($("#bien_obs").val());
   $(`#color_${i}`).val($("#combo_color_bien").val()).trigger("change");
   $(`select[name='procedencia_${i}']`).val($("#procedencia").val());

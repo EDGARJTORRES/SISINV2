@@ -4,8 +4,7 @@
     require_once("../models/Bitacora.php");
     $bitacora = new Bitacora();
     $movimiento = new Movimiento();
-    switch($_GET["op"]){
-       
+    switch($_GET["op"]){      
         case "guardaryeditar":
             if (empty($_POST["mov_id"])) {
                 $movimiento->insert_movimiento($_POST["mov_nom"]);

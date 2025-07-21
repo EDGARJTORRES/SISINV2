@@ -48,7 +48,7 @@ function guardaryeditarbienes(e) {
           formData.append("obj_dim", $(`input[name='obj_dim_${i}']`).val());
           formData.append("bien_numserie", $(`input[name='bien_numserie_${i}']`).val());
           formData.append("bien_obs", $(`textarea[name='bien_obs_${i}']`).val());
-          formData.append("bien_cuenta", $(`input[name='bien_cuenta_${i}']`).val());
+          formData.append("bien_cuenta", $(`#bien_cuenta_${i}`).val());
           formData.append("bien_color", $(`#color_${i}`).val());
           formData.append("procedencia", $(`select[name='procedencia_${i}']`).val());
           formData.append("fecharegistro", $(`input[name='fecharegistro_${i}']`).val());

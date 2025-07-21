@@ -9,7 +9,7 @@ if (isset($_SESSION["usua_id_siin"])) {
   <title>MPCH::AltaBienes</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <link href="../../public/css/Breadcrumb.css" rel="stylesheet"/>
-  <link href="../../public/css/Consulta.css" rel="stylesheet"/> 
+  <link href="../../public/css/consulta.css" rel="stylesheet"/> 
   <link href="../../public/css/iconos.css" rel="stylesheet"/>
 </head>
 <body>

@@ -245,16 +245,16 @@ function darDeBaja(bien_id) {
   }).then((confirmResult) => {
     if (confirmResult.isConfirmed) {
       Swal.fire({
-        title: 'Motivo de Baja',
+        title: 'Resolución de Baja',
         input: 'textarea',
-        inputPlaceholder: 'Ingrese el motivo de la baja...',
+        inputPlaceholder: 'Ingrese la resolucion de Baja...',
         inputAttributes: { 'aria-label': 'Motivo de baja' },
         showCancelButton: true,
         confirmButtonText: 'Confirmar',
         confirmButtonColor: 'rgb(243, 18, 18)',
         cancelButtonColor: '#000',
         inputValidator: (value) => {
-          if (!value.trim()) return 'Debes ingresar un motivo válido.';
+          if (!value.trim()) return 'Debes ingresar la resolucion de baja valida.';
         },
         didOpen: () => agregarBarraProgreso(70)
       }).then((motivoResult) => {

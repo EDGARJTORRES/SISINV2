@@ -4,9 +4,8 @@ require_once("../models/Persona.php");
 require_once("../models/Bitacora.php");
 $bitacora = new Bitacora();
 $persona = new Persona();
-
 switch ($_GET["op"]) {
-     case "buscarDNI":
+    case "buscarDNI":
         $datos = $persona->get_persona_dni($_POST["pers_dni"]);
         if (is_array($datos) == true and count($datos) <> 0) {
             foreach ($datos as $row) {
@@ -21,7 +20,7 @@ switch ($_GET["op"]) {
         $pers_id = $_SESSION["usua_id_siin"]; // ID del usuario logueado
         $datos = $persona->obtenerDatosGenerales($pers_id);
         echo json_encode($datos);
-    break;
+        break;
     case "combo":
         $datos = $persona->get_personas_combo();
         echo '<option value="" disabled selected>Seleccione</option>';
@@ -29,7 +28,4 @@ switch ($_GET["op"]) {
             echo '<option value="' . $row["pers_id"] . '">' . $row["pers_dni"] . ' - ' . htmlspecialchars($row["nombre_completo"]) . '</option>';
         }
         break;
-    
-
-
 }

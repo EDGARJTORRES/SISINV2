@@ -103,50 +103,6 @@ function verBienesBaja(depe_id) {
     }, 500);
   }, 100);
 }
-function restaurarBien(bien_id) {
-    Swal.fire({
-        title: '¿Restaurar este bien?',
-        text: "Se restablecerá su estado anterior y su Historial.",
-        imageUrl: '../../static/gif/pregunta.gif',
-        imageWidth: 100,
-        imageHeight: 100,
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#000',
-        confirmButtonText: 'Sí, restaurar'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                url: '../../controller/dependencia.php?op=restaurarBien',
-                type: 'POST',
-                dataType: 'json',
-                data: { bien_id: bien_id },
-                success: function (response) {
-                    console.log("Respuesta del servidor:", response);
-                    if (response.status === 'success') {
-                        Swal.fire('Restaurado', 'El bien fue restaurado exitosamente.', 'success');
-                        const tablaHistorial = $("#tblHistorial").DataTable();
-                        tablaHistorial.ajax.reload(function () {
-                            if (tablaHistorial.rows().count() === 0) {
-                                $('#modalHistorial').modal('hide');
-                                $("#dependencias_objetos").DataTable().ajax.reload();
-                            }
-                        });
-                    } else {
-                        Swal.fire('Error', response.message || 'No se pudo restaurar el bien.', 'error');
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.error("AJAX error status:", status);
-                    console.error("AJAX error:", error);
-                    console.error("XHR responseText:", xhr.responseText);
-                    Swal.fire('Error', 'Error de conexión al servidor.', 'error');
-                }
-            });
-        }
-    });
-}
-
 function verFormato(bien_id) {
   window.location.href = "../adminMntDependencias/vistabajaDocumento.php?bien_id=" + bien_id;
 }

@@ -85,5 +85,4 @@ switch ($_GET["op"]) {
         $datos = $bien->get_valores_adquisicion_y_baja();
         echo json_encode($datos);
     break;
-
 }

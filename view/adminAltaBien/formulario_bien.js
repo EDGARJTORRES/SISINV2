@@ -12,6 +12,7 @@ function nuevoBien() {
     .removeAttr("disabled") 
     .off("keydown mousewheel");
   $("#combo_marca_obj").val("").trigger("change").prop("disabled", false);
+  $("#bien_cuenta").val("").trigger("change").prop("disabled", false);
   $("#combo_modelo_obj").prop("disabled", false);
   $("#procedencia").val("").trigger("change").prop("disabled", false);
   $("#combo_color_bien").val("").trigger("change");

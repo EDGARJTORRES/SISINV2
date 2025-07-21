@@ -5,7 +5,6 @@ require_once("../models/Bitacora.php");
 $bitacora = new Bitacora();
 $clase = new Clase();
 switch ($_GET["op"]) {
-
     case "guardaryeditar":
         if (empty($_POST["clase_id"])) {
             $clase->insert_clase($_POST["clase_nom"],$_POST["clase_cod"] );

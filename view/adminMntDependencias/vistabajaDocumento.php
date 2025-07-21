@@ -257,10 +257,6 @@ if (isset($_SESSION["usua_id_siin"])) {
                                     <td colspan="2">
                                         <table style="width:100%; border-collapse: collapse;">
                                             <tr>
-                                                <td style="width: 50%; border: none;"><strong>N° de Resolución</strong></td>
-                                                <td style="border: none; font-size: 12px;">: <?php echo ucfirst(strtolower('---')); ?></td>
-                                            </tr>
-                                            <tr>
                                                 <td style="border: none;"><strong>Fecha Resolución</strong></td>
                                                 <td style="border: none;font-size: 12px;" >: <?php echo date("d/m/Y", strtotime($datos["fecha_baja"]));?></td>
                                             </tr>
@@ -269,7 +265,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                                                 <td style="border: none;font-size: 12px;" >: <?php echo date("d/m/Y", strtotime($datos["fecha_baja"]));?></td>
                                             </tr>
                                             <tr>
-                                                <td style="border: none;"><strong>Causal de Baja</strong></td>
+                                                <td style="border: none;"><strong>Resolucion de Baja</strong></td>
                                                 <td style="border: none; font-size: 12px;">: <?php echo ucfirst(strtolower($datos["motivo_baja"]));?></td>
                                             </tr>
                                         </table>

@@ -8,6 +8,10 @@ $(document).ready(function () {
     dropdownParent: $("#modalObjetoCate"),
     dropdownPosition: "below",
   });
+  $("#bien_cuenta").select2({
+    dropdownParent: $("#modalObjetoCate"),
+    dropdownPosition: "below",
+  });
   $("#combo_gg_bien_obj").select2({
     dropdownParent: $("#modalObjetoCate"),
     dropdownPosition: "below",
@@ -61,6 +65,9 @@ $(document).ready(function () {
   });
   $.post("../../controller/objeto.php?op=combo_color", function (data) {
     $("#combo_color_bien").html(data);
+  });
+  $.post("../../controller/cuenta.php?op=combo", function (data) {
+    $("#bien_cuenta").html(data);
   });
   $.post("../../controller/marca.php?op=combo", function (data) {
     $("#combo_marca_obj").html(data);

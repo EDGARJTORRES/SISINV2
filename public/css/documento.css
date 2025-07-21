@@ -26,7 +26,7 @@
         background-color: #252422;
       }
       th, td {
-        max-width: 600px !important;     
+        max-width: 200px !important;     
         white-space: normal;      
         word-break: break-word;   
         overflow-wrap: break-word; 

@@ -1,16 +1,16 @@
 
 var usu_id = $('#usu_idx').val();
-function initmarca(){
-    $("#marca_form").on("submit",function(e){
+function initcuenta(){
+    $("#cuenta_form").on("submit",function(e){
     e.preventDefault();
-    const nombreInput = document.getElementById('marca_nom');
+    const nombreInput = document.getElementById('cuenta_numero');
     const errorNombre = document.getElementById('errorNombre');
     let nombreValido = validarInput(nombreInput, errorNombre);
     if (nombreValido) {
-       guardaryeditarmarca(); 
+       guardaryeditarcuenta(); 
         }
     });
-    $('#marca_nom').on('input', function() {
+    $('#cuenta_numero').on('input', function() {
         validarInput(this, document.getElementById('errorNombre'));
     });
 }
@@ -28,18 +28,19 @@ function validarInput(input, errorDiv) {
     return true;
   }
 }
+function guardaryeditarcuenta() {
+    const formData = new FormData($("#cuenta_form")[0]);
 
-function guardaryeditarmarca(){
-    var formData = new FormData($("#marca_form")[0]);
     $.ajax({
-        url: "../../controller/marca.php?op=guardaryeditar",
+        url: "../../controller/cuenta.php?op=guardaryeditar",
         type: "POST",
         data: formData,
         contentType: false,
         processData: false,
-        success: function(data){
-            $('#marca_data').DataTable().ajax.reload();
-            $('#modalMarca').modal('hide');
+        success: function (data) {
+            $('#cuenta_data').DataTable().ajax.reload();
+            $('#modalCuenta').modal('hide');
+
             Swal.fire({
                 title: '¡Correcto!',
                 text: 'Se registró correctamente.',
@@ -50,52 +51,48 @@ function guardaryeditarmarca(){
                 confirmButtonColor: 'rgb(18, 129, 18)',
                 backdrop: true,
                 didOpen: () => {
-                    const swalBox = Swal.getPopup();
-                    const topBar = document.createElement('div');
-                    topBar.id = 'top-progress-bar';
-                    topBar.style.cssText = `
+                    const bar = document.createElement('div');
+                    bar.id = 'top-progress-bar';
+                    bar.style.cssText = `
                         position: absolute;
                         top: 0;
                         left: 0;
                         height: 6px;
                         width: 0%;
-                        background-color:rgb(16, 141, 16);
+                        background-color: rgb(16, 141, 16);
                         transition: width 0.4s ease;
                     `;
-                    swalBox.appendChild(topBar);
-
+                    Swal.getPopup().appendChild(bar);
                     setTimeout(() => {
-                        topBar.style.width = '100%';
+                        bar.style.width = '100%';
                     }, 300);
-                } 
+                }
             });
         }
     });
 }
+
 function mostrarAlertaCarga() {
   document.getElementById('alerta-carga').style.display = 'block';
 }
-
-// Ocultar alerta
 function ocultarAlertaCarga() {
   document.getElementById('alerta-carga').style.display = 'none';
 }
-
 $(document).ready(function () {
     setTimeout(() => {
-       $('.buttons-collection')
+    $('.buttons-collection')
       .removeClass('btn-secondary')
       .addClass('btn');
     }, 300);
     let inicioCarga;
     let tiempoMinimo = 3000; // 2 segundos
 
-    $('#marca_data').on('preXhr.dt', function () {
+    $('#cuenta_data').on('preXhr.dt', function () {
         mostrarAlertaCarga();
         inicioCarga = new Date().getTime();
     });
 
-    $('#marca_data').on('xhr.dt', function () {
+    $('#cuenta_data').on('xhr.dt', function () {
         let finCarga = new Date().getTime();
         let duracion = finCarga - inicioCarga;
         let tiempoRestante = tiempoMinimo - duracion;
@@ -108,7 +105,7 @@ $(document).ready(function () {
             ocultarAlertaCarga();
         }
     });
-    var table= $('#marca_data').DataTable({
+    var table= $('#cuenta_data').DataTable({
         "aProcessing": true,
         "aServerSide": true,
         dom: 'Bfrtip',
@@ -167,7 +164,7 @@ $(document).ready(function () {
   }
 ],
         "ajax":{
-            url:"../../controller/marca.php?op=listar",
+            url:"../../controller/cuenta.php?op=listar",
             type:"post"
         },
         "bDestroy": true,
@@ -217,9 +214,9 @@ $(document).ready(function () {
     $('#buscar_registros').on('input', function () {
         table.search(this.value).draw();
     }); 
-    $('#marca_id_all').on('change', function () {
+    $('#cuenta_id_all').on('change', function () {
         let isChecked = $(this).is(':checked');
-        $('.marca-checkbox').prop('checked', isChecked);
+        $('.cuenta-checkbox').prop('checked', isChecked);
     });  
 });
 
@@ -238,12 +235,15 @@ function actualizarContadorSeleccionados() {
 
  function limpiarSeleccion() {
   idsSeleccionados.clear();
-  $('.marca-checkbox').prop('checked', false);
-  $('#marca_id_all').prop('checked', false);
+  $('.cuenta-checkbox').prop('checked', false);
+  $('#cuenta_id_all').prop('checked', false);
   actualizarContadorSeleccionados();
 }
+document.getElementById("cuenta_numero").addEventListener("input", function () {
+  this.value = this.value.replace(/[^0-9.]/g, "");
+});
   // Evento cuando se marca/desmarca cada checkbox
-$(document).on('change', '.marca-checkbox', function () {
+$(document).on('change', '.cuenta-checkbox', function () {
     const id = $(this).data('id');
     if ($(this).is(':checked')) {
         idsSeleccionados.add(id);
@@ -252,165 +252,60 @@ $(document).on('change', '.marca-checkbox', function () {
     }
     actualizarContadorSeleccionados();
 });
+$('#cuenta_id_all').on('change', function () {
+  const checked = $(this).is(':checked');
+  $('.cuenta-checkbox').each(function () {
+    const id = $(this).data('id');
+    $(this).prop('checked', checked);
+    if (checked) {
+      idsSeleccionados.add(id);
+    } else {
+      idsSeleccionados.delete(id);
+    }
+  });
+  actualizarContadorSeleccionados();
+});
 
-  // Checkbox general (seleccionar todos en la página actual)
-  $('#marca_id_all').on('change', function () {
-    const checked = $(this).is(':checked');
-    $('.marca-checkbox').each(function () {
-      const id = $(this).data('id');
-      $(this).prop('checked', checked);
-      if (checked) {
-        idsSeleccionados.add(id);
-      } else {
-        idsSeleccionados.delete(id);
-      }
-    });
-    actualizarContadorSeleccionados();
+$('#cuenta_data').on('draw.dt', function () {
+  $('.cuenta-checkbox').each(function () {
+    const id = $(this).data('id');
+    $(this).prop('checked', idsSeleccionados.has(id));
   });
 
-  $('#marca_data').on('draw.dt', function () {
-    $('.marca-checkbox').each(function () {
-      const id = $(this).data('id');
-      $(this).prop('checked', idsSeleccionados.has(id));
+  const allChecked = $('.cuenta-checkbox').length > 0 && $('.cuenta-checkbox').length === $('.cuenta-checkbox:checked').length;
+  $('#cuenta_id_all').prop('checked', allChecked);
+
+  actualizarContadorSeleccionados();
+});
+
+$('#eliminar_cuentas').on('click', function () {
+    let seleccionados = [];
+    $('.cuenta-checkbox:checked').each(function () {
+        seleccionados.push($(this).val());
     });
-
-    const allChecked = $('.marca-checkbox').length > 0 && $('.marca-checkbox').length === $('.marca-checkbox:checked').length;
-    $('#marca_id_all').prop('checked', allChecked);
-
-    actualizarContadorSeleccionados();
-  });
-  
-  $('#eliminar_marcas').on('click', function () {
-      let seleccionados = [];
-      $('.marca-checkbox:checked').each(function () {
-          seleccionados.push($(this).val());
-      });
-      console.log("IDs seleccionados para eliminar:", seleccionados);
-
-      if (seleccionados.length === 0) {
-          Swal.fire({
-              title: '¡Atención!',
-              text: 'Debes seleccionar al menos una marca para continuar.',
-              imageUrl: '../../static/gif/tarjeta.gif',
-              imageWidth: 100,
-              imageHeight: 100,
-              confirmButtonText: 'Entendido',
-              confirmButtonColor: 'rgb(90, 4, 69)', 
-          });
-          return;
-      }
-      Swal.fire({
-          title: '¿Estás seguro?',
-          text: 'Esto eliminará las marcas seleccionados.',
-          imageUrl: '../../static/gif/advertencia.gif',
-          imageWidth: 100,
-          imageHeight: 100,
-          showCancelButton: true,
-          confirmButtonText: 'Sí, eliminar',
-          confirmButtonColor: 'rgb(90, 4, 69)', 
-          cancelButtonText: 'Cancelar',
-          cancelButtonColor: '#000',
-          backdrop: true,
-          didOpen: () => {
-              const swalBox = Swal.getPopup();
-              const topBar = document.createElement('div');
-              topBar.id = 'top-progress-bar';
-              topBar.style.cssText = `
-                  position: absolute;
-                  top: 0;
-                  left: 0;
-                  height: 5px;
-                  width: 0%;
-                  background-color:rgb(90, 4, 69);
-                  transition: width 0.4s ease;
-              `;
-              swalBox.appendChild(topBar);
-
-              setTimeout(() => {
-                  topBar.style.width = '40%';
-              }, 300);
-          } 
-      }).then((result) => {
-          if (result.isConfirmed) {
-              $.ajax({
-                  url: '../../controller/marca.php?op=eliminar_marcas',
-                  type: 'POST',
-                 data: { ids: seleccionados },
-                  success: function (response) {
-                      console.log("Respuesta del servidor:", response); 
-                      $('#marca_data').DataTable().ajax.reload(function() {
-                          idsSeleccionados.clear();
-                          $('.marca-checkbox').prop('checked', false);
-                          $('#marca_id_all').prop('checked', false);
-                          actualizarContadorSeleccionados();
-                      });
-                      Swal.fire({
-                          title: 'Eliminadas',
-                          text: 'Las marcas fueron eliminadas correctamente.',
-                          imageUrl: '../../static/gif/verified.gif',
-                          imageWidth: 100,
-                          imageHeight: 100,
-                          confirmButtonText: 'Entendido',
-                          confirmButtonColor: 'rgb(90, 4, 69)',
-                          backdrop: true,
-                          didOpen: () => {
-                              const bar = document.getElementById('top-progress-bar-final');
-                              setTimeout(() => {
-                                  bar.style.width = '100%';
-                              }, 100);
-                          }
-                      });
-                  },
-                  error: function () {
-                      Swal.fire('Error', 'No se pudieron eliminar.', 'error');
-                  }
-              });
-          } else {
-              // Lógica para reiniciar todo al cancelar
-              idsSeleccionados.clear();
-              $('.marca-checkbox').prop('checked', false);
-              $('#marca_id_all').prop('checked', false);
-              actualizarContadorSeleccionados();
-          }
-      });
-  });
-
-
-
-function editarmarca(marca_id){
-    $.post("../../controller/marca.php?op=mostrar",{marca_id : marca_id}, function (data) {
-        idsSeleccionados.clear();
-        $('.marca-checkbox').prop('checked', false);
-        $('#marca_id_all').prop('checked', false);
-        $('#marca_nom').removeClass('is-valid is-invalid');
-        $('#errorNombre').removeClass('active');
-        actualizarContadorSeleccionados();
-        data = JSON.parse(data);
-        $('#cuenta_id').val(data.marca_id);
-        $('#marca_nom').val(data.marca_nom);
-        $('#lbltitulo').html('<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-screen-share ms-3"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M21 12v3a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-10a1 1 0 0 1 1 -1h9" /><path d="M7 20l10 0" /><path d="M9 16l0 4" /><path d="M15 16l0 4" /><path d="M17 4h4v4" /><path d="M16 9l5 -5" /></svg> EDITAR MARCA');
-        $('#lblsubtitulo').html('MODIFICAR EL NOMBRE DE LA MARCA');
-        const ahora = dayjs(); // si usas dayjs
-        mostrarUltimaAccion(`Editó la marca "${data.marca_nom}"`, ahora.toISOString());
-    });
-   
-    $('#modalMarca').modal('show');
-}
-
-function eliminarmarca(marca_id) {
-  $.post("../../controller/marca.php?op=mostrar", { marca_id: marca_id }, function (data) {
-    data = JSON.parse(data);
-    const nombre_marca = data.marca_nom;
+    if (seleccionados.length === 0) {
+        Swal.fire({
+            title: '¡Atención!',
+            text: 'Debes seleccionar al menos una cuenta contable para continuar.',
+            imageUrl: '../../static/gif/tarjeta.gif',
+            imageWidth: 100,
+            imageHeight: 100,
+            confirmButtonText: 'Entendido',
+            confirmButtonColor: 'rgb(90, 4, 69)', 
+        });
+        return;
+    }
     Swal.fire({
         title: '¿Estás seguro?',
-        text: "¡Esta acción no se puede deshacer!",
+        text: 'Esto eliminará las cuentas contables seleccionados.',
         imageUrl: '../../static/gif/advertencia.gif',
         imageWidth: 100,
         imageHeight: 100,
         showCancelButton: true,
-        confirmButtonColor: 'rgb(243, 18, 18)', 
-        cancelButtonColor: '#000', 
-        confirmButtonText: 'Sí, eliminarlo',
+        confirmButtonText: 'Sí, eliminar',
+        confirmButtonColor: 'rgb(90, 4, 69)', 
+        cancelButtonText: 'Cancelar',
+        cancelButtonColor: '#000',
         backdrop: true,
         didOpen: () => {
             const swalBox = Swal.getPopup();
@@ -422,7 +317,7 @@ function eliminarmarca(marca_id) {
                 left: 0;
                 height: 5px;
                 width: 0%;
-                background-color:rgb(243, 18, 18);
+                background-color:rgb(90, 4, 69);
                 transition: width 0.4s ease;
             `;
             swalBox.appendChild(topBar);
@@ -430,36 +325,29 @@ function eliminarmarca(marca_id) {
             setTimeout(() => {
                 topBar.style.width = '40%';
             }, 300);
-        }
+        } 
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-              url: '../../controller/marca.php?op=eliminar',
+                url: '../../controller/cuenta.php?op=eliminar_cuentas',
                 type: 'POST',
-               data: {marca_id : marca_id},
+                data: { ids: seleccionados },
                 success: function (response) {
-                   $('#marca_data').DataTable().ajax.reload();
-                   const ahora = dayjs();
-                   mostrarUltimaAccion(`Eliminó la marca "${nombre_marca}"`, ahora.toISOString());
+                    console.log("Respuesta del servidor:", response); 
+                    $('#cuenta_data').DataTable().ajax.reload(function() {
+                        idsSeleccionados.clear();
+                        $('.cuenta-checkbox').prop('checked', false);
+                        $('#cuenta_id_all').prop('checked', false);
+                        actualizarContadorSeleccionados();
+                    });
                     Swal.fire({
-                        title: '¡Eliminado!',
-                        html: `
-                            <p>La marca <strong>${nombre_marca}</strong> ha sido eliminado correctamente.</p>
-                            <div id="top-progress-bar-final" style="
-                                position: absolute;
-                                top: 0;
-                                left: 0;
-                                height: 5px;
-                                width: 0%;
-                                background-color:rgb(243, 18, 18);
-                                transition: width 0.6s ease;
-                            "></div>
-                        `,
+                        title: 'Eliminadas',
+                        text: 'Las cuentas contables fueron eliminadas correctamente.',
                         imageUrl: '../../static/gif/verified.gif',
                         imageWidth: 100,
                         imageHeight: 100,
-                        showConfirmButton: true,
-                        confirmButtonColor: 'rgb(243, 18, 18)',
+                        confirmButtonText: 'Entendido',
+                        confirmButtonColor: 'rgb(90, 4, 69)',
                         backdrop: true,
                         didOpen: () => {
                             const bar = document.getElementById('top-progress-bar-final');
@@ -470,32 +358,107 @@ function eliminarmarca(marca_id) {
                     });
                 },
                 error: function () {
-                    Swal.fire('Error', 'No se pudo eliminar la marca.', 'error');
+                    Swal.fire('Error', 'No se pudieron eliminar.', 'error');
                 }
             });
+        } else {
+            idsSeleccionados.clear();
+            $('.cuenta-checkbox').prop('checked', false);
+            $('#cuenta_id_all').prop('checked', false);
+            actualizarContadorSeleccionados();
         }
     });
-  });
+});
+function editarcuenta(cuenta_id){
+    $.post("../../controller/cuenta.php?op=mostrar",{cuenta_id : cuenta_id}, function (data) {
+        idsSeleccionados.clear();
+        $('.cuenta-checkbox').prop('checked', false);
+        $('#cuenta_id_all').prop('checked', false);
+        $('#cuenta_numero').removeClass('is-valid is-invalid');
+        $('#errorNombre').removeClass('active');
+        actualizarContadorSeleccionados();
+        data = JSON.parse(data);
+        $('#cuenta_id').val(data.cuenta_id);
+        $('#cuenta_numero').val(data.cuenta_numero);
+        $('#lbltitulo').html('<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-screen-share ms-3"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M21 12v3a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-10a1 1 0 0 1 1 -1h9" /><path d="M7 20l10 0" /><path d="M9 16l0 4" /><path d="M15 16l0 4" /><path d="M17 4h4v4" /><path d="M16 9l5 -5" /></svg> EDITAR CUENTA CONTABLE');
+        $('#lblsubtitulo').html('MODIFICAR LA CUENTA CONTABLE SELECCIONADA');
+        const ahora = dayjs(); // si usas dayjs
+        mostrarUltimaAccion(`Editó la cuenta contable "${data.cuenta_numero}"`, ahora.toISOString());
+    });  
+    $('#modalCuenta').modal('show');
 }
-$('#marca_form').on('reset', function () {
+function eliminarcuenta(cuenta_id) {
+    $.post("../../controller/cuenta.php?op=mostrar", { cuenta_id }, function (data) {
+        data = JSON.parse(data);
+        const cuenta_numero = data.cuenta_numero;
+
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡Esta acción no se puede deshacer!",
+            imageUrl: '../../static/gif/advertencia.gif',
+            imageWidth: 100,
+            imageHeight: 100,
+            showCancelButton: true,
+            confirmButtonText: 'Sí, eliminarlo',
+            confirmButtonColor: 'rgb(243, 18, 18)',
+            cancelButtonColor: '#000',
+            didOpen: () => {
+                const bar = document.createElement('div');
+                bar.id = 'top-progress-bar';
+                bar.style.cssText = `position:absolute;top:0;left:0;height:5px;width:0%;background-color:rgb(243, 18, 18);transition:width 0.4s ease;`;
+                Swal.getPopup().appendChild(bar);
+                setTimeout(() => { bar.style.width = '40%'; }, 300);
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '../../controller/cuenta.php?op=eliminar',
+                    type: 'POST',
+                    data: { cuenta_id },
+                    success: function () {
+                        $('#cuenta_data').DataTable().ajax.reload();
+                        mostrarUltimaAccion(`Eliminó la cuenta contable "${cuenta_numero}"`, dayjs().toISOString());
+
+                        Swal.fire({
+                            title: '¡Eliminado!',
+                            html: `<p>La cuenta contable <strong>${cuenta_numero}</strong> ha sido eliminada correctamente.</p>
+                            <div id="top-progress-bar-final" style="position:absolute;top:0;left:0;height:5px;width:0%;background-color:rgb(243, 18, 18);transition:width 0.6s ease;"></div>`,
+                            imageUrl: '../../static/gif/verified.gif',
+                            imageWidth: 100,
+                            imageHeight: 100,
+                            confirmButtonColor: 'rgb(243, 18, 18)',
+                            didOpen: () => {
+                                const bar = document.getElementById('top-progress-bar-final');
+                                setTimeout(() => { bar.style.width = '100%'; }, 100);
+                            }
+                        });
+                    },
+                    error: function () {
+                        Swal.fire('Error', 'No se pudo eliminar la cuenta contable.', 'error');
+                    }
+                });
+            }
+        });
+    });
+}
+
+$('#cuenta_form').on('reset', function () {
   setTimeout(function () {
-    $('#marca_nom').removeClass('is-valid is-invalid');
+    $('#cuenta_numero').removeClass('is-valid is-invalid');
     $('#errorNombre').removeClass('active');
   }, 0);
 });
-
-
-function nuevamarca(){
-  $('#marca_nom').val(''); 
-  $('#marca_form')[0].reset();
-  $('#marca_nom').removeClass('is-valid is-invalid');
+function nuevacuenta(){
+  $('#cuenta_numero').val(''); 
+  $('#cuenta_form')[0].reset();
+  $('#cuenta_numero').removeClass('is-valid is-invalid');
   $('#errorNombre').removeClass('active');
-  $('#lbltitulo').html('<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-screen-share ms-3"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M21 12v3a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-10a1 1 0 0 1 1 -1h9" /><path d="M7 20l10 0" /><path d="M9 16l0 4" /><path d="M15 16l0 4" /><path d="M17 4h4v4" /><path d="M16 9l5 -5" /></svg> REGISTRAR NUEVA MARCA');
-  $('#lblsubtitulo').html(' POR FAVOR, COMPLETE LOS DATOS DE LA MARCA A REGISTRAR');
-  $('#modalMarca').modal('show');
+  $('#lbltitulo').html('<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-screen-share ms-3"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M21 12v3a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-10a1 1 0 0 1 1 -1h9" /><path d="M7 20l10 0" /><path d="M9 16l0 4" /><path d="M15 16l0 4" /><path d="M17 4h4v4" /><path d="M16 9l5 -5" /></svg> REGISTRAR NUEVA CUENTA CONTABLE');
+  $('#lblsubtitulo').html(' POR FAVOR, COMPLETE LOS DATOS DE LA CUENTA CONTABLE A REGISTRAR');
+  $('#modalCuenta').modal('show');
   idsSeleccionados.clear();
-  $('.marca-checkbox').prop('checked', false);
-  $('#marca_id_all').prop('checked', false);
+  $('.cuenta-checkbox').prop('checked', false);
+  $('#cuenta_id_all').prop('checked', false);
   actualizarContadorSeleccionados();
 }
-initmarca();
+initcuenta();

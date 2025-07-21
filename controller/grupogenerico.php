@@ -188,8 +188,7 @@ switch ($_GET["op"]){
             "aaData" => $data
         );
         echo json_encode($results);
-    break;
-    
+         break;
     case "listar_gg_clase":
         $datos = $grupogenerico->get_clase_modal($_POST["gg_id"]);
         $data = array();

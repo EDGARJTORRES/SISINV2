@@ -6,7 +6,7 @@ class Documento extends Conectar {
         $sql = "SELECT 
                     d.doc_id,
                     d.doc_tipo,
-                    dp.depe_denominacion,
+                    dp.depe_denominacion || ' - ' || dp.depe_direccion AS depe_info,
                     d.doc_desc,
                     d.fecha_carga,
                     d.doc_ruta,

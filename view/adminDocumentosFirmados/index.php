@@ -89,7 +89,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                             <th>Tipo</th>
                             <th>Área</th>
                             <th>Usuario</th>
-                            <th>Descripción</th>
+                            <th>Codigos Patrimoniales</th>
                             <th>Fecha</th>
                             <th>Acciones</th>
                           </tr>

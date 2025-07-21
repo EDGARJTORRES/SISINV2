@@ -37,8 +37,8 @@
 
                           <!-- Descripción -->
                           <div class="col-12 mt-2">
-                          <label class="form-label">Descripción <span class="text-danger">*</span></label>
-                          <textarea class="form-control" name="doc_desc" id="doc_desc" placeholder="Ej. Formato firmado por oficina de logística"></textarea>
+                          <label class="form-label">Código Patrimoniales <span class="text-danger">*</span></label>
+                          <textarea class="form-control" name="doc_desc" id="doc_desc" placeholder="Ej. 53220652-0011 , 78515535-0020 "></textarea>
                           </div>
                           <div class="col-12 mt-2">
                             <label class="form-label">Archivo PDF <span class="text-danger">*</span></label>

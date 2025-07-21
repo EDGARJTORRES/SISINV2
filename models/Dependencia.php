@@ -56,7 +56,7 @@
         public function get_dependencia_datos(){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="SELECT td.depe_id, td.depe_denominacion || ' - ' || tblm.lomu_denominacion AS denominacion_concatenada
+            $sql="SELECT td.depe_id, td.depe_denominacion || ' - ' || tblm.lomu_denominacion || ' - ' || td.depe_direccion AS denominacion_concatenada
             FROM tb_dependencia td
             INNER JOIN sc_escalafon.tb_local_municipal tblm ON td.lomu_id = tblm.lomu_id
 			where td.nior_id in(1,2,3,4,5)
