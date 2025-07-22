@@ -107,11 +107,11 @@ if (isset($_SESSION["usua_id_siin"])) {
                               <th><input type="checkbox" id="gb_id_all"> </th>
                               <th><span title="Codigo de Barras">Cod Barras</span></th>
                               <th><span title="Denominacion del bien">Denominacion</span></th>
-                              <th><span title="Fecha Registro">Fecha</span></th>
+                              <th><span title="Fecha de Adquision del Bien">Fecha</span></th>
                               <th><span title="Codigo del Grupo Generico">Grupo</span></th>
                               <th><span title="Código de la clase">Clase</span></th>
                               <th><span title="Estado del bien"></span>Estado</th>
-                              <th><span title="Procedencia del Bien">N° Serie.</span></th>
+                              <th><span title="Cuenta Contable del Bien">Cuenta Cont.</span></th>
                               <th><span title="Valor Adquision del bien">Valor Adq.</span></th>
                               <th></th>
                             </tr>

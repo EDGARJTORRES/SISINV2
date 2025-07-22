@@ -154,7 +154,7 @@ if (isset($_SESSION["usua_id_siin"])) {
     <?php require_once("../html/mainjs.php"); ?>
     <?php require_once("modalBaja.php"); ?>
     <?php require_once("modalHistorial.php"); ?>
-    <script type="text/javascript" src="adminMntDedendencias.js"></script>
+    <script type="text/javascript" src="adminMntDependencias.js"></script>
     <script type="text/javascript" src="dependencias.js"></script>
     <script type="text/javascript" src="historial.js"></script>
 </body>

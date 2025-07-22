@@ -86,8 +86,8 @@ if (isset($_SESSION["usua_id_siin"])) {
     <?php require_once("../html/footer.php"); ?>
     <?php require_once("../html/mainjs.php"); ?>
     <script type="text/javascript" src="consultar.js"></script>
-    <script type="text/javascript" src="camara.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>
+    <script type="text/javascript" src="camara.js"></script>
 </body>
 </html>
 <?php

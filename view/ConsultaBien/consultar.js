@@ -80,7 +80,6 @@ function buscarBien() {
 
   $("#cod_bar").val("");
 }
-
 function mostrarDatosObjeto(data, nombresColores) {
 const contenedor = document.querySelector(".respuesta");
 
@@ -264,7 +263,6 @@ rowDependencia.innerHTML = `
   mainContainer.appendChild(colDatos);
   contenedor.appendChild(mainContainer);
 }
-
 function obtenerColorPorEstado(estado) {
   switch (estado) {
     case "Nuevo":
@@ -277,7 +275,6 @@ function obtenerColorPorEstado(estado) {
       return "#fa5252"; // Tabler red
   }
 }
-
 function obtenerColor2PorEstado(estado) {
   switch (estado) {
     case "Nuevo":
@@ -290,8 +287,6 @@ function obtenerColor2PorEstado(estado) {
       return "#ffe3e3"; 
   }
 }
-
-
 function get_color_string(color_id, callback) {
   $.post(
     "../../controller/objeto.php?op=get_color",

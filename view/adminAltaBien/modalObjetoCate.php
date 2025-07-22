@@ -133,16 +133,16 @@
                         <div class="col-lg-3">
                             <label class="form-label">Fecha de Adquisición <span class="text-danger">*</span></label>
                             <div class="input-group" >
-                                <input id="fecharegistro" name ="fecharegistro" type="text" class="form-control" placeholder="Año/Mes/Dia">
+                                <input id="fecharegistro" name ="fecharegistro" type="text" class="form-control" placeholder="Dia/mes/año">
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <label class="form-label">Valor de Adquisición <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="val_adq" name="val_adq" placeholder="Ej: S/ 1,200.00" required>
+                            <input type="text" class="form-control" id="val_adq" name="val_adq" placeholder="Ej: S/ 1,200.00">
                         </div>
                         <div class="col-lg-3">
                             <label class="form-label">N° Doc. Adquisición <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="doc_adq" name="doc_adq" placeholder="Ej: NEA 2001, O/C 716" required>
+                            <input type="text" class="form-control" id="doc_adq" name="doc_adq" placeholder="Ej: NEA 2001, O/C 716">
 
                         </div>
                         <div class="col-lg-3">

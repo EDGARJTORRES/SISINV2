@@ -11,14 +11,8 @@
   });
   document.getElementById('btnCancelar').addEventListener('click', function () {
   const form = document.getElementById('documento_form');
-  
-  // Limpiar inputs y textarea
   form.reset();
-
-  // Resetear selects tipo select2
   $(form).find('select.select2').val(null).trigger('change');
-
-  // Limpiar contenido visual del área de carga
   document.getElementById('upload_content').innerHTML = `
     <span class="upload-area-icon">
       <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 340.531 419.116">
@@ -32,15 +26,11 @@
       Solo se permiten archivos PDF firmados.<br /><strong>Clic Aqui</strong>
     </span>
   `;
-
-  // Limpiar input file
   const fileInput = document.getElementById('archivo_pdf');
   fileInput.value = "";
 });
 
 $(document).ready(function () {
-
-  // Cargar combo de dependencias (área)
   $.post("../../controller/dependencia.php?op=combo", function (data) {
     $("#area_asignacion_combo").html(data).select2({
       dropdownParent: $("#modalRegistrar"),
@@ -48,8 +38,6 @@ $(document).ready(function () {
       width: '100%'
     });
   });
-
-  // Cargar combo de usuarios (persona)
   $.post("../../controller/persona.php?op=combo", function (data) {
     $("#usuario_combo").html(data).select2({
       dropdownParent: $("#modalRegistrar"),
@@ -57,16 +45,13 @@ $(document).ready(function () {
       width: '100%'
     });
   });
-
 });
-
-  function verDocumento(rutaRelativa) {
-    const baseUrl = window.location.origin + '/SISINV2/';
-    const url = baseUrl + rutaRelativa.replace(/^doc\//, 'doc/'); // asegura que no tenga doble slash
-    document.getElementById("documento-preview").innerHTML = `
-        <iframe src="${url}" width="100%" height="600px" frameborder="0"></iframe>
-    `;
-
-    const modal = new bootstrap.Modal(document.getElementById('modalVerDocumento'));
-    modal.show();
+function verDocumento(rutaRelativa) {
+  const baseUrl = window.location.origin + '/SISINV2/';
+  const url = baseUrl + rutaRelativa.replace(/^doc\//, 'doc/');
+  document.getElementById("documento-preview").innerHTML = `
+      <iframe src="${url}" width="100%" height="600px" frameborder="0"></iframe>
+  `;
+  const modal = new bootstrap.Modal(document.getElementById('modalVerDocumento'));
+  modal.show();
 }

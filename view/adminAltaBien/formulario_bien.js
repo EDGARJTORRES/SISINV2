@@ -27,7 +27,6 @@ function nuevoBien() {
   $.post("../../controller/objeto.php?op=combo_objetos_todos", function (objetos) {
     $("#combo_obj_bien").html(objetos);
   });
-
   $("#bien_id").val("");
   $("#modalObjetoCate").modal("show");
 }
@@ -38,12 +37,10 @@ function editarBien(bien_id) {
   $("#contenedor_caracteristicas .extra-campo").remove();
   $("#contenedor_adquisicion .extra-campo").remove();
   $("#cod_interno").prop("readonly", true);
-
   $("#cantidad_bienes")
     .val(1)
     .prop("readonly", false)
     .attr("disabled", true);
-
   $.post("../../controller/objeto.php?op=mostrar_bien_id", { bien_id }, function (data) {
     let bienData;
     try {
@@ -52,13 +49,10 @@ function editarBien(bien_id) {
       Swal.fire("Error", "Respuesta inválida del servidor.", "error");
       return;
     }
-
     if (!bienData || !bienData.bien_id) {
       Swal.fire("Error", "No se encontró el bien.", "error");
       return;
     }
-
-    // Rellenar formulario
     $("#bien_id").val(bienData.bien_id);
     $("#obj_id").val(bienData.obj_id);
     $("#fecharegistro").val(bienData.fecharegistro);
@@ -70,13 +64,13 @@ function editarBien(bien_id) {
     $("#doc_adq").val(bienData.doc_adq);
     $("#bien_obs").val(bienData.bien_obs);
     $("#procedencia").val(bienData.procedencia).trigger("change");
-    $("#bien_cuenta").val(bienData.bien_cuenta);
+    $.post("../../controller/cuenta.php?op=combo", function (data) {
+      $("#bien_cuenta").html(data);
+      $("#bien_cuenta").val(bienData.bien_cuenta).trigger("change");
+    });
     generarCodigoBarras(bienData.bien_codbarras);
-
     const colorArray = bienData.bien_color ? bienData.bien_color.replace(/[{}"]/g, "").split(",") : [];
     $("#combo_color_bien").val(colorArray).trigger("change");
-
-    // Carga de combos anidados
     $("#combo_gg_bien_obj").val(bienData.gg_id).trigger("change");
     $.post("../../controller/clase.php?op=combo", { gg_id: bienData.gg_id }, function (clases) {
       $("#combo_clase_bien_obj").html(clases);

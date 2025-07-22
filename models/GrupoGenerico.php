@@ -79,7 +79,7 @@
                         tbb.fecharegistro, 
                         tbb.bien_codbarras, 
                         tbb.bien_est,
-                        tbb.bien_numserie, 
+                        tcc.cuenta_numero, 
                         tbb.val_adq, 
                         tc.clase_cod, 
                         gg.gg_cod,
@@ -93,6 +93,7 @@
                     INNER JOIN sc_inventario.tb_clase tc ON gc.clase_id = tc.clase_id
                     INNER JOIN sc_inventario.tb_grupogenerico gg ON gc.gg_id = gg.gg_id
                     LEFT JOIN sc_inventario.tb_bien_dependencia tbd ON tbb.bien_id = tbd.bien_id
+                    LEFT JOIN sc_inventario.tb_cuenta_contable tcc ON tcc.cuenta_id = tbb.bien_cuenta
                     WHERE tbb.bien_est NOT IN ('I', 'E')
                     ORDER BY tbb.bien_id DESC;";
 

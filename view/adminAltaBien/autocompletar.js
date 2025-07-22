@@ -1,7 +1,6 @@
 $(document).ready(function () {
   $("#spinner").hide();
-  $("#fecharegistro").mask("9999/99/99");
-
+  $("#fecharegistro").mask("99/99/9999");
   $(".select2").select2();
 
   $("#combo_modelo_obj").select2({
