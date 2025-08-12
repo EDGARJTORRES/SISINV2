@@ -1,7 +1,6 @@
 
 var usu_id = $('#usu_idx').val();
 let table;
-
 $(document).ready(function () {
     mostrarAlertaCarga();
     table = $('#documento_data').DataTable({
@@ -102,8 +101,6 @@ $(document).ready(function () {
         table.draw();
     });
 });
-
-// Mostrar/ocultar loader general
 function mostrarLoader() {
     const loader = document.getElementById('page');
     loader.style.visibility = 'visible';
@@ -116,16 +113,12 @@ function ocultarLoader() {
     loader.style.opacity = '0';
     loader.style.pointerEvents = 'none';
 }
-
-// Alerta de carga (específica)
 function mostrarAlertaCarga() {
     document.getElementById('alerta-carga').style.display = 'block';
 }
 function ocultarAlertaCarga() {
     document.getElementById('alerta-carga').style.display = 'none';
 }
-
-// Inicializar evento de formulario
 function initdocumento() {
     const form = document.getElementById('documento_form');
     if (form) {
@@ -135,8 +128,6 @@ function initdocumento() {
         });
     }
 }
-
-// Limpiar todos los filtros
 function limpiarFiltros() {
     $('#fecha_inicio').val('');
     $('#fecha_fin').val('');
@@ -146,7 +137,6 @@ function limpiarFiltros() {
     table.search('');
     table.draw();
 }
-
 function editarDocumento(doc_id) {
   $.post("../../controller/documento.php?op=mostrar", { doc_id: doc_id }, function (data) {
     data = JSON.parse(data);
@@ -187,7 +177,6 @@ function editarDocumento(doc_id) {
     $('#modalRegistrar').modal('show');
   });
 }
-
 function eliminarDocumento(doc_id) {
     Swal.fire({
         title: '¿Estás seguro?',
@@ -332,7 +321,6 @@ function guardaryeditar() {
     }
   });
 }
-
 function nuevoregistro() {
   const form = document.getElementById('documento_form');
   form.reset();
@@ -367,5 +355,4 @@ function nuevoregistro() {
   // Mostrar modal
   $('#modalRegistrar').modal('show');
 }
-
 initdocumento();

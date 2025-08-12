@@ -5,17 +5,17 @@ if (isset($_SESSION["usua_id_siin"])) {
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <?php require_once("../html/mainHead.php"); ?>
-    <title>MPCH::AltaBienes</title>
-    <link href="../../public/css/estiloselect.css" rel="stylesheet"/>
-    <link href="../../public/css/botones.css" rel="stylesheet"/>
-    <link href="../../public/css/Breadcrumb.css" rel="stylesheet"/>
-    <link href="../../public/css/alerta.css" rel="stylesheet"/>
-    <link href="../../public/css/loader.css" rel="stylesheet"/>
-    <link href="../../public/css/alta.css" rel="stylesheet"/>
-    <link href="../../public/css/iconos.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  </head>
+  <?php require_once("../html/mainHead.php"); ?>
+  <title>MPCH::AltaBienes</title>
+  <link href="../../public/css/estiloselect.css" rel="stylesheet"/>
+  <link href="../../public/css/botones.css" rel="stylesheet"/>
+  <link href="../../public/css/Breadcrumb.css" rel="stylesheet"/>
+  <link href="../../public/css/alerta.css" rel="stylesheet"/>
+  <link href="../../public/css/loader.css" rel="stylesheet"/>
+  <link href="../../public/css/alta.css" rel="stylesheet"/>
+  <link href="../../public/css/iconos.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
 <body>
     <?php require_once("../html/mainProfile.php"); ?>
      <div class="page-wrapper">
@@ -156,7 +156,7 @@ if (isset($_SESSION["usua_id_siin"])) {
       </div>
     </div>
     <?php require_once("../html/footer.php"); ?>
-    <?php require_once("../html/mainjs.php"); ?>
+    <?php require_once("../html/mainJs.php"); ?>
     <?php require_once("modalObjetoCate.php"); ?>
     <script type="text/javascript" src="autocompletar.js"></script>
     <script type="text/javascript" src="dinamico_bien.js"></script>

@@ -1,4 +1,3 @@
-
 var usu_id = $('#usu_idx').val();
 function initcuenta(){
     $("#cuenta_form").on("submit",function(e){
@@ -197,9 +196,7 @@ $(document).ready(function () {
             }
         },
     });
-    
     table.buttons().container().appendTo('#contenedor-excel'); 
-
     $('#cantidad_registros').on('input change', function () {
         let val = parseInt($(this).val());
         if (isNaN(val) || val < 1) {

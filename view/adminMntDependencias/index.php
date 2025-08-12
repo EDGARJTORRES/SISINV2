@@ -90,7 +90,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                         </div>
                         <div class="row mb-2">
                           <div class="col-md-12 d-grid mt-1">
-                            <button class="btn btn-6 btn-outline-dark" onclick="limpiarFiltros()">
+                            <button class="btn btn-6 btn-outline-secundary" onclick="limpiarFiltros()">
                               <i class="fa-solid fa-eraser m-2"></i> LIMPIAR FILTROS
                             </button>
                           </div>
@@ -150,8 +150,8 @@ if (isset($_SESSION["usua_id_siin"])) {
         </div>
       </div>
     </div>
-     <?php require_once("../html/footer.php"); ?>
-    <?php require_once("../html/mainjs.php"); ?>
+    <?php require_once("../html/footer.php"); ?>
+    <?php require_once("../html/mainJs.php"); ?>
     <?php require_once("modalBaja.php"); ?>
     <?php require_once("modalHistorial.php"); ?>
     <script type="text/javascript" src="adminMntDependencias.js"></script>

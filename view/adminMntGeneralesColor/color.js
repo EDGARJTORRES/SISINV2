@@ -1,6 +1,4 @@
-
 var usu_id = $('#usu_idx').val();
-
 function initcolor(){
     $("#color_form").on("submit",function(e){
     e.preventDefault();
@@ -11,7 +9,6 @@ function initcolor(){
        guardaryeditarclase(); 
         }
     });
-    // Validación en tiempo real
     $('#color_nom').on('input', function() {
         validarInput(this, document.getElementById('errorNombre'));
     });
@@ -31,7 +28,7 @@ function validarInput(input, errorDiv) {
   }
 }
 
-function guardaryeditarclase(){
+function guardaryeditarcolor(){
     var formData = new FormData($("#color_form")[0]);
     $.ajax({
         url: "../../controller/color.php?op=guardaryeditar",
@@ -41,7 +38,7 @@ function guardaryeditarclase(){
         processData: false,
         success: function(data){
             $('#color_data').DataTable().ajax.reload();
-            $('#modalColor').modal('hide');
+            $('#modalcolor').modal('hide');
             Swal.fire({
                 title: '¡Correcto!',
                 text: 'Se registró correctamente.',
@@ -201,7 +198,6 @@ $(document).ready(function () {
     }
   });
   table.buttons().container().appendTo('#contenedor-excel');
-  // Resto de tus eventos personalizados
   $('#cantidad_registros').on('input change', function () {
     let val = parseInt($(this).val());
     if (isNaN(val) || val < 1) val = 1;
@@ -214,8 +210,8 @@ $(document).ready(function () {
     table.search(this.value).draw();
   });
 
-  $('#clase_id_all').on('change', function () {
-    $('.clase-checkbox').prop('checked', $(this).is(':checked'));
+  $('#color_id_all').on('change', function () {
+    $('.color-checkbox').prop('checked', $(this).is(':checked'));
   });
 
 });
@@ -267,14 +263,12 @@ $(document).on('change', '.color-checkbox', function () {
     actualizarContadorSeleccionados();
   });
 
-  // Al cambiar de página en DataTables, volver a marcar los checkboxes seleccionados
   $('#color_data').on('draw.dt', function () {
     $('.color-checkbox').each(function () {
       const id = $(this).data('id');
       $(this).prop('checked', idsSeleccionados.has(id));
     });
 
-    // Si todos están seleccionados en la página actual, marcar también el "gg_id_all"
     const allChecked = $('.color-checkbox').length > 0 && $('.color-checkbox').length === $('.color-checkbox:checked').length;
     $('#color_id_all').prop('checked', allChecked);
 
@@ -387,12 +381,18 @@ function editarcolor(color_id){
         $('#color_id').val(data.color_id);
         $('#color_nom').val(data.color_nom);
         $('#lbltitulo').html('<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-mood-edit"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20.955 11.104a9 9 0 1 0 -9.895 9.847" /><path d="M9 10h.01" /><path d="M15 10h.01" /><path d="M9.5 15c.658 .672 1.56 1 2.5 1c.126 0 .251 -.006 .376 -.018" /><path d="M18.42 15.61a2.1 2.1 0 0 1 2.97 2.97l-3.39 3.42h-3v-3l3.42 -3.39z" /></svg> EDITAR COLOR REGISTRADO');
+        $('#lblsubtitulo').html('MODIFICAR EL COLOR SELECCIONADO');
+        const ahora = dayjs(); // si usas dayjs
+        mostrarUltimaAccion(`Editó el color "${data.color_nom}"`, ahora.toISOString());
     });
    
     $('#modalColor').modal('show');
 }
 
 function eliminarcolor(color_id) {
+  $.post("../../controller/color.php?op=mostrar",{color_id : color_id}, function (data) {
+        data = JSON.parse(data);
+        const color_nom = data.color_nom;
     Swal.fire({
         title: '¿Estás seguro?',
         text: "¡Esta acción no se puede deshacer!",
@@ -428,13 +428,14 @@ function eliminarcolor(color_id) {
             $.ajax({
               url: '../../controller/color.php?op=eliminar',
                 type: 'POST',
-               data: {color : color_id},
+                data: { ids: [color_id] },
                 success: function (response) {
                    $('#color_data').DataTable().ajax.reload();
+                    mostrarUltimaAccion(`Eliminó el color "${color_nom}"`, dayjs().toISOString());
                     Swal.fire({
                         title: '¡Eliminado!',
                         html: `
-                            <p>El color ha sido eliminado correctamente.</p>
+                            <p>El color <strong> ${color_nom} </strong>ha sido eliminado correctamente.</p>
                             <div id="top-progress-bar-final" style="
                                 position: absolute;
                                 top: 0;
@@ -459,13 +460,15 @@ function eliminarcolor(color_id) {
                         }
                     });
                 },
-                error: function () {
-                    Swal.fire('Error', 'No se pudo eliminar el usuario.', 'error');
-                }
-            });
-        }
+               error: function () {
+                        Swal.fire('Error', 'No se pudo eliminar el color.', 'error');
+                    }
+                });
+            }
+        });
     });
 }
+
 
 $('#color_form').on('reset', function () {
   setTimeout(function () {

@@ -63,6 +63,24 @@
                 return null; 
             }
         }
+        public function get_todos_bienes() {
+            try {
+                $conectar = parent::conexion();
+                parent::set_names();
+                $sql = "SELECT 
+                            b.bien_id,
+                            b.bien_codbarras,
+                            o.obj_nombre 
+                        FROM sc_inventario.tb_bien b 
+                        LEFT JOIN sc_inventario.tb_objeto o ON o.obj_id = b.obj_id"; 
+                $stmt = $conectar->prepare($sql);
+                $stmt->execute();
+                return $stmt->fetchAll();
+            } catch (Exception $e) {
+                echo "Error en la consulta: " . $e->getMessage();
+                return null;
+            }
+        }
 
     }
     

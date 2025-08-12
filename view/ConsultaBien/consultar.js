@@ -266,7 +266,7 @@ rowDependencia.innerHTML = `
 function obtenerColorPorEstado(estado) {
   switch (estado) {
     case "Nuevo":
-      return "#228be6"; // Tabler blue
+      return "#5f015aff"; // Tabler blue
     case "Bueno":
       return "#82c91e"; // Tabler lime
     case "Regular":

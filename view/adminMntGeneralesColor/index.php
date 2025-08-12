@@ -162,8 +162,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                                             <tr>
                                                 <th><input type="checkbox" id="color_id_all"> </th>
                                                 <th>Color</th>
-                                                <th>EDITAR</th>
-                                                <th>ELIMINAR</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -190,13 +189,12 @@ if (isset($_SESSION["usua_id_siin"])) {
                     <p class="title">Cargando colores... :)</p>
                     <p class="description">Espere mientras se obtienen los datos.</p>
                 </div>
-
             </div>
         </div>
     </div>
     <?php require_once("../html/footer.php"); ?>
-    <?php require_once("../html/mainjs.php"); ?>
-    <?php require_once("modalColor.php"); ?>
+    <?php require_once("../html/mainJs.php"); ?>
+    <?php require_once("modalcolor.php"); ?>
     <script type="text/javascript" src="color.js"></script>
     <script type="text/javascript" src="acciones.js"></script>
 </body>

@@ -132,10 +132,10 @@ if (isset($_SESSION["usua_id_siin"])) {
         </div>
     </div>
   </div>
-  <?php require_once("modalVerDocumento.php"); ?>
-   <?php require_once("modalregistrar.php"); ?>
   <?php require_once("../html/footer.php"); ?>
-  <?php require_once("../html/mainjs.php"); ?>
+  <?php require_once("../html/mainJs.php"); ?>
+  <?php require_once("modalVerDocumento.php"); ?>
+  <?php require_once("modalregistrar.php"); ?>
   <script type="text/javascript" src="carga.js"></script>
   <script type="text/javascript" src="documento.js"></script>
   <script type="text/javascript" src="arrastrar.js"></script>

@@ -59,7 +59,4 @@ class Documento extends Conectar {
         $stmt->execute([$doc_id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-
-
-
 }

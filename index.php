@@ -75,7 +75,7 @@ if (isset($_POST["enviar"]) and $_POST["enviar"] == "si") {
             position: relative;
             z-index: 1;
             background: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;
             border-radius: 10px;
             }
         </style>
@@ -98,7 +98,7 @@ if (isset($_POST["enviar"]) and $_POST["enviar"] == "si") {
 
                     </div>
                 </div>
-                <div class="card card-md" style="border-radius: 0 0 5px 5px; width: 400px;">
+                <div class="card  border-0  card-md" style="border-radius: 0 0 5px 5px; width: 400px;">
                     <div class="card-body" style="padding-top: 20px;">
                         <div style="display: flex;justify-content: flex-end;">
                             <img src="./static/illustrations/HeadChiclayo.png" width="110" height="32" alt="Tabler" class="navbar-brand-image">

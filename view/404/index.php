@@ -1,9 +1,9 @@
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <?php require_once '../html/MainHead.php';?>
+    <?php require_once("../html/mainHead.php"); ?>
     <title>Page 404 </title>
     <style>
       @import url('https://rsms.me/inter/inter.css');

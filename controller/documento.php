@@ -6,26 +6,22 @@ $bitacora = new Bitacora();
 $documento = new Documento();
 switch ($_GET["op"]) {
     case "guardaryeditar":
-        // Procesar archivo PDF si se ha enviado
         if (isset($_FILES['archivo_pdf']['name']) && !empty($_FILES['archivo_pdf']['name'])) {
             $nombre_archivo = $_FILES['archivo_pdf']['name'];
             $temp_archivo = $_FILES['archivo_pdf']['tmp_name'];
 
-            // Ruta destino final: doc/ + nombre original
             $ruta_destino = "../doc/" . $nombre_archivo;
             $ruta_db = "doc/" . $nombre_archivo; // Esto se guarda en doc_ruta
 
-            // Mover el archivo
             if (!move_uploaded_file($temp_archivo, $ruta_destino)) {
                 echo json_encode(['status' => 'error', 'mensaje' => 'No se pudo subir el archivo']);
                 exit();
             }
         } else {
-            // Si no hay archivo nuevo, usar el valor actual de doc_ruta (en caso de edición)
+          
             $ruta_db = $_POST['doc_ruta'];
         }
 
-        // Lógica de inserción o actualización
         if (empty($_POST["doc_id"])) {
             $documento->insert_documento(
                 $_POST["doc_tipo"],

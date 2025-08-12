@@ -36,8 +36,16 @@ switch ($_GET["op"]) {
         break;
 
     case "eliminar":
-        $color->delete_color($_POST["color_id"]);
-        $bitacora->update_bitacora($_SESSION["usua_id_siin"]);
+        $ids = isset($_POST['ids']) ? $_POST['ids'] : [];
+        if (!empty($ids)) {
+            foreach ($ids as $id) {
+                $color->delete_color(intval($id));
+            }
+            $bitacora->update_bitacora($_SESSION["usua_id_siin"]);
+            echo json_encode(['status' => 'ok']);
+        } else {
+            echo json_encode(['status' => 'no_ids']);
+        }
         break;
     case "listar":
         $datos = $color->get_color();
@@ -57,21 +65,40 @@ switch ($_GET["op"]) {
                 </span>
             </label>';
             $sub_array[] = $row["color_nom"];
-            $sub_array[] = '<button type="button" onClick="editarcolor(' . $row["color_id"] . ');"  id="' . $row["color_id"] . '" class="btn bg-warning text-light"  style="width: 40px; height: 40px; padding: 0;">
-                                <svg  style="transform: translateX(5px);"  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
-                                    <path  stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                    <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
-                                    <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
-                                    <path d="M16 5l3 3" />
-                                </svg>
-                            </button>';
-            $sub_array[] = '<button type="button" onClick="eliminarcolor(' . $row["color_id"] . ');"  id="' . $row["color_id"] . ' " class="btn bg-danger text-light " style="width: 40px; height: 40px; padding: 0;">
-                                <svg style="transform: translateX(5px);" xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-backspace">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                    <path d="M20 6a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-11l-5 -5a1.5 1.5 0 0 1 0 -2l5 -5z" />
-                                    <path d="M12 10l4 4m0 -4l-4 4" />
-                                </svg>
-                            </button>';
+            $sub_array[] = '
+            <div class="dropdown">
+            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                </svg> Acciones
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="dropdown-item d-flex align-items-center gap-2 text-warning" href="#" onClick="editarcolor(' . $row["color_id"] . ');">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icon-tabler-edit">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+                    <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+                    <path d="M16 5l3 3" />
+                    </svg>
+                    Editar
+                </a>
+                </li>
+                <li>
+                <a class="dropdown-item d-flex align-items-center gap-2 text-danger" href="#" onClick="eliminarcolor(' . $row["color_id"] . ');" >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icon-tabler-backspace">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M20 6a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-11l-5 -5a1.5 1.5 0 0 1 0 -2l5 -5z" />
+                    <path d="M12 10l4 4m0 -4l-4 4" />
+                    </svg>
+                    Eliminar
+                </a>
+                </li>
+            </ul>
+            </div>
+            ';
             $data[] = $sub_array;
         }
 

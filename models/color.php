@@ -44,7 +44,7 @@ class Color extends Conectar
     {
         $conectar = parent::conexion();
         parent::set_names();
-        $sql = "SELECT * FROM tb_color WHERE color_est = 1 order by color_id asc";
+        $sql = "SELECT * FROM public.tb_color WHERE color_est = 1 order by color_id asc";
         $sql = $conectar->prepare($sql);
         $sql->execute();
         return $resultado = $sql->fetchAll();
