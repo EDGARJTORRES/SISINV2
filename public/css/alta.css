@@ -40,6 +40,7 @@
       .lock-body {
           width: 15px;
       }
+      
       #lock:checked+.lock-label .lock-wrapper .shackle {
           transform: rotateY(150deg) translateX(3px);
           transform-origin: right;
@@ -177,4 +178,18 @@
     }
     #contenedor-excel {
       display: inline-block;
+    }
+    .btn-izquierdo{
+    box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    }
+    .btn-derecho{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    margin-left: -7px;
     }

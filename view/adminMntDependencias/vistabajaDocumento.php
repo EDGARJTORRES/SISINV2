@@ -6,6 +6,10 @@ if (isset($_SESSION["usua_id_siin"])) {
     $dependencia = new Dependencia();
     $bien_id = isset($_GET['bien_id']) ? $_GET['bien_id'] : 0;
     $datos = $dependencia->obtenerBienBajaPorId($bien_id);
+    if (!$datos) {
+        header("Location: http://10.10.10.16/SISINV2/view/404/");
+        exit;
+    }
     $fecha_baja = new DateTime(substr($datos["fecha_baja"], 0, 10));
     $fecha_creacion = new DateTime(substr($datos["fechacrea"], 0, 10));
     $intervalo = $fecha_creacion->diff($fecha_baja);

@@ -130,4 +130,27 @@ class Bien extends Conectar {
         $stmt->execute();
         return $stmt->fetchAll();
     }
+    public function get_bien_detalle(){
+         {
+            $conectar = parent::conexion();
+            parent::set_names();
+            $sql = "SELECT DISTINCT 
+                b.bien_id,
+                b.bien_codbarras, 
+                o.obj_nombre, 
+                m.marca_nom, 
+                md.modelo_nom
+            FROM sc_inventario.tb_bien b
+            JOIN sc_inventario.tb_objeto o ON b.obj_id = o.obj_id
+            JOIN sc_inventario.tb_modelo md ON b.modelo_id = md.modelo_id
+            JOIN sc_inventario.tb_marca m ON md.marca_id = m.marca_id
+            WHERE b.bien_codbarras LIKE '6782%';";
+
+            $stmt = $conectar->prepare($sql);
+            $stmt->execute();
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+    }
 }
