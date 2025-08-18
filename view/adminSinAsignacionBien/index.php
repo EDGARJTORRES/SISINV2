@@ -28,12 +28,24 @@ if (isset($_SESSION["usua_id_siin"])) {
             <span>Bienes sin Asignacion</span>
           </nav>
           <div class="row g-2  mb-5 align-items-center">
-            <div class="col">
-              <button class="Btn" onclick="window.location.href = '../adminAsignacionBien/';">
-                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-back-up-double"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 14l-4 -4l4 -4" /><path d="M8 14l-4 -4l4 -4" /><path d="M9 10h7a4 4 0 1 1 0 8h-1" /></svg>
-                Regresar
-              </button>
+            <div class="col-auto">
+              <a href="../adminAsignacionBien/" class="btn btn-ghost-primary">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                      viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                      stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-left">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                      <path d="M5 12l14 0" />
+                      <path d="M5 12l6 6" />
+                      <path d="M5 12l6 -6" />
+                  </svg>
+                  Volver
+              </a>
             </div>
+            <div class="col">
+                <h2 class="page-title" style="border-left: 1px solid #000; padding-left: 8px;">
+                    INVENTARIO DE BIENES NO ASIGNADOS
+                </h2>
             </div>
             <div class="col-12 mb-3">
               <div class="card border-0" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">

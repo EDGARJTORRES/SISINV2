@@ -47,38 +47,43 @@ class Objeto extends Conectar
             }
         }
 
-    public function insert_registro_bien($fecharegistro, $obj_id, $modelo_id, $bien_numserie,    $bien_codbarras, $bien_color, $bien_dim,$procedencia, $val_adq, $doc_adq, $bien_obs,$bien_cuenta){
+    public function insert_registro_bien($fecharegistro, $obj_id, $modelo_id, $bien_numserie, $bien_codbarras, $bien_color, $bien_dim, $procedencia, $val_adq, $doc_adq, $bien_obs, $bien_cuenta) {
         $conectar = parent::conexion();
-        parent::set_names();
+                    parent::set_names();
         $sql = "INSERT INTO sc_inventario.tb_bien(
-                    fecharegistro, 
-                    obj_id, 
-                    modelo_id, 
-                    bien_numserie, 
-                    bien_codbarras, 
-                    bien_color, 
-                    bien_dim,
-                    procedencia,
-                    val_adq, 
-                    doc_adq, 
-                    bien_obs,
-                    bien_cuenta
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
-        $sql = $conectar->prepare($sql);
-        $sql->bindValue(1, $fecharegistro, PDO::PARAM_STR);
-        $sql->bindValue(2, $obj_id);
-        $sql->bindValue(3, $modelo_id);
-        $sql->bindValue(4, $bien_numserie, PDO::PARAM_STR);
-        $sql->bindValue(5, $bien_codbarras, PDO::PARAM_STR);
-        $sql->bindValue(6, $bien_color, PDO::PARAM_STR);
-        $sql->bindValue(7, $bien_dim, PDO::PARAM_STR);
-        $sql->bindValue(8, $procedencia, PDO::PARAM_STR);
-        $sql->bindValue(9, $val_adq);        
-        $sql->bindValue(10,$doc_adq, PDO::PARAM_STR);
-        $sql->bindValue(11,$bien_obs, PDO::PARAM_STR);
-        $sql->bindValue(12,$bien_cuenta, PDO::PARAM_STR);
-        $sql->execute();
-        return $resultado = $sql->fetchAll();
+                fecharegistro, 
+                obj_id, 
+                modelo_id, 
+                bien_numserie, 
+                bien_codbarras, 
+                bien_color, 
+                bien_dim,
+                procedencia,
+                val_adq, 
+                doc_adq, 
+                bien_obs,
+                bien_cuenta
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $stmt = $conectar->prepare($sql);
+            $stmt->bindValue(1, $fecharegistro, PDO::PARAM_STR);
+            $stmt->bindValue(2, $obj_id);
+            $stmt->bindValue(3, $modelo_id);
+            $stmt->bindValue(4, $bien_numserie, PDO::PARAM_STR);
+            $stmt->bindValue(5, $bien_codbarras, PDO::PARAM_STR);
+            $stmt->bindValue(6, $bien_color, PDO::PARAM_STR);
+            $stmt->bindValue(7, $bien_dim, PDO::PARAM_STR);
+            $stmt->bindValue(8, $procedencia, PDO::PARAM_STR);
+            $stmt->bindValue(9, $val_adq);        
+            $stmt->bindValue(10, $doc_adq, PDO::PARAM_STR);
+            $stmt->bindValue(11, $bien_obs, PDO::PARAM_STR);
+            $stmt->bindValue(12, $bien_cuenta, PDO::PARAM_STR);
+            $stmt->execute();
+            $bien_id = $conectar->lastInsertId();
+            $sqlDetalle = "INSERT INTO sc_inventario.tb_bien_detalle (bien_id) VALUES (?)";
+            $stmtDetalle = $conectar->prepare($sqlDetalle);
+            $stmtDetalle->bindValue(1, $bien_id, PDO::PARAM_INT);
+            $stmtDetalle->execute();
+            return $bien_id;
         }
     public function update_registro_bien(
         $bien_id,
@@ -149,7 +154,6 @@ class Objeto extends Conectar
     public function verificar_historial_bien($bien_id) {
         $conectar = parent::conexion();
         parent::set_names();
-
         $sql = "SELECT COUNT(*) AS total FROM sc_inventario.tb_bien_dependencia WHERE bien_id = ?";
         $stmt = $conectar->prepare($sql);
         $stmt->bindValue(1, $bien_id);

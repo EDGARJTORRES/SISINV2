@@ -7,9 +7,10 @@ if (isset($_SESSION["usua_id_siin"])) {
     $bien_id = isset($_GET['bien_id']) ? $_GET['bien_id'] : 0;
     $datos = $dependencia->obtenerBienBajaPorId($bien_id);
     if (!$datos) {
-        header("Location: http://10.10.10.16/SISINV2/view/404/");
-        exit;
-    }
+            header("Location: http://10.10.10.16/SISINV2/view/404/");
+            exit;
+        }
+  
     $fecha_baja = new DateTime(substr($datos["fecha_baja"], 0, 10));
     $fecha_creacion = new DateTime(substr($datos["fechacrea"], 0, 10));
     $intervalo = $fecha_creacion->diff($fecha_baja);
@@ -54,17 +55,27 @@ if (isset($_SESSION["usua_id_siin"])) {
                     <span>Formato de Baja de Bien</span>
                 </nav>
                 <div class="row align-items-center">
+                    <div class="col-auto">
+                        <a href="../adminMntDependencias/" class="btn btn-ghost-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-left">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M5 12l14 0" />
+                                <path d="M5 12l6 6" />
+                                <path d="M5 12l6 -6" />
+                            </svg>
+                            Volver
+                        </a>
+                    </div>
                     <div class="col">
-                        <h2 class="page-title">
-                        FORMATO DE BAJA DE BIEN PATRIMONIAL
+                        <h2 class="page-title" style="border-left: 1px solid #000; padding-left: 8px;">
+                            FORMATO DE BAJA DE BIEN PATRIMONIAL
                         </h2>
                     </div>
                     <div class="col-auto ms-auto d-print-none mb-3">
                         <div class="btn-list">
-                            <button class="Btn" onclick="window.location.href = '../adminMntDependencias/';">
-                                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-back-up-double"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 14l-4 -4l4 -4" /><path d="M8 14l-4 -4l4 -4" /><path d="M9 10h7a4 4 0 1 1 0 8h-1" /></svg>
-                                Regresar
-                            </button>
                             <button class="Btn" onclick="imprimirFormatoBaja()">
                                 <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-printer"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" /><path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" /><path d="M7 13m0 2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2z" /></svg>
                             Imprimir
@@ -304,7 +315,7 @@ if (isset($_SESSION["usua_id_siin"])) {
         </div>  
     </div>
     <?php require_once("../html/footer.php"); ?>
-    <?php require_once("../html/mainjs.php"); ?>
+    <?php require_once("../html/mainJs.php"); ?>
     <script type="text/javascript" src="impresion.js"></script>
     <script type="text/javascript" src="color.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>

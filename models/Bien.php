@@ -139,12 +139,14 @@ class Bien extends Conectar {
                 b.bien_codbarras, 
                 o.obj_nombre, 
                 m.marca_nom, 
-                md.modelo_nom
+                md.modelo_nom,
+				b.fechacrea
             FROM sc_inventario.tb_bien b
             JOIN sc_inventario.tb_objeto o ON b.obj_id = o.obj_id
             JOIN sc_inventario.tb_modelo md ON b.modelo_id = md.modelo_id
             JOIN sc_inventario.tb_marca m ON md.marca_id = m.marca_id
-            WHERE b.bien_codbarras LIKE '6782%';";
+            WHERE b.bien_codbarras LIKE '6782%'
+			ORDER BY b.fechacrea DESC;";
 
             $stmt = $conectar->prepare($sql);
             $stmt->execute();

@@ -52,7 +52,12 @@ if (isset($_SESSION["usua_id_siin"])) {
                           </div>
                           <div class="row">
                             <div class="col-8">
-                              <input type="text" class="form-control" id="cod_bar" name="cod_bar" placeholder="Ingresa el código de barras..." required oninput="limitarADigitos(this)">
+                              <div class="input-icon mb-1">
+                                  <span class="input-icon-addon">
+                                      <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-barcode"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7v-1a2 2 0 0 1 2 -2h2" /><path d="M4 17v1a2 2 0 0 0 2 2h2" /><path d="M16 4h2a2 2 0 0 1 2 2v1" /><path d="M16 20h2a2 2 0 0 0 2 -2v-1" /><path d="M5 11h1v2h-1z" /><path d="M10 11l0 2" /><path d="M14 11h1v2h-1z" /><path d="M19 11l0 2" /></svg>
+                                  </span>
+                                  <input type="text" class="form-control" id="cod_bar" name="cod_bar" placeholder="Ingresar el código de barras..." required oninput="limitarADigitos(this)">
+                              </div>
                             </div>
                             <div class="col-2 d-flex align-items-center">
                               <button type="button" class="btn btn-info w-100 bg-blue  px-2 d-flex align-items-center justify-content-center gap-1" class="btn btn-info" id="buscaObjeto" onclick="buscarBien()">

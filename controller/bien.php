@@ -85,24 +85,21 @@ switch ($_GET["op"]) {
         $datos = $bien->get_valores_adquisicion_y_baja();
         echo json_encode($datos);
     break;
-    case "get_bien_detalle":
-        $bien = new Bien();
+    case "combo_detalle_bien":
         $datos = $bien->get_bien_detalle();
-
-        $data = array();
-        foreach ($datos as $row) {
-            $data[] = array(
-                "id" => $row["bien_id"], // enviamos el ID real del bien
-                "text" => $row["bien_codbarras"] 
-                        . " - " . $row["obj_nombre"] 
-                        . " - " . $row["marca_nom"] 
-                        . " - " . $row["modelo_nom"]
-            );
+        if (is_array($datos) && count($datos) > 0) {
+            $html = "<option label='-- Seleccione tipo de Vehículo --'></option>";
+            foreach ($datos as $row) {
+                $html .= "<option value='" . $row['bien_id'] . "'>"
+                    . $row['bien_codbarras'] . " - "
+                    . $row['obj_nombre'] . " - "
+                    . $row['marca_nom'] . " - "
+                    . $row['modelo_nom']
+                    . "</option>";
+            }
+            echo $html;
         }
-        echo json_encode($data);
     break;
-
-
 
 
 }

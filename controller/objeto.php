@@ -37,6 +37,10 @@ switch ($_GET["op"]) {
                 $_POST["bien_obs"],
                 $_POST["bien_cuenta"]
             );
+            echo json_encode([
+                "status" => "ok",
+                "bien_id" => $nuevo_bien_id
+            ]);
         } else {
             $objeto->update_registro_bien(
                 $_POST["bien_id"],
