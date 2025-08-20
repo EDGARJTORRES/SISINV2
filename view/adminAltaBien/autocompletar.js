@@ -49,7 +49,7 @@ $(document).ready(function () {
   });
 
   $("#combo_gg_bien_obj").change(function () {
-    if (modoEdicion) return; // ⚠️ evitar recarga automática en edición
+    if (modoEdicion) return;
 
     const gg_id = $(this).val();
     if (gg_id !== "") {
@@ -73,7 +73,6 @@ $(document).ready(function () {
   });
   $("#combo_marca_obj").change(function () {
   var marca_id = $(this).val();
-
     if (!modoEdicion) {
       $("#combo_modelo_obj").empty();
     }
@@ -83,9 +82,7 @@ $(document).ready(function () {
         { marca_id: marca_id },
         function (data) {
           $("#combo_modelo_obj").html(data);
-
           if (modoEdicion) {
-            // Reinicia el valor del modelo en edición
             $("#combo_modelo_obj").val($("#modelo_id").val()).trigger("change");
           }
         }

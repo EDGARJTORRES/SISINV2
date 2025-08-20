@@ -39,9 +39,8 @@
         public static function ruta() {
             return "http://localhost/SISINV2/";
         }
-        
-        
-       /*
+    
+        /* 
         Protected $dbh;
         protected function Conexion() {
             try {
@@ -58,8 +57,8 @@
         public static function ruta() {
             return "http://localhost:/SISINV2/";
         }
-        */
         
+        */
     }
     
 ?>

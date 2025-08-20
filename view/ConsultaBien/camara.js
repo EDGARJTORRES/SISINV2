@@ -9,13 +9,13 @@ function limpiarDatos() {
 
 function limitarADigitos(input) {
     let valor = input.value.toString();
-        if (valor.length < 13) {
+        if (valor.length < 14) {
         limpiarDatos();
         }
-        if (valor.length > 13) {
+        if (valor.length > 14) {
         valor = valor.slice(0, 8);
         }
-        if (valor.length == 13) {
+        if (valor.length == 14) {
         limpiarDatos();
         buscarBien();
         }

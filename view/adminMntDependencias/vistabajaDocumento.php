@@ -6,11 +6,8 @@ if (isset($_SESSION["usua_id_siin"])) {
     $dependencia = new Dependencia();
     $bien_id = isset($_GET['bien_id']) ? $_GET['bien_id'] : 0;
     $datos = $dependencia->obtenerBienBajaPorId($bien_id);
-    if (!$datos) {
-            header("Location: http://10.10.10.16/SISINV2/view/404/");
-            exit;
-        }
-  
+
+
     $fecha_baja = new DateTime(substr($datos["fecha_baja"], 0, 10));
     $fecha_creacion = new DateTime(substr($datos["fechacrea"], 0, 10));
     $intervalo = $fecha_creacion->diff($fecha_baja);
@@ -33,7 +30,7 @@ if (isset($_SESSION["usua_id_siin"])) {
 <head>
     <?php require_once("../html/mainHead.php"); ?>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-    <link href="../../public/css/sinasignacion.css" rel="stylesheet"/>
+    <link href="../../public/css/lista.css" rel="stylesheet"/>
     <link href="../../public/css/Breadcrumb.css" rel="stylesheet"/>
     <link href="../../public/css/vistaDocumento.css" rel="stylesheet"/>
     <title>MPCH::</title>
@@ -76,15 +73,15 @@ if (isset($_SESSION["usua_id_siin"])) {
                     </div>
                     <div class="col-auto ms-auto d-print-none mb-3">
                         <div class="btn-list">
-                            <button class="Btn" onclick="imprimirFormatoBaja()">
+                            <button class="clase" onclick="imprimirFormatoBaja()">
                                 <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-printer"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" /><path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" /><path d="M7 13m0 2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2z" /></svg>
                             Imprimir
                             </button>
-                            <button class="Btn"  onclick=" descargarimgFormatoBaja()">
+                            <button class="clase"  onclick=" descargarimgFormatoBaja()">
                                 <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>
                             Imagen
                             </button>
-                            <button class="Btn" onclick="descargarPDFFormatoBaja()">
+                            <button class="clase" onclick="descargarPDFFormatoBaja()">
                                 <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-file-text"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 9l1 0" /><path d="M9 13l6 0" /><path d="M9 17l6 0" /></svg>
                                 PDF
                             </button>
