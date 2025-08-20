@@ -245,32 +245,29 @@
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
-        public function darDeBajaBien($bien_id, $motivo) {
-            $conectar = parent::conexion();
-            parent::set_names();
-            try {
-                $conectar->beginTransaction();
-                $sqlGetEstado = "SELECT bien_est FROM sc_inventario.tb_bien WHERE bien_id = ?";
-                $stmtGet = $conectar->prepare($sqlGetEstado);
-                $stmtGet->bindValue(1, $bien_id);
-                $stmtGet->execute();
-                $estadoActual = $stmtGet->fetchColumn(); 
-                $sql1 = "UPDATE sc_inventario.tb_bien_dependencia 
-                        SET bien_est = 'I', motivo_baja = ?
-                        WHERE bien_id = ?";
-                $stmt1 = $conectar->prepare($sql1);
-                $stmt1->bindValue(1, $motivo);
-                $stmt1->bindValue(2, $bien_id);
-                $stmt1->execute();
-                $sql2 = "UPDATE sc_inventario.tb_bien 
-                        SET bien_est = 'I', bien_est_anterior = ?
-                        WHERE bien_id = ?";
-                $stmt2 = $conectar->prepare($sql2);
-                $stmt2->bindValue(1, $estadoActual); 
-                $stmt2->bindValue(2, $bien_id);
-                $stmt2->execute();
-                $conectar->commit();
-                return true;
+        public function darDeBajaBien($bien_id, $motivo_baja) {
+         $conectar = parent::conexion();
+         parent::set_names();
+         try {
+            $conectar->beginTransaction();
+
+            // Actualizar estado en tb_bien_dependencia
+            $sql1 = "UPDATE sc_inventario.tb_bien_dependencia 
+                    SET bien_est = 'I', motivo_baja = ?
+                    WHERE bien_id = ?";
+            $stmt1 = $conectar->prepare($sql1);
+            $stmt1->bindValue(1, $motivo_baja);
+            $stmt1->bindValue(2, $bien_id);
+            $stmt1->execute();
+            $sql2 = "UPDATE sc_inventario.tb_bien 
+                    SET bien_est = 'I'
+                    WHERE bien_id = ?";
+            $stmt2 = $conectar->prepare($sql2);
+            $stmt2->bindValue(1, $bien_id);
+            $stmt2->execute();
+
+            $conectar->commit();
+            return true;
 
             } catch (Exception $e) {
                 $conectar->rollBack();
@@ -393,7 +390,6 @@
                 COALESCE(mo.modelo_nom, '---') AS modelo_nom,
                 b.bien_numserie,
                 b.procedencia,
-                b.val_adq,
                 bd.motivo_baja
             FROM
                 sc_inventario.tb_bien_dependencia bd
@@ -422,7 +418,7 @@
                     bd.fecha_baja,
                     bd.motivo_baja,
                     b.bien_color,
-                    b.bien_cuenta,
+                    tc.cuenta_numero,
                     b.bien_codbarras,
                     b.bien_obs,
                     bd.repre_id,
@@ -448,6 +444,7 @@
                 LEFT JOIN sc_inventario.tb_grupo_clase gc ON o.gc_id = gc.gc_id
                 LEFT JOIN sc_inventario.tb_grupogenerico gg ON gc.gg_id = gg.gg_id
                 LEFT JOIN sc_escalafon.tb_persona p ON bd.repre_id = p.pers_id
+                LEFT JOIN sc_inventario.tb_cuenta_contable tc ON b.bien_cuenta = tc.cuenta_id
                 LEFT JOIN LATERAL unnest(b.bien_color) AS bc(color_id) ON TRUE
                 LEFT JOIN public.tb_color c ON c.color_id = bc.color_id
                 LEFT JOIN sc_inventario.tb_modelo mo ON b.modelo_id = mo.modelo_id
@@ -460,8 +457,7 @@
                 GROUP BY
                     b.bien_id, b.fecharegistro, p.pers_apelpat, p.pers_apelmat, p.pers_nombre,
                     bd.fecha_baja, bd.motivo_baja, b.bien_color, b.bien_cuenta, b.bien_codbarras,
-                    b.bien_obs, bd.repre_id, b.bien_numserie, b.procedencia, bd.biendepe_obs,
-                    b.bien_dim, o.codigo_cana, bd.bien_est, b.val_adq, b.fechacrea, o.obj_nombre,
+                    b.bien_obs, bd.repre_id, b.bien_numserie, b.procedencia, bd.biendepe_obs,            tc.cuenta_numero, b.bien_dim , o.codigo_cana, bd.bien_est, b.val_adq, b.fechacrea, o.obj_nombre,
                     ma.marca_nom, mo.modelo_nom, gg.vida_util, f.form_id, f.form_fechacrea;";
 
             $stmt = $conectar->prepare($sql);

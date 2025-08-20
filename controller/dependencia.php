@@ -160,9 +160,9 @@ switch ($_GET["op"]) {
        break;
     case "baja_de_bien":
         $bien_id = isset($_POST["bien_id"]) ? $_POST["bien_id"] : null;
-        $motivo  = isset($_POST["motivo"])  ? $_POST["motivo"]  : null;
-        if ($bien_id && $motivo) {
-            $resultado = $dependencia->darDeBajaBien($bien_id, $motivo);
+        $motivo_baja  = isset($_POST["motivo_baja"])  ? $_POST["motivo_baja"]  : null;
+        if ($bien_id && $motivo_baja) {
+            $resultado = $dependencia->darDeBajaBien($bien_id, $motivo_baja);
             if ($resultado) {
                 echo json_encode(["status" => "success"]);
             } else {
@@ -236,7 +236,6 @@ switch ($_GET["op"]) {
         $bien_id = $row["bien_id"] ?? 0; 
         $datos = $dependencia->listarBienesDadosDeBajaPorDependencia($depe_id);
         $data = [];
-
         foreach ($datos as $row) {
             $bien_id = $row["bien_id"];
             $sub_array = [];
@@ -246,7 +245,6 @@ switch ($_GET["op"]) {
             $sub_array[] = htmlspecialchars($row["marca_nom"]);
             $sub_array[] = htmlspecialchars($row["modelo_nom"]);
             $sub_array[] = htmlspecialchars($row["bien_numserie"]);
-            $sub_array[] = htmlspecialchars($row["val_adq"]);
             $motivo = str_replace(["\r", "\n"], '', $row["motivo_baja"]);
             $sub_array[] = htmlspecialchars($motivo);
             $sub_array[] = '

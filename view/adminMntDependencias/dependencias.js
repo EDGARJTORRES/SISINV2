@@ -245,16 +245,16 @@ function darDeBaja(bien_id) {
   }).then((confirmResult) => {
     if (confirmResult.isConfirmed) {
       Swal.fire({
-        title: 'Resolución de Baja',
+        title: 'motivo de Baja',
         input: 'textarea',
-        inputPlaceholder: 'Ingrese la resolucion de Baja...',
-        inputAttributes: { 'aria-label': 'Motivo de baja' },
+        inputPlaceholder: 'Ingrese la motivo de Baja...',
+        inputAttributes: { 'aria-label': 'motivo de baja' },
         showCancelButton: true,
         confirmButtonText: 'Confirmar',
         confirmButtonColor: 'rgb(243, 18, 18)',
         cancelButtonColor: '#000',
         inputValidator: (value) => {
-          if (!value.trim()) return 'Debes ingresar la resolucion de baja valida.';
+          if (!value.trim()) return 'Debes ingresar la motivo de baja valida.';
         },
         didOpen: () => agregarBarraProgreso(70)
       }).then((motivoResult) => {
@@ -263,7 +263,7 @@ function darDeBaja(bien_id) {
           $.ajax({
             url: '../../controller/dependencia.php?op=baja_de_bien',
             type: 'POST',
-            data: { bien_id, motivo: motivoBaja },
+            data: { bien_id: bien_id, motivo_baja: motivoBaja },
             success: function () {
               const depeId = document.querySelector(".list-group-item.active")?.dataset?.id;
               if (depeId) {

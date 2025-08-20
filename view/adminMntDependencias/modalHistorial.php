@@ -43,8 +43,7 @@
                     <th>Marca</th>
                     <th>Modelo</th>
                     <th>Serie</th>
-                    <th>Valor</th>
-                    <th>Motivo</th>
+                    <th>Resolucion</th>
                     <th>Acciones</th> 
                   </tr>
                   </thead>

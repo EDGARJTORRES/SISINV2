@@ -6,10 +6,8 @@ if (isset($_SESSION["usua_id_siin"])) {
     $dependencia = new Dependencia();
     $bien_id = isset($_GET['bien_id']) ? $_GET['bien_id'] : 0;
     $datos = $dependencia->obtenerBienBajaPorId($bien_id);
-
-
     $fecha_baja = new DateTime(substr($datos["fecha_baja"], 0, 10));
-    $fecha_creacion = new DateTime(substr($datos["fechacrea"], 0, 10));
+    $fecha_creacion = new DateTime(substr($datos["fecharegistro"], 0, 10));
     $intervalo = $fecha_creacion->diff($fecha_baja);
     $vida_util = $intervalo->format('%y años, %m meses, %d días');
     $val_adq = isset($datos["val_adq"]) ? (float) $datos["val_adq"] : 0.00;
@@ -167,7 +165,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                                             </tr>
                                             <tr>
                                                 <td style="border: none;"><strong>Cuenta Contable</strong></td>
-                                                <td style="border: none; font-size: 12px;">: <?php echo ucfirst(strtolower($datos["bien_cuenta"])); ?></td>
+                                                <td style="border: none; font-size: 12px;">: <?php echo ucfirst(strtolower($datos["cuenta_numero"])); ?></td>
                                             </tr>
                                             <tr>
                                                 <td style="border: none;"><strong>Estado del Bien</strong></td>
@@ -314,7 +312,6 @@ if (isset($_SESSION["usua_id_siin"])) {
     <?php require_once("../html/footer.php"); ?>
     <?php require_once("../html/mainJs.php"); ?>
     <script type="text/javascript" src="impresion.js"></script>
-    <script type="text/javascript" src="color.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </body>
