@@ -31,14 +31,14 @@ if (isset($_SESSION["usua_id_siin"])) {
     <link href="../../public/css/lista.css" rel="stylesheet"/>
     <link href="../../public/css/Breadcrumb.css" rel="stylesheet"/>
     <link href="../../public/css/vistaDocumento.css" rel="stylesheet"/>
-    <title>MPCH::</title>
+    <title>MPCH:: Baja Patrimonial</title>
 </head>
 <body>
     <?php require_once("../html/mainProfile.php"); ?>
      <div class="page-wrapper">
         <div class="page-header d-print-none">
             <div class="container-xl">
-                <nav class="breadcrumb mb-3">
+                <nav class="breadcrumb mb-2">
                     <a href="../adminMain/">Inicio</a>
                     <svg class="breadcrumb-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10.1 16.3"><path fill="currentColor" d="M0,14.4l6.2-6.2L0,1.9L2,0l8.1,8.1L2,16.3L0,14.4z"/></svg>
                     <span class="breadcrumb-item active">Procesos</span>
@@ -86,16 +86,19 @@ if (isset($_SESSION["usua_id_siin"])) {
                         </div>
                     </div>
                 </div>  
-                <div id="formato-baja" class="card py-4 px-5 border-0" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
-                    <div class="encabezado">
-                        <div>
-                            <strong>Sistema de Gestión de Inventario</strong><br>
-                            <strong>Módulo de Patrimonio</strong><br>
+                <div id="formato-baja" class="card py-5 px-5 border-0" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
+                    <div class="encabezado row align-items-center">
+                        <div class="col-lg-6 d-flex align-items-center">
+                            <img src="../../static/illustrations/Escudo_de_Chiclayo.PNG" style="width:48px; height: 48px; margin-right: 10px;">
+                            <div class="text-column">
+                                <strong>Sistema de Gestión de Inventario</strong><br>
+                                <strong>Módulo de Patrimonio</strong>
+                            </div>
                         </div>
-                        <div style="text-align: right;">
+                        <div class="col-lg-6 text-end">
                             <strong>Fecha:</strong> <span id="fecha-impresion"></span><br>
                             <strong>Hora:</strong> <span id="hora-impresion"></span><br>
-                            <strong>Página:</strong> 1
+                            <strong>Usuario:</strong> 1
                         </div>
                     </div>
                     <h2>DATOS DEL ACTIVO FIJO</h2>

@@ -289,7 +289,7 @@ if (isset($_SESSION["usua_id_siin"])) {
       </div>
     </div>
     <?php require_once("../html/footer.php"); ?>
-    <?php require_once("../html/mainjs.php"); ?>
+    <?php require_once("../html/mainJs.php"); ?>
     <script type="text/javascript" src="color.js"></script>
     <script type="text/javascript" src="alerts.js"></script>
     <script type="text/javascript" src="adminAsignacionBien.js"></script>

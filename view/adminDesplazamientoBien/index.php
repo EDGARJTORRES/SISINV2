@@ -151,11 +151,11 @@ if (isset($_SESSION["usua_id_siin"])) {
                       </select>
                     </div>
                     <div class="form-group mb-3">
-                      <label class="form-label">DNI Representante:<span  style="color:red"> *</span></label>
+                      <label class="form-label">DNI Representante Origen:<span  style="color:red"> *</span></label>
                       <input type="text" class="form-control" id="pers_origen_dni" name="pers_origen_dni" placeholder="Ingresa el DNI del representante del bien..." required oninput="limitarADigitosDNI(this)">
                     </div>
                     <div class="form-group mb-3">
-                      <label class="form-label">Nombre del Representante:<span  style="color:red"> *</span></label>
+                      <label class="form-label">Nombre del Representante Origen:<span  style="color:red"> *</span></label>
                       <input type="text" class="form-control" id="pers_origen_nom" name="pers_origen_nom" placeholder="Nombre Representante" required readonly>
                     </div>
                   </div>
@@ -167,11 +167,11 @@ if (isset($_SESSION["usua_id_siin"])) {
                       </select>
                     </div>
                     <div class="form-group mb-3">
-                      <label class="form-label">DNI Representante:<span  style="color:red"> *</span></label>
+                      <label class="form-label">DNI Representante Destino:<span  style="color:red"> *</span></label>
                       <input type="text" class="form-control" id="pers_destino_dni" name="pers_destino_dni" placeholder="Ingresa el DNI del representante del bien..." required oninput="limitarADigitosDNIdestino(this)">
                     </div>
                     <div class="form-group mb-3">
-                        <label class="form-label">Nombre del Representante:<span  style="color:red"> *</span></label>
+                        <label class="form-label">Nombre del Representante Destino:<span  style="color:red"> *</span></label>
                       <input type="text" class="form-control" id="pers_destino_nom" name="pers_destino_nom" placeholder="Nombre Representante" required readonly>
                     </div>
 
@@ -223,7 +223,7 @@ if (isset($_SESSION["usua_id_siin"])) {
       </div>
     </div>
     <?php require_once("../html/footer.php"); ?>
-    <?php require_once("../html/mainjs.php"); ?>
+    <?php require_once("../html/mainJs.php"); ?>
     <script type="text/javascript" src="util.js"></script>              
     <script type="text/javascript" src="dni.js"></script>                
     <script type="text/javascript" src="init.js"></script>             

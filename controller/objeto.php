@@ -6,17 +6,40 @@ $bitacora = new Bitacora();
 $objeto = new Objeto();
 switch ($_GET["op"]) {
     case "guardaryeditar":
+        $obj_img = "";
+        if (isset($_FILES["obj_img"]) && $_FILES["obj_img"]["error"] === UPLOAD_ERR_OK) {
+            $directorio = __DIR__ . "/../img/"; 
+            if (!file_exists($directorio)) {
+                mkdir($directorio, 0777, true);
+            }
+            $nombreArchivo = time() . "_" . basename($_FILES["obj_img"]["name"]);
+            $rutaDestino = $directorio . $nombreArchivo;
+            if (move_uploaded_file($_FILES["obj_img"]["tmp_name"], $rutaDestino)) {
+                $obj_img = "img/" . $nombreArchivo;
+            } else {
+                error_log("❌ Error al mover archivo: " . $_FILES["obj_img"]["error"]);
+            }
+        }
         if (empty($_POST["obj_id"])) {
-            $resultado = $objeto->insert_objeto($_POST["obj_nombre"], $_POST["codigo_cana"], $_POST["gc_id"]);
+            $resultado = $objeto->insert_objeto(
+                $_POST["obj_nombre"], 
+                $_POST["codigo_cana"], 
+                $obj_img, 
+                $_POST["gc_id"]
+            );
         } else {
-            $resultado = $objeto->update_objeto($_POST["obj_id"], $_POST["obj_nombre"], $_POST["codigo_cana"]);
+            $resultado = $objeto->update_objeto(
+                $_POST["obj_id"], 
+                $_POST["obj_nombre"], 
+                $_POST["codigo_cana"], 
+                $obj_img, 
+                $_POST["gc_id"]
+            );
         }
-        if ($resultado) {
-            $mensaje = "Operación realizada con éxito.";
-        } else {
-            $mensaje = "Error: El código CANA ya existe.";
-        }
-        echo json_encode(["success" => $resultado, "message" => $mensaje]);
+        echo json_encode([
+            "success" => $resultado,
+            "message" => $resultado ? "Operación realizada con éxito." : "Error: El código CANA ya existe."
+        ]);
         break;
     case "guardaryeditarbien":
        $bien_color = is_array($_POST["bien_color"]) ? $_POST["bien_color"] : explode(',', $_POST["bien_color"]);
@@ -35,7 +58,8 @@ switch ($_GET["op"]) {
                 $_POST["val_adq"],
                 $_POST["doc_adq"],
                 $_POST["bien_obs"],
-                $_POST["bien_cuenta"]
+                $_POST["bien_cuenta"],
+                $_POST["bien_placa"]
             );
             echo json_encode([
                 "status" => "ok",
@@ -55,6 +79,7 @@ switch ($_GET["op"]) {
                 $_POST["doc_adq"],
                 $_POST["bien_obs"],
                 $_POST["bien_cuenta"],
+                $_POST["bien_placa"],
                 $_POST["procedencia"]
             );
         }
@@ -66,6 +91,7 @@ switch ($_GET["op"]) {
                 $output["obj_id"] = $row["obj_id"];
                 $output["codigo_cana"] = $row["codigo_cana"];
                 $output["obj_nombre"] = $row["obj_nombre"];
+                $output["obj_img"] = $row["obj_img"];
             }
             echo json_encode($output);
         }

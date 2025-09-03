@@ -15,12 +15,7 @@
   }
 
   .encabezado {
-    display: flex;
     justify-content: space-between;
-  }
-
-  .encabezado div {
-    width: 32%;
   }
 
   .label {
@@ -84,7 +79,10 @@
       padding: 0;
     }
     
-.tg .tg-0lax{text-align:left;vertical-align:top}
+    .tg .tg-0lax{
+      text-align:left;
+    vertical-align:top
+    }
   }
       .styled-table {
         width: 100%;

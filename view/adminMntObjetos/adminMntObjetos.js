@@ -1,14 +1,10 @@
 var usu_id = $("#usu_idx").val();
-
 function mostrarAlertaCarga() {
   document.getElementById('alerta-carga').style.display = 'block';
 }
-
-// Ocultar alerta
 function ocultarAlertaCarga() {
   document.getElementById('alerta-carga').style.display = 'none';
 }
-
 $(document).ready(function () {
     let inicioCarga;
     let tiempoMinimo = 3000; // 2 segundos
@@ -33,16 +29,15 @@ $(document).ready(function () {
     });
   $(".select2").select2();
   $.post("../../controller/grupogenerico.php?op=combo", function (data) {
-    $("#combo_grupo_gen").html(data);
+    $("#combo_grupo_gen").html('<option value="" disabled selected>-- Seleccione Grupo Genérico --</option>' + data);
+    $("#combo_grupo_gen").trigger('change'); // refresca el select2
   });
   $("#combo_grupo_gen").change(function () {
     var gg_id = $(this).val();
     $.post(
-      "../../controller/clase.php?op=combo",
-      { gg_id: gg_id },
-      function (data) {
-        $("#combo_clase_gen").html(data);
-        $("#combo_clase_gen").select2();
+      "../../controller/clase.php?op=combo",{ gg_id: gg_id },function (data) {
+       $("#combo_clase_gen").html('<option value="" disabled selected>-- Seleccione Clase --</option>' + data);
+       $("#combo_clase_gen").select2();
       }
     );
   });
@@ -91,7 +86,6 @@ $(document).ready(function () {
     },
   });
 });
-
 function listar_clases(gg_id) {
   $("#gg_clase_data").DataTable({
     aProcessing: true,
@@ -202,7 +196,6 @@ function nuevaclase() {
     $("#modalClase").modal("show");
   }
 }
-
 function registrardetalle() {
   table = $("#gg_clase_data").DataTable();
   var gg_id = $("#combo_grupo_gen").val();

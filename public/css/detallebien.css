@@ -1,0 +1,36 @@
+/* Badge grande */
+.badge-lg {
+    font-size: 1.5rem !important;
+    padding: 0.5rem 0.75rem !important;
+    display: inline-block !important;
+}
+
+/* Flecha del select */
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+    border-color: #0004ffff transparent transparent transparent !important;
+    right: 5px !important;
+}
+.select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+    border-color: #003cffff transparent transparent transparent !important;
+     right: -5px !important;
+}
+.input-group {
+    display: flex;
+    width: 100%;
+}
+
+.input-group .select2-container--bootstrap-5,
+.input-group .select2-container--default {
+    flex: 1;                 /* Ocupa todo el espacio disponible */
+}
+
+.input-group .select2-container--bootstrap-5 .select2-selection--single,
+.input-group .select2-container--default .select2-selection--single {
+    height: calc(1.5em + .75rem + 2px); /* igual que el botón */
+    display: flex;
+    align-items: center;
+    padding: .375rem .75rem;
+}
+.input-group .btn {
+    margin-left: -4px !important; /* mueve el botón 2px hacia la izquierda */
+}

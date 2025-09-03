@@ -71,3 +71,6 @@
       -moz-user-select: text !important;
       -ms-user-select: text !important;
     }
+    .dataTables_wrapper .dataTables_paginate {
+        margin-top: 30px !important;
+    }

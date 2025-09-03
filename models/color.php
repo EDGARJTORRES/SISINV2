@@ -5,7 +5,7 @@ class Color extends Conectar
     {
         $conectar = parent::conexion();
         parent::set_names();
-        $sql = "INSERT INTO tb_color(color_nom,color_est) VALUES (?,1);";
+        $sql = "INSERT INTO tb_color(color_nombre,color_est) VALUES (?,1);";
         $sql = $conectar->prepare($sql);
         $sql->bindValue(1, $color_nom);
         $sql->execute();
@@ -44,7 +44,7 @@ class Color extends Conectar
     {
         $conectar = parent::conexion();
         parent::set_names();
-        $sql = "SELECT * FROM public.tb_color WHERE color_est = 1 order by color_id asc";
+        $sql = "SELECT * FROM tb_color WHERE color_est = 1 order by color_id asc";
         $sql = $conectar->prepare($sql);
         $sql->execute();
         return $resultado = $sql->fetchAll();

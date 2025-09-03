@@ -15,10 +15,15 @@ if (isset($_SESSION["usua_id_siin"])) {
   <link href="../../public/css/alta.css" rel="stylesheet"/>
   <link href="../../public/css/iconos.css" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    #cod_interno {
+        display: none !important;
+    }
+</style>
 </head>
 <body>
     <?php require_once("../html/mainProfile.php"); ?>
-     <div class="page-wrapper">
+    <div class="page-wrapper mb-6">
         <div class="page-header d-print-none">
             <div class="container-xl">
               <nav class="breadcrumb mb-3">

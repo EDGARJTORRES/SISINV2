@@ -277,8 +277,35 @@ switch ($_GET["op"]) {
         ];
 
         echo json_encode($results);
-        break;
-        
+        break;   
+    case "listar_historial_movimiento":
+        $codigo = isset($_POST["codigo_barras"]) ? $_POST["codigo_barras"] : '';
+        $datos = $dependencia->lista_historial_movimiento($codigo);
 
-      
-}
+        // Si se pasa un código, devuelve los movimientos
+        if (!empty($codigo)) {
+            echo json_encode($datos);
+        } else {
+            // Si no, devuelve lista de bienes (solo una vez cada uno)
+            $data = [];
+            foreach ($datos as $row) {
+                $sub_array = [];
+                $sub_array[] = htmlspecialchars($row["bien_codbarras"]);
+                $sub_array[] = htmlspecialchars($row["obj_nombre"]);
+                $data[] = $sub_array;
+            }
+
+            $results = [
+                "sEcho" => 1,
+                "iTotalRecords" => count($data),
+                "iTotalDisplayRecords" => count($data),
+                "aaData" => $data
+            ];
+            echo json_encode($results);
+        }
+        break;
+
+        
+    }
+
+    

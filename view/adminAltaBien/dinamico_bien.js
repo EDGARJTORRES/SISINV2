@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", function () {
         dropdownPosition: "below",
       });
 
-      // Llenar combos dinámicos (marca, modelo, color)
       $.post("../../controller/marca.php?op=combo", function (data) {
         $(`#marca_${i}`).html(data);
         $(`#marca_${i}`).val($("#combo_marca_obj").val()).trigger("change");
@@ -67,7 +66,7 @@ function generarCamposIdentificacion(i) {
     </div>
     <div class="col-lg-3 extra-campo">
       <label class="form-label">Dimensiones <span class="text-danger">*</span></label>
-      <input type="text" placeholder="Ej: 40x30x20 cm" class="form-control required" name="obj_dim_${i}" />
+      <input type="text" placeholder="Ej: 40 h x 30 l x 20 a" class="form-control required" name="obj_dim_${i}" />
     </div>
     <div class="col-lg-3 extra-campo">
       <label class="form-label">N° Serie <span class="text-danger">*</span></label>
@@ -118,17 +117,21 @@ function generarCamposAdquisicion(i) {
         </button>
       </div>
     </div>
-    <div class="col-lg-4 extra-campo">
+    <div class="col-lg-3 extra-campo">
       <label class="form-label">Fecha de Adquisición <span class="text-danger">*</span></label>
-      <input type="text" placeholder="Año/Mes/Dia" class="form-control required" name="fecharegistro_${i}" />
+      <input type="text" placeholder="Dia/Mes/Año" class="form-control required" name="fecharegistro_${i}" />
     </div>
-    <div class="col-lg-4 extra-campo">
+    <div class="col-lg-3 extra-campo">
       <label class="form-label">Valor de Adquisición <span class="text-danger">*</span></label>
       <input type="text" placeholder="Ej: S/ 1,200.00" class="form-control required" name="val_adq_${i}" />
     </div>
-    <div class="col-lg-4 extra-campo">
+    <div class="col-lg-3 extra-campo">
       <label class="form-label">N° Doc. Adquision <span class="text-danger">*</span></label>
       <input type="text" placeholder="Ej: NEA 2001, O/C 716" class="form-control required" name="doc_adq_${i}" />
+    </div>
+    <div class="col-lg-3 extra-campo">
+      <label class="form-label">Placa del Vehiculo<span class="text-danger">*</span></label>
+      <input type="text" placeholder="Ej: ABC-123" class="form-control required" name="bien_placa_${i}" />
     </div>`;
 }
 
@@ -138,6 +141,7 @@ function autocompletar(i) {
   $(`#cuenta_contable_${i}`).val($("#cuent_contable").val()).trigger("change");
   $(`input[name='obj_dim_${i}']`).val($("#obj_dim").val());
   $(`input[name='bien_numserie_${i}']`).val($("#bien_numserie").val());
+  $(`input[name='bien_placa_${i}']`).val($("#bien_placa").val());
   $(`textarea[name='bien_obs_${i}']`).val($("#bien_obs").val());
   $(`#color_${i}`).val($("#combo_color_bien").val()).trigger("change");
   $(`select[name='procedencia_${i}']`).val($("#procedencia").val());

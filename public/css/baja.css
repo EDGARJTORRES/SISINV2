@@ -35,7 +35,8 @@
         cursor: pointer;
       }
       #lista-items {
-        max-height: 470px;
+        max-height: 480px;
+        min-height: 480px;
         overflow-y: auto;
         border-right: 1px solid #e0e0e0;
         scrollbar-width: none;        
@@ -133,4 +134,7 @@
         background-repeat: no-repeat !important;
         background-position: right 0.75rem center !important;
         background-size: 1rem 1rem !important;
+      } 
+      .dataTables_wrapper .dataTables_paginate {
+          margin-top: 30px !important;
       }

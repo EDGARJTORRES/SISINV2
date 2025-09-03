@@ -159,12 +159,14 @@ switch ($_GET["op"]) {
             $sub_array[] = '<span class="badge bg-blue-lt selectable">' . $fechaHora . '</span>';
             $sub_array[] = $row["tif_nom"];
             $sub_array[] = $row["emisor"];
+            $sub_array[] = $row["form_repre_emisor"];
             $sub_array[] = $row["receptor"];
+            $sub_array[] = $row["form_repre_receptor"];
             $sub_array[] = $row["pers_nombre"];
             $sub_array[] = '
             <div class="dropdown text-center">
             <a href="#" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                Acciones
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-nut"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19 6.84a2.007 2.007 0 0 1 1 1.754v6.555c0 .728 -.394 1.4 -1.03 1.753l-6 3.844a1.995 1.995 0 0 1 -1.94 0l-6 -3.844a2.006 2.006 0 0 1 -1.03 -1.752v-6.557c0 -.728 .394 -1.399 1.03 -1.753l6 -3.582a2.049 2.049 0 0 1 2 0l6 3.582h-.03z" /><path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /></svg>
             </a>
             <ul class="dropdown-menu">
                 <li>
@@ -215,7 +217,7 @@ switch ($_GET["op"]) {
         $formato->delete_formato($_POST["form_id"]);
         $bitacora->update_bitacora($_SESSION["usua_id_siin"]);
         break;
-    case "imprimir_formato":
+     case "imprimir_formato":
         $datos = $formato->get_formato_id($_POST["form_id"]);
         $titulo = $datos[0]['tif_nom'];
         $datos_emisor = $formato->get_dependenciadatos($datos[0]['depe_emisor']);
@@ -472,12 +474,15 @@ switch ($_GET["op"]) {
                 $colores_text = implode(', ', $nombres_colores);
 
                 // Ahora $colores_text contiene los nombres de los colores separados por comas
-                $codigo_interno_formateado = str_pad($bien["bien_id"], 4, '0', STR_PAD_LEFT);
+                $partes_codbarras = explode('-', $bien["bien_codbarras"]);
+                $codigo_patrimonial = $partes_codbarras[0];
+                $codigo_interno = isset($partes_codbarras[1]) ? $partes_codbarras[1] : '';
+
                 // Prepara la fila de datos para la tabla
                 $fila = [
                     $coun + 1, // Número de fila (comienza desde 1)
-                    $bien["codigo_cana"], // Código patrimonial
-                    $codigo_interno_formateado, // Código interno
+                    $codigo_patrimonial, // Código Patrimonial
+                    $codigo_interno,     // Código Interno
                     utf8_decode($bien["obj_nombre"]), // Denominación
                     utf8_decode($bien["marca_nom"]), // Marca
                     utf8_decode($bien["modelo_nom"]), // Modelo

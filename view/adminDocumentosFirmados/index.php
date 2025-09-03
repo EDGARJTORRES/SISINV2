@@ -28,7 +28,7 @@ if (isset($_SESSION["usua_id_siin"])) {
           <svg class="breadcrumb-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10.1 16.3"><path fill="currentColor" d="M0,14.4l6.2-6.2L0,1.9L2,0l8.1,8.1L2,16.3L0,14.4z"/></svg>
           <span>Documentos Firmados</span>
         </nav>
-        <div class="row g-2 mb-5 align-items-center">
+        <div class="row g-2 mb-3 align-items-center">
           <div class="col">
             <h2 class="page-title">
               GESTIÓN DE DOCUMENTOS FIRMADOS

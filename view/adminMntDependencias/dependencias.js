@@ -112,7 +112,7 @@ function cargarListadoBienesEnModal() {
 
           detalle.innerHTML = `
             <h5 class="mb-3">${nombre}</h5>
-            <div class="mb-2 w-100">
+            <div class="mb-2 w-100 px-1">
               <div class="input-icon w-100">
                 <span class="input-icon-addon">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -123,7 +123,7 @@ function cargarListadoBienesEnModal() {
                     <path d="M21 21l-6 -6" />
                   </svg>
                 </span>
-                <input type="text" id="buscar_registros" placeholder="Buscar registro..." class="form-control w-100">
+                <input type="text" id="buscar_registros" placeholder="BUSCAR BIEN PATRIMONIAL..." class="form-control w-100">
               </div>
             </div>
             <div class="table-responsive">
@@ -245,16 +245,16 @@ function darDeBaja(bien_id) {
   }).then((confirmResult) => {
     if (confirmResult.isConfirmed) {
       Swal.fire({
-        title: 'motivo de Baja',
+        title: 'Resolución de Baja',
         input: 'textarea',
-        inputPlaceholder: 'Ingrese la motivo de Baja...',
-        inputAttributes: { 'aria-label': 'motivo de baja' },
+        inputPlaceholder: 'Ingrese la Resolución de Baja...',
+        inputAttributes: { 'aria-label': 'Resolucion de baja' },
         showCancelButton: true,
         confirmButtonText: 'Confirmar',
         confirmButtonColor: 'rgb(243, 18, 18)',
         cancelButtonColor: '#000',
         inputValidator: (value) => {
-          if (!value.trim()) return 'Debes ingresar la motivo de baja valida.';
+          if (!value.trim()) return 'Debes ingresar la resolucion de baja valida.';
         },
         didOpen: () => agregarBarraProgreso(70)
       }).then((motivoResult) => {

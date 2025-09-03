@@ -1,25 +1,17 @@
-<footer class="footer footer-transparent d-print-none">
+<footer class="footer d-print-none mt-auto bg-dark" style="z-index: 1;" >
   <div class="container-xl">
-    <hr class="footer-divider mt-0"/>
     <div class="row text-center align-items-center flex-row-reverse">
       <div class="col-lg-auto ms-lg-auto">
-        <ul class="list-inline list-inline-dots mb-0">
+        <ul class="list-inline mb-0">
           <li class="list-inline-item">
-            <a href="https://www.gob.pe/munichiclayo" target="_blank" class="link-secondary" rel="noopener">
-              <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
-               <img src="../../static/illustrations/Pe.png" alt="MPCH" style="height: 36px;">
-              <!-- <p>MPCH</p> -->
-            </a>
+            <img src="../../static/illustrations/mpch.ico" width="30" height="30">
           </li>
+          <li class="list-inline-item"><small class="link-light">MUNICIPALIDAD PROVINCIAL DE CHICLAYO</small></li>
         </ul>
       </div>
       <div class="col-12 col-lg-auto mt-3 mt-lg-0">
         <ul class="list-inline list-inline-dots mb-0">
-          <li class="list-inline-item">
-            Copyright &copy; 2025
-            <a href="." class="link-secondary">SIS-INVENTARIO</a>.
-            Todos los derechos reservados.
-          </li>
+          <li class="list-inline-item text-light">&copy; SISINV2-2025 V 1.0 <small class="link-secondary text-light">-  GTIE | Área de Desarrollo de Software</small></li>          
         </ul>
       </div>
     </div>

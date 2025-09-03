@@ -39,8 +39,6 @@ function validarInput(input, errorDiv) {
     return true;
   }
 }
-
-
 function guardaryeditarobjeto(e) {
     var formData = new FormData($("#obj_form")[0]);
     var gc_id = $("#combo_clase_gen").val();
@@ -91,14 +89,10 @@ function guardaryeditarobjeto(e) {
       }
   });
 }
-
-$(document).ready(function(){
-   
-    
+$(document).ready(function(){ 
   $("#combo_clase_gen").change(function () {
     var gc_id = $(this).val();
-    cargarDataGrupoObj(gc_id);
-    
+    cargarDataGrupoObj(gc_id);    
   });
 });
 $(document).ready(function () {
@@ -165,20 +159,44 @@ function cargarDataGrupoObj(gc_id){
     table.search(this.value).draw();
    });
 }
-
-function editarObjeto(obj_id){
-     $.post("../../controller/objeto.php?op=mostrar",{obj_id : obj_id}, function (data) {
+function editarObjeto(obj_id) {
+    $.post("../../controller/objeto.php?op=mostrar", { obj_id: obj_id }, function (data) {
+        data = JSON.parse(data);
         $('#obj_nombre, #codigo_cana').removeClass('is-valid is-invalid');
         $('#errorNombre, #errorCodigo').removeClass('active');
-        data = JSON.parse(data);
         $('#obj_id').val(data.obj_id);
         $('#obj_nombre').val(data.obj_nombre);
-        $('#combo_cate').val(data.cate_id);
-        $('#combo_cate').change();
-        $('#codigo_cana').val(data. codigo_cana);
-        $('#lbltituloObj').html('<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-screen-share ms-3"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M21 12v3a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-10a1 1 0 0 1 1 -1h9" /><path d="M7 20l10 0" /><path d="M9 16l0 4" /><path d="M15 16l0 4" /><path d="M17 4h4v4" /><path d="M16 9l5 -5" /></svg> EDITAR REGISTRO DE OBJETO');
+        $('#codigo_cana').val(data.codigo_cana);
+        if (data.cate_id) {
+            $('#combo_cate').val(data.cate_id).trigger('change');
+        }
+        if (data.gc_id) {
+            $('#combo_clase_gen').val(data.gc_id).trigger('change');
+        }
+        if (data.obj_img) {
+            $('#previewImage')
+                .attr("src", "../../" + data.obj_img) // ✅ ahora apunta bien
+                .show();
+        } else {
+            $('#previewImage').hide();
+        }
+        $('#lbltituloObj').html(`
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+                class="icon icon-tabler icons-tabler-outline icon-tabler-screen-share ms-3">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path d="M21 12v3a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-10a1 1 0 0 1 1 -1h9"/>
+                <path d="M7 20l10 0" />
+                <path d="M9 16l0 4" />
+                <path d="M15 16l0 4" />
+                <path d="M17 4h4v4" />
+                <path d="M16 9l5 -5" />
+            </svg> EDITAR REGISTRO DE OBJETO
+        `);
+
+        $('#modalObjeto').modal('show');
     });
-    $('#modalObjeto').modal('show');
 }
 function eliminarObjeto(obj_id){
     Swal.fire({
@@ -254,7 +272,6 @@ function eliminarObjeto(obj_id){
         }
     });
 }
-
 function nuevoObjeto(){
     var gg_id = $("#combo_grupo_gen").val();
     var gc_id = $("#combo_clase_gen").val();
@@ -282,6 +299,8 @@ function nuevoObjeto(){
         $('#obj_id').val('');
         $('#obj_nom').val('');
         $('#codigo_cana').val('');
+        $('#obj_img').val('');
+        $('#previewImage').attr("src", "").hide();
         $('#obj_nombre, #codigo_cana').removeClass('is-valid is-invalid');
         $('#errorNombre, #errorCodigo').removeClass('active');
         $('#lbltituloObj').html('<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-screen-share ms-3"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M21 12v3a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-10a1 1 0 0 1 1 -1h9" /><path d="M7 20l10 0" /><path d="M9 16l0 4" /><path d="M15 16l0 4" /><path d="M17 4h4v4" /><path d="M16 9l5 -5" /></svg> REGISTRAR NUEVO OBJETO');
@@ -290,19 +309,32 @@ function nuevoObjeto(){
     }
  
 }
+function verImagen(imgPath) {
+    Swal.fire({
+        title: 'Imagen del Objeto',
+        html: `<img src="${imgPath}" alt="Objeto" style="width: 100%; max-width: 500px; height: auto;">`,
+        showCloseButton: true,
+        showConfirmButton: false,
+        backdrop: true,
+        didOpen: () => {
+            const swalBox = Swal.getPopup();
+            const topBar = document.createElement('div');
+            topBar.id = 'top-progress-bar';
+            topBar.style.cssText = `
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 5px;
+                width: 0%;
+                background-color: rgba(241, 56, 0, 1);
+                transition: width 0.4s ease;
+            `;
+            swalBox.appendChild(topBar);
 
-function rotarObjetoDepe(obj_id){
-    /* $.post("../../controller/objeto.php?op=mostrar",{obj_id : obj_id}, function (data) {
-        data = JSON.parse(data);
-        console.log(data);
-        $('#obj_id').val(data.obj_id);
-        $('#obj_nombre').val(data.obj_nombre);
-        $('#combo_cate').val(data.cate_id);
-        $('#combo_cate').change();
-        $('#lbltituloObj').html('Editar Objeto');
-    }); */
-   
-    $('#modalObjetoRotar').modal('show');
+            setTimeout(() => {
+                topBar.style.width = '100%';
+            }, 300);
+        }
+    });
 }
-
 initobjeto();

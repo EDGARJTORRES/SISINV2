@@ -41,6 +41,7 @@ function guardaryeditarbienes(e) {
           formData.append("fecharegistro", $("#fecharegistro").val());
           formData.append("val_adq", $("#val_adq").val());
           formData.append("doc_adq", $("#doc_adq").val());
+          formData.append("bien_placa", $("#bien_placa").val());
         } else {
           // Bienes N°2 en adelante - campos dinámicos con sufijo
           formData.append("marca_id", $(`#marca_${i}`).val());
@@ -54,6 +55,7 @@ function guardaryeditarbienes(e) {
           formData.append("fecharegistro", $(`input[name='fecharegistro_${i}']`).val());
           formData.append("val_adq", $(`input[name='val_adq_${i}']`).val());
           formData.append("doc_adq", $(`input[name='doc_adq_${i}']`).val());
+          formData.append("bien_placa", $(`input[name='bien_placa_${i}']`).val());
         }
 
         registros.push(formData);
@@ -80,6 +82,7 @@ function guardaryeditarbienes(e) {
     formData.set("bien_cuenta", $("#bien_cuenta").val());
     formData.set("fecharegistro", $("#fecharegistro").val());
     formData.set("bien_obs", $("#bien_obs").val());
+    formData.set("bien_placa", $("#bien_placa").val());
     formData.set("cantidad_bienes", "1"); // fijo en edición
 
     let registros = [formData];

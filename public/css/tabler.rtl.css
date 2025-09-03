@@ -17385,6 +17385,8 @@ Navbar vertical
   flex: 1;
   display: flex;
   flex-direction: column;
+  position: relative;
+  min-height: 100%;
 }
 @media print {
   .page-wrapper {

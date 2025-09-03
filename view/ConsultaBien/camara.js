@@ -13,7 +13,7 @@ function limitarADigitos(input) {
         limpiarDatos();
         }
         if (valor.length > 14) {
-        valor = valor.slice(0, 8);
+        valor = valor.slice(0, 14);
         }
         if (valor.length == 14) {
         limpiarDatos();

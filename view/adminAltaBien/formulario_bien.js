@@ -59,6 +59,7 @@ function editarBien(bien_id) {
     $("#modelo_id").val(bienData.modelo_id);
     $("#codigo_barras_input").val(bienData.bien_codbarras);
     $("#bien_numserie").val(bienData.bien_numserie);
+    $("#bien_placa").val(bienData.bien_placa);
     $("#obj_dim").val(bienData.bien_dim);
     $("#val_adq").val(bienData.val_adq);
     $("#doc_adq").val(bienData.doc_adq);

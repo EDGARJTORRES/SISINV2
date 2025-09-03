@@ -1,6 +1,6 @@
 <?php
 require_once("../config/conexion.php");
-require_once("../models/Color.php");
+require_once("../models/color.php");
 require_once("../models/Bitacora.php");
 $bitacora = new Bitacora();
 $color = new Color();
@@ -68,7 +68,7 @@ switch ($_GET["op"]) {
             $sub_array[] = '
             <div class="dropdown">
             <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                </svg> Acciones
+                Acciones
             </button>
             <ul class="dropdown-menu">
                 <li>
@@ -108,6 +108,7 @@ switch ($_GET["op"]) {
             "iTotalDisplayRecords" => count($data),
             "aaData" => $data
         );
+        header('Content-Type: application/json; charset=utf-8');
         echo json_encode($results);
         break;
     case "eliminar_colores":

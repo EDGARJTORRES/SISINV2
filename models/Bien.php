@@ -140,12 +140,14 @@ class Bien extends Conectar {
                 o.obj_nombre, 
                 m.marca_nom, 
                 md.modelo_nom,
-				b.fechacrea
+				b.fechacrea,
+                b.bien_placa
             FROM sc_inventario.tb_bien b
             JOIN sc_inventario.tb_objeto o ON b.obj_id = o.obj_id
             JOIN sc_inventario.tb_modelo md ON b.modelo_id = md.modelo_id
             JOIN sc_inventario.tb_marca m ON md.marca_id = m.marca_id
             WHERE b.bien_codbarras LIKE '6782%'
+            AND  b.bien_est NOT IN ('I', 'E')
 			ORDER BY b.fechacrea DESC;";
 
             $stmt = $conectar->prepare($sql);

@@ -36,16 +36,35 @@ function buscarBien() {
             confirmButtonText: "Aceptar",
             confirmButtonColor: 'rgb(243, 18, 18)',
           });
-          return;
-        }
-        var colores = data.bien_color.replace(/[{}]/g, "").trim();
+         $(".respuesta").html(`
+          <div class="alert alert-warning" role="alert">
+            <div class="d-flex">
+              <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon alert-icon" width="24" height="24" 
+                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" 
+                    stroke-linecap="round" stroke-linejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                  <path d="M12 9v2m0 4v.01" />
+                  <path d="M12 5a7 7 0 1 0 0 14a7 7 0 0 0 0 -14z" />
+                </svg>
+              </div>
+              <div>
+                <h4 class="alert-title">Bien no encontrado</h4>
+                <div class="text-secondary">
+                  Aquí se mostrará el detalle del bien patrimonial al ingresar un código válido.
+                </div>
+              </div>
+            </div>
+          </div>
+          <img id="cargando-detalle" src="../../public/logo_mpch2.png" alt="Cargando..." style="width: 380px; height: 380px; margin-left: 50vh; margin-top: 40px; margin-bottom:40px; opacity: 0.2;">
+        `);
 
-        if (colores === "") {
-          // No hay colores asignados
-          mostrarDatosObjeto(data, []);  // Pasamos lista vacía
-          $("#cod_bar").val("");
           return;
         }
+        var colores = data.bien_color ? data.bien_color.trim() : "";
+        
+        mostrarDatosObjeto(data, colores ? [colores] : []);
+        $("#cod_bar").val("");
         var listaColores = colores.split(",");
         var nombresColores = [];
         var completedRequests = 0;
@@ -84,12 +103,17 @@ function mostrarDatosObjeto(data, nombresColores) {
 const contenedor = document.querySelector(".respuesta");
 
 const mainContainer = document.createElement("div");
-mainContainer.className = "row g-3";
+mainContainer.className = "row g-3 mt-3";
 
 const colEstado = document.createElement("div");
 colEstado.className = "col-lg-3 d-flex align-items-center justify-content-center"; 
 
 const innerWrapper = document.createElement("div");
+
+let rutaImagen = (data.obj_img && data.obj_img.trim() !== "")
+  ? "../../" + data.obj_img   // la que viene de la BD
+  : "../../img/default.png"; // la default
+
 innerWrapper.className = "d-flex flex-column align-items-center"; 
 innerWrapper.innerHTML = `
   <div class="text-title mb-0"><h3>Estado del Bien</h3></div>
@@ -106,7 +130,7 @@ innerWrapper.innerHTML = `
     </div>
   </div>
   <div class="mt-2 w-100 d-flex justify-content-center">
-    <img src="../../static/illustrations/inventario.png" alt="Estado del bien" class="img-fluid" style="max-width: 220px;">
+    <img src="${rutaImagen}" alt="Imagen del bien" class="img-fluid" style="max-width: 220px; cursor:pointer;" onclick="verImagenSwal('${rutaImagen}')">
   </div>
 `;
 
@@ -188,7 +212,7 @@ innerWrapper.innerHTML = `
                 </div>
                 <div class="col-lg-3">
                   <strong>Color:</strong><br>
-                  ${(nombresColores && nombresColores.length > 0) ? nombresColores.map(c => c.toUpperCase()).join(", ") : 'SIN COLOR ASIGNADO'}
+                  ${nombresColores.length > 0 ? nombresColores.join(", ").toUpperCase() : 'SIN COLOR ASIGNADO'}
                 </div>
               </div>
             </div>
@@ -286,14 +310,4 @@ function obtenerColor2PorEstado(estado) {
     default:
       return "#ffe3e3"; 
   }
-}
-function get_color_string(color_id, callback) {
-  $.post(
-    "../../controller/objeto.php?op=get_color",
-    { color_id: color_id },
-    function (data) {
-      var jsonData = JSON.parse(data);
-      callback(jsonData.color_nom);
-    }
-  );
 }

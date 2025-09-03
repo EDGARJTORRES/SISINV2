@@ -15,7 +15,7 @@ if (isset($_SESSION["usua_id_siin"])) {
   </head>
 <body>
     <?php require_once("../html/mainProfile.php"); ?>
-     <div class="page-wrapper">
+     <div class="page-wrapper mb-6">
         <div class="page-header d-print-none">
             <div class="container-xl">
                 <nav class="breadcrumb mb-2">
@@ -62,13 +62,15 @@ if (isset($_SESSION["usua_id_siin"])) {
                             <div class="mb-3">
                               <label class="form-label">Grupo Generico:<span  style="color:red"> *</span></label>
                               <select class="form-control select2" style="width: 100%" id="combo_grupo_gen" name="combo_grupo_gen" required>
+                                <option value="" disabled selected> -- Seleccione Grupo Genérico --</option>
                               </select>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="mb-3">
                               <label class="form-label">Clase:<span  style="color:red"> *</span></label>
-                              <select class="form-control select2" style="width: 100%" id="combo_clase_gen" name="combo_clase_gen" required>
+                              <select class="form-control select2"  style="width: 100%" id="combo_clase_gen" name="combo_clase_gen" required>
+                                  <option value="" disabled selected>-- Seleccione Clase --</option>
                               </select>
                             </div>
                         </div>
@@ -81,8 +83,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                     <div class="card-status-start bg-primary"></div>
                     <div class="table-responsive mx-4">
                       <div class="row my-4">
-                        <div class="col-lg-3">
-                          <label  class="form-label" for="cantidad_registros">Registros por página:</label>
+                        <div class="col-lg-2">
                           <div class="input-icon">
                               <span class="input-icon-addon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
@@ -90,16 +91,15 @@ if (isset($_SESSION["usua_id_siin"])) {
                                 <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
                                 </svg>
                               </span>
-                              <input type="number" id="cantidad_registros"   style="width: 75%;" class="form-control" min="1" max="100" value="10"> 
+                              <input type="number" id="cantidad_registros"   style="width:100%;" class="form-control" min="1" max="100" value="10"> 
                           </div>
                         </div>
-                        <div class="col-lg-3">
-                          <label class="form-label" for="cantidad_registros">Buscar Formato:</label>
+                        <div class="col-lg-10">
                           <div class="input-icon">
                               <span class="input-icon-addon">
                                 <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
                               </span>
-                              <input type="text" id="buscar_registros" class="form-control"> 
+                              <input type="text" id="buscar_registros" class="form-control" placeholder="Buscar registros de los objetos ..."> 
                           </div>
                         </div>
                       </div>
@@ -142,6 +142,7 @@ if (isset($_SESSION["usua_id_siin"])) {
     <?php require_once("modalClase.php"); ?>
     <script type="text/javascript" src="adminMntObjetos.js"></script>
     <script type="text/javascript" src="objeto.js"></script>
+    <script type="text/javascript" src="imagen.js"></script>
 </body>
 </html>
 <?php

@@ -42,14 +42,13 @@
                     DATOS DE ADQUISICIÓN 
                 </button>
             </li>
-
         </ul>
         <form method="post" id="bien_form">
             <div class="modal-body tab-content p-4">
-                <input type="hidden" name="bien_id" id="bien_id" />
-                <input type="hidden" name="obj_id" id="obj_id" />
+                <input type="hidden" name="bien_id" id="bien_id"/>
+                <input type="hidden" name="obj_id" id="obj_id"/>
                 <input type="hidden" id="modelo_id" name="modelo_id">
-                <input type="hidden" id="codigo_barras_input" name="codigo_barras_input" />
+                <input type="hidden" id="codigo_barras_input" name="codigo_barras_input"/>
                 <div class="row mb-3 justify-content-center">
                     <div class="col-lg-6 text-center">
                         <canvas id="codigo_barras_canvas" style="border: 1px solid #ccc;"></canvas>
@@ -89,7 +88,7 @@
                         </div>
                         <div class="col-lg-3">
                             <label class="form-label">Dimensiones <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control required" id="obj_dim" name="obj_dim" placeholder="Ej: 40x30x20 cm">
+                            <input type="text" class="form-control required" id="obj_dim" name="obj_dim" placeholder="Ej: 40 h x 30 l x 20 a">
                         </div>
 
                         <!-- N° Serie -->
@@ -121,8 +120,8 @@
                         <div class="col-lg-3">
                             <label class="form-label">Procedencia:<span style="color:red"> *</span></label>
                             <select class="form-select select2 required" id="procedencia"  name="procedencia" data-placeholder="Seleccione la procedencia">
-                                <option value="NACIONAL">Nacional</option>
-                                <option value="DONADO">Donado</option>
+                                <option value="Nacional">Nacional</option>
+                                <option value="Donado">Donado</option>
                             </select>  
                         </div>
                     </div>
@@ -146,9 +145,12 @@
 
                         </div>
                         <div class="col-lg-3">
-                            <label class="form-label">Codigo Interno:<span style="color:red"> *</span></label>
-                            <div class="form-group">
+                            <label class="form-label">Placa del Vehiculo:<span style="color:red"> *</span></label>
+                            <div class="form-group" style="display:none !important;">
                                 <input class="form-control tx-uppercase" id="cod_interno" type="text" name="cod_interno" readonly />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control tx-uppercase" placeholder="Ej: ABC-123" id="bien_placa" type="text" name="bien_placa"/>
                             </div>
                         </div>
                     </div>

@@ -26,7 +26,7 @@
                   </div>
                 </div>
                 <div class="col-md-8">
-                  <div class="p-3 position-relative">
+                  <div class="p-2 position-relative">
                     <h4 id="mensaje-inicial" class="mb-2 text-muted">Seleccione una dependencia</h4>
                     <p id="subtitulo-inicial" class="text-secondary"> Utilice el panel de navegación ubicado a la izquierda  para explorar las diferentes dependencias. Una vez que seleccione una opción, la información correspondiente se mostrará en este espacio.</p>
                     <div id="detalle-contenido" class="position-relative">

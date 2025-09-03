@@ -51,7 +51,8 @@ if (isset($_SESSION["usua_id_siin"])) {
               </div>
                 <div class="row mb-3">
                   <div class="col-md-4">
-                    <div class="card border-0 mb-3" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
+                    <div class="card border-0 mb-3" style="box-shadow: 15px 15px 30px #bebebe,
+                                                             -15px -15px 30px #ffffff;">
                       <div class="card-status-start bg-primary"></div>
                       <div class="card-header">
                         <h3 class="card-title">
@@ -64,7 +65,8 @@ if (isset($_SESSION["usua_id_siin"])) {
                         </p>
                       </div>
                     </div>
-                    <div class="card border-0"  style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
+                    <div class="card border-0 mb-4"  style="box-shadow: 15px 15px 30px #bebebe,
+                                                             -15px -15px 30px #ffffff;">
                       <div class="card-status-start bg-primary"></div>
                       <div class="card-header">
                         <h3 class="card-title">
@@ -82,15 +84,15 @@ if (isset($_SESSION["usua_id_siin"])) {
                             <span><strong>Máx:</strong> <span id="max_valor">100</span></span>
                           </div>
                         </div>
-                        <div class="my-3">
+                        <div class="my-4">
                           <label class="form-label">Buscar Área / Dependencia :<span style="color:red"> *</span></label>
-                           <select class="form-select" id="filtro_dependencia" style="width: 100%;">
+                           <select class="form-select mt-3" id="filtro_dependencia" style="width: 100%;">
                             <option value="">Seleccione un área</option>
                            </select>
                         </div>
-                        <div class="row mb-2">
-                          <div class="col-md-12 d-grid mt-1">
-                            <button class="btn btn-6 btn-outline-secundary" onclick="limpiarFiltros()">
+                        <div class="my-4">
+                          <div class="col-md-12 d-grid mt-3">
+                            <button class="btn btn-6 btn-outline-dark" onclick="limpiarFiltros()">
                               <i class="fa-solid fa-eraser m-2"></i> LIMPIAR FILTROS
                             </button>
                           </div>
@@ -99,7 +101,8 @@ if (isset($_SESSION["usua_id_siin"])) {
                     </div>
                   </div>
                   <div class="col-md-8">
-                    <div class="card border-0" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
+                    <div class="card border-0" style="box-shadow: 15px 15px 30px #bebebe">
+                      <div class="card-status-start bg-primary"></div>
                       <div class="card-header">
                         <h3 class="card-title">
                           <i class="fa-solid fa-table-list me-2 text-primary"></i>

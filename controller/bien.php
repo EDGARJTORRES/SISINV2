@@ -90,7 +90,7 @@ switch ($_GET["op"]) {
         if (is_array($datos) && count($datos) > 0) {
             $html = "<option label='-- Seleccione tipo de Vehículo --'></option>";
             foreach ($datos as $row) {
-                $html .= "<option value='" . $row['bien_id'] . "'>"
+                $html .= "<option value='" . $row['bien_id'] . "' data-placa='" . $row['bien_placa'] . "'>"
                     . $row['bien_codbarras'] . " - "
                     . $row['obj_nombre'] . " - "
                     . $row['marca_nom'] . " - "

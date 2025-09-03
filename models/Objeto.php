@@ -1,53 +1,50 @@
 <?php
-class Objeto extends Conectar
-    {
-    public function insert_objeto($obj_nombre, $codigo_cana, $gc_id)
-        {
-            $conectar = parent::conexion();
-            parent::set_names();
+class Objeto extends Conectar{
+    public function insert_objeto($obj_nombre, $codigo_cana, $obj_img, $gc_id) {
+        $conectar = parent::conexion();
+        parent::set_names();
+        $sql = "INSERT INTO sc_inventario.tb_objeto 
+                (obj_nombre, codigo_cana, obj_img, gc_id, est) 
+                VALUES (?, ?, ?, ?, 1)";
+        $sql = $conectar->prepare($sql);
+        $sql->bindValue(1, $obj_nombre, PDO::PARAM_STR);
+        $sql->bindValue(2, $codigo_cana, PDO::PARAM_STR);
+        $sql->bindValue(3, $obj_img, PDO::PARAM_STR);
+        $sql->bindValue(4, $gc_id, PDO::PARAM_INT);
 
-            // Buscar si el código ya existe
-            $codigo_existente = $this->buscar_cod_cana($codigo_cana);
-
-            if (empty($codigo_existente)) { // Si no se encuentra el código
-                $sql = "INSERT INTO sc_inventario.tb_objeto(obj_nombre, codigo_cana, gc_id, est) VALUES (?,?,?,1);";
-                $sql = $conectar->prepare($sql);
-                $sql->bindValue(1, $obj_nombre);
-                $sql->bindValue(2, $codigo_cana);
-                $sql->bindValue(3, $gc_id);
-                $sql->execute();
-                return true; // Indicar que la inserción fue exitosa
-            } else {
-                return false; // Indicar que el código ya existe
-            }
+        return $sql->execute();
+    }
+    public function update_objeto($obj_id, $obj_nombre, $codigo_cana, $obj_img, $gc_id) {
+        $conectar = parent::conexion();
+        parent::set_names();
+        if (!empty($obj_img)) {
+            $sql = "UPDATE sc_inventario.tb_objeto 
+                    SET obj_nombre = ?, 
+                        codigo_cana = ?, 
+                        obj_img = ?, 
+                        gc_id = ?
+                    WHERE obj_id = ?";
+            $sql = $conectar->prepare($sql);
+            $sql->bindValue(1, $obj_nombre, PDO::PARAM_STR);
+            $sql->bindValue(2, $codigo_cana, PDO::PARAM_STR);
+            $sql->bindValue(3, $obj_img, PDO::PARAM_STR);
+            $sql->bindValue(4, $gc_id, PDO::PARAM_INT);
+            $sql->bindValue(5, $obj_id, PDO::PARAM_INT);
+        } else {
+            $sql = "UPDATE sc_inventario.tb_objeto 
+                    SET obj_nombre = ?, 
+                        codigo_cana = ?, 
+                        gc_id = ?
+                    WHERE obj_id = ?";
+            $sql = $conectar->prepare($sql);
+            $sql->bindValue(1, $obj_nombre, PDO::PARAM_STR);
+            $sql->bindValue(2, $codigo_cana, PDO::PARAM_STR);
+            $sql->bindValue(3, $gc_id, PDO::PARAM_INT);
+            $sql->bindValue(4, $obj_id, PDO::PARAM_INT);
         }
-
-
-    public function update_objeto($obj_id, $obj_nombre, $codigo_cana)
-        {
-            $conectar = parent::conexion();
-            parent::set_names();
-            $codigo_existente = $this->buscar_cod_cana($codigo_cana);
-            $objeto_actual = $this->get_objeto_id($obj_id);
-            if ($objeto_actual['codigo_cana'] == $codigo_cana || empty($codigo_existente)) {
-                $sql = "UPDATE sc_inventario.tb_objeto
-                            SET
-                            obj_nombre = ?,
-                            codigo_cana = ?
-                            WHERE
-                                obj_id = ?";
-                $sql = $conectar->prepare($sql);
-                $sql->bindValue(1, $obj_nombre);
-                $sql->bindValue(2, $codigo_cana);
-                $sql->bindValue(3, $obj_id);
-                $sql->execute();
-                return true; 
-            } else {
-                return false;
-            }
-        }
-
-    public function insert_registro_bien($fecharegistro, $obj_id, $modelo_id, $bien_numserie, $bien_codbarras, $bien_color, $bien_dim, $procedencia, $val_adq, $doc_adq, $bien_obs, $bien_cuenta) {
+        return $sql->execute();
+    }
+    public function insert_registro_bien($fecharegistro, $obj_id, $modelo_id, $bien_numserie,$bien_codbarras,$bien_color, $bien_dim, $procedencia, $val_adq, $doc_adq, $bien_obs, $bien_cuenta,$bien_placa) {
         $conectar = parent::conexion();
                     parent::set_names();
         $sql = "INSERT INTO sc_inventario.tb_bien(
@@ -62,8 +59,9 @@ class Objeto extends Conectar
                 val_adq, 
                 doc_adq, 
                 bien_obs,
-                bien_cuenta
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                bien_cuenta,
+                bien_placa
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $conectar->prepare($sql);
             $stmt->bindValue(1, $fecharegistro, PDO::PARAM_STR);
             $stmt->bindValue(2, $obj_id);
@@ -77,6 +75,7 @@ class Objeto extends Conectar
             $stmt->bindValue(10, $doc_adq, PDO::PARAM_STR);
             $stmt->bindValue(11, $bien_obs, PDO::PARAM_STR);
             $stmt->bindValue(12, $bien_cuenta, PDO::PARAM_STR);
+            $stmt->bindValue(13, $bien_placa, PDO::PARAM_STR);
             $stmt->execute();
             $bien_id = $conectar->lastInsertId();
             $sqlDetalle = "INSERT INTO sc_inventario.tb_bien_detalle (bien_id) VALUES (?)";
@@ -98,6 +97,7 @@ class Objeto extends Conectar
         $doc_adq,
         $bien_obs,
         $bien_cuenta,
+        $bien_placa,
         $procedencia
        ) {
         $conectar = parent::conexion();
@@ -115,6 +115,7 @@ class Objeto extends Conectar
                     doc_adq = ?,
                     bien_obs = ?,
                     bien_cuenta = ?,
+                    bien_placa = ?,
                     procedencia = ?
                 WHERE bien_id = ?";
 
@@ -130,8 +131,9 @@ class Objeto extends Conectar
         $sql->bindValue(9, $doc_adq, PDO::PARAM_STR);
         $sql->bindValue(10, $bien_obs, PDO::PARAM_STR);
         $sql->bindValue(11, $bien_cuenta, PDO::PARAM_STR);
-        $sql->bindValue(12, $procedencia, PDO::PARAM_STR);
-        $sql->bindValue(13, $bien_id, PDO::PARAM_INT);
+        $sql->bindValue(12, $bien_placa, PDO::PARAM_STR);
+        $sql->bindValue(13, $procedencia, PDO::PARAM_STR);
+        $sql->bindValue(14, $bien_id, PDO::PARAM_INT);
 
         $sql->execute();
 
@@ -333,16 +335,46 @@ class Objeto extends Conectar
         {
             $conectar = parent::conexion();
             parent::set_names();
-            $sql = "SELECT tbb.bien_id,tbd.biendepe_est, tp.pers_dni,  tp.pers_apelpat || ' ' || tp.pers_apelmat || ', ' || tp.pers_nombre AS nombre_completo, tbb.bien_est, tbm.marca_id, tbb.modelo_id , tob.obj_nombre, tbb.bien_codbarras, tbb.fecharegistro, tbb.bien_numserie, 
-            tbb.procedencia, tbb.bien_dim, tbb.val_adq, tbb.doc_adq,tbb.bien_obs, tbb.bien_color,  td.depe_denominacion , tbm.marca_id,tm.marca_nom,tbb.modelo_id,tbm.modelo_nom
-            from sc_inventario.tb_bien tbb
-            left join sc_inventario.tb_bien_dependencia tbd on tbb.bien_id = tbd.bien_id
-            left join tb_dependencia td on td.depe_id = tbd.depe_id
-            left join sc_inventario.tb_objeto tob on tob.obj_id = tbb.obj_id
-            left join sc_inventario.tb_modelo tbm on tbm.modelo_id = tbb.modelo_id
-            LEFT JOIN sc_inventario.tb_marca tm ON tm.marca_id = tbm.marca_id
-            left join sc_escalafon.tb_persona tp on tp.pers_id = tbd.repre_id
-            where tbb.bien_codbarras = ? and tbb.bien_est in ('N','B','R','M') order by  tbd.biendepe_est desc limit 1";
+            $sql = "SELECT 
+                    tbb.bien_id,
+                    tbd.biendepe_est,
+                    tp.pers_dni,  
+                    tp.pers_apelpat || ' ' || tp.pers_apelmat || ', ' || tp.pers_nombre AS nombre_completo, 
+                    tbb.bien_est, 
+                    tbm.marca_id, 
+                    tbb.modelo_id, 
+                    tob.obj_nombre, 
+                    tob.obj_img,
+                    tbb.bien_codbarras, 
+                    tbb.fecharegistro, 
+                    tbb.bien_numserie, 
+                    tbb.procedencia, 
+                    tbb.bien_dim, 
+                    tbb.val_adq, 
+                    tbb.doc_adq,
+                    tbb.bien_obs, 
+                    (
+                        SELECT string_agg(c.color_nom, ', ')
+                        FROM public.tb_color c
+                        WHERE c.color_id = ANY(tbb.bien_color)
+                    ) AS bien_color,
+                    td.depe_denominacion,  
+                    tm.marca_nom, 
+                    tbm.modelo_nom
+                    FROM sc_inventario.tb_bien tbb
+                    LEFT JOIN sc_inventario.tb_bien_dependencia tbd ON tbb.bien_id = tbd.bien_id
+                    LEFT JOIN tb_dependencia td ON td.depe_id = tbd.depe_id
+                    LEFT JOIN sc_inventario.tb_objeto tob ON tob.obj_id = tbb.obj_id
+                    LEFT JOIN sc_inventario.tb_modelo tbm ON tbm.modelo_id = tbb.modelo_id
+                    LEFT JOIN sc_inventario.tb_marca tm ON tm.marca_id = tbm.marca_id
+                    LEFT JOIN sc_escalafon.tb_persona tp ON tp.pers_id = tbd.repre_id
+                    WHERE 
+                    tbb.bien_codbarras = ? 
+                    AND tbb.bien_est IN ('N', 'B', 'R', 'M')
+                    ORDER BY tbd.biendepe_est DESC 
+                    LIMIT 1;
+
+                ";
             $sql = $conectar->prepare($sql);
             $sql->bindValue(1, $cod_barras);
             $sql->execute();
@@ -403,6 +435,7 @@ class Objeto extends Conectar
                 tbb.doc_adq,
                 tbb.bien_obs,
                 tbb.bien_cuenta,
+                tbb.bien_placa,
                 tbb.procedencia
             FROM sc_inventario.tb_bien tbb 
             LEFT JOIN sc_inventario.tb_objeto tob ON tob.obj_id = tbb.obj_id

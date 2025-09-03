@@ -190,18 +190,51 @@ class Formato extends Conectar
     {
         $conectar = parent::conexion();
         parent::set_names();
-        $sql = "select count(tbp.biendepe_id), esper.pers_nombre, tbp.form_id, tbf.form_fechacrea, tbft.tif_nom, 
-        tdepe1.depe_denominacion as receptor,tdepe2.depe_denominacion as emisor
-        from sc_inventario.tb_bien_dependencia tbp 
-        inner join sc_inventario.tb_formato tbf on tbf.form_id= tbp.form_id
-        AND tbf.form_est = 1
-		left join tb_dependencia tdepe1 on tdepe1.depe_id = tbf.depe_receptor
-		left join tb_dependencia tdepe2 on tdepe2.depe_id = tbf.depe_emisor
-        inner join sc_inventario.tb_tipoformato tbft on tbft.tif_id= tbf.tif_id
-        inner join  sc_escalafon.tb_persona esper ON esper.pers_id = tbf.pers_id
-        group by tbp.form_id, tbf.form_fechacrea, tbft.tif_nom,tbf.depe_emisor,
-		tbf.depe_receptor,esper.pers_nombre, tdepe1.depe_denominacion,tdepe2.depe_denominacion  
-    ";
+        $sql = "SELECT 
+                COUNT(tbp.biendepe_id),
+                esper.pers_nombre, 
+                tbp.form_id,
+                COALESCE(
+                    pers_rec.pers_apelpat || ' ' || pers_rec.pers_apelmat || ', ' || pers_rec.pers_nombre,
+                    tbf.form_repre_receptor
+                ) AS form_repre_receptor,
+                COALESCE(
+                    pers_emi.pers_apelpat || ' ' || pers_emi.pers_apelmat || ', ' || pers_emi.pers_nombre,
+                    tbf.form_repre_emisor
+                ) AS form_repre_emisor,
+                tbf.form_fechacrea, 
+                tbft.tif_nom, 
+                tdepe1.depe_denominacion AS receptor,
+                tdepe2.depe_denominacion AS emisor
+            FROM sc_inventario.tb_bien_dependencia tbp 
+            INNER JOIN sc_inventario.tb_formato tbf 
+                ON tbf.form_id = tbp.form_id AND tbf.form_est = 1
+            LEFT JOIN tb_dependencia tdepe1 
+                ON tdepe1.depe_id = tbf.depe_receptor
+            LEFT JOIN tb_dependencia tdepe2 
+                ON tdepe2.depe_id = tbf.depe_emisor
+            INNER JOIN sc_inventario.tb_tipoformato tbft 
+                ON tbft.tif_id = tbf.tif_id
+            INNER JOIN sc_escalafon.tb_persona esper 
+                ON esper.pers_id = tbf.pers_id
+            LEFT JOIN sc_escalafon.tb_persona pers_rec 
+                ON pers_rec.pers_id::text = tbf.form_repre_receptor
+            LEFT JOIN sc_escalafon.tb_persona pers_emi 
+                ON pers_emi.pers_id::text = tbf.form_repre_emisor
+            GROUP BY 
+                tbp.form_id, 
+                tbf.form_fechacrea, 
+                tbft.tif_nom,
+                tbf.depe_emisor,
+                tbf.depe_receptor,
+                esper.pers_nombre,
+                tdepe1.depe_denominacion,
+                tdepe2.depe_denominacion,
+                pers_rec.pers_apelpat, pers_rec.pers_apelmat, pers_rec.pers_nombre,
+                pers_emi.pers_apelpat, pers_emi.pers_apelmat, pers_emi.pers_nombre,
+                tbf.form_repre_receptor,
+                tbf.form_repre_emisor;
+            ";
         $sql = $conectar->prepare($sql);
         $sql->execute();
         return $resultado = $sql->fetchAll();
