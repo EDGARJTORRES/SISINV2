@@ -29,6 +29,7 @@
                   <div class="p-2 position-relative">
                     <h4 id="mensaje-inicial" class="mb-2 text-muted">Seleccione una dependencia</h4>
                     <p id="subtitulo-inicial" class="text-secondary"> Utilice el panel de navegación ubicado a la izquierda  para explorar las diferentes dependencias. Una vez que seleccione una opción, la información correspondiente se mostrará en este espacio.</p>
+                    <img id="cargando-detalle" src="../../public/logo_mpch2.png" alt="Cargando..." style="width: 280px; height: 280px; margin-left: 230px; margin-top: 40px; margin-bottom:40px; opacity: 0.2;">
                     <div id="detalle-contenido" class="position-relative">
                     </div>
                   </div>

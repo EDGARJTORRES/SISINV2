@@ -35,7 +35,7 @@ if (isset($_SESSION["usua_id_siin"])) {
 </head>
 <body>
     <?php require_once("../html/mainProfile.php"); ?>
-     <div class="page-wrapper">
+     <div class="page-wrapper mb-5">
         <div class="page-header d-print-none">
             <div class="container-xl">
                 <nav class="breadcrumb mb-2">

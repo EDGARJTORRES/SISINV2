@@ -5,10 +5,45 @@ $('#combo_vehiculo').select2({
 });
 $('#tipo_servicio').select2({
     width: '100%',
-    dropdownParent: $('#tipo_servicio').closest('.input-group'),
-    theme: 'bootstrap-5'
+    theme: 'bootstrap-5',
+    placeholder: "-- Seleccione tipo de servicio --",
+    allowClear: true,
+    dropdownParent: $('#tipo_servicio').closest('.input-icon')
+});
+$('#tipo_carroceria').select2({
+    width: '100%',
+    theme: 'bootstrap-5',
+    placeholder: "-- Seleccione tipo de carrocería --",
+    allowClear: true,
+    dropdownParent: $('#tipo_carroceria').closest('.input-icon')
+});
+$('#categoria').select2({
+    width: '100%',
+    theme: 'bootstrap-5',
+    placeholder: "-- Seleccione categoría --",
+    allowClear: true,
+    dropdownParent: $('#categoria').closest('.input-icon')
+});
+$("#combo_combustible_bien").select2({
+    placeholder: "Seleccione uno o más combustibles",
+    allowClear: true
 });
 
+$(document).ready(function() {
+    $.post("../../controller/tipocarroceria.php?op=listar_tipo_carroceria", function(data) {
+        $("#tipo_carroceria").html(data);
+    });
+    $('#tipo_carroceria').on('change', function() {
+        var codigo = $(this).val();
+        if(codigo) {
+            $.post("../../controller/tipocarroceria.php?op=listar_categoria", {codigo: codigo}, function(data) {
+                $("#categoria").html(data);
+            });
+        } else {
+            $("#categoria").html("<option></option>");
+        }
+    });
+});
 
 $(function () {
     $.post("../../controller/bien.php?op=combo_detalle_bien", function (data) {
@@ -223,7 +258,7 @@ function mostrarContenido(seccion) {
             <div class="hr-text mx-4"><h4 class="text-primary"> >> Datos Generales del Vehículo << </h4> </div>
             <div class="row my-4 mx-3">
                 <div class="row">
-                    <div class="col-md-6 mb-3">
+                    <div class="col-lg-6 mb-3">
                         <label for="ruta" class="form-label">Ruta: <span class="text-danger">*</span></label>
                         <div class="input-icon mb-1">
                             <span class="input-icon-addon">
@@ -243,14 +278,31 @@ function mostrarContenido(seccion) {
                             <input type="text" class="form-control" id="ruta" name="ruta" placeholder="Ej: Chiclayo-Pimentel">
                         </div>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-lg-6 mb-3">
                         <label for="tipo_movilidad" class="form-label">Tipo de Servicio <span class="text-danger">*</span></label>
                         <div class="input-icon mb-1">
-                            <select class="form-select select2" id="tipo_servicio" name="tipo_servicio" style="width: 100%;" placeholder= "-- Seleccione tipo de servicio -- ">
+                            <select class="form-select select2" id="tipo_servicio" name="tipo_servicio" style="width: 100%;">
+                             <option></option> 
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-lg-6 mb-3">
+                        <label for="carroceria" class="form-label">Carrocería <span class="text-danger">*</span></label>
+                        <div class="input-icon mb-1">
+                            <select class="form-select select2" id="tipo_carroceria" name="tipo_carroceria" style="width: 100%;">
+                            <option></option> 
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-3">
+                        <label for="categoria" class="form-label">Categoría <span class="text-danger">*</span></label>
+                        <div class="input-icon mb-1">
+                            <select class="form-select select2" id="categoria" name="categoria" style="width: 100%;">
+                            <option></option> 
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-3">
                         <label for="Vin" class="form-label">Número de Vin <span class="text-danger">*</span></label>
                         <div class="input-icon mb-1">
                             <span class="input-icon-addon">
@@ -260,24 +312,17 @@ function mostrarContenido(seccion) {
                             <input type="text" min="1" class="form-control" id="vin" name="vin" placeholder="Ej: 8A1H52A3XJ12345">
                         </div>
                     </div>
-                    <div class="col-md-3 mb-3">
-                        <label for="categoria" class="form-label">Categoría <span class="text-danger">*</span></label>
+                    <div class="col-lg-4 mb-3">
+                        <label for="version" class="form-label">Versión <span class="text-danger">*</span></label>
                         <div class="input-icon mb-1">
                             <span class="input-icon-addon">
-                                <!-- Icono etiqueta -->
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" 
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
-                                    class="icon icon-tabler icon-tabler-tag">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                    <path d="M4 4h4l10 10a2 2 0 0 1 -4 4l-10 -10v-4z" />
-                                    <path d="M4 8l4 -4" />
-                                </svg>
+                                <!-- Icono version -->
+                                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-versions"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 5m0 2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2z" /><path d="M7 7l0 10" /><path d="M4 8l0 8" /></svg>
                             </span>
-                            <input type="text" class="form-control" id="categoria" name="categoria" placeholder="Ej: M1, N2, L3">
+                            <input type="text" class="form-control" id="version" name="version" placeholder="Ej: 4X2 D/C 2GD SR">
                         </div>
                     </div>
-                    <div class="col-md-3 mb-3">
+                    <div class="col-lg-4 mb-3">
                         <label for="anio_fabricacion" class="form-label">Año Fabricación <span class="text-danger">*</span></label>
                         <div class="input-icon mb-1">
                             <span class="input-icon-addon">
@@ -296,40 +341,9 @@ function mostrarContenido(seccion) {
                             <input type="number" class="form-control" id="anio_fabricacion" name="anio_fabricacion" min="1900" max="2100" placeholder="Ej: 2020">
                         </div>
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="carroceria" class="form-label">Carrocería <span class="text-danger">*</span></label>
-                        <div class="input-icon mb-1">
-                            <span class="input-icon-addon">
-                                <!-- Icono carrocería -->
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                    class="icon icon-tabler icon-tabler-truck">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                    <rect x="1" y="5" width="15" height="10" rx="2" />
-                                    <path d="M16 9h4l3 3v3h-7z" />
-                                    <circle cx="5.5" cy="15.5" r="2.5" />
-                                    <circle cx="18.5" cy="15.5" r="2.5" />
-                                </svg>
-                            </span>
-                            <input type="text" class="form-control" id="carroceria" name="carroceria" placeholder="Ej: Furgón, Pick-up, Minibús">
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="version" class="form-label">Versión <span class="text-danger">*</span></label>
-                        <div class="input-icon mb-1">
-                            <span class="input-icon-addon">
-                                <!-- Icono version -->
-                                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-versions"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 5m0 2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2z" /><path d="M7 7l0 10" /><path d="M4 8l0 8" /></svg>
-                            </span>
-                            <input type="text" class="form-control" id="version" name="version" placeholder="Ej: 4X2 D/C 2GD SR">
-                        </div>
-                    </div>
-                    <div class="col-md-12 mb-3">
+                    <div class="col-lg-12 mb-3">
                         <label for="comb_id" class="form-label">Tipo de Combustible <span class="text-danger">*</span></label>
-                        <div id="combustibles_container" class="form-selectgroup justify-content-center">
-                            <!-- Aquí se llenan los checkboxes dinámicamente -->
-                        </div>
+                        <select class="form-select w-100" name="bien_comb[]" id="combo_combustible_bien" multiple></select>
                     </div>
                 </div>     
             </div>
@@ -639,49 +653,100 @@ function mostrarContenido(seccion) {
     contenedor.innerHTML = contenidoHTML;
     if (seccion === 'identificacion') {
         cargarCombustibles();
-    }
-    if (seccion === 'identificacion') {
         cargarTipoServicio();
+        cargarTipoCarroceria();
+        $('#tipo_carroceria').off('change').on('change', function() {
+            let codigo = $(this).val();
+            cargarCategorias(codigo);
+        });
+
     }
+
 }
 function cargarTipoServicio(selectedValue = '') {
     $.post("../../controller/tiposervicio.php?op=listar_tipo_servicio", function (data) {
-        let options = '<option value="" disabled>-- Seleccione tipo de servicio --</option>' + data;
+        let options = '<option></option>' + data; // opción vacía para placeholder
         $("#tipo_servicio").html(options);
-        $("#tipo_servicio").select2({ width: '100%' });
+        $("#tipo_servicio").select2({
+            width: '100%',
+            placeholder: "-- Seleccione tipo de servicio --",
+            allowClear: true
+        });
         if (selectedValue) {
             $("#tipo_servicio").val(selectedValue).trigger('change');
+        } else {
+            $("#tipo_servicio").val(null).trigger('change');
+        }
+    }, "html");
+}
+function cargarTipoCarroceria(selectedValue = '', categoriaSeleccionada = '') {
+    $.post("../../controller/tipocarroceria.php?op=listar_tipo_carroceria", function (data) {
+        let options = '<option></option>' + data;
+        $("#tipo_carroceria").html(options);
+
+        if ($("#tipo_carroceria").hasClass("select2-hidden-accessible")) {
+            $("#tipo_carroceria").select2('destroy');
+        }
+        $("#tipo_carroceria").select2({
+            width: '100%',
+            placeholder: "-- Seleccione tipo de carrocería --",
+            allowClear: true
+        });
+        if (selectedValue) {
+            $("#tipo_carroceria").val(selectedValue).trigger('change');
+        }
+        if (selectedValue) {
+            cargarCategorias(selectedValue, categoriaSeleccionada);
+        }
+    }, "html");
+}
+function cargarCategorias(codigoCarroceria, selectedValue = '') {
+    if (!codigoCarroceria) {
+        $("#categoria").empty().append('<option></option>').trigger('change');
+        return;
+    }
+    $.post("../../controller/tipocarroceria.php?op=listar_categoria", {codigo: codigoCarroceria}, function (data) {
+        let options = '<option></option>' + data;
+        $("#categoria").html(options);
+
+        if ($("#categoria").hasClass("select2-hidden-accessible")) {
+            $("#categoria").select2('destroy');
+        }
+        $("#categoria").select2({
+            width: '100%',
+            placeholder: "-- Seleccione categoría --",
+            allowClear: true
+        });
+        if (selectedValue) {
+            $("#categoria").val(selectedValue).trigger('change');
         }
     }, "html");
 }
 
-
 function cargarCombustibles(seleccionados = []) {
     $.post("../../controller/combustible.php?op=combo_detalle_combustible", function (data) {
-        let checkboxes = '';
         try {
             const items = JSON.parse(data);
+            const $select = $("#combo_combustible_bien");
+            $select.empty();
+            $select.append('<option></option>'); 
             items.forEach(item => {
-                let checked = seleccionados.includes(item.id.toString()) ? 'checked' : '';
-                checkboxes += `
-                    <label class="form-selectgroup-item flex-fill">
-                        <input type="checkbox" name="combustibles[]" value="${item.id}" class="form-selectgroup-input" ${checked}>
-                        <div class="form-selectgroup-label d-flex align-items-center p-3">
-                            <div class="me-3">
-                                <span class="form-selectgroup-check"></span>
-                            </div>
-                            <div class="form-selectgroup-label-content d-flex align-items-center">
-                                <div>
-                                    <div class="font-weight-medium">${item.nombre}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </label>
-                `;
+                const selected = seleccionados.includes(item.id.toString());
+                const option = new Option(item.nombre, item.id, false, selected);
+                $select.append(option);
             });
+            if ($select.hasClass("select2-hidden-accessible")) {
+                $select.select2('destroy');
+            }
+            $select.select2({
+                width: '100%',
+                placeholder: "Seleccione uno o más combustibles",
+                allowClear: true
+            });
+            $select.val(seleccionados).trigger('change');
+
         } catch (e) {
             console.error("Error al parsear JSON de combustibles", e, data);
         }
-        document.getElementById("combustibles_container").innerHTML = checkboxes;
     });
 }

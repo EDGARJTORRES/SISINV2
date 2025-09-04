@@ -16,7 +16,7 @@ if (isset($_SESSION["usua_id_siin"])) {
     <div class="page-wrapper">
       <div class="page-header d-print-none">
         <div class="container-xl">
-          <nav class="breadcrumb mb-4">
+          <nav class="breadcrumb mb-2">
             <a href="../adminMain/">Inicio</a>
             <svg class="breadcrumb-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10.1 16.3"><path fill="currentColor" d="M0,14.4l6.2-6.2L0,1.9L2,0l8.1,8.1L2,16.3L0,14.4z"/></svg>
            <span class="breadcrumb-item active">Procesos</span>
@@ -27,7 +27,7 @@ if (isset($_SESSION["usua_id_siin"])) {
             <svg class="breadcrumb-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10.1 16.3"><path fill="currentColor" d="M0,14.4l6.2-6.2L0,1.9L2,0l8.1,8.1L2,16.3L0,14.4z"/></svg>
             <span>Bienes sin Asignacion</span>
           </nav>
-          <div class="row g-2  mb-5 align-items-center">
+          <div class="row g-2  mb-3 align-items-center">
             <div class="col-auto">
               <a href="../adminAsignacionBien/" class="btn btn-ghost-primary">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -58,7 +58,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                 </div>
                 <div class="card-body">
                   <div class="table-responsive mx-4">
-                    <div class="row my-4">
+                    <div class="row my-3">
                       <div class="col-lg-12">
                         <div class="d-flex flex-wrap align-items-center gap-3">
                           <div class="d-flex align-items-center gap-2 mx-3">
@@ -75,7 +75,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                             <label>Registros</label>  
                           </div>
                           <div class="d-flex align-items-center gap-4">
-                            <div class="input-icon"  style="width: 400px;">
+                            <div class="input-icon"  style="width: 100vh;">
                                 <span class="input-icon-addon">
                                   <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-search">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
@@ -86,7 +86,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                         </div>
                       </div>
                     </div>
-                      <table id="bienes_data"  class="table card-table table-vcenter text-nowrap datatable">
+                      <table id="bienes_data"  class="table card-table table-vcenter text-nowrap datatable" style="width: 99%;">
                           <thead>
                               <tr>
                               <th><span title="Codigo Interno">Cod</span></th>
@@ -109,7 +109,7 @@ if (isset($_SESSION["usua_id_siin"])) {
       </div>  
     </div>
     <?php require_once("../html/footer.php"); ?>
-    <?php require_once("../html/mainjs.php"); ?>
+    <?php require_once("../html/mainJs.php"); ?>
     <script type="text/javascript" src="bienSinAsignacion.js"></script>
 </body>
 </body>

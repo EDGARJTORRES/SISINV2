@@ -1,7 +1,9 @@
 <?php
 require_once("../config/conexion.php");
 require_once("../models/Combustible.php");
+
 $combustible = new Combustible();
+
 switch ($_GET["op"]) {
     case "combo_detalle_combustible":
         $datos = $combustible->get_combustible_detalle();
@@ -11,7 +13,7 @@ switch ($_GET["op"]) {
             foreach ($datos as $row) {
                 $resultado[] = [
                     "id" => $row["comb_id"],
-                    "nombre" => $row["comb_nombre"]
+                    "nombre" => $row["comb_tipo"]
                 ];
             }
         }

@@ -9,7 +9,7 @@ if (isset($_SESSION["usua_id_siin"])) {
     <link href="../../public/css/Breadcrumb.css" rel="stylesheet"/>
     <link href="../../public/css/iconos.css" rel="stylesheet"/>
     <link href="../../public/css/marca.css" rel="stylesheet"/>
-    <title>MPCH::ManGenerales</title>
+    <title>MPCH::Reportes</title>
   </head>
 <body>
     <?php require_once("../html/mainProfile.php"); ?>

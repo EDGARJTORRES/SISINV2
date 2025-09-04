@@ -11,7 +11,7 @@ if (isset($_SESSION["usua_id_siin"])) {
     <link href="../../public/css/alerta.css" rel="stylesheet"/>
     <link href="../../public/css/objeto.css" rel="stylesheet"/>
     <link href="../../public/css/iconos.css" rel="stylesheet"/>
-    <title>MPCH::AltaBienes</title>
+    <title>MPCH::MantObjetos</title>
   </head>
 <body>
     <?php require_once("../html/mainProfile.php"); ?>

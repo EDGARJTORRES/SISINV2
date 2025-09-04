@@ -6,7 +6,7 @@ if (isset($_SESSION["usua_id_siin"])) {
 <html lang="es">
 <head>
     <?php require_once("../html/mainHead.php"); ?>
-    <title>MPCH::Consulta Bienes</title>
+    <title>MPCH::Consultas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
     <link href="../../public/css/Breadcrumb.css" rel="stylesheet"/>
     <link href="../../public/css/consulta.css" rel="stylesheet"/> 
@@ -80,7 +80,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                         </button>
                     </div>
                   </div>
-                  <div class="respuesta mt-3" style="text-align: justify;color: #d61111ff;font-size: 12px; min-height: 80vh;">
+                  <div class="respuesta mt-3" style="text-align: justify;color: #d61111ff;font-size: 12px; min-height: 60vh;">
                       <div id="mensaje-inicial" class="alert alert-info" role="alert">
                         <div class="d-flex">
                           <div>
@@ -109,7 +109,7 @@ if (isset($_SESSION["usua_id_siin"])) {
     </div>
   </div>
   <?php require_once("../html/footer.php"); ?>
-  <?php require_once("../html/mainjs.php"); ?>
+  <?php require_once("../html/mainJs.php"); ?>
   <script type="text/javascript" src="consultar.js"></script>
   <script type="text/javascript" src="camara.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>

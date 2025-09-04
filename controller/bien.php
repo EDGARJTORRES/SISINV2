@@ -34,40 +34,36 @@ switch ($_GET["op"]) {
     break;
     case "listar_bienes_sin_asignacion":
         $datos = $bien->get_bienes_sin_dependencia();
-        $data = array();
+        $data = array(); 
         foreach ($datos as $row) {
             $sub_array = array();
             $sub_array[] = $row["bien_id"];
-            $sub_array[] = '<span class="badge bg-red-lt selectable">' . $row["bien_codbarras"] . '</span>';
+            $sub_array[] = '<span class="badge bg-cyan text-cyan-fg selectable copiar-codbarras" data-codigo="' . $row["bien_codbarras"] . '">' . $row["bien_codbarras"] . '</span>';
             $sub_array[] = date("Y-m-d", strtotime($row["fecharegistro"]));
             $sub_array[] = $row["obj_nombre"];
-            $estado = strtolower($row["bien_est"]); 
+            $estado = strtolower($row["bien_est"]);
             switch ($estado) {
-                case 'a':
-                    $badge_class = 'bg-primary';
-                    $estado_text = 'Activo';
-                    break;
                 case 'n':
-                    $badge_class = 'bg-purple';
+                    $badge_class = 'bg-purple-lt';
                     $estado_text = 'Nuevo';
-                break;
+                    break;
                 case 'r':
-                    $badge_class = 'bg-warning';
+                    $badge_class = 'bg-orange-lt';
                     $estado_text = 'Regular';
                     break;
                 case 'm':
-                    $badge_class = 'bg-danger';
+                    $badge_class = 'bg-red-lt';
                     $estado_text = 'Malo';
                     break;
                 case 'b':
-                    $badge_class = 'bg-success';
+                    $badge_class = 'bg-green-lt';
                     $estado_text = 'Bueno';
                     break;
                 default:
-                    $badge_class = 'bg-secondary';
+                    $badge_class = 'bg-secondary-lt';
                     $estado_text = 'Inactivo';
             }
-           $sub_array[] = '<span class="d-inline-block ' . $badge_class . ' text-white text-center px-0 py-0 rounded-pill" style="min-width: 70px;">' . $estado_text . '</span>';
+            $sub_array[] = '<span class="d-inline-block ' . $badge_class . ' text-white text-center px-0 py-0 rounded-pill" style="min-width: 70px;">' . $estado_text . '</span>';
             $sub_array[] = $row["procedencia"]; 
             $sub_array[] = $row["val_adq"]; 
             $data[] = $sub_array;

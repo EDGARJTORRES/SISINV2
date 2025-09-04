@@ -1,7 +1,7 @@
 $(document).on("submit", "#formIdentificacion", function(e) {
     e.preventDefault();
-
-    if ($("#combo_vehiculo").val() === null || $("#combo_vehiculo").val() === "") {
+    const vehiculo = $("#combo_vehiculo").val();
+    if (!vehiculo) {
         Swal.fire({
             title: 'Atención',
             text: 'Debe seleccionar un vehículo antes de guardar los datos.',
@@ -9,20 +9,13 @@ $(document).on("submit", "#formIdentificacion", function(e) {
             confirmButtonColor: '#d33',
             confirmButtonText: 'Aceptar'
         });
-        return false;
+        return;
     }
-    let campos = [
-        "#ruta",
-        "#vin",
-        "#categoria",
-        "#anio_fabricacion",
-        "#carroceria",
-        "#version"
-    ];
-    let incompleto = campos.some(function(selector) {
-        return $(selector).val() === null || $(selector).val().trim() === "";
+    const campos = ["#ruta", "#vin", "#categoria", "#anio_fabricacion", "#version"];
+    const incompleto = campos.some(sel => {
+        const valor = $(sel).val();
+        return !valor || valor.trim() === "";
     });
-
     if (incompleto) {
         Swal.fire({
             title: 'Campos incompletos',
@@ -31,19 +24,17 @@ $(document).on("submit", "#formIdentificacion", function(e) {
             confirmButtonColor: '#d33',
             confirmButtonText: 'Aceptar'
         });
-        return false;
+        return;
     }
-
-    let formData = new FormData(this);
-    formData.append("bien_id", $("#combo_vehiculo").val());
-
+    const formData = new FormData(this);
+    formData.append("bien_id", vehiculo);
     $.ajax({
         url: "../../controller/detallebien.php?op=editar_identificacion",
         type: "POST",
         data: formData,
         contentType: false,
         processData: false,
-        success: function (data) {
+        success: function () {
             Swal.fire({
                 title: 'Correcto!',
                 text: 'Datos de identificación actualizados correctamente',
@@ -59,58 +50,26 @@ $(document).on("submit", "#formIdentificacion", function(e) {
 });
 
 function mostrarIdentificacion() {
-    let bien_id = $("#combo_vehiculo").val();
+    const bien_id = $("#combo_vehiculo").val();
     if (!bien_id) return;
-
-    $.post("../../controller/detallebien.php?op=mostrar_identificacion", { bien_id: bien_id }, function(datos) {
+    $.post("../../controller/detallebien.php?op=mostrar_identificacion", { bien_id }, function(datos) {
         $("#ruta").val(datos.ruta || '');
         $("#vin").val(datos.vin || '');
-        $("#categoria").val(datos.categoria || '');
         $("#anio_fabricacion").val(datos.anio_fabricacion || '');
-        $("#carroceria").val(datos.carroceria || '');
         $("#version").val(datos.version || '');
         cargarTipoServicio(datos.tipo_servicio_id);
-
-
-        // Cargar combustibles
-        let seleccionados = [];
-        if (datos.combustibles) {
-            seleccionados = datos.combustibles
-                .replace(/^{|}$/g, '')
-                .replace(/"/g, '')
-                .split(',')
-                .map(s => s.trim());
-        }
-
-        $.post("../../controller/combustible.php?op=combo_detalle_combustible", {}, function(allCombustibles) {
-            let html = '';
-            allCombustibles.forEach(c => {
-                let checked = seleccionados.includes(c.nombre) ? 'checked' : '';
-                html += `
-                    <label class="form-selectgroup-item flex-fill">
-                        <input type="checkbox" name="combustibles[]" value="${c.id}" class="form-selectgroup-input" ${checked}>
-                        <div class="form-selectgroup-label d-flex align-items-center p-3">
-                            <div class="me-3">
-                                <span class="form-selectgroup-check"></span>
-                            </div>
-                            <div class="form-selectgroup-label-content d-flex align-items-center">
-                                <div>
-                                    <div class="font-weight-medium">${c.nombre}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </label>
-                `;
-            });
-            $("#combustibles_container").html(html);
-        }, "json");
+        cargarTipoCarroceria(datos.tipo_carroceria_id, datos.categoria);
+        const seleccionados = datos.combustibles
+            ? datos.combustibles.replace(/[{}"]/g, '').split(',').map(s => s.trim()).filter(Boolean)
+            : [];
+        cargarCombustibles(seleccionados);
 
     }, "json");
 }
 
 
+
 $("#btnCancelar").on("click", function () {
-    $("input[name='combustibles[]']").each(function () {
-        $(this).prop("checked", false);
-    });
+    $("#formIdentificacion")[0].reset();
+    mostrarIdentificacion();
 });

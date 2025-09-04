@@ -45,7 +45,6 @@ switch ($_GET["op"]) {
        $bien_color = is_array($_POST["bien_color"]) ? $_POST["bien_color"] : explode(',', $_POST["bien_color"]);
        $bien_color_texto = '{' . implode(',', $bien_color) . '}';
         if (empty($_POST["bien_id"])) {
-            // NUEVO
             $objeto->insert_registro_bien(
                 $_POST["fecharegistro"],
                 $_POST["obj_id"],

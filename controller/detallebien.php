@@ -87,20 +87,36 @@ switch ($_GET["op"]) {
         }
     break;
     case "editar_identificacion":
-        $combustibles = isset($_POST["combustibles"]) ? $_POST["combustibles"] : [];
-        $detalleBien->update_identificacion(
-            $_POST["bien_id"],
-            $_POST["ruta"],
-            $_POST["tipo_servicio"],
-            $_POST["vin"],
-            $_POST["categoria"],
-            $_POST["anio_fabricacion"],
-            $_POST["carroceria"],
-            '{' . implode(',', $combustibles) . '}',
-            $_POST["version"]
+        $combustibles = [];
+        if (isset($_POST["bien_comb"])) {
+            $combustibles = is_array($_POST["bien_comb"]) 
+                ? $_POST["bien_comb"] 
+                : array_filter(array_map('trim', explode(',', $_POST["bien_comb"])));
+        }
+        $bien_id = $_POST["bien_id"] ?? null;
+        if (!$bien_id) {
+            echo json_encode(["status"=>false,"message"=>"Falta bien_id"], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+        $ok = $detalleBien->update_identificacion(
+            (int)$bien_id,
+            $_POST["ruta"] ?? '',
+            $_POST["tipo_servicio"] ?? null,
+            $_POST["vin"] ?? '',
+            $_POST["categoria"] ?? '',
+            $_POST["anio_fabricacion"] ?? null,
+            $_POST["tipo_carroceria"] ?? null,
+            $combustibles,
+            $_POST["version"] ?? ''
         );
-        echo $_POST["bien_id"];
+        echo json_encode([
+            "status"  => $ok,
+            "message" => $ok ? "Identificación actualizada correctamente" : "Error al actualizar",
+            "bien_id" => $bien_id
+        ], JSON_UNESCAPED_UNICODE);
     break;
+
+
     case "editar_caracteristicas":
         $detalleBien->update_caracteristicas(
             $_POST["bien_id"],

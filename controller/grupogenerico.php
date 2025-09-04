@@ -153,7 +153,7 @@ switch ($_GET["op"]){
                     $badge_class = 'bg-secondary-lt';
                     $estado_text = 'Inactivo';
             }
-           $sub_array[] = '<span class="d-inline-block ' . $badge_class . ' text-white text-center px-0 py-0 rounded-pill" style="min-width: 70px;">' . $estado_text . '</span>';
+            $sub_array[] = '<span class="d-inline-block ' . $badge_class . ' text-white text-center px-0 py-0 rounded-pill" style="min-width: 70px;">' . $estado_text . '</span>';
             $sub_array[] = $row["cuenta_numero"]; 
             $sub_array[] = $row["val_adq"]; 
             $sub_array[] = '

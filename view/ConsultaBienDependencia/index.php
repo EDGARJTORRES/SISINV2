@@ -6,7 +6,7 @@ if (isset($_SESSION["usua_id_siin"])) {
 <html lang="es">
 <head>
   <?php require_once("../html/mainHead.php"); ?>
-  <title>MPCH::AltaBienes</title>
+  <title>MPCH::Consultas</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <link href="../../public/css/Breadcrumb.css" rel="stylesheet"/>
   <link href="../../public/css/alerta.css" rel="stylesheet"/>
@@ -79,7 +79,7 @@ if (isset($_SESSION["usua_id_siin"])) {
       </div>
     </div>
     <?php require_once("../html/footer.php"); ?>
-    <?php require_once("../html/mainjs.php"); ?>
+    <?php require_once("../html/mainJs.php"); ?>
     <script type="text/javascript" src="biendependencia.js"></script>
 </body>
 </html>

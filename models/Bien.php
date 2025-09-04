@@ -108,48 +108,60 @@ class Bien extends Conectar {
     // Eliminación total (para registros erróneos)
     public function delete_bien_erroneo($bien_id) {
         $conectar = parent::conexion();
-        parent::set_names();
-        $sql = "UPDATE sc_inventario.tb_bien
+        parent::set_names(); 
+        $sql1 = "UPDATE sc_inventario.tb_bien
                 SET bien_est = 'E'
                 WHERE bien_id = ?";
-        $stmt = $conectar->prepare($sql);
-        $stmt->bindValue(1, $bien_id);
-        $stmt->execute();
-        return $stmt->fetchAll();
+        $stmt1 = $conectar->prepare($sql1);
+        $stmt1->bindValue(1, $bien_id);
+        $stmt1->execute();
+        $sql2 = "UPDATE sc_inventario.tb_detalle_bien
+                SET detalle_est = '0'
+                WHERE bien_id = ?";
+        $stmt2 = $conectar->prepare($sql2);
+        $stmt2->bindValue(1, $bien_id);
+        $stmt2->execute();
+        return true;
     }
 
-    // Baja de bien (con historial, etc.)
     public function dar_baja_bien($bien_id) {
         $conectar = parent::conexion();
         parent::set_names();
-        $sql = "UPDATE sc_inventario.tb_bien
+        $sql1 = "UPDATE sc_inventario.tb_bien
                 SET bien_est = 'I'
                 WHERE bien_id = ?";
-        $stmt = $conectar->prepare($sql);
-        $stmt->bindValue(1, $bien_id);
-        $stmt->execute();
-        return $stmt->fetchAll();
+        $stmt1 = $conectar->prepare($sql1);
+        $stmt1->bindValue(1, $bien_id);
+        $stmt1->execute();
+        $sql2 = "UPDATE sc_inventario.tb_detalle_bien
+                SET detalle_est = '0'
+                WHERE bien_id = ?";
+        $stmt2 = $conectar->prepare($sql2);
+        $stmt2->bindValue(1, $bien_id);
+        $stmt2->execute();
+        return true;
     }
+
     public function get_bien_detalle(){
          {
             $conectar = parent::conexion();
             parent::set_names();
             $sql = "SELECT DISTINCT 
-                b.bien_id,
-                b.bien_codbarras, 
-                o.obj_nombre, 
-                m.marca_nom, 
-                md.modelo_nom,
-				b.fechacrea,
-                b.bien_placa
+                    b.bien_id,
+                    b.bien_codbarras, 
+                    o.obj_nombre, 
+                    m.marca_nom, 
+                    md.modelo_nom,
+                    b.fechacrea,
+                    b.bien_placa
             FROM sc_inventario.tb_bien b
             JOIN sc_inventario.tb_objeto o ON b.obj_id = o.obj_id
             JOIN sc_inventario.tb_modelo md ON b.modelo_id = md.modelo_id
             JOIN sc_inventario.tb_marca m ON md.marca_id = m.marca_id
-            WHERE b.bien_codbarras LIKE '6782%'
-            AND  b.bien_est NOT IN ('I', 'E')
-			ORDER BY b.fechacrea DESC;";
-
+            WHERE (b.bien_codbarras LIKE '6782%' 
+                OR b.bien_codbarras LIKE '6736%')
+            AND b.bien_est NOT IN ('I', 'E')
+            ORDER BY b.fechacrea DESC;";
             $stmt = $conectar->prepare($sql);
             $stmt->execute();
 

@@ -78,7 +78,8 @@ class Objeto extends Conectar{
             $stmt->bindValue(13, $bien_placa, PDO::PARAM_STR);
             $stmt->execute();
             $bien_id = $conectar->lastInsertId();
-            $sqlDetalle = "INSERT INTO sc_inventario.tb_bien_detalle (bien_id) VALUES (?)";
+            $sqlDetalle = "INSERT INTO sc_inventario.tb_bien_detalle (bien_id, detalle_est) 
+               VALUES (?, '1')";
             $stmtDetalle = $conectar->prepare($sqlDetalle);
             $stmtDetalle->bindValue(1, $bien_id, PDO::PARAM_INT);
             $stmtDetalle->execute();
@@ -167,14 +168,21 @@ class Objeto extends Conectar{
     public function delete_bien($bien_id) {
         $conectar = parent::conexion();
         parent::set_names();
-        $sql = "UPDATE sc_inventario.tb_bien
+        $sql1 = "UPDATE sc_inventario.tb_bien
                 SET bien_est = 'E'
                 WHERE bien_id = ?";
-        $stmt = $conectar->prepare($sql);
-        $stmt->bindValue(1, $bien_id);
-        $stmt->execute();
+        $stmt1 = $conectar->prepare($sql1);
+        $stmt1->bindValue(1, $bien_id);
+        $stmt1->execute();
+        $sql2 = "UPDATE sc_inventario.tb_bien_detalle
+                SET detalle_est = '0'
+                WHERE bien_id = ?";
+        $stmt2 = $conectar->prepare($sql2);
+        $stmt2->bindValue(1, $bien_id);
+        $stmt2->execute();
         return true;
-        }
+    }
+
     public function get_objeto($gc_id)
         {
             $conectar = parent::conexion();

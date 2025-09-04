@@ -11,34 +11,39 @@ class DetalleBien extends Conectar {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function update_identificacion($bien_id, $ruta, $tipo_servicio, $vin, $categoria, $anio_fabricacion, $carroceria, $bien_comb,$version) {
+    public function update_identificacion($bien_id, $ruta, $tipo_servicio, $vin, $categoria, $anio_fabricacion, $tipo_carroceria, $bien_comb, $version) {
         $conectar = parent::conexion();
         parent::set_names();
-        if (is_array($bien_comb)) {
-            $bien_comb = '{' . implode(',', $bien_comb) . '}';
+
+        if (!is_array($bien_comb)) {
+            $bien_comb = [];
         }
+        $bien_comb_pg = count($bien_comb) > 0
+            ? '{' . implode(',', array_map('intval', $bien_comb)) . '}'
+            : '{}';
         $sql = "UPDATE sc_inventario.tb_bien_detalle 
                 SET ruta = ?, 
                     tipo_servicio = ?, 
                     vin = ?, 
                     categoria = ?, 
                     anio_fabricacion = ?, 
-                    carroceria = ?,
-                    bien_comb = ?,
+                    tipo_carroceria = ?, 
+                    bien_comb = ?::integer[], 
                     version = ?
                 WHERE bien_id = ?";
         $stmt = $conectar->prepare($sql);
         $stmt->bindValue(1, $ruta);
-        $stmt->bindValue(2, $tipo_servicio, PDO::PARAM_INT); // aseguramos que sea un número
+        $stmt->bindValue(2, $tipo_servicio !== '' ? (int)$tipo_servicio : null, PDO::PARAM_INT);
         $stmt->bindValue(3, $vin);
         $stmt->bindValue(4, $categoria);
-        $stmt->bindValue(5, $anio_fabricacion, PDO::PARAM_INT);
-        $stmt->bindValue(6, $carroceria);
-        $stmt->bindValue(7, $bien_comb);
-        $stmt->bindValue(8, $version); 
-        $stmt->bindValue(9, $bien_id, PDO::PARAM_INT);
+        $stmt->bindValue(5, $anio_fabricacion !== '' ? (int)$anio_fabricacion : null, PDO::PARAM_INT);
+        $stmt->bindValue(6, $tipo_carroceria !== '' ? $tipo_carroceria : null, PDO::PARAM_STR);
+        $stmt->bindValue(7, $bien_comb_pg);
+        $stmt->bindValue(8, $version);
+        $stmt->bindValue(9, (int)$bien_id, PDO::PARAM_INT);
         return $stmt->execute();
     }
+
     public function update_caracteristicas($bien_id, $nro_motor, $ruedas, $cilindros, $cilindrada, $potencia, $form_rodaje, $ejes) {
         $conectar = parent::conexion();
         parent::set_names();
@@ -84,6 +89,7 @@ class DetalleBien extends Conectar {
     public function get_identificacion($bien_id) {
         $conectar = parent::conexion();
         parent::set_names();
+
         $sql = "SELECT 
                     b.bien_id,
                     b.ruta,
@@ -92,21 +98,23 @@ class DetalleBien extends Conectar {
                     b.vin,
                     b.categoria,
                     b.anio_fabricacion,
-                    b.carroceria,
+                    b.tipo_carroceria AS tipo_carroceria_id, 
+                    ca.carroceria AS tipo_carroceria,        
                     b.version,
-                    array_agg(c.comb_nombre) AS combustibles
+                    array_agg(c.comb_id ORDER BY c.comb_id) AS combustibles
                 FROM sc_inventario.tb_bien_detalle b
                 LEFT JOIN sc_transporte.tb_modalidad_vehiculo m 
                     ON b.tipo_servicio = m.move_id
-                JOIN LATERAL unnest(b.bien_comb) AS bc(comb_id) ON TRUE
-                INNER JOIN sc_residuos_solidos.tb_combustible c 
+                LEFT JOIN LATERAL unnest(b.bien_comb) AS bc(comb_id) ON TRUE
+                LEFT JOIN public.tb_combustible c 
                     ON c.comb_id = bc.comb_id
+                LEFT JOIN public.vista_tipos_carroceria ca 
+                    ON b.tipo_carroceria = ca.codigo
                 WHERE b.bien_id = ?
                 GROUP BY 
                     b.bien_id, b.ruta, m.move_id, m.move_descripcion,
                     b.vin, b.categoria, b.anio_fabricacion,
-                    b.carroceria, b.version";
-        
+                    b.tipo_carroceria, ca.carroceria, b.version";
         $stmt = $conectar->prepare($sql);
         $stmt->bindValue(1, $bien_id, PDO::PARAM_INT);
         $stmt->execute();
