@@ -25,6 +25,7 @@
 <script src="https://cdn.jsdelivr.net/npm/dayjs@1/locale/es.js"></script>
 <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
 <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
+<script type="text/javascript" src="../../view/usuProfile/usuperfil.js"></script>
 <!-- No borrar -->
 <script>
   dayjs.extend(dayjs_plugin_relativeTime);

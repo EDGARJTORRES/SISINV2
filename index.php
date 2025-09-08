@@ -66,9 +66,9 @@ if (isset($_POST["enviar"]) and $_POST["enviar"] == "si") {
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            filter: brightness(50%);
+            backdrop-filter: blur(20px);
+           -webkit-backdrop-filter: blur(20px);
             z-index: -1;
-            /* Coloca el fondo detrás del contenido */
             }
 
             .card {

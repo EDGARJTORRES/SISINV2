@@ -7,7 +7,7 @@ function buscarBien() {
   `);
   $("#obj_formato tbody").empty();
   $.post(
-    "../../controller/objeto.php?op=buscar_obj_barras_consultas",
+    "../../controller/objeto.php?op=buscar_obj_barras_consultas2",
     { cod_bar: cod_bar },
     function (response) {
     botonBuscar.attr("disabled", false);

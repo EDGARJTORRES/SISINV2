@@ -12,8 +12,7 @@
                     <input type="hidden" name="doc_id" id="doc_id"/>
                     <div class="row">
                         <div class="row mt-2">
-                          <!-- Tipo -->
-                          <div class="col-2">
+                          <div class="col-12 col-md-2">
                             <label class="form-label">Documento <span class="text-danger">*</span></label>
                             <select class="form-select" name="doc_tipo" id="doc_tipo" required>
                                 <option value="">Seleccione</option>
@@ -22,13 +21,13 @@
                                 <option value="Baja">Baja</option>
                             </select>
                           </div>
-                          <div class="col-5">
+                          <div class="col-12 col-md-5">
                             <label class="form-label">Área / Dependencia <span class="text-danger">*</span></label>
                             <select class="form-select select2" id="area_asignacion_combo" name="depe_id"  data-placeholder="Seleccione Dependencia" style="width: 100%;">
                             <option value="" disabled selected>Seleccione</option>
                             </select>
                           </div>
-                          <div class="col-5">
+                          <div class="col-12 col-md-5">
                             <label class="form-label">DNI/ Usuario <span class="text-danger">*</span></label>
                             <select class="form-select select2" id="usuario_combo" name="pers_id" data-placeholder="Seleccione Usuario" style="width: 100%;">
                             <option value="" disabled selected>Seleccione</option>

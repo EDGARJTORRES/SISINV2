@@ -32,14 +32,14 @@
                       Utilice el panel de navegación ubicado a la izquierda para explorar las diferentes dependencias. 
                       Una vez que seleccione una opción, la información correspondiente se mostrará en este espacio.
                     </p>
-                    <div class="d-flex justify-content-center my-4">
+                    <div class="d-flex justify-content-center my-2">
                     </div>
                     <div id="detalle-contenido" class="position-relative">
                        <img id="cargando-detalle" 
                           src="../../public/logo_mpch2.png" 
                           alt="Cargando..." 
                           class="img-fluid"
-                          style="max-width: 280px; height: auto; opacity: 0.2;">
+                          style="max-width: 280px; height: auto;">
                     </div>
                   </div>
                 </div>

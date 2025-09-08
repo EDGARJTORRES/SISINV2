@@ -18,7 +18,6 @@ if (isset($_SESSION["usua_id_siin"])) {
     scrollbar-width: none;        
     -ms-overflow-style: none;      
     }
-
     #lista-items::-webkit-scrollbar {
     display: none;                 
     }
@@ -33,17 +32,14 @@ if (isset($_SESSION["usua_id_siin"])) {
     width: 400px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     }
-
     .stepper-step {
     display: flex;
     margin-bottom: 32px;
     position: relative;
     }
-
     .stepper-step:last-child {
     margin-bottom: 0;
     }
-
     .stepper-line {
     position: absolute;
     left: 19px;
@@ -53,11 +49,9 @@ if (isset($_SESSION["usua_id_siin"])) {
     background-color: #e2e8f0;
     z-index: 1;
     }
-
     .stepper-step:last-child .stepper-line {
     display: none;
     }
-
     .stepper-circle {
     width: 40px;
     height: 40px;
@@ -68,43 +62,34 @@ if (isset($_SESSION["usua_id_siin"])) {
     margin-right: 16px;
     z-index: 2;
     }
-
     .stepper-completed .stepper-circle {
     background-color: #0f172a;
     color: white;
     }
-
     .stepper-active .stepper-circle {
     border: 2px solid #0f172a;
     color: #0f172a;
     }
-
     .stepper-pending .stepper-circle {
     border: 2px solid #e2e8f0;
     color: #94a3b8;
     }
-
     .stepper-content {
     flex: 1;
     }
-
     .stepper-title {
     font-weight: 600;
     margin-bottom: 4px;
     }
-
     .stepper-completed .stepper-title {
     color: #0f172a;
     }
-
     .stepper-active .stepper-title {
     color: #0f172a;
     }
-
     .stepper-pending .stepper-title {
     color: #94a3b8;
     }
-
     .stepper-status {
     font-size: 13px;
     display: inline-block;
@@ -112,34 +97,28 @@ if (isset($_SESSION["usua_id_siin"])) {
     border-radius: 12px;
     margin-top: 4px;
     }
-
     .stepper-completed .stepper-status {
     background-color: #dcfce7;
     color: #166534;
     }
-
     .stepper-active .stepper-status {
     background-color: #dbeafe;
     color: #1d4ed8;
     }
-
     .stepper-pending .stepper-status {
     background-color: #f1f5f9;
     color: #64748b;
     }
-
     .stepper-time {
     font-size: 12px;
     color: #94a3b8;
     margin-top: 4px;
     }
-
     .stepper-controls {
     display: flex;
     justify-content: space-between;
     margin-top: 32px;
     }
-
     .stepper-button {
     padding: 8px 16px;
     border-radius: 6px;
@@ -150,14 +129,24 @@ if (isset($_SESSION["usua_id_siin"])) {
     align-items: center;
     gap: 6px;
     }
-
     .stepper-button-primary {
     background-color: #0f172a;
     color: white;
     border-color: #0f172a;
     }
-
-     
+    .icon-big {
+    width: 50px;
+    height:50px;
+    }
+    .hover-shadow-md:hover {
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1) !important;
+    }
+    .collapse-icon {
+    transition: transform 0.3s ease;
+    }
+    .list-group-item-activo {
+        background-color: #e8eaeeff;        
+    }
 
     </style>
 </head>
@@ -232,7 +221,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                                             src="../../public/logo_mpch2.png" 
                                             alt="Cargando..." 
                                             class="img-fluid"
-                                            style="max-width: 280px; height: auto; opacity: 0.2; margin: 40px 0;">
+                                            style="max-width: 280px; height: auto; margin: 40px 0;">
                                     </div>
                                 </div>
                             </div>

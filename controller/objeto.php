@@ -17,7 +17,7 @@ switch ($_GET["op"]) {
             if (move_uploaded_file($_FILES["obj_img"]["tmp_name"], $rutaDestino)) {
                 $obj_img = "img/" . $nombreArchivo;
             } else {
-                error_log("❌ Error al mover archivo: " . $_FILES["obj_img"]["error"]);
+                error_log(" Error al mover archivo: " . $_FILES["obj_img"]["error"]);
             }
         }
         if (empty($_POST["obj_id"])) {
@@ -85,16 +85,18 @@ switch ($_GET["op"]) {
         break;
     case "mostrar":
         $datos = $objeto->get_objeto_id($_POST["obj_id"]);
-        if (is_array($datos) == true and count($datos) <> 0) {
+        if (is_array($datos) && count($datos) > 0) {
             foreach ($datos as $row) {
                 $output["obj_id"] = $row["obj_id"];
                 $output["codigo_cana"] = $row["codigo_cana"];
                 $output["obj_nombre"] = $row["obj_nombre"];
-                $output["obj_img"] = $row["obj_img"];
+                // Si no hay imagen, usar una por defecto
+                $output["obj_img"] = !empty($row["obj_img"]) ? $row["obj_img"] : "img/default.png";
             }
             echo json_encode($output);
         }
         break;
+
 
     case "eliminar":
         $objeto->delete_objeto($_POST["obj_id"]);
@@ -319,6 +321,43 @@ switch ($_GET["op"]) {
                 echo json_encode($output);
             } else echo json_encode($output);
             break;
+    case "buscar_obj_barras_consultas2":
+        $datos = $objeto->buscar_obj_barras_simple($_POST['cod_bar']);
+        $output = array();
+        if (is_array($datos) == true and count($datos) <> 0) {
+            foreach ($datos as $row) {
+                $output["bien_id"] = $row["bien_id"];
+                $output["bien_codbarras"] = $row["bien_codbarras"];
+                $output["fecharegistro"] = $row["fecharegistro"];
+                $output["obj_nombre"] = $row["obj_nombre"];
+                $output["obj_img"] = $row["obj_img"];
+                $output["bien_numserie"] = $row["bien_numserie"];
+                if($row["bien_est"] =='A'){
+                    $output["bien_est"] = 'Activo';
+                }else if($row["bien_est"] =='N'){
+                    $output["bien_est"] = 'Nuevo';
+                }else if($row["bien_est"] =='B'){
+                    $output["bien_est"] = 'Bueno';
+                }else if($row["bien_est"] =='R'){
+                    $output["bien_est"] = 'Regular';
+                }else{
+                    $output["bien_est"] = 'Malo';
+                }
+                $output["procedencia"] = $row["procedencia"];
+                $output["bien_dim"] = $row["bien_dim"];
+                $output["val_adq"] = $row["val_adq"];
+                $output["doc_adq"] = $row["doc_adq"];
+                $output["bien_obs"] = $row["bien_obs"];
+                $output["marca_nom"] = $row["marca_nom"];
+                $output["modelo_nom"] = $row["modelo_nom"];
+                $output["bien_color"] = $row["bien_color"];
+                $output["depe_denominacion"] = $row["depe_denominacion"];
+                $output["nombre_completo"] = $row["nombre_completo"];
+                $output["pers_dni"] = $row["pers_dni"];
+            }
+            echo json_encode($output);
+        } else echo json_encode($output);
+        break;
     case "buscar_bien_id":
         $datos = $objeto->buscar_bien_id($_POST['bien_id']);
         $output = array();

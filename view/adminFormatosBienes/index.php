@@ -71,7 +71,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                                 <path d="M21 21l-6 -6" />
                               </svg>
                             </span>
-                            <input type="text" id="buscar_registros" class="form-control"> 
+                            <input type="text" id="buscar_registros" class="form-control" placeholder="BUSCAR FORMATO DE ASIGNACION O DESPLAZAMIENTO "> 
                           </div>
                         </div>
                       </div>
