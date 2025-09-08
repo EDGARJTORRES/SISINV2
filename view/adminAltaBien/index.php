@@ -75,17 +75,17 @@ if (isset($_SESSION["usua_id_siin"])) {
                     <div class="col-12">
                       <div class="table-responsive mx-4">
                         <div class="row my-4">
-                          <div class="col-lg-2">
+                          <div class="col-12 col-md-6 col-lg-2">
                              <button class="btn btn-6 btn-outline-secundary" onclick="imprimirBienesSeleccionados()" >
                               <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-codesandbox"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20 7.5v9l-4 2.25l-4 2.25l-4 -2.25l-4 -2.25v-9l4 -2.25l4 -2.25l4 2.25z" /><path d="M12 12l4 -2.25l4 -2.25" /><path d="M12 12l0 9" /><path d="M12 12l-4 -2.25l-4 -2.25" /><path d="M20 12l-4 2v4.75" /><path d="M4 12l4 2l0 4.75" /><path d="M8 5.25l4 2.25l4 -2.25" /></svg>
                                  Imprimir Codigos   
                              </button>
                           </div>
-                          <div class="col-lg-2">
+                          <div class="col-12 col-md-6 col-lg-2">
                             <div class="input-icon" id="contenedor-excel">
                             </div>
                           </div>
-                          <div class="col-lg-2">
+                          <div class="col-12 col-md-6 col-lg-2">
                             <div class="input-icon">
                                 <span class="input-icon-addon">
                                  <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-filter"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 4h16v2.172a2 2 0 0 1 -.586 1.414l-4.414 4.414v7l-6 2v-8.5l-4.48 -4.928a2 2 0 0 1 -.52 -1.345v-2.227z" /></svg>
@@ -99,12 +99,12 @@ if (isset($_SESSION["usua_id_siin"])) {
                               </select>
                             </div>
                           </div>
-                          <div class="col-lg-2">
+                          <div class="col-12 col-md-6 col-lg-2">
                             <button class="btn btn-6 btn-outline-secundary" onclick="limpiarFiltros()">
                               <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-eraser mx-1"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19 20h-10.5l-4.21 -4.3a1 1 0 0 1 0 -1.41l10 -10a1 1 0 0 1 1.41 0l5 5a1 1 0 0 1 0 1.41l-9.2 9.3" /><path d="M18 13.3l-6.3 -6.3" /></svg> LIMPIAR FILTROS
                             </button>
                           </div>
-                          <div class="col-lg-4">
+                          <div class="col-12 col-md-12 col-lg-4">
                             <div class="input-icon" style="width: 340px;">
                                 <span class="input-icon-addon">
                                   <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>

@@ -101,7 +101,7 @@ switch ($_GET["op"]) {
         $ok = $detalleBien->update_identificacion(
             (int)$bien_id,
             $_POST["ruta"] ?? '',
-            $_POST["tipo_servicio"] ?? null,
+            $_POST["clase_vehiculo"] ?? null,
             $_POST["vin"] ?? '',
             $_POST["categoria"] ?? '',
             $_POST["anio_fabricacion"] ?? null,

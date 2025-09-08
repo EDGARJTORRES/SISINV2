@@ -1,0 +1,53 @@
+body:not([data-bs-theme="dark"]) .dropdown-item:hover,
+body:not([data-bs-theme="dark"]) .nav-link:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+    transition: all 0.2s ease-in-out;
+}
+div.dataTables_filter {
+display: none !important;
+}
+th{
+color: #0054a6 !important;
+}
+
+th, td {
+max-width: 170px !important;     
+white-space: normal;      
+word-break: break-word;   
+overflow-wrap: break-word; 
+vertical-align: middle;  
+}
+div.dt-button-background {
+display: none !important;
+}
+#formatos_data {
+border-collapse: collapse;
+width: 100%;
+border: 1px solid rgb(192, 192, 192); /* 👈 borde externo general */
+}
+
+/* Encabezado con borde inferior */
+#formatos_data thead th {
+background-color: #f8f9fa;
+border-top: none !important;
+border-bottom: 1px solid rgb(192, 192, 192);
+border-left: none !important;
+border-right: 1px solid rgb(192, 192, 192);
+vertical-align: middle;
+text-align: center;
+}
+#formatos_data thead th:last-child {
+ border-right: none;
+}
+
+/* Celdas del cuerpo: solo bordes laterales */
+#formatos_data tbody td {
+  border-top: none !important;
+  border-bottom: 1px solid rgb(192, 192, 192);
+  border-left: none !important;
+  border-right: none !important;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 11px; 
+  padding: 6px 8px; 
+}

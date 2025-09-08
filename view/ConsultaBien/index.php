@@ -52,7 +52,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-8">
+                      <div class="col-6 col-md-8">
                         <div class="input-icon mb-1">
                             <span class="input-icon-addon">
                                 <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-barcode"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7v-1a2 2 0 0 1 2 -2h2" /><path d="M4 17v1a2 2 0 0 0 2 2h2" /><path d="M16 4h2a2 2 0 0 1 2 2v1" /><path d="M16 20h2a2 2 0 0 0 2 -2v-1" /><path d="M5 11h1v2h-1z" /><path d="M10 11l0 2" /><path d="M14 11h1v2h-1z" /><path d="M19 11l0 2" /></svg>
@@ -60,8 +60,8 @@ if (isset($_SESSION["usua_id_siin"])) {
                             <input type="text" class="form-control" id="cod_bar" name="cod_bar" placeholder="Ingresar el código de barras..." required oninput="limitarADigitos(this)">
                         </div>
                       </div>
-                      <div class="col-2 d-flex align-items-center">
-                        <button type="button" class="btn btn-info w-100 bg-blue  px-2 d-flex align-items-center justify-content-center gap-1" class="btn btn-info" id="buscaObjeto" onclick="buscarBien()">
+                      <div class="col-3 col-md-2 d-grid">
+                        <button type="button" class="btn btn-dark w-100  px-2 d-flex align-items-center justify-content-center gap-1" class="btn btn-info" id="buscaObjeto" onclick="buscarBien()">
                           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                             <path d="M14 3v4a1 1 0 0 0 1 1h4" />
@@ -72,33 +72,41 @@ if (isset($_SESSION["usua_id_siin"])) {
                           <span>BUSCAR</span>
                         </button>
                       </div>
-                      <div class="col-2 d-flex align-items-center" > 
-                        <button type="button"  class="btn btn-info w-100 bg-blue text-blue-fg" id="btnCamara" onclick="activarCamara()">
+                      <div class="col-3 col-md-2 d-grid" > 
+                        <button type="button"  class="btn btn-outline-dark w-100" id="btnCamara" onclick="activarCamara()">
                             <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-camera-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13.5 20h-8.5a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v4" /><path d="M9 13a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M22 22l-5 -5" /><path d="M17 22l5 -5" /></svg>
                           ESCANEAR
                           </a>
                         </button>
                     </div>
                   </div>
-                  <div class="respuesta mt-3" style="text-align: justify;color: #d61111ff;font-size: 12px; min-height: 60vh;">
-                      <div id="mensaje-inicial" class="alert alert-info" role="alert">
-                        <div class="d-flex">
-                          <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon alert-icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                              <path d="M12 9v2m0 4v.01" />
-                              <path d="M12 5a7 7 0 1 0 0 14a7 7 0 0 0 0 -14z" />
-                            </svg>
-                          </div>
-                          <div>
-                            <h4 class="alert-title">Detalle del bien patrimonial</h4>
-                            <div class="text-secondary">
-                              Ingrese o escanee el <strong>código de barras</strong> para mostrar todas las características del bien patrimonial.
-                            </div>
+                  <div class="respuesta mt-3" style="text-align: justify; color: #d61111ff; font-size: 12px; min-height: 60vh;">
+                    <div id="mensaje-inicial" class="alert alert-info" role="alert">
+                      <div class="d-flex">
+                        <div>
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon alert-icon" width="24" height="24" 
+                              viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" 
+                              stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M12 9v2m0 4v.01" />
+                            <path d="M12 5a7 7 0 1 0 0 14a7 7 0 0 0 0 -14z" />
+                          </svg>
+                        </div>
+                        <div>
+                          <h4 class="alert-title">Detalle del bien patrimonial</h4>
+                          <div class="text-secondary">
+                            Ingrese o escanee el <strong>código de barras</strong> para mostrar todas las características del bien patrimonial.
                           </div>
                         </div>
                       </div>
-                      <img id="cargando-detalle" src="../../public/logo_mpch2.png" alt="Cargando..." style="width: 380px; height: 380px; margin-left: 55vh; margin-top: 40px; margin-bottom:40px; opacity: 0.2;">
+                    </div>
+                    <div class="d-flex justify-content-center my-4">
+                      <img id="cargando-detalle" 
+                          src="../../public/logo_mpch2.png" 
+                          alt="Cargando..." 
+                          class="img-fluid"
+                          style="max-width: 380px; height: auto; opacity: 0.2;">
+                    </div>
                   </div>
                 </div>
               </div>   

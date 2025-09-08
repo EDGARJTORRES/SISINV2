@@ -162,19 +162,19 @@ innerWrapper.innerHTML = `
             </h4>
             <div class="text-muted">
               <div class="row mb-3">
-                <div class="col-lg-3">
+                <div class=" col-6 col-lg-3">
                   <strong>Código de barras:</strong><br>
                   ${data.bien_codbarras ? data.bien_codbarras.toUpperCase() : 'NO ASIGNADO'}
                 </div>
-                <div class="col-lg-3">
+                <div class=" col-6 col-lg-3">
                   <strong>Denominación:</strong><br>
                   ${data.obj_nombre ? data.obj_nombre.toUpperCase() : 'SIN DENOMINACIÓN'}
                 </div>
-                <div class="col-lg-3">
+                <div class=" col-6 col-lg-3">
                   <strong>Fecha Adquisición:</strong><br>
                   ${data.fecharegistro ? data.fecharegistro.toUpperCase() : 'NO REGISTRADA'}
                 </div>
-                <div class="col-lg-3">
+                <div class=" col-6 col-lg-3">
                   <strong>Valor Adquisición:</strong><br>
                   ${data.val_adq ? data.val_adq.toString().toUpperCase() : 'SIN VALOR ASIGNADO'}
                 </div>
@@ -184,33 +184,33 @@ innerWrapper.innerHTML = `
                   <strong>Doc. Adquisición:</strong><br>
                   ${data.doc_adq ? data.doc_adq.toUpperCase() : 'NO ASIGNADO'}
                 </div>
-                <div class="col-lg-3">
+                <div class=" col-6 col-lg-3">
                   <strong>Observación:</strong><br>
                   ${data.bien_obs ? data.bien_obs.toUpperCase() : 'SIN OBSERVACIONES'}
                 </div>
-                <div class="col-lg-3">
+                <div class=" col-6 col-lg-3">
                   <strong>Marca:</strong><br>
                   ${data.marca_nom ? data.marca_nom.toUpperCase() : 'SIN MARCA ASIGNADA'}
                 </div>
-                <div class="col-lg-3">
+                <div class=" col-6 col-lg-3">
                   <strong>Modelo:</strong><br>
                   ${data.modelo_nom ? data.modelo_nom.toUpperCase() : 'SIN MODELO ASIGNADO'}
                 </div>
               </div>
               <div class="row">
-                <div class="col-lg-3">
+                <div class=" col-6 col-lg-3">
                   <strong>Número de Serie:</strong><br>
                   ${data.bien_numserie ? data.bien_numserie.toUpperCase() : 'NO TIENE NÚMERO DE SERIE'}
                 </div>
-                <div class="col-lg-3">
+                <div class=" col-6 col-lg-3">
                   <strong>Dimensiones:</strong><br>
                   ${data.bien_dim ? data.bien_dim.toUpperCase() : 'NO ESPECIFICADAS'}
                 </div>
-                <div class="col-lg-3">
+                <div class=" col-6 col-lg-3">
                   <strong>Procedencia:</strong><br>
                   ${data.procedencia ? data.procedencia.toUpperCase() : 'NO REGISTRADA'}
                 </div>
-                <div class="col-lg-3">
+                <div class=" col-6 col-lg-3">
                   <strong>Color:</strong><br>
                   ${nombresColores.length > 0 ? nombresColores.join(", ").toUpperCase() : 'SIN COLOR ASIGNADO'}
                 </div>
@@ -225,7 +225,7 @@ innerWrapper.innerHTML = `
 const rowDependencia = document.createElement("div");
 rowDependencia.className = "row mb-3 d-flex align-items-stretch";
 rowDependencia.innerHTML = `
-  <div class="col-lg-6 d-flex">
+  <div class="col-lg-6 d-flex mb-3">
     <div class="card h-100 w-100" style="
       background: white;
       transition: box-shadow 0.3s ease;">

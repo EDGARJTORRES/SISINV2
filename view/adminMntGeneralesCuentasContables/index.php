@@ -33,13 +33,13 @@ if (isset($_SESSION["usua_id_siin"])) {
               </div>
             </div>
             <div class="row">
-              <div class="col-4 mb-3">
+              <div class="col-12 col-md-4 mb-3">
                 <div class="card border-0" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
                   <div class="card-status-start bg-primary"></div>
                   <div class="card-header d-flex justify-content-center align-items-center">
                     <h4 class="card-title">
                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-library me-1 text-primary"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 3m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 7.26a2.005 2.005 0 0 0 -1.012 1.737v10c0 1.1 .9 2 2 2h10c.75 0 1.158 -.385 1.5 -1" /><path d="M11 7h5" /><path d="M11 10h6" /><path d="M11 13h3" /></svg>
-                      GESTION DE CUENTAS CONTABLES
+                      GESTIÓN DE CUENTAS CONTABLES
                     </h4>
                   </div>
                   <div class="card-body text-center">
@@ -73,7 +73,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                   </div>
                 </div>
               </div>
-              <div class="col-8 mb-3">
+              <div class="col-12 col-md-8 mb-3">
                 <div class="card border-0" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
                   <div class="card-status-start bg-primary"></div>
                   <div class="card-header">

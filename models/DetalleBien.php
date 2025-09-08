@@ -11,7 +11,7 @@ class DetalleBien extends Conectar {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function update_identificacion($bien_id, $ruta, $tipo_servicio, $vin, $categoria, $anio_fabricacion, $tipo_carroceria, $bien_comb, $version) {
+    public function update_identificacion($bien_id, $ruta, $clase_vehiculo, $vin, $categoria, $anio_fabricacion, $tipo_carroceria, $bien_comb, $version) {
         $conectar = parent::conexion();
         parent::set_names();
 
@@ -23,7 +23,7 @@ class DetalleBien extends Conectar {
             : '{}';
         $sql = "UPDATE sc_inventario.tb_bien_detalle 
                 SET ruta = ?, 
-                    tipo_servicio = ?, 
+                    clase_vehiculo = ?, 
                     vin = ?, 
                     categoria = ?, 
                     anio_fabricacion = ?, 
@@ -33,7 +33,7 @@ class DetalleBien extends Conectar {
                 WHERE bien_id = ?";
         $stmt = $conectar->prepare($sql);
         $stmt->bindValue(1, $ruta);
-        $stmt->bindValue(2, $tipo_servicio !== '' ? (int)$tipo_servicio : null, PDO::PARAM_INT);
+        $stmt->bindValue(2, $clase_vehiculo !== '' ? (int)$clase_vehiculo : null, PDO::PARAM_INT);
         $stmt->bindValue(3, $vin);
         $stmt->bindValue(4, $categoria);
         $stmt->bindValue(5, $anio_fabricacion !== '' ? (int)$anio_fabricacion : null, PDO::PARAM_INT);
@@ -93,8 +93,8 @@ class DetalleBien extends Conectar {
         $sql = "SELECT 
                     b.bien_id,
                     b.ruta,
-                    m.move_id AS tipo_servicio_id,
-                    m.move_descripcion AS tipo_servicio,
+                    v.veh_clase_id AS clase_vehiculo_id,
+                    v.veh_clase_nom AS clase_vehiculo,
                     b.vin,
                     b.categoria,
                     b.anio_fabricacion,
@@ -103,8 +103,8 @@ class DetalleBien extends Conectar {
                     b.version,
                     array_agg(c.comb_id ORDER BY c.comb_id) AS combustibles
                 FROM sc_inventario.tb_bien_detalle b
-                LEFT JOIN sc_transporte.tb_modalidad_vehiculo m 
-                    ON b.tipo_servicio = m.move_id
+                LEFT JOIN sc_inventario.tb_vehiculo_clase v
+                    ON v.veh_clase_id = b.clase_vehiculo
                 LEFT JOIN LATERAL unnest(b.bien_comb) AS bc(comb_id) ON TRUE
                 LEFT JOIN public.tb_combustible c 
                     ON c.comb_id = bc.comb_id
@@ -112,7 +112,7 @@ class DetalleBien extends Conectar {
                     ON b.tipo_carroceria = ca.codigo
                 WHERE b.bien_id = ?
                 GROUP BY 
-                    b.bien_id, b.ruta, m.move_id, m.move_descripcion,
+                    b.bien_id, b.ruta, v.veh_clase_id, v.veh_clase_nom,
                     b.vin, b.categoria, b.anio_fabricacion,
                     b.tipo_carroceria, ca.carroceria, b.version";
         $stmt = $conectar->prepare($sql);

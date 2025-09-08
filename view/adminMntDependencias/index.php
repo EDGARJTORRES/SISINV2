@@ -51,8 +51,7 @@ if (isset($_SESSION["usua_id_siin"])) {
               </div>
                 <div class="row mb-3">
                   <div class="col-md-4">
-                    <div class="card border-0 mb-3" style="box-shadow: 15px 15px 30px #bebebe,
-                                                             -15px -15px 30px #ffffff;">
+                    <div class="card border-0 mb-3" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
                       <div class="card-status-start bg-primary"></div>
                       <div class="card-header">
                         <h3 class="card-title">
@@ -65,8 +64,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                         </p>
                       </div>
                     </div>
-                    <div class="card border-0 mb-4"  style="box-shadow: 15px 15px 30px #bebebe,
-                                                             -15px -15px 30px #ffffff;">
+                    <div class="card border-0 mb-4" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
                       <div class="card-status-start bg-primary"></div>
                       <div class="card-header">
                         <h3 class="card-title">
@@ -87,7 +85,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                         <div class="my-4">
                           <label class="form-label">Buscar Área / Dependencia :<span style="color:red"> *</span></label>
                            <select class="form-select mt-3" id="filtro_dependencia" style="width: 100%;">
-                            <option value="">Seleccione un área</option>
+                            <option value=""> -- Seleccione un Área --</option>
                            </select>
                         </div>
                         <div class="my-4">
@@ -101,7 +99,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                     </div>
                   </div>
                   <div class="col-md-8">
-                    <div class="card border-0" style="box-shadow: 15px 15px 30px #bebebe">
+                    <div class="card border-0" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
                       <div class="card-status-start bg-primary"></div>
                       <div class="card-header">
                         <h3 class="card-title">

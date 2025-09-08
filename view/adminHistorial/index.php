@@ -226,8 +226,14 @@ if (isset($_SESSION["usua_id_siin"])) {
                             </div>
                             <div class="card-body" id="lista-items">
                                 <div id="historialBien">
-                                    <p class="text-muted">Seleccione un bien para ver su historial.</p>
-                                     <img id="cargando-detalle" src="../../public/logo_mpch2.png" alt="Cargando..." style="width: 280px; height: 280px; margin-left: 180px; margin-top: 60px; margin-bottom:40px; opacity: 0.2;">
+                                <p class="text-muted">Seleccione un bien para ver su historial.</p>
+                                    <div class="text-center">
+                                        <img id="cargando-detalle" 
+                                            src="../../public/logo_mpch2.png" 
+                                            alt="Cargando..." 
+                                            class="img-fluid"
+                                            style="max-width: 280px; height: auto; opacity: 0.2; margin: 40px 0;">
+                                    </div>
                                 </div>
                             </div>
                         </div>

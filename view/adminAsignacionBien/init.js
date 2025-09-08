@@ -555,7 +555,7 @@ function mostrarDatosObjeto(data, nombresColores) {
         "</td>" +
        '<td>' +
           '<div class="dropdown">' +
-            '<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">' +
+            '<button class="btn btn-btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">' +
               'Opciones' +
             '</button>' +
             '<ul class="dropdown-menu">' +

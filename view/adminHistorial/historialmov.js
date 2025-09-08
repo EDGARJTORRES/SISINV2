@@ -13,36 +13,50 @@ $(document).ready(function() {
                     response.aaData.forEach(function(bien) {
                         console.log(bien);
                         let item = `
-                        <li class="mb-2 ">
-                            <div class="card  border-0 p-2 d-flex justify-content-between align-items-center flex-row" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
-                                <div class="col-lg-2 d-flex justify-content-center">
-                                    <svg  xmlns="http://www.w3.org/2000/svg"  width="48"  height="48"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon-lg icon icon-tabler icons-tabler-outline icon-tabler-device-ipad-share text-primary"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 21h-6a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v8" /><path d="M9 18h3.5" /><path d="M16 22l5 -5" /><path d="M21 21.5v-4.5h-4.5" /></svg>
-                                </div> 
-                                <div class="col-lg-10">
-                                    <div class ="row">
-                                        <div class="col-lg-12 d-flex align-items-center gap-2">
-                                            <div class="fw-bold my-2">${bien[1]}</div>
-                                        </div>
-                                    </div>
-                                    <div class ="row">
-                                        <div class="col-lg-7">
-                                            <small class="mb-2 badge bg-green-lt">${bien[0]}</small>
-                                        </div>
-                                        <div class="col-lg-5 d-flex justify-content-end">
-                                            <button href="#" class="btn btn-sm  bg-dark text-light" onclick="verHistorial('${bien[0]}')">
-                                                <div class="mx-2"> 
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /> <path d="M13 18l6 -6" />
-                                                <path d="M13 6l6 6" />
-                                                </svg>
-                                                Ir
-                                               </div> 
-                                            </button>
-                                        </div>
-                                    </div>
+                        <li class="mb-2">
+                          <div class="card border-0 p-3" 
+                              style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
+                            <div class="row g-2 align-items-center">
+                              
+                              <!-- Ícono -->
+                              <div class="col-12 col-md-2 d-flex justify-content-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" 
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+                                    class="icon-lg icon icon-tabler icons-tabler-outline icon-tabler-device-ipad-share text-primary">
+                                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                  <path d="M12 21h-6a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v8" />
+                                  <path d="M9 18h3.5" />
+                                  <path d="M16 22l5 -5" />
+                                  <path d="M21 21.5v-4.5h-4.5" />
+                                </svg>
+                              </div>
+                              
+                              <!-- Contenido -->
+                              <div class="col-12 col-md-10">
+                                <div class="fw-bold my-2">${bien[1]}</div>
+                                <div class="d-flex flex-wrap justify-content-between align-items-center">
+                                  <small class="badge bg-green-lt mb-2">${bien[0]}</small>
+                                  <button class="btn btn-sm bg-dark text-light d-flex align-items-center gap-1" 
+                                          onclick="verHistorial('${bien[0]}')">
+                                    <span>Ir</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" 
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                      <path d="M5 12h14" />
+                                      <path d="M13 18l6 -6" />
+                                      <path d="M13 6l6 6" />
+                                    </svg>
+                                  </button>
                                 </div>
-                            </div>  
+                              </div>
+                              
+                            </div>
+                          </div>
                         </li>`;
                         lista.append(item);
+
                     });
 
                     $(".hover-shadow").hover(

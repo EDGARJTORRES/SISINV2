@@ -9,6 +9,7 @@ if (isset($_SESSION["usua_id_siin"])) {
     <link href="../../public/css/Breadcrumb.css" rel="stylesheet"/>
     <link href="../../public/css/iconos.css" rel="stylesheet"/>
     <link href="../../public/css/marca.css" rel="stylesheet"/>
+     <link href="../../public/css/reporte.css" rel="stylesheet"/>
     <title>MPCH::Reportes</title>
   </head>
 <body>
@@ -39,49 +40,53 @@ if (isset($_SESSION["usua_id_siin"])) {
                 </div>
                 <div class="card-body">
                   <div class="table-responsive mx-4">
-                     <div class="row my-4">
-                        <div class="col-lg-2">
+                      <div class="row my-4 g-3">
+                        <div class="col-4 col-md-6 col-lg-2">
                           <label for="cantidad_registros">Registros por página:<span class="text-danger"> *</span></label>
                           <div class="input-icon">
-                              <span class="input-icon-addon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
-                                  <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
-                                  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
-                                </svg>
-                              </span>
-                              <input type="number" id="cantidad_registros"   style="width: 75%;" class="form-control" min="1" max="100" value="10"> 
+                            <span class="input-icon-addon">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
+                                <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+                                <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
+                              </svg>
+                            </span>
+                            <input type="number" id="cantidad_registros" class="form-control" min="1" max="100" value="10"> 
                           </div>
                         </div>
-                        <div class="col-lg-3">
-                          <label for="cantidad_registros">Filtrar Anexos: <span class="text-danger"> *</span></label>
-                          <select id="filtro_anexo" class="form-select" >
+                        <div class="col-4 col-md-6 col-lg-3">
+                          <label for="filtro_anexo">Filtrar Anexos: <span class="text-danger"> *</span></label>
+                          <select id="filtro_anexo" class="form-select">
                             <option value="0">Todos</option>
-                            <option value="Asignacion">Asignacion</option>
+                            <option value="Asignacion">Asignación</option>
                             <option value="Desplazamiento">Desplazamiento</option>
                           </select> 
                         </div>
-                        <div class="col-lg-3">
-                          <label for="cantidad_registros">Buscar Formato:<span class="text-danger"> *</span></label>
-                          <div class="input-icon"style="width:588px;">
-                              <span class="input-icon-addon">
-                                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
-                              </span>
-                                 <input type="text" id="buscar_registros" class="form-control"> 
+                        <div class="col-4 col-md-6 col-lg-7">
+                          <label for="buscar_registros">Buscar Formato:<span class="text-danger"> *</span></label>
+                          <div class="input-icon">
+                            <span class="input-icon-addon">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-search">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+                                <path d="M21 21l-6 -6" />
+                              </svg>
+                            </span>
+                            <input type="text" id="buscar_registros" class="form-control"> 
                           </div>
                         </div>
                       </div>
-                      <table id="formatos_data" class="table card-table table-vcenter text-nowrap datatable">
+                      <table id="formatos_data" class="table card-table table-vcenter text-nowrap datatable" style="width: 99%;">
                           <thead>
-                              <tr>
-                                  <th>Fecha</th>
-                                  <th>Anexo</th>
-                                  <th>Depe. Emisor</th>
-                                  <th>Repre. Emisor</th>
-                                  <th>Depe. Receptor</th>
-                                  <th>Repre. Receptor</th>
-                                  <th>Usuario</th>
-                                  <th></th>
-                              </tr>
+                            <tr>
+                              <th title="Fecha de registro">Fecha</th>
+                              <th title="Número de anexo">Anexo</th>
+                              <th title="Dependencia emisora">Depe. Emisor</th>
+                              <th title="Representante de la dependencia emisora">Repre. Emisor</th>
+                              <th title="Dependencia receptora">Depe. Receptor</th>
+                              <th title="Representante de la dependencia receptora">Repre. Receptor</th>
+                              <th title="Usuario registrador">Usuario</th>
+                              <th title="Acciones disponibles">ACCIONES</th>
+                            </tr>
                           </thead>
                           <tbody>
                           </tbody>

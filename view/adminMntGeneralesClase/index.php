@@ -34,7 +34,7 @@ if (isset($_SESSION["usua_id_siin"])) {
               </div>
             </div>
             <div class="row">
-              <div class="col-4 mb-3">
+              <div class="col-12 col-md-4 mb-3">
                 <div class="card border-0" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
                   <div class="card-status-start bg-primary"></div>
                   <div class="card-header d-flex justify-content-center align-items-center">
@@ -96,7 +96,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                   </div>
                 </div>
               </div>
-              <div class="col-8 mb-3">
+              <div class="col-12 col-md-8 mb-3">
                 <div class="card border-0" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
                   <div class="card-status-start bg-primary"></div>
                   <div class="card-header">

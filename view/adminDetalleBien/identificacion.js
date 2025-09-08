@@ -57,7 +57,7 @@ function mostrarIdentificacion() {
         $("#vin").val(datos.vin || '');
         $("#anio_fabricacion").val(datos.anio_fabricacion || '');
         $("#version").val(datos.version || '');
-        cargarTipoServicio(datos.tipo_servicio_id);
+        cargarClaseVehiculo(datos.clase_vehiculo_id);
         cargarTipoCarroceria(datos.tipo_carroceria_id, datos.categoria);
         const seleccionados = datos.combustibles
             ? datos.combustibles.replace(/[{}"]/g, '').split(',').map(s => s.trim()).filter(Boolean)

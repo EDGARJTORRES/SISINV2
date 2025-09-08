@@ -58,26 +58,39 @@ div.dt-button-background {
 display: none !important;
 }
 #modelo_data {
-border-collapse: collapse;
+  border-collapse: collapse;
+  border: 1px solid rgb(192, 192, 192); /* borde externo general */
+  width: 100%;
 }
 
-/* Encabezado con borde inferior */
+/* Encabezado */
 #modelo_data thead th {
-background-color: #f8f9fa;
-border-top: 1px solid rgb(192, 192, 192);
-border-bottom: 1px solid rgb(192, 192, 192);
-border-left: 1px solid rgb(192, 192, 192);
-border-right: 1px solid rgb(192, 192, 192);
-vertical-align: middle;
-text-align: center;
+  background-color: #f8f9fa;
+  border-top: none !important;
+  border-bottom: 1px solid rgb(192, 192, 192);
+  border-left: none !important;
+  border-right: 1px solid rgb(192, 192, 192);
+  vertical-align: middle;
+  text-align: center;
+}
+#modelo_data thead th:last-child {
+  border-right: none; /* quitar borde derecho en última columna */
 }
 
-/* Celdas del cuerpo: solo bordes laterales */
+/* Cuerpo: solo líneas horizontales */
+#modelo_data tbody tr {
+  border-top: 1px solid rgb(192, 192, 192); /* 👈 línea por fila */
+}
+
 #modelo_data tbody td {
-border-top: none !important; /* asegúrate que no se herede */
-border-bottom: none;
-border-left: 1px solid rgb(192, 192, 192);
-border-right: 1px solid rgb(192, 192, 192);
-vertical-align: middle;
-text-align: center;
+  border-top: none !important;
+  border-bottom: none;
+  border-left: none !important;
+  border-right: 1px solid rgb(192, 192, 192);
+  vertical-align: middle;
+  text-align: center;
+  padding: 6px 8px;
+}
+#modelo_data tbody td:last-child {
+  border-right: none;
 }

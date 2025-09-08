@@ -152,30 +152,45 @@
         -moz-user-select: text !important;
         -ms-user-select: text !important;
       }
-     #bienes_data {
-      border-collapse: collapse;
-    }
+      #bienes_data {
+        border-collapse: collapse;
+        border: 1px solid rgb(192, 192, 192); /* borde externo general */
+        width: 100%;
+      }
 
-    /* Encabezado con borde inferior */
-    #bienes_data thead th {
-      background-color: #f8f9fa;
-      border-top: 1px solid rgb(192, 192, 192);
-      border-bottom: 1px solid rgb(192, 192, 192);
-      border-left: 1px solid rgb(192, 192, 192);
-      border-right: 1px solid rgb(192, 192, 192);
-      vertical-align: middle;
-      text-align: center;
-    }
+      /* Encabezado */
+      #bienes_data thead th {
+        background-color: #f8f9fa;
+        border-top: none !important;
+        border-bottom: 1px solid rgb(192, 192, 192);
+        border-left: none !important;
+        border-right: 1px solid rgb(192, 192, 192);
+        vertical-align: middle;
+        text-align: center;
+      }
 
-    /* Celdas del cuerpo: solo bordes laterales */
-    #bienes_data tbody td {
-      border-top: none !important; /* asegúrate que no se herede */
-      border-bottom: none;
-      border-left: 1px solid rgb(192, 192, 192);
-      border-right: 1px solid rgb(192, 192, 192);
-      vertical-align: middle;
-      text-align: center;
-    }
+      /* Quitar borde derecho al último th */
+      #bienes_data thead th:last-child {
+        border-right: none;
+      }
+
+      /* Cuerpo */
+      #bienes_data tbody td {
+        border-top: none !important;
+        border-bottom: none;
+        border-left: none !important;
+        border-right: 1px solid rgb(192, 192, 192);
+        vertical-align: middle;
+        text-align: center;
+        font-size: 12px;
+        padding: 6px 8px;
+      }
+
+      /* Quitar borde derecho al último td */
+      #bienes_data tbody td:last-child {
+        border-right: none;
+      }
+
     #contenedor-excel {
       display: inline-block;
     }

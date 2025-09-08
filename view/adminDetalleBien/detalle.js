@@ -3,12 +3,12 @@ $('#combo_vehiculo').select2({
     dropdownParent: $('#combo_vehiculo').closest('.input-group'),
     theme: 'bootstrap-5'
 });
-$('#tipo_servicio').select2({
+$('#clase_vehiculo').select2({
     width: '100%',
     theme: 'bootstrap-5',
-    placeholder: "-- Seleccione tipo de servicio --",
+    placeholder: "-- Seleccione clase vehiculo --",
     allowClear: true,
-    dropdownParent: $('#tipo_servicio').closest('.input-icon')
+    dropdownParent: $('#clase_vehiculo').closest('.input-icon')
 });
 $('#tipo_carroceria').select2({
     width: '100%',
@@ -279,9 +279,9 @@ function mostrarContenido(seccion) {
                         </div>
                     </div>
                     <div class="col-lg-6 mb-3">
-                        <label for="tipo_movilidad" class="form-label">Tipo de Servicio <span class="text-danger">*</span></label>
+                        <label for="tipo_movilidad" class="form-label">Clase Vehículo <span class="text-danger">*</span></label>
                         <div class="input-icon mb-1">
-                            <select class="form-select select2" id="tipo_servicio" name="tipo_servicio" style="width: 100%;">
+                            <select class="form-select select2" id="clase_vehiculo" name="clase_vehiculo" style="width: 100%;">
                              <option></option> 
                             </select>
                         </div>
@@ -653,7 +653,7 @@ function mostrarContenido(seccion) {
     contenedor.innerHTML = contenidoHTML;
     if (seccion === 'identificacion') {
         cargarCombustibles();
-        cargarTipoServicio();
+        cargarClaseVehiculo();
         cargarTipoCarroceria();
         $('#tipo_carroceria').off('change').on('change', function() {
             let codigo = $(this).val();
@@ -663,19 +663,19 @@ function mostrarContenido(seccion) {
     }
 
 }
-function cargarTipoServicio(selectedValue = '') {
-    $.post("../../controller/tiposervicio.php?op=listar_tipo_servicio", function (data) {
-        let options = '<option></option>' + data; // opción vacía para placeholder
-        $("#tipo_servicio").html(options);
-        $("#tipo_servicio").select2({
+function cargarClaseVehiculo(selectedValue = '') {
+    $.post("../../controller/clasevehiculo.php?op=listar_clase_vehiculo", function (data) {
+        let options = '<option></option>' + data; 
+        $("#clase_vehiculo").html(options);
+        $("#clase_vehiculo").select2({
             width: '100%',
-            placeholder: "-- Seleccione tipo de servicio --",
+            placeholder: "-- Seleccione clase vehiculo --",
             allowClear: true
         });
         if (selectedValue) {
-            $("#tipo_servicio").val(selectedValue).trigger('change');
+            $("#clase_vehiculo").val(selectedValue).trigger('change');
         } else {
-            $("#tipo_servicio").val(null).trigger('change');
+            $("#clase_vehiculo").val(null).trigger('change');
         }
     }, "html");
 }
@@ -722,7 +722,6 @@ function cargarCategorias(codigoCarroceria, selectedValue = '') {
         }
     }, "html");
 }
-
 function cargarCombustibles(seleccionados = []) {
     $.post("../../controller/combustible.php?op=combo_detalle_combustible", function (data) {
         try {

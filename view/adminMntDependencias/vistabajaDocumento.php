@@ -89,7 +89,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                 <div id="formato-baja" class="card py-5 px-5 border-0" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
                     <div class="encabezado row align-items-center">
                         <div class="col-lg-6 d-flex align-items-center">
-                            <img src="../../static/illustrations/Escudo_de_Chiclayo.PNG" style="width:48px; height: 48px; margin-right: 10px;">
+                            <img src="../../static/illustrations/Escudo_de_Chiclayo.PNG" style="width:60px; height: 60px; margin-right: 10px;">
                             <div class="text-column">
                                 <strong>Sistema de Gestión de Inventario</strong><br>
                                 <strong>Módulo de Patrimonio</strong>
