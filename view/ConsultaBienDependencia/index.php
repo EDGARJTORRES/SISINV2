@@ -48,9 +48,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                 </div>
                 <div class="col-md-8">
                   <div id="contenido-detalle" class="p-3 position-relative text-center">
-                    <h4 id="mensaje-inicial" class="mb-2">
-                      <div class="hr-text text-primary title">Seleccione una dependencia</div>
-                    </h4>
+                    <div id="mensaje-inicial" class="hr-text text-primary title fs-3">SELECCIONE UNA DEPENDENCIA</div>
                     <p id="subtitulo-inicial" class="text-secondary">
                       Utilice el panel de navegación ubicado a la izquierda para explorar las diferentes dependencias. 
                       Una vez que seleccione una opción, la información correspondiente se mostrará en este espacio.
@@ -61,7 +59,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                             src="../../public/logo_mpch2.png" 
                             alt="Cargando..." 
                             class="img-fluid"
-                            style="max-width: 280px; height: auto; opacity: 0.2;">
+                            style="max-width: 280px; height: auto;">
                       </div>
                     </div>
                   </div>

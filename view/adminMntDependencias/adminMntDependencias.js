@@ -25,7 +25,7 @@ $(document).ready(function () {
     "bDestroy": true,
     "responsive": true,
     "bInfo": true,
-    "iDisplayLength": 6,
+    "iDisplayLength":7,
     "order": [[0, "desc"]],
     "language": {
       "sProcessing": "Procesando...",

@@ -72,7 +72,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                         </h3>
                       </div>
                       <div class="card-body">
-                        <div class="my-3">
+                        <div class="my-4">
                           <label for="slider_rango" class="form-label">
                             Filtrar por cantidad de bienes: <span style="color:red">*</span>
                           </label>
@@ -84,12 +84,12 @@ if (isset($_SESSION["usua_id_siin"])) {
                         </div>
                         <div class="my-4">
                           <label class="form-label">Buscar Área / Dependencia :<span style="color:red"> *</span></label>
-                           <select class="form-select mt-3" id="filtro_dependencia" style="width: 100%;">
+                           <select class="form-select my-4" id="filtro_dependencia" style="width: 100%;">
                             <option value=""> -- Seleccione un Área --</option>
                            </select>
                         </div>
                         <div class="my-4">
-                          <div class="col-md-12 d-grid mt-3">
+                          <div class="col-md-12 d-grid my-2 ">
                             <button class="btn btn-6 btn-outline-dark" onclick="limpiarFiltros()">
                               <i class="fa-solid fa-eraser m-2"></i> LIMPIAR FILTROS
                             </button>
@@ -108,7 +108,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                         </h3>
                       </div>
                       <div class="table-responsive m-4">
-                        <div class="d-flex align-items-center gap-4 mt-2 mb-3 mx-3">
+                        <div class="d-flex align-items-center gap-4 mt-1 mb-3 mx-3">
                           <div class="input-icon" style="width: 100%;">
                               <span class="input-icon-addon">
                                 <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-search">

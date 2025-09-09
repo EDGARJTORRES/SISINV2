@@ -49,14 +49,10 @@ $(document).ready(function () {
                         </svg>
                       </span>
                     </div>
-
-                    <!-- Texto -->
                     <div class="flex-grow-1">
                       <div class="fw-bold fs-5 mb-1">${nombre}</div>
                       <span class="badge bg-primary-lt">${codigos.length} bienes</span>
                     </div>
-
-                    <!-- Flecha -->
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
                         fill="none" stroke="currentColor" stroke-width="2" 
                         stroke-linecap="round" stroke-linejoin="round" 
@@ -77,8 +73,9 @@ $(document).ready(function () {
                       ${codigos.map(cod => `
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                           <span class="badge bg-green-lt">${cod}</span>
-                          <button class="btn btn-sm btn-dark d-flex align-items-center gap-1"
-                                  onclick="verHistorial('${cod}', this)">
+                          <a href="#" 
+                            class="d-flex align-items-center gap-1" 
+                            onclick="verHistorial('${cod}', this)">
                             <svg xmlns="http://www.w3.org/2000/svg" 
                                 class="icon icon-tabler icon-tabler-arrow-right" 
                                 width="16" height="16" viewBox="0 0 24 24" 
@@ -88,9 +85,9 @@ $(document).ready(function () {
                               <line x1="13" y1="18" x2="19" y2="12" />
                               <line x1="13" y1="6" x2="19" y2="12" />
                             </svg>
-                            Ir
-                          </button>
-                        </li>
+                            Ir al Historial
+                          </a>
+                          </li>
                       `).join("")}
                     </ul>
                   </div>

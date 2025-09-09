@@ -10,145 +10,7 @@ if (isset($_SESSION["usua_id_siin"])) {
     <link href="../../public/css/Breadcrumb.css" rel="stylesheet"/>
     <link href="../../public/css/iconos.css" rel="stylesheet"/>
     <link href="../../public/css/inicio.css" rel="stylesheet"/>
-    <style>
-    #lista-items {
-    max-height: 600px;
-    min-height: 600px;
-    overflow-y: auto;
-    scrollbar-width: none;        
-    -ms-overflow-style: none;      
-    }
-    #lista-items::-webkit-scrollbar {
-    display: none;                 
-    }
-    .icon-lg {
-    width: 36px !important;
-    height: 36px !important;
-    }
-    .stepper-box {
-    background-color: white;
-    border-radius: 12px;
-    padding: 32px;
-    width: 400px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    }
-    .stepper-step {
-    display: flex;
-    margin-bottom: 32px;
-    position: relative;
-    }
-    .stepper-step:last-child {
-    margin-bottom: 0;
-    }
-    .stepper-line {
-    position: absolute;
-    left: 19px;
-    top: 40px;
-    bottom: -32px;
-    width: 2px;
-    background-color: #e2e8f0;
-    z-index: 1;
-    }
-    .stepper-step:last-child .stepper-line {
-    display: none;
-    }
-    .stepper-circle {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 16px;
-    z-index: 2;
-    }
-    .stepper-completed .stepper-circle {
-    background-color: #0f172a;
-    color: white;
-    }
-    .stepper-active .stepper-circle {
-    border: 2px solid #0f172a;
-    color: #0f172a;
-    }
-    .stepper-pending .stepper-circle {
-    border: 2px solid #e2e8f0;
-    color: #94a3b8;
-    }
-    .stepper-content {
-    flex: 1;
-    }
-    .stepper-title {
-    font-weight: 600;
-    margin-bottom: 4px;
-    }
-    .stepper-completed .stepper-title {
-    color: #0f172a;
-    }
-    .stepper-active .stepper-title {
-    color: #0f172a;
-    }
-    .stepper-pending .stepper-title {
-    color: #94a3b8;
-    }
-    .stepper-status {
-    font-size: 13px;
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 12px;
-    margin-top: 4px;
-    }
-    .stepper-completed .stepper-status {
-    background-color: #dcfce7;
-    color: #166534;
-    }
-    .stepper-active .stepper-status {
-    background-color: #dbeafe;
-    color: #1d4ed8;
-    }
-    .stepper-pending .stepper-status {
-    background-color: #f1f5f9;
-    color: #64748b;
-    }
-    .stepper-time {
-    font-size: 12px;
-    color: #94a3b8;
-    margin-top: 4px;
-    }
-    .stepper-controls {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 32px;
-    }
-    .stepper-button {
-    padding: 8px 16px;
-    border-radius: 6px;
-    border: 1px solid #e2e8f0;
-    background-color: white;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    }
-    .stepper-button-primary {
-    background-color: #0f172a;
-    color: white;
-    border-color: #0f172a;
-    }
-    .icon-big {
-    width: 50px;
-    height:50px;
-    }
-    .hover-shadow-md:hover {
-    box-shadow: 0 6px 18px rgba(0,0,0,0.1) !important;
-    }
-    .collapse-icon {
-    transition: transform 0.3s ease;
-    }
-    .list-group-item-activo {
-        background-color: #e8eaeeff;        
-    }
-
-    </style>
+    <link href="../../public/css/historial.css" rel="stylesheet"/>
 </head>
 <body>
     <?php require_once("../html/mainProfile.php"); ?>
@@ -187,7 +49,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                                         <div class="mb-1">
                                             <div class="input-icon mb-1">
                                                 <span class="input-icon-addon">
-                                                    🔍
+                                                   <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-cloud-search"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M11 18.004h-4.343c-2.572 -.004 -4.657 -2.011 -4.657 -4.487c0 -2.475 2.085 -4.482 4.657 -4.482c.393 -1.762 1.794 -3.2 3.675 -3.773c1.88 -.572 3.956 -.193 5.444 1c1.488 1.19 2.162 3.007 1.77 4.769h.99" /><path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M20.2 20.2l1.8 1.8" /></svg>
                                                 </span>
                                                 <input type="text" id="buscadorBienes" class="form-control" placeholder="BUSCAR BIEN PATRIMONIAL ...">
                                             </div>
@@ -215,7 +77,22 @@ if (isset($_SESSION["usua_id_siin"])) {
                             </div>
                             <div class="card-body" id="lista-items">
                                 <div id="historialBien">
-                                <p class="text-muted">Seleccione un bien para ver su historial.</p>
+                                    <div class="hr-text text-primary title fs-3">SELECCIONE UN BIEN PATRIMONIAL</div>
+                                    <div class="alert alert-info text-center mx-auto d-flex align-items-center justify-content-center" role="alert" style="max-width: 600px; gap: 5px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-progress-help icon-alert mx-1 text-primary alert-icon">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M12 16v.01" />
+                                            <path d="M12 13a2 2 0 0 0 .914 -3.782a1.98 1.98 0 0 0 -2.414 .483" />
+                                            <path d="M10 20.777a8.942 8.942 0 0 1 -2.48 -.969" />
+                                            <path d="M14 3.223a9.003 9.003 0 0 1 0 17.554" />
+                                            <path d="M4.579 17.093a8.961 8.961 0 0 1 -1.227 -2.592" />
+                                            <path d="M3.124 10.5c.16 -.95 .468 -1.85 .9 -2.675l.169 -.305" />
+                                            <path d="M6.907 4.579a8.954 8.954 0 0 1 3.093 -1.356" />
+                                        </svg>
+                                        <div class="text-dark" style="text-align: justify; width: 100%;">
+                                            Aquí se mostrará el historial completo de todos los <strong>movimientos registrados por el Sistema</strong>. Cada vez que un bien es desplazado, se registra automáticamente el <strong>nombre del responsable</strong> y el <strong>área correspondiente</strong>. Esto permite llevar un <strong>control detallado y actualizado de los bienes</strong>, facilitando su seguimiento y administración eficiente.
+                                        </div>
+                                    </div>
                                     <div class="text-center">
                                         <img id="cargando-detalle" 
                                             src="../../public/logo_mpch2.png" 

@@ -127,12 +127,12 @@ function cargarListadoBienesEnModal() {
               </div>
             </div>
             <div class="table-responsive">
-              <table id="dependencia_data" class="table card-table table-vcenter text-nowrap datatable" style="width: 95%;">
+              <table id="dependencia_data" class="table card-table table-vcenter text-nowrap datatable" style="width: 99%;">
                 <thead>
                   <tr>
                     <th>Código</th>
                     <th>Denominación</th>
-                    <th>Dimensión</th>
+                    <th>Representante</th>
                     <th>Valor Adq.</th>
                     <th>Doc. Adq.</th>
                     <th>Obs. Bien</th>
@@ -156,23 +156,23 @@ function cargarListadoBienesEnModal() {
                       <tr>
                         <td><span class="badge bg-cyan text-cyan-fg selectable">${b.bien_codbarras || '-'}</span></td>
                         <td>${b.obj_nombre || '-'}</td>
-                        <td>${b.bien_dim || '-'}</td>
+                        <td>${b.nombre_completo || '-'}</td>
                         <td>${b.val_adq || '-'}</td>
                         <td>${b.doc_adq || '-'}</td>
                         <td>
-                          <span class="${
-                            b.bien_est === 'B' ? 'bg-success text-white px-3 py-1 rounded' :
-                            b.bien_est === 'N' ? 'bg-purple text-white px-3 py-1 rounded' :
-                            b.bien_est === 'R' ? 'bg-warning text-white px-3 py-1 rounded' :
-                            b.bien_est === 'M' ? 'bg-danger text-white px-3 py-1 rounded' :
-                            'bg-secondary text-white px-2 py-1 rounded'
-                          }">
+                          <span class="d-inline-block ${
+                            b.bien_est === 'B' ? 'bg-green-lt' :
+                            b.bien_est === 'N' ? 'bg-purple-lt' :
+                            b.bien_est === 'R' ? 'bg-orange-lt' :
+                            b.bien_est === 'M' ? 'bg-red-lt' :
+                            'bg-secondary-lt'
+                          } text-white text-center px-0 py-0 rounded-pill" style="min-width: 70px;">
                             ${
                               b.bien_est === 'B' ? 'Bueno' :
                               b.bien_est === 'M' ? 'Malo' :
                               b.bien_est === 'R' ? 'Regular' :
                               b.bien_est === 'N' ? 'Nuevo' :
-                              '-'
+                              'Inactivo'
                             }
                           </span>
                         </td>

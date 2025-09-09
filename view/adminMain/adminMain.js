@@ -16,7 +16,7 @@ function cargarTotalBienes() {
         </div>
         <div class="col-lg-8" style="align-content: center;">
           <h2>
-            <span id="lbltotabien" style="font-size: 30px; color:#ff6f00">
+            <span id="lbltotabien"">
               ${total}
             </span>
           </h2>
@@ -46,7 +46,7 @@ function cargarValorAdquisicion() {
             <img style="height:60px;" src="../../static/gif/ordenador-portatil.gif" alt="Cargando..." />
           </div>
           <div class="col-lg-8" style="align-content: center;">
-            <h4 id="lbltotal_adq" class="mb-1" style="font-size: 18px;color: #2e7d32;">${formatoSoles.format(total)}</h4>
+            <h2 id="lbltotal_adq"  style="font-size: 18px">${formatoSoles.format(total)}</h2>
           </div>
         </div>
       `;
@@ -58,7 +58,7 @@ function cargarValorAdquisicion() {
             <img style="height:60px;" src="../../static/gif/ordenador-portatil.gif" alt="Cargando..." />
           </div>
           <div class="col-lg-8" style="align-content: center;">
-            <h4 id="lbltotal_adq">No se encontró el total.</h4>
+            <h2 id="lbltotal_adq">No se encontró el total.</h2>
           </div>
         </div>
       `;
@@ -196,7 +196,7 @@ function cargarGraficoEstadoBienes() {
       series: [{
         name: 'Bienes',
         data: valores,
-        color: '#6c757d'
+         color: '#52575aff'
       }]
     });
   });
@@ -257,7 +257,8 @@ function cargarGrafico() {
         },
         series: [{
           name: 'Objetos',
-          data: cantidades
+          data: cantidades,
+          color: '#05a893ff'
         }],
         credits: {
           enabled: false
@@ -321,7 +322,7 @@ function cargarGraficoValorBienes() {
           {
             name: 'Total Adquisición',
             y: adquisicion,
-            color: '#6c757d'
+            color: '#323335ff'
           },
           {
             name: 'Total Baja',

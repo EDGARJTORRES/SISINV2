@@ -39,11 +39,10 @@ if (isset($_SESSION["usua_id_siin"])) {
                   </h3>
                 </div>
                 <div class="card-body">
-                  <div class="table-responsive mx-4">
-                      <div class="row my-4 g-3">
+                  <div class="table-responsive">
+                      <div class="row mb-4 mx-1">
                         <div class="col-4 col-md-6 col-lg-2">
-                          <label for="cantidad_registros">Registros por página:<span class="text-danger"> *</span></label>
-                          <div class="input-icon">
+                          <div class="input-icon mt-2">
                             <span class="input-icon-addon">
                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
                                 <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
@@ -53,17 +52,32 @@ if (isset($_SESSION["usua_id_siin"])) {
                             <input type="number" id="cantidad_registros" class="form-control" min="1" max="100" value="10"> 
                           </div>
                         </div>
-                        <div class="col-4 col-md-6 col-lg-3">
-                          <label for="filtro_anexo">Filtrar Anexos: <span class="text-danger"> *</span></label>
-                          <select id="filtro_anexo" class="form-select">
-                            <option value="0">Todos</option>
+                        <div class="col-4 col-md-6 col-lg-2">
+                          <select id="filtro_anexo" class="form-select mt-2">
+                            <option value="0"> -- Filtrar Todos -- </option>
                             <option value="Asignacion">Asignación</option>
                             <option value="Desplazamiento">Desplazamiento</option>
                           </select> 
                         </div>
-                        <div class="col-4 col-md-6 col-lg-7">
-                          <label for="buscar_registros">Buscar Formato:<span class="text-danger"> *</span></label>
-                          <div class="input-icon">
+                        <div class="col-4 col-md-6 col-lg-2">
+                          <button class="btn btn-6 btn-outline-secundary mt-2 w-100" onclick="limpiarFiltros()">
+                            <svg xmlns="http://www.w3.org/2000/svg"   style="color: rgba(55, 57, 59, 1);"
+                                width="24" height="24" viewBox="0 0 24 24"  
+                                fill="none" stroke="currentColor" stroke-width="2"  
+                                stroke-linecap="round" stroke-linejoin="round"  
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-eraser">
+                              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                              <path d="M19 20h-10.5l-4.21 -4.3a1 1 0 0 1 0 -1.41l10 -10a1 1 0 0 1 1.41 0l5 5a1 1 0 0 1 0 1.41l-9.2 9.3" />
+                              <path d="M18 13.3l-6.3 -6.3" />
+                            </svg>
+                            <span style="color: rgba(55, 57, 59, 1);">Limpiar Filtros</span>
+                          </button>
+                        </div>
+                        <div class="col-4 col-md-6 col-lg-2">
+                          <input type="date" id="" class="form-control mt-2" placeholder="Fecha inicio">
+                        </div>
+                        <div class="col-4 col-md-6 col-lg-4">
+                          <div class="input-icon mt-2">
                             <span class="input-icon-addon">
                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-search">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -71,7 +85,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                                 <path d="M21 21l-6 -6" />
                               </svg>
                             </span>
-                            <input type="text" id="buscar_registros" class="form-control" placeholder="BUSCAR FORMATO DE ASIGNACION O DESPLAZAMIENTO "> 
+                            <input type="text" id="buscar_registros" class="form-control" placeholder="BUSCAR FORMATO ..."> 
                           </div>
                         </div>
                       </div>

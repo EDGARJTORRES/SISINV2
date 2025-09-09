@@ -84,7 +84,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                     <div id="mensaje-inicial" class="alert alert-info" role="alert">
                       <div class="d-flex">
                         <div>
-                          <svg xmlns="http://www.w3.org/2000/svg" class="icon alert-icon" width="24" height="24" 
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-alert mx-1" width="24" height="24" 
                               viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" 
                               stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -93,10 +93,11 @@ if (isset($_SESSION["usua_id_siin"])) {
                           </svg>
                         </div>
                         <div>
-                          <h4 class="alert-title">Detalle del bien patrimonial</h4>
-                          <div class="text-secondary">
-                            Ingrese o escanee el <strong>código de barras</strong> para mostrar todas las características del bien patrimonial.
+                          <h4 class="alert-title mx-3">Detalle del Bien Patrimonial</h4>
+                          <div class="text-dark mx-3">
+                            Por favor, <strong>ingrese manualmente</strong> o <strong>escanee el código de barras</strong> del bien patrimonial para visualizar <strong>todas sus características registradas</strong>, incluyendo información como el <strong>nombre del objeto</strong>, <strong>estado</strong>, <strong>valor de adquisición</strong>, <strong>documento de adquisición</strong> y <strong>responsable asignado</strong>.
                           </div>
+
                         </div>
                       </div>
                     </div>
@@ -105,7 +106,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                           src="../../public/logo_mpch2.png" 
                           alt="Cargando..." 
                           class="img-fluid"
-                          style="max-width: 380px; height: auto; opacity: 0.2;">
+                          style="max-width: 380px; height: auto;">
                     </div>
                   </div>
                 </div>

@@ -57,8 +57,10 @@ if (isset($_SESSION["usua_id_siin"])) {
                     <div class="col-lg-12">
                         <div class="card border-0" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
                             <div class="card-status-start bg-primary"></div>
-                            <div class="ribbon bg-dark" id="ribbon-estado"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trending-up"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 17l6 -6l4 4l8 -8" /><path d="M14 7l7 0l0 7" /></svg></div>
-                            <div class="row m-4 align-items-center">
+                            <div class="ribbon bg-dark" id="ribbon-estado">
+                                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trending-up"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 17l6 -6l4 4l8 -8" /><path d="M14 7l7 0l0 7" /></svg>
+                            </div>
+                            <div class="row my-3 mx-4 align-items-center">
                                 <div class="col-lg-9 d-flex flex-column">
                                     <label for="combo_vehiculo" class="form-label mb-1">
                                         Vehículo: <span class="text-danger">*</span>
@@ -88,7 +90,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4 mt-4">
+                    <div class="col-lg-4 mt-3">
                         <div class="card border-0" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
                             <div class="card-status-start bg-primary"></div>
                             <div class="card-header ">
@@ -151,7 +153,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-8 mt-4">
+                    <div class="col-lg-8 mt-3">
                         <div class="card border-0" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
                             <div class="card-status-start bg-primary"></div>
                             <div class="card-header">
@@ -179,11 +181,11 @@ if (isset($_SESSION["usua_id_siin"])) {
                                     <div class="myLoader">
                                         <p>Cargando </p>
                                         <div class="myWords">
-                                        <span class="myWord">combustibles</span>
-                                        <span class="myWord">vehículos</span>
-                                        <span class="myWord">marcas</span>
-                                        <span class="myWord">modelos</span>
-                                        <span class="myWord">placas</span>
+                                        <span class="myWord">Combustibles</span>
+                                        <span class="myWord">Vehículos</span>
+                                        <span class="myWord">Marcas</span>
+                                        <span class="myWord">Modelos</span>
+                                        <span class="myWord">Placas</span>
                                         </div>
                                     </div>
                                 </div>

@@ -84,18 +84,14 @@ if (isset($_POST["enviar"]) and $_POST["enviar"] == "si") {
     <body class=" d-flex flex-column">
         <div class="page page-center">
             <div class="container container-tight py-4">
-                <div class="header-colors" style="width: 100%;height: 20px; display: flex">
+                <div class="header-colors" style="width: 100%;height: 10px; display: flex">
                     <div style="background: #ac4033;width: 25%; height: 100%;">
-
                     </div>
                     <div style="background: #d59b2d;width: 25%; height: 100%;">
-
                     </div>
                     <div style="background: #61a0a5;width: 25%; height: 100%;">
-
                     </div>
                     <div style="background: #0054a6;width: 25%; height: 100%;">
-
                     </div>
                 </div>
                 <div class="card  border-0  card-md" style="border-radius: 0 0 5px 5px; width: 400px;">
@@ -103,11 +99,9 @@ if (isset($_POST["enviar"]) and $_POST["enviar"] == "si") {
                         <div style="display: flex;justify-content: flex-end;">
                             <img src="./static/illustrations/HeadChiclayo.png" width="110" height="32" alt="Tabler" class="navbar-brand-image">
                         </div>
-                    
                         <div class="text-center mb-2">
                             <img src="./static/illustrations/cumplimiento-de-pedidos.png" height="120" alt="Logo">
                         </div>
-    
                         <h2 class="h3 text-center mb-4">SOFTWARE DE GESTIÓN DE INVENTARIO <br> [ MUNICIPALIDAD DE CHICLAYO ]</h3>
                         <?php
                             if (isset($_GET["m"])) {

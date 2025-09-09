@@ -40,7 +40,7 @@ function buscarBien() {
           <div class="alert alert-warning" role="alert">
             <div class="d-flex">
               <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon alert-icon" width="24" height="24" 
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon alert-icon icon-alert mx-1" width="24" height="24" 
                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" 
                     stroke-linecap="round" stroke-linejoin="round">
                   <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -49,14 +49,16 @@ function buscarBien() {
                 </svg>
               </div>
               <div>
-                <h4 class="alert-title">Bien no encontrado</h4>
-                <div class="text-secondary">
-                  Aquí se mostrará el detalle del bien patrimonial al ingresar un código válido.
+                <h4 class="alert-title mx-3">Bien No Encontrado</h4>
+                <div class="text-dark mx-3">
+                  No se ha encontrado ningún registro asociado al <strong>código de barras ingresado</strong>. Asegúrese de haber <strong>ingresado un código válido</strong> o <strong>escaneado correctamente</strong> el bien patrimonial.  
+                  <br>Una vez se detecte un código válido, se mostrará automáticamente el <strong>detalle completo del bien</strong>, incluyendo su <strong>identificación</strong>, <strong>estado</strong>, <strong>valor</strong> y <strong>responsable asignado</strong>.
                 </div>
+
               </div>
             </div>
           </div>
-          <img id="cargando-detalle" src="../../public/logo_mpch2.png" alt="Cargando..." style="width: 380px; height: 380px; margin-left: 50vh; margin-top: 40px; margin-bottom:40px; opacity: 0.2;">
+          <img id="cargando-detalle" src="../../public/logo_mpch2.png" alt="Cargando..." style="width: 380px; height: 380px; margin-left: 50vh; margin-top: 40px; margin-bottom:40px;">
         `);
 
           return;

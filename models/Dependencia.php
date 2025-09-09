@@ -222,7 +222,7 @@
                         b.bien_id,
                         b.bien_codbarras,
                         o.obj_nombre, 
-                        b.bien_dim,
+                        tp.pers_apelpat || ' ' || tp.pers_apelmat || ', ' || tp.pers_nombre AS nombre_completo,
                         b.val_adq,
                         b.doc_adq,
                         b.bien_est
@@ -234,6 +234,8 @@
                         sc_inventario.tb_objeto o ON b.obj_id = o.obj_id
                     INNER JOIN 
                         public.tb_dependencia d ON d.depe_id = bd.depe_id
+                    LEFT JOIN 
+                        sc_escalafon.tb_persona tp on tp.pers_id = bd.repre_id
                     WHERE 
                         bd.depe_id = ?
                         AND bd.bien_est NOT IN ('I', 'E')
@@ -246,29 +248,26 @@
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
         public function darDeBajaBien($bien_id, $motivo_baja) {
-         $conectar = parent::conexion();
-         parent::set_names();
-         try {
-            $conectar->beginTransaction();
+            $conectar = parent::conexion();
+            parent::set_names();
+            try {
+                $conectar->beginTransaction();
 
-            // Actualizar estado en tb_bien_dependencia
-            $sql1 = "UPDATE sc_inventario.tb_bien_dependencia 
-                    SET bien_est = 'I', motivo_baja = ?
-                    WHERE bien_id = ?";
-            $stmt1 = $conectar->prepare($sql1);
-            $stmt1->bindValue(1, $motivo_baja);
-            $stmt1->bindValue(2, $bien_id);
-            $stmt1->execute();
-            $sql2 = "UPDATE sc_inventario.tb_bien 
-                    SET bien_est = 'I'
-                    WHERE bien_id = ?";
-            $stmt2 = $conectar->prepare($sql2);
-            $stmt2->bindValue(1, $bien_id);
-            $stmt2->execute();
-
-            $conectar->commit();
-            return true;
-
+                $sql1 = "UPDATE sc_inventario.tb_bien_dependencia 
+                        SET bien_est = 'I', motivo_baja = ?, fecha_baja = CURRENT_DATE
+                        WHERE bien_id = ?";
+                $stmt1 = $conectar->prepare($sql1);
+                $stmt1->bindValue(1, $motivo_baja);
+                $stmt1->bindValue(2, $bien_id);
+                $stmt1->execute();
+                $sql2 = "UPDATE sc_inventario.tb_bien 
+                        SET bien_est = 'I'
+                        WHERE bien_id = ?";
+                $stmt2 = $conectar->prepare($sql2);
+                $stmt2->bindValue(1, $bien_id);
+                $stmt2->execute();
+                $conectar->commit();
+                return true;
             } catch (Exception $e) {
                 $conectar->rollBack();
                 return false;

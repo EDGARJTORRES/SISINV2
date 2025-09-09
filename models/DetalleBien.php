@@ -43,7 +43,6 @@ class DetalleBien extends Conectar {
         $stmt->bindValue(9, (int)$bien_id, PDO::PARAM_INT);
         return $stmt->execute();
     }
-
     public function update_caracteristicas($bien_id, $nro_motor, $ruedas, $cilindros, $cilindrada, $potencia, $form_rodaje, $ejes) {
         $conectar = parent::conexion();
         parent::set_names();
@@ -103,13 +102,10 @@ class DetalleBien extends Conectar {
                     b.version,
                     array_agg(c.comb_id ORDER BY c.comb_id) AS combustibles
                 FROM sc_inventario.tb_bien_detalle b
-                LEFT JOIN sc_inventario.tb_vehiculo_clase v
-                    ON v.veh_clase_id = b.clase_vehiculo
+                LEFT JOIN sc_inventario.tb_vehiculo_clase v ON v.veh_clase_id = b.clase_vehiculo
                 LEFT JOIN LATERAL unnest(b.bien_comb) AS bc(comb_id) ON TRUE
-                LEFT JOIN public.tb_combustible c 
-                    ON c.comb_id = bc.comb_id
-                LEFT JOIN public.vista_tipos_carroceria ca 
-                    ON b.tipo_carroceria = ca.codigo
+                LEFT JOIN public.tb_combustible c  ON c.comb_id = bc.comb_id
+                LEFT JOIN public.vista_tipos_carroceria ca ON b.tipo_carroceria = ca.codigo
                 WHERE b.bien_id = ?
                 GROUP BY 
                     b.bien_id, b.ruta, v.veh_clase_id, v.veh_clase_nom,

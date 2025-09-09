@@ -108,9 +108,6 @@ switch ($_GET["op"]) {
                         </nav>
                     </div><!-- dropdown-menu -->
                 </td>';
-              /*   $sub_array[] = '<button type="button" onClick="editarObjDepe('.$row["objdepe_id"].');"  id="'.$row["objdepe_id"].'" class="btn btn-outline-warning btn-icon"><div><i class="fa fa-edit"></i></div></button>';
-                $sub_array[] = '<button type="button" onClick="eliminarObjDepe('.$row["objdepe_id"].');"  id="'.$row["objdepe_id"].'" class="btn btn-outline-danger btn-icon"><div><i class="fa fa-close"></i></div></button>';                
-                 */
                 $data[] = $sub_array;
             }
 
@@ -136,8 +133,8 @@ switch ($_GET["op"]) {
         $cod_cana = $datos['codigo_cana'];
         $lid = $stick->get_last_id();
         $codinterno = $lid['objdepe_id'];
-        $output["codigo_cana"] = $cod_cana; // Se corrige el acceso a la variable $datos
-        $output["objdepe_id"] = $codinterno; // Se corrige el nombre de la variable $lid
+        $output["codigo_cana"] = $cod_cana; 
+        $output["objdepe_id"] = $codinterno; 
         echo json_encode($output);
         break;
     case "contador_bienes_por_dependencia":
@@ -234,7 +231,7 @@ switch ($_GET["op"]) {
     case "listarBienesBajaPorArea":
         $depe_id = $_POST["depe_id"] ?? 0;
         $bien_id = $row["bien_id"] ?? 0; 
-        $datos = $dependencia->listarBienesDadosDeBajaPorDependencia($depe_id);
+        $datos = $dependencia->listarBienesDadosDeBajaPorDependencia($depe_id); 
         $data = [];
         foreach ($datos as $row) {
             $bien_id = $row["bien_id"];
