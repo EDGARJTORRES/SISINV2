@@ -1,6 +1,6 @@
 <?php
 require_once("../config/conexion.php");
-require_once("../models/color.php");
+require_once("../models/Color.php");
 require_once("../models/Bitacora.php");
 $bitacora = new Bitacora();
 $color = new Color();

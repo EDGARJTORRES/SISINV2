@@ -90,7 +90,6 @@ switch ($_GET["op"]) {
                 $output["obj_id"] = $row["obj_id"];
                 $output["codigo_cana"] = $row["codigo_cana"];
                 $output["obj_nombre"] = $row["obj_nombre"];
-                // Si no hay imagen, usar una por defecto
                 $output["obj_img"] = !empty($row["obj_img"]) ? $row["obj_img"] : "img/default.png";
             }
             echo json_encode($output);
@@ -423,6 +422,7 @@ switch ($_GET["op"]) {
                 $output["bien_obs"] = $row["bien_obs"];
                 $output["bien_cuenta"] = $row["bien_cuenta"];
                 $output["procedencia"] = $row["procedencia"];
+                $output["bien_placa"] = $row["bien_placa"];
             }
         }
         echo json_encode($output);

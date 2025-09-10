@@ -174,11 +174,14 @@ function editarObjeto(obj_id) {
             $('#combo_clase_gen').val(data.gc_id).trigger('change');
         }
         if (data.obj_img) {
-            $('#previewImage')
-                .attr("src", "../../" + data.obj_img) // ✅ ahora apunta bien
-                .show();
+        $('#previewImage')
+            .attr("src", "../../" + data.obj_img)
+            .show()
+            .attr("onerror", "this.onerror=null; this.src='../img/default.png';");
         } else {
-            $('#previewImage').hide();
+        $('#previewImage')
+            .attr("src", "../img/default.png")
+            .show();
         }
         $('#lbltituloObj').html(`
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 

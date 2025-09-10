@@ -18,10 +18,10 @@
             return $this->dbh->query("SET NAMES 'utf8'");
         }
         public static function ruta() {
-        return "http://10.10.10.16/SISINV2/";
+        return "http://10.10.10.16/sisPatrimonio/";
         }
         
-        
+        */
         
         protected $dbh;
         protected function conexion() {
@@ -39,11 +39,11 @@
             return $this->dbh->query("SET NAMES 'utf8'");
         }
         public static function ruta() {
-            return "http://localhost/SISINV2/";
+            return "http://localhost/sisPatrimonio/";
         }
          
         
-       */
+       /* 
         Protected $dbh;
         protected function Conexion() {
             try {
@@ -58,10 +58,10 @@
             return $this->dbh->query("SET NAMES 'utf8'");
         }
         public static function ruta() {
-          return "http://localhost:/SISINV2/";
+          return "http://localhost:/sisPatrimonio/";
         }
         
-        
+        */
     }
     
 ?>

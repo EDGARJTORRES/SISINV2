@@ -3,7 +3,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <link rel="icon" type="image/png" href="../../SISINV2/static/illustrations/logomuni3.png">
+    <link rel="icon" type="image/png" href="../../sisPatrimonio/static/illustrations/logomuni3.png">
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
@@ -64,13 +64,13 @@
     <div class="page page-center">
       <div class="container-tight py-4">
         <div class="empty">
-          <img src="../../SISINV2/static/illustrations/ai.webp" alt="Mi ilustración" class="w-100">
+          <img src="../../sisPatrimonio/static/illustrations/ai.webp" alt="Mi ilustración" class="w-100">
           <p class="empty-title my-4">Pagina no encontrada.</p>
           <p class="empty-subtitle text-secondary">
             Por favor verificar o comunicarse con el administrador
           </p>
           <div class="empty-action">
-            <a href="../../SISINV2/index.php" class="btn btn-primary">
+            <a href="../../sisPatrimonio/index.php" class="btn btn-primary">
               <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
               Regresar
             </a>

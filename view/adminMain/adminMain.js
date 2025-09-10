@@ -210,7 +210,7 @@ function cargarGrafico() {
 
       // Reemplazar el placeholder con el contenido real
       const contenido = `
-        <h3 class="card-title text-purple">BIENES REGISTRADOS<span class="text-secondary"> (EVALUANDO SU DEPENDENCIA)</span></h3>
+        <h3 class="card-title text-teal">BIENES REGISTRADOS<span class="text-secondary"> (EVALUANDO SU DEPENDENCIA)</span></h3>
         <div class="row text-center">
           <div id="grafico_objetos_dependencia" style="height: 666px;"></div>
         </div>

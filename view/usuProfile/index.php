@@ -6,30 +6,31 @@ if (isset($_SESSION["usua_id_siin"])) {
 <html lang="es">
 <head>
   <?php require_once("../html/mainHead.php"); ?>
-  <title>MPCH::AltaBienes</title>
+  <title>MPCH::PERFIL</title>
   <link href="../../public/css/estiloselect.css" rel="stylesheet"/>
   <link href="../../public/css/iconos.css" rel="stylesheet"/>
+  <link href="../../public/css/inicio.css" rel="stylesheet"/>
 </head>
 <body>
   <?php require_once("../html/mainProfile.php"); ?>
-  <div style="position: relative; height: 180px; overflow: hidden;">
-      <div style="position: absolute;top: 0; left: 0; right: 0; bottom: 0;background-image: url('../../static/illustrations/fondo2.jpg');background-size: cover;background-position: center;filter:2px;transform: scale(1.1);z-index: 1;">
-      </div>
-      <div class="container-xl d-flex align-items-center" style="position: relative;z-index: 2;height: 100%;padding-left: 50px;">
-          <div class="d-flex align-items-center">
-            <img id="foto_perfil_actual" src="../../static/illustrations/perfil.jpeg" alt="Foto perfil"
-              class="shadow" width="140" height="140">
-            <div class="ms-4 text-white">
-              <h2 class="mb-1 fw-bold" id="nombre_usuario"></h2>
-              <h4 id="correo_usuario" class="mb-1 fw-bold"></h4>
-            </div>
-          </div>
-      </div>
-  </div>
   <div class="page-wrapper">
     <div class="page-header">
       <div class="container">
-        <div class="row align-items-center">
+        <div style="position: relative; height: 150px; overflow: hidden;">
+            <div style="position: absolute;top: 0; left: 0; right: 0; bottom: 0;background-image: url('../../static/illustrations/fondo2.jpg');background-size: cover;background-position: center;filter:2px;transform: scale(1.1);z-index: 1;">
+            </div>
+            <div class="container-xl d-flex align-items-center" style="position: relative;z-index: 2;height: 100%;padding-left: 50px;">
+                <div class="d-flex align-items-center">
+                  <img id="foto_perfil_actual" src="../../static/illustrations/perfil.jpeg" alt="Foto perfil"
+                    class="shadow" width="110" height="110" style="border: 2px solid white; object-fit: cover;">
+                  <div class="ms-4 text-white">
+                    <h2 class="mb-1 fw-bold" id="nombre_usuario"></h2>
+                    <h4 id="correo_usuario" class="mb-1 fw-bold"></h4>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-center mt-4 mb-1">
           <div class="col-auto">
             <span class="avatar avatar-lg" style="background-image: url(../../static/illustrations/perfil.jpeg)"> </span>
           </div>

@@ -241,8 +241,12 @@ rowDependencia.innerHTML = `
             Datos de la Dependencia
           </h4>
           <div class="text-muted">
-            <strong>Dependencia Origen:</strong><br>
-            ${data.depe_denominacion ? data.depe_denominacion : 'No tiene Área asignada'}
+            <div class="row">
+              <div class="col-lg-12">
+                <strong>Dependencia Origen:</strong><br>
+                ${data.depe_denominacion ? data.depe_denominacion : 'No tiene Área asignada'}
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -264,11 +268,11 @@ rowDependencia.innerHTML = `
           </h4>
           <div class="text-muted">
             <div class="row">
-              <div class="col-lg-6">
+              <div class="col-lg-8">
                 <strong>Representante:</strong><br>
                 ${data.nombre_completo ? data.nombre_completo.toUpperCase() : 'NO REGISTRADO'}
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-4">
                 <strong>DNI:</strong><br>
                 ${data.pers_dni ? data.pers_dni.toUpperCase() : 'NO ESPECIFICADO'}
               </div>

@@ -1,8 +1,8 @@
 RewriteEngine On
-RewriteBase /SISINV2/
+RewriteBase /sisPatrimonio/
 
 RewriteRule ^(controller|models|public|api|config|doc|img|js)/?$ - [R=404,L]
 
 Options -Indexes
  
-ErrorDocument 404 /SISINV2/view/505/index.php
+ErrorDocument 404 /sisPatrimonio/view/505/index.php

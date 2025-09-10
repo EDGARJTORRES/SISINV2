@@ -47,7 +47,7 @@ $(document).ready(function () {
   });
 });
 function verDocumento(rutaRelativa) {
-  const baseUrl = window.location.origin + '/SISINV2/';
+  const baseUrl = window.location.origin + '/sisPatrimonio/';
   const url = baseUrl + rutaRelativa.replace(/^doc\//, 'doc/');
   document.getElementById("documento-preview").innerHTML = `
       <iframe src="${url}" width="100%" height="600px" frameborder="0"></iframe>

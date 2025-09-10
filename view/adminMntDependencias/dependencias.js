@@ -283,7 +283,7 @@ function darDeBaja(bien_id) {
                         confirmButtonColor: 'rgb(15, 4, 77)',
                         confirmButtonText: 'Ok',
                       }).then(() => {
-                        window.location.href = "/SISINV2/view/adminMntDependencias/vistabajaDocumento.php?bien_id=" + bien_id;
+                        window.location.href = "/sisPatrimonio/view/adminMntDependencias/vistabajaDocumento.php?bien_id=" + bien_id;
 
                       });
                       return;
@@ -352,7 +352,7 @@ function darDeBaja(bien_id) {
                         }, 100);
                       },
                       willClose: () => {
-                        window.location.href = "/SISINV2/view/adminMntDependencias/vistabajaDocumento.php?bien_id=" + bien_id;
+                        window.location.href = "/sisPatrimonio/view/adminMntDependencias/vistabajaDocumento.php?bien_id=" + bien_id;
                       }
                     });
                     if ($.fn.DataTable.isDataTable('#dependencias_objetos')) {

@@ -17,7 +17,6 @@ class Usuario extends Conectar
                     $ip = '::1'; 
                     $ip = "192.168.12.44";
                 }
-                //comienzo API seguridad
                 $ch = curl_init();
                 $ws_reniec = "https://www.munichiclayo.gob.pe/sisSeguridad/ws/ws.php/?op=login&pers_dni=" . $dni . "&pers_contrasena=" . $pass . "&pers_ip=" . $ip . "&sist_inic=SICP";
 
@@ -34,11 +33,6 @@ class Usuario extends Conectar
                     // Decodificar la respuesta JSON en un array asociativo
                     $data = json_decode($response, true);
                 }
-                //fin API
-
-                //La respuesta me la trae así:
-                //{"status":404,"detalle":"Datos incorrectos"}
-                //Guardar en una variable el detalle
                 $detalle = $data["detalle"];
                 $status = $data["detalle"];
 
@@ -68,7 +62,6 @@ class Usuario extends Conectar
                     exit();
                 }
 
-                // Verificar si la decodificaciÃ³n fue exitosa
                 if ($data !== null) {
 
                     $_SESSION["usua_id_siin"] = $data["pers_id"];
@@ -96,22 +89,17 @@ class Usuario extends Conectar
     {
         $conectar = parent::conexion();
         parent::set_names();
-
-        //comienzo API seguridad
         $ch = curl_init();
         $ws_reniec = "https://www.munichiclayo.gob.pe/sisSeguridad/ws/ws.php/?op=logout&hise_id=" . $hise_id;
-
         curl_setopt($ch, CURLOPT_URL, $ws_reniec);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($ch);
-
         if (curl_errno($ch)) {
             $error_msg = curl_error($ch);
             echo json_encode(array('error' => 'Error al conectarse al servicio'));
         } else {
             curl_close($ch);
         }
-
         session_destroy();
         header("Location:" . Conectar::ruta() . "index.php");
         exit();
