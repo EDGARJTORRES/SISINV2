@@ -58,7 +58,7 @@
     </div>
 </header>
 <header class="navbar-expand-md sticky-top d-print-none" >
-  <div class="navbar-collapse collapse show" id="navbar-menu" >
+  <div class="navbar-collapse collapse" id="navbar-menu" >
     <div class="navbar">
       <div class="container-xl">
         <div class="row flex-column flex-md-row flex-fill align-items-center">

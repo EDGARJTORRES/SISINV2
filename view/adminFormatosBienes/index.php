@@ -54,7 +54,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                         </div>
                         <div class="col-4 col-md-6 col-lg-2">
                           <select id="filtro_anexo" class="form-select mt-2">
-                            <option value="0"> -- Filtrar Todos -- </option>
+                            <option value="0"> Filtrar Todos </option>
                             <option value="Asignacion">Asignación</option>
                             <option value="Desplazamiento">Desplazamiento</option>
                           </select> 

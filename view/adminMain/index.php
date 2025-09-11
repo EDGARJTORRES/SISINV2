@@ -34,14 +34,14 @@ if (isset($_SESSION["usua_id_siin"])) {
                 <div class="row m-3">
                   <div class="col-12">
                     <div class="row">
-                      <div class="col-6 col-md-3">
+                      <div class="col-6 col-md-3 mb-2">
                         <a href="../adminAsignacionBien/" class="btn btn3 btn-fixed position-relative">
                           <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-augmented-reality me-1"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 8v-2a2 2 0 0 1 2 -2h2" /><path d="M4 16v2a2 2 0 0 0 2 2h2" /><path d="M16 4h2a2 2 0 0 1 2 2v2" /><path d="M16 20h2a2 2 0 0 0 2 -2v-2" /><path d="M12 12.5l4 -2.5" /><path d="M8 10l4 2.5v4.5l4 -2.5v-4.5l-4 -2.5z" /><path d="M8 10v4.5l4 2.5" /></svg>
                           Asignacion de Bienes
                           <span class="badge bg-purple badge-notification badge-blink"></span>
                         </a>
                       </div>
-                      <div class="col-6 col-md-3">
+                      <div class="col-6 col-md-3 mb-2">
                         <a href="../adminDesplazamientoBien/" class="btn btn4 btn-fixed position-relative">
                         <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrows-move me-1"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 9l3 3l-3 3" /><path d="M15 12h6" /><path d="M6 9l-3 3l3 3" /><path d="M3 12h6" /><path d="M9 18l3 3l3 -3" /><path d="M12 15v6" /><path d="M15 6l-3 -3l-3 3" /><path d="M12 3v6" /></svg>
                           Desplazamiento de Bienes

@@ -37,7 +37,7 @@ function buscarBien() {
             confirmButtonColor: 'rgb(243, 18, 18)',
           });
           $(".respuesta").html(`
-            <div class="alert alert-warning" role="alert">
+            <div class="alert alert-warning" role="alert" style="text-align: justify;">
               <div class="d-flex flex-column flex-md-row align-items-center">
                 <div class="mb-2 mb-md-0">
                   <svg xmlns="http://www.w3.org/2000/svg" class="icon alert-icon icon-alert mx-2" width="24" height="24" 
