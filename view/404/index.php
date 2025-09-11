@@ -11,7 +11,7 @@
       	--tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
         }
         body {
-      	font-feature-settings: "cv03", "cv04", "cv11";
+          font-feature-settings: "cv03", "cv04", "cv11";
         }
         :where(.theme-dark, [data-bs-theme="dark"]) .tblr-illustrations-not-found-a {
         fill: #1a2030;

@@ -20,8 +20,8 @@
         public static function ruta() {
         return "http://10.10.10.16/sisPatrimonio/";
         }
-        
         */
+        
         
         protected $dbh;
         protected function conexion() {
@@ -43,7 +43,7 @@
         }
          
         
-       /* 
+        /* 
         Protected $dbh;
         protected function Conexion() {
             try {

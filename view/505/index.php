@@ -43,19 +43,19 @@
         fill: #232b41;
         }
         @media (prefers-color-scheme: dark) {
-        .tblr-illustrations-not-found-a {
-            fill: #1a2030;
-        }
-        .tblr-illustrations-not-found-b {
-            fill: black;
-            opacity: 0.07;
-        }
-        .tblr-illustrations-not-found-c {
-            fill: #454c5e;
-        }
-        .tblr-illustrations-not-found-d {
-            fill: #232b41;
-        }
+          .tblr-illustrations-not-found-a {
+              fill: #1a2030;
+          }
+          .tblr-illustrations-not-found-b {
+              fill: black;
+              opacity: 0.07;
+          }
+          .tblr-illustrations-not-found-c {
+              fill: #454c5e;
+          }
+          .tblr-illustrations-not-found-d {
+              fill: #232b41;
+          }
         }
     </style>
   </head>

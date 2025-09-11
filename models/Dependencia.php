@@ -187,12 +187,6 @@
                         tp.pers_apelpat || ' ' || tp.pers_apelmat || ', ' || tp.pers_nombre AS nombre_completo, 
                         b.bien_codbarras,
                         o.obj_nombre, 
-                        (
-                            SELECT string_agg(c.color_nom, ', ')
-                            FROM public.tb_color c
-                            WHERE c.color_id = ANY(b.bien_color)
-                        ) AS bien_color,
-                        b.bien_dim,
                         b.val_adq,
                         b.doc_adq
                     FROM 

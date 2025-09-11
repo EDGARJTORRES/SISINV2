@@ -26,7 +26,7 @@
     cursor: pointer;
     }
     #lista-items {
-    max-height: 650px;
+    max-height: 700px;
     overflow-y: auto;
     border-right: 1px solid #e0e0e0;
     scrollbar-width: none;        
@@ -36,35 +36,51 @@
     #lista-items::-webkit-scrollbar {
     display: none;                 
     }
-    #dependencia_data {
-      border-collapse: collapse;
-    }
-
-    /* Encabezado con borde inferior */
-    #dependencia_data thead th {
-      background-color: #f8f9fa;
-      border-top: 1px solid rgb(192, 192, 192);
-      border-bottom: 1px solid rgb(192, 192, 192);
-      border-left: 1px solid rgb(192, 192, 192);
-      border-right: 1px solid rgb(192, 192, 192);
-      vertical-align: middle;
-      text-align: center;
-      font-size: 10px;
-    }
-    #dependencia_data tbody td {
-      border-top: none !important;
-      border-bottom: none;
-      border-left: 1px solid rgb(192, 192, 192);
-      border-right: 1px solid rgb(192, 192, 192);
-      vertical-align: middle;
-      text-align: center;
-      font-size: 10px;
-    }
     #dependencia_data td {
       white-space: normal !important;
       word-wrap: break-word;
       overflow-wrap: break-word;
     }
+    
+    #dependencia_data {
+      border-collapse: collapse;
+      border: 1px solid rgb(192, 192, 192); /* borde externo general */
+      width: 100%;
+    }
+
+    /* Encabezado */
+    #dependencia_data thead th {
+      background-color: #f8f9fa;
+      border-top: none !important;
+      border-bottom: 1px solid rgb(192, 192, 192);
+      border-left: none !important;
+      border-right: 1px solid rgb(192, 192, 192);
+      vertical-align: middle;
+      text-align: center;
+      font-size: 11px;
+    }
+    #dependencia_data thead th:last-child {
+      border-right: none; /* quitar borde derecho en última columna */
+    }
+
+    /* Cuerpo: solo líneas horizontales */
+    #dependencia_data tbody tr {
+      border-top: 1px solid rgb(192, 192, 192); /* 👈 línea por fila */
+    }
+
+    #dependencia_data tbody td {
+      border-top: none !important;
+      border-bottom: none;
+      border-left: none !important;
+      border-right: 1px solid rgb(192, 192, 192);
+      vertical-align: middle;
+      text-align: center;
+      font-size: 11px;
+    }
+    #dependencia_data tbody td:last-child {
+      border-right: none;
+    }
+
     .selectable {
       user-select: text !important;
       -webkit-user-select: text !important;

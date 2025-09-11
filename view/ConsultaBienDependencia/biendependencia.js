@@ -1,4 +1,4 @@
-
+let dependenciaSeleccionadaId = null;
 function mostrarAlertaCarga() {
   document.getElementById('alerta-carga').style.display = 'block';
 }
@@ -88,6 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const items = document.querySelectorAll('#lista-items .list-group-item');
       items.forEach(item => {
         item.addEventListener('click', function (e) {
+          dependenciaSeleccionadaId = item.dataset.id; // 💾 guarda el ID
           e.preventDefault();
           items.forEach(i => i.classList.remove('active'));
           item.classList.add('active');
@@ -103,30 +104,41 @@ document.addEventListener("DOMContentLoaded", function () {
           detalle.innerHTML = `
             <h5 class="mb-3">${nombre}</h5>
             <div class="mb-2 w-100">
-              <div class="input-icon w-100">
-                <span class="input-icon-addon">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              <div class="d-flex gap-2">
+                <!-- Botón Imprimir -->
+                <button class="btn btn-6 btn-outline-secundary" onclick="imprimirBienesSeleccionados()" >
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-codesandbox"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20 7.5v9l-4 2.25l-4 2.25l-4 -2.25l-4 -2.25v-9l4 -2.25l4 -2.25l4 2.25z" /><path d="M12 12l4 -2.25l4 -2.25" /><path d="M12 12l0 9" /><path d="M12 12l-4 -2.25l-4 -2.25" /><path d="M20 12l-4 2v4.75" /><path d="M4 12l4 2l0 4.75" /><path d="M8 5.25l4 2.25l4 -2.25" /></svg>
+                    Imprimir Codigos   
+                </button>
+                <button class="btn btn-6 btn-outline-secundary" onclick="limpiarFiltros()">
+                  <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-eraser mx-1"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19 20h-10.5l-4.21 -4.3a1 1 0 0 1 0 -1.41l10 -10a1 1 0 0 1 1.41 0l5 5a1 1 0 0 1 0 1.41l-9.2 9.3" /><path d="M18 13.3l-6.3 -6.3" /></svg> Limpiar 
+                </button>
+                <!-- Input con ícono -->
+                <div class="input-icon w-100">
+                  <span class="input-icon-addon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                       stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                       class="icon icon-tabler icons-tabler-outline icon-tabler-search">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
-                    <path d="M21 21l-6 -6" />
-                  </svg>
-                </span>
-                <input type="text" id="buscar_registros" placeholder="Buscar registro..." class="form-control w-100">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+                      <path d="M21 21l-6 -6" />
+                    </svg>
+                  </span>
+                  <input type="text" id="buscar_registros" placeholder="Buscar registro..." class="form-control w-100">
+                </div>
               </div>
             </div>
             <div class="table-responsive">
               <table id="dependencia_data" class="table card-table table-vcenter text-nowrap datatable" >
                 <thead >
                   <tr>
+                    <th><input type="checkbox" id="gb_id_all"> </th>
                     <th>Código Barras</th>
                     <th>Representante</th>
-                    <th>Denominación</th>
-                    <th>Color</th>
-                    <th>Dimensión</th>
+                    <th>Denominacion</th>
                     <th>Valor Adq.</th>
                     <th>Doc. Adq.</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody id="tbody-bienes"></tbody>
@@ -143,13 +155,33 @@ document.addEventListener("DOMContentLoaded", function () {
                 $.each(bienes, function (index, b) {
                   rows += `
                     <tr>
+                      <td>
+                        <label class="checkbox-wrapper-46">
+                          <input type="checkbox" class="inp-cbx gb-checkbox" data-id="${b.bien_id}" value="${b.bien_id}" />
+                          <span class="cbx">
+                            <span>
+                              <svg viewBox="0 0 12 10" height="10px" width="12px">
+                                <!-- Aquí dentro va el contenido SVG si tienes alguno -->
+                              </svg>
+                            </span>
+                            <span></span>
+                          </span>
+                        </label>
+                      </td>
                       <td><span class="badge bg-cyan text-cyan-fg selectable">${b.bien_codbarras || '-'}</span></td>
                       <td>${b.nombre_completo || 'N/A'}</td>
                       <td>${b.obj_nombre || 'N/A'}</td>
-                      <td>${b.bien_color || 'N/A'}</td>
-                      <td>${b.bien_dim || 'N/A'}</td>
                       <td>${b.val_adq || 'N/A'}</td>
                       <td>${b.doc_adq || 'N/A'}</td>
+                      <td>
+                        <button
+                          class="btn btn-icon btn-github"
+                          onclick="imprimirBien(${b.bien_id})"
+                          title="Imprimir código de barras"
+                        >
+                          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-code"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 8l-4 4l4 4" /><path d="M17 8l4 4l-4 4" /><path d="M14 4l-4 16" /></svg>
+                        </button>
+                      </td>
                     </tr>`;
                 });
               } else {
@@ -206,3 +238,85 @@ document.addEventListener("DOMContentLoaded", function () {
     })
     .catch(error => console.error("Error al cargar dependencias:", error));
 });
+function imprimirBien(bien_id) {
+  redirect_by_post(
+    "../../controller/stick.php?op=imprimir",
+    { bien_id, bien_id },
+    true
+  );
+}
+function imprimirBienesSeleccionados() {
+  const checkboxes = document.querySelectorAll('.gb-checkbox:checked');
+  const bien_ids = Array.from(checkboxes).map(cb => cb.value);
+  if (bien_ids.length === 0) {
+    Swal.fire({
+      title: '¡Atención!',
+      text: 'Seleccione al menos un bien para imprimir.',
+      imageUrl: '../../static/gif/tarjeta.gif',
+      imageWidth: 100,
+      imageHeight: 100,
+      confirmButtonText: 'Entendido',
+      confirmButtonColor: 'rgb(243, 18, 18)', 
+    });
+    return;
+  }
+  redirect_by_post(
+    "../../controller/stick.php?op=imprimir_multiple", 
+    { bien_id: bien_ids },
+    true
+  );
+}
+function redirect_by_post(purl, pparameters, in_new_tab) {
+  pparameters = typeof pparameters === "undefined" ? {} : pparameters;
+  in_new_tab = typeof in_new_tab === "undefined" ? true : in_new_tab;
+
+  var form = document.createElement("form");
+  $(form)
+    .attr("id", "reg-form")
+    .attr("name", "reg-form")
+    .attr("action", purl)
+    .attr("method", "post")
+    .attr("enctype", "multipart/form-data");
+
+  if (in_new_tab) {
+    $(form).attr("target", "_blank");
+  }
+
+  // Manejar parámetros
+  $.each(pparameters, function (key, value) {
+    if (Array.isArray(value)) {
+      value.forEach(function (v) {
+        $(form).append(
+          '<input type="hidden" name="' + key + '[]" value="' + v + '" />'
+        );
+      });
+    } else {
+      $(form).append(
+        '<input type="hidden" name="' + key + '" value="' + value + '" />'
+      );
+    }
+  });
+
+  document.body.appendChild(form);
+  form.submit();
+  document.body.removeChild(form);
+
+  return false;
+}
+function limpiarFiltros() {
+  // Limpiar el input de búsqueda
+  const input = document.getElementById('buscar_registros');
+  if (input) input.value = '';
+
+  // Limpiar la búsqueda del DataTable si existe
+  const table = $('#dependencia_data').DataTable();
+  table.search('').draw();
+  table.page('first').draw('page');
+
+  // Recargar tabla si hay una dependencia activa
+  if (!dependenciaSeleccionadaId) return;
+
+  // Simula el clic REAL sobre el elemento activo
+  const item = document.querySelector(`.list-group-item[data-id="${dependenciaSeleccionadaId}"]`);
+  if (item) item.click();
+}
