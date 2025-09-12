@@ -20,7 +20,7 @@
         public static function ruta() {
         return "http://10.10.10.16/sisPatrimonio/";
         }
-        */
+        
         
         
         protected $dbh;
@@ -42,8 +42,8 @@
             return "http://localhost/sisPatrimonio/";
         }
          
+        */
         
-        /* 
         Protected $dbh;
         protected function Conexion() {
             try {
@@ -60,8 +60,8 @@
         public static function ruta() {
           return "http://localhost:/sisPatrimonio/";
         }
-        
-        */
+    
+    
     }
     
 ?>

@@ -88,17 +88,17 @@ if (isset($_SESSION["usua_id_siin"])) {
                 </div>  
                 <div id="formato-baja" class="card py-5 px-5 border-0" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
                     <div class="encabezado row align-items-center">
-                        <div class="col-lg-6 d-flex align-items-center">
+                        <div class="col-lg-6 d-flex align-items-center columna1">
                             <img src="../../static/illustrations/Escudo_de_Chiclayo.PNG" style="width:60px; height: 60px; margin-right: 10px;">
                             <div class="text-column">
                                 <strong>Sistema de Gestión de Inventario</strong><br>
                                 <strong>Módulo de Patrimonio</strong>
                             </div>
                         </div>
-                        <div class="col-lg-6 text-end">
+                        <div class="col-lg-6 text-end columna2">
                             <strong>Fecha:</strong> <span id="fecha-impresion"></span><br>
                             <strong>Hora:</strong> <span id="hora-impresion"></span><br>
-                            <strong>Usuario:</strong> 1
+                            <strong>Usuario:</strong> <?php echo $datos["usuario_baja_id"] . "-" . $datos["usuario_baja_iniciales"] . ""; ?>
                         </div>
                     </div>
                     <h2>DATOS DEL ACTIVO FIJO</h2>
@@ -146,9 +146,9 @@ if (isset($_SESSION["usua_id_siin"])) {
                             </colgroup>
                             <tbody>
                                 <tr>
-                                    <th style="text-align: center;"><strong>IDENTIFICACION DEL BIEN</strong></th>
-                                    <th style="text-align: center;"><strong>INGRESO DEL BIEN</strong></th>
-                                    <th style="text-align: center;"><strong>FECHA</strong>
+                                    <th style="text-align: center; background-color: #f8f9fa;" class="text-primary"><strong>IDENTIFICACION DEL BIEN</strong></th>
+                                    <th style="text-align: center; background-color: #f8f9fa;" class="text-primary"><strong>INGRESO DEL BIEN</strong></th>
+                                    <th style="text-align: center; background-color: #f8f9fa;" class="text-primary"><strong>FECHA</strong>
                                 </th> 
                                 </tr>
                                 <tr>
@@ -191,7 +191,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                                     <td>
                                         <table style="width:100%; border-collapse: collapse;">
                                             <tr>
-                                                <td style="width: 70%; border: none;"><strong>Inventario Inicial</strong></td>
+                                                <td style="width: 65%; border: none;"><strong>Inventario Inicial</strong></td>
                                                  <td style="border: none; font-size: 12px;">: <?php echo ucfirst(strtolower($datos["bien_id"])); ?></td>
                                             </tr>
                                             <tr>
@@ -234,8 +234,8 @@ if (isset($_SESSION["usua_id_siin"])) {
                                 <tr>
                                 </tr>
                                 <tr>
-                                    <th style="text-align: center;"><strong>ESPECIFICACIONES TECNICAS</strong></th>
-                                    <th colspan="2" style="text-align: center;"><strong>BAJA DEL BIEN</strong></th>
+                                    <th style="text-align: center; background-color: #f8f9fa;" class="text-primary"><strong>ESPECIFICACIONES TECNICAS</strong></th>
+                                    <th colspan="2" style="text-align: center; background-color: #f8f9fa;" class="text-primary"><strong>BAJA DEL BIEN</strong></th>
                                 </tr>
                                 <tr>
                                    <td rowspan="2">

@@ -18,14 +18,35 @@ function imprimirFormatoBaja() {
     ventana.document.write(`
         <html>
         <head>
-            <title>Impresión de Baja</title>
-            <!-- ✅ Bootstrap para que funcione el grid -->
+            <title>&#8203;</title> 
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css">
             <link href="../../public/css/sinasignacion.css" rel="stylesheet"/>
             <style>
             @page { size: A4 portrait; margin: 1.50cm; }
             body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+            .encabezado {
+                display: flex;
+                justify-content: space-between; /* separa las dos columnas */
+                align-items: center;            /* centra verticalmente */
+                font-size: 12px;
+            }
+
+            /* Columna izquierda */
+            .encabezado .columna1 {
+                flex: 1;              /* ocupa la mitad del espacio */
+                display: flex;
+                align-items: center;
+                gap: 10px;            /* espacio entre elementos internos */
+            }
+
+            /* Columna derecha */
+            .encabezado .columna2 {
+                flex: 1;              /* ocupa la otra mitad */
+                text-align: right;    /* alinea el texto a la derecha */
+                font-size: 12px;
+            }
+
             h2 { text-align: center; text-transform: uppercase; font-size: 14px; margin-bottom: 20px; }
             .value { display: inline-block; width: calc(100% - 190px);}
             .section-title { background: #f0f0f0; font-weight: bold; border: 1px solid #ccc; }
@@ -37,7 +58,7 @@ function imprimirFormatoBaja() {
             .observaciones { min-height: 60px; border: 1px solid #000; padding: 6px; margin-top: 20px; }
             .styled-table { width: 100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 12px; margin-top: 10px; }
             .styled-table th, .styled-table td { border: 1px solid #cccccc; padding: 7px 10px; vertical-align: top; text-align: left; }
-            .styled-table thead th { background-color: #f2f2f2; font-weight: bold; text-align: center; }
+            .styled-table thead th {  background-color: #a6c8ebff; font-weight: bold; text-align: center; }
             .styled-table tr:nth-child(even) { background-color: #fafafa; }
             .styled-table tr:hover { background-color: #f1f1f1; }
             .styled-table td[colspan="2"], .styled-table td[colspan="3"] { font-weight: normal; background-color: #f9f9f9; }

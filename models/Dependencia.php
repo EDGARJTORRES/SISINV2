@@ -246,13 +246,17 @@
             parent::set_names();
             try {
                 $conectar->beginTransaction();
-
+                $usuario_baja = $_SESSION['usua_id_siin'];
                 $sql1 = "UPDATE sc_inventario.tb_bien_dependencia 
-                        SET bien_est = 'I', motivo_baja = ?, fecha_baja = CURRENT_DATE
+                        SET bien_est = 'I', 
+                            motivo_baja = ?, 
+                            fecha_baja = CURRENT_DATE,
+                            usuario_baja = ?
                         WHERE bien_id = ?";
                 $stmt1 = $conectar->prepare($sql1);
                 $stmt1->bindValue(1, $motivo_baja);
-                $stmt1->bindValue(2, $bien_id);
+                $stmt1->bindValue(2, $usuario_baja);
+                $stmt1->bindValue(3, $bien_id);
                 $stmt1->execute();
                 $sql2 = "UPDATE sc_inventario.tb_bien 
                         SET bien_est = 'I'
@@ -260,13 +264,23 @@
                 $stmt2 = $conectar->prepare($sql2);
                 $stmt2->bindValue(1, $bien_id);
                 $stmt2->execute();
+                $sql3 = "UPDATE sc_inventario.tb_bien_detalle
+                        SET detalle_est = '0'
+                        WHERE bien_id = ?";
+                $stmt3 = $conectar->prepare($sql3);
+                $stmt3->bindValue(1, $bien_id);
+                $stmt3->execute();
+
                 $conectar->commit();
                 return true;
+
             } catch (Exception $e) {
                 $conectar->rollBack();
                 return false;
             }
         }
+
+
         public function restaurarBien($bien_id) {
             $conectar = parent::conexion();
             parent::set_names();
@@ -415,6 +429,13 @@
                     b.bien_codbarras,
                     b.bien_obs,
                     bd.repre_id,
+                    bd.usuario_baja AS usuario_baja_id,
+                    COALESCE(
+                        UPPER(SUBSTRING(pu.pers_apelpat,1,1)) ||
+                        UPPER(SUBSTRING(pu.pers_apelmat,1,1)) ||
+                        UPPER(SUBSTRING(pu.pers_nombre,1,1)),
+                        '---'
+                    ) AS usuario_baja_iniciales,
                     b.bien_numserie,
                     b.procedencia,
                     bd.biendepe_obs,
@@ -437,6 +458,7 @@
                 LEFT JOIN sc_inventario.tb_grupo_clase gc ON o.gc_id = gc.gc_id
                 LEFT JOIN sc_inventario.tb_grupogenerico gg ON gc.gg_id = gg.gg_id
                 LEFT JOIN sc_escalafon.tb_persona p ON bd.repre_id = p.pers_id
+                LEFT JOIN sc_escalafon.tb_persona pu ON bd.usuario_baja = pu.pers_id
                 LEFT JOIN sc_inventario.tb_cuenta_contable tc ON b.bien_cuenta = tc.cuenta_id
                 LEFT JOIN LATERAL unnest(b.bien_color) AS bc(color_id) ON TRUE
                 LEFT JOIN public.tb_color c ON c.color_id = bc.color_id
@@ -448,9 +470,11 @@
                     AND bd.bien_est = 'I'
                     AND bd.biendepe_est = 1
                 GROUP BY
-                    b.bien_id, b.fecharegistro, p.pers_apelpat, p.pers_apelmat, p.pers_nombre,
+                    b.bien_id, b.fecharegistro, p.pers_apelpat, p.pers_apelmat, p.pers_nombre, bd.usuario_baja, 
+                    pu.pers_apelpat, pu.pers_apelmat, pu.pers_nombre,
                     bd.fecha_baja, bd.motivo_baja, b.bien_color, b.bien_cuenta, b.bien_codbarras,
-                    b.bien_obs, bd.repre_id, b.bien_numserie, b.procedencia, bd.biendepe_obs,            tc.cuenta_numero, b.bien_dim , o.codigo_cana, bd.bien_est, b.val_adq, b.fechacrea, o.obj_nombre,
+                    b.bien_obs, bd.repre_id, b.bien_numserie, b.procedencia, bd.biendepe_obs,tc.cuenta_numero, b.bien_dim , 
+                    o.codigo_cana, bd.bien_est, b.val_adq, b.fechacrea, o.obj_nombre,
                     ma.marca_nom, mo.modelo_nom, gg.vida_util, f.form_id, f.form_fechacrea;";
 
             $stmt = $conectar->prepare($sql);

@@ -517,7 +517,7 @@ switch ($_GET["op"]) {
         $pdf->Cell(30, $espaciado, utf8_decode(" - EL USUARIO ES RESPONSABLE DEL BUEN USO DE LOS BIENES PATRIMONIALES REGISTRADOS EN LA PRESENTE FICHA Y EN CASO DE PERDIDA O EXTRAVIO SERAN REPUESTOS O REEMBOLSADOS POR ÉL."), 0, 0);
         $pdf->ln(5);
         $pdf->Cell(30, $espaciado, utf8_decode(" - CUALQUIER MOVIMIENTO DE BIENES DENTRO O FUERA DE LAS INSTALACIONES DE LA MUNICIPALIAD DEBERÁ SER COMUNICADO AL RESPONSABLE DE CONTROL PATRIMONIAL BAJO RESPONSABILIDAD."), 0, 0);
-        $pdf->ln(33);
+        $pdf->ln(30);
         //FIRMAS
         // Configura la fuente en negrita para los títulos de firma
         $pdf->SetFont('Helvetica', 'B', 7);

@@ -68,7 +68,7 @@ function verBienesBaja(depe_id) {
       },
       responsive: true,
       bInfo: true,
-      iDisplayLength: 10,
+      iDisplayLength: 5,
       ordering: true,
       language: {
         sProcessing: "Procesando...",
