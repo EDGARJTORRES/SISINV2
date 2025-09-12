@@ -146,7 +146,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                       <input type="hidden" name="pers_origen_id" id="pers_origen_id" />
                       <input type="hidden" name="pers_destino_id" id="pers_destino_id" />
                       <label class="form-label">Área / Dependencia Origen:<span  style="color:red"> *</span></label>
-                      <select class="form-control select2" style="max-width: 100%;" id="area_origen_combo" name="area_origen_combo" required>
+                      <select class="form-control select2" style="max-width: 100%;" id="area_origen_combo" name="area_origen_combo" data-placeholder=" - SELECCIONE DEPENDENCIA ORIGEN - " required>
                         <!-- Aquí puedes agregar opciones del select -->
                       </select>
                     </div>
@@ -162,7 +162,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                   <div class="col-md-6">
                     <div class="form-group mb-3">
                       <label class="form-label">Área / Dependencia Destino:<span style="color:red"> *</span></label>
-                      <select class="form-control select2" style="max-width: 100%;" id="area_destino_combo" name="area_destino_combo" required>
+                      <select class="form-control select2" data-placeholder=" - SELECCIONE DEPENDENCIA DESTINO - " style="max-width: 100%;" id="area_destino_combo" name="area_destino_combo" required>
                         <!-- Aquí puedes agregar opciones del select -->
                       </select>
                     </div>

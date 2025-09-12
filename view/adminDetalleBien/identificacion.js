@@ -11,21 +11,6 @@ $(document).on("submit", "#formIdentificacion", function(e) {
         });
         return;
     }
-    const campos = ["#ruta", "#vin", "#categoria", "#anio_fabricacion", "#version"];
-    const incompleto = campos.some(sel => {
-        const valor = $(sel).val();
-        return !valor || valor.trim() === "";
-    });
-    if (incompleto) {
-        Swal.fire({
-            title: 'Campos incompletos',
-            text: 'Debe completar todos los campos antes de guardar.',
-            icon: 'warning',
-            confirmButtonColor: '#d33',
-            confirmButtonText: 'Aceptar'
-        });
-        return;
-    }
     const formData = new FormData(this);
     formData.append("bien_id", vehiculo);
     $.ajax({

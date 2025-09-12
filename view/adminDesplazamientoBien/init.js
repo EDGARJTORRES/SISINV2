@@ -10,7 +10,6 @@ $(document).ready(function () {
 
   $(".select2").select2();
   
-
   $.post("../../controller/dependencia.php?op=combo", function (data) {
     $("#area_destino_combo").html(data);
     $("#area_origen_combo").html(data);

@@ -74,7 +74,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                           </button>
                         </div>
                         <div class="col-4 col-md-6 col-lg-2">
-                          <input type="date" id="" class="form-control mt-2" placeholder="Fecha inicio">
+                          <input type="date" id="fecha_inicio" class="form-control mt-2" placeholder="Fecha inicio">
                         </div>
                         <div class="col-4 col-md-6 col-lg-4">
                           <div class="input-icon mt-2">
@@ -113,8 +113,8 @@ if (isset($_SESSION["usua_id_siin"])) {
       </div>  
     </div>
     <?php require_once("../html/footer.php"); ?>
-    <?php require_once("../html/mainjs.php"); ?>
-    <script type="text/javascript" src="adminAltaBien.js"></script>
+    <?php require_once("../html/mainJs.php"); ?>
+    <script type="text/javascript" src="adminFormato.js"></script>
     <script type="text/javascript" src="formato.js"></script>
 </body>
 </body>

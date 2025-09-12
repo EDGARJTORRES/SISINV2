@@ -130,7 +130,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                       <div class="col-lg-6">
                           <div class="mb-3">
                           <label class="form-label">Área / Dependencia Destino:<span style="color:red"> *</span></label>
-                          <select class="form-select select2" id="area_asignacion_combo" name="area_asignacion_combo"  data-placeholder="Seleccione Destino" style="width: 100%;">
+                          <select class="form-select select2" id="area_asignacion_combo" name="area_asignacion_combo"  data-placeholder="- Seleccione Destino -" style="width: 100%;">
                           <option value="" disabled selected>Seleccione</option>
                           </select>
                           </div>
@@ -145,7 +145,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                           </div>
                           <div class="row">
                               <div class="col-6">
-                              <input type="text" class="form-control" id="cod_bar" name="cod_bar">
+                              <input type="text" class="form-control" id="cod_bar" name="cod_bar" placeholder="Ingresa el código de barras...">
                               </div>
                               <div class="col-3 d-flex align-items-center">
                               <button type="button" class="btn btn-dark w-100 px-2 d-flex align-items-center justify-content-center gap-1" id="buscaObjeto" onclick="buscarBien()">

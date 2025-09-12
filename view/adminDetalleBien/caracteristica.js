@@ -11,28 +11,6 @@ $(document).on("submit", "#formCaracteristicas", function(e) {
         });
         return false;
     }
-    let campos = [
-        "#nro_motor",
-        "#ruedas",
-        "#cilindros",
-        "#cilindrada",
-        "#potencia",
-        "#form_rodaje"
-    ];
-    let incompleto = campos.some(function(selector) {
-        return $(selector).val() === null || $(selector).val().trim() === "";
-    });
-
-    if (incompleto) {
-        Swal.fire({
-            title: 'Campos incompletos',
-            text: 'Debe completar todos los campos antes de guardar.',
-            icon: 'warning',
-            confirmButtonColor: '#d33',
-            confirmButtonText: 'Aceptar'
-        });
-        return false;
-    }
 
     let formData = new FormData(this);
     formData.append("bien_id", $("#combo_vehiculo").val());
