@@ -102,7 +102,7 @@ if (isset($_POST["enviar"]) and $_POST["enviar"] == "si") {
                         <div class="text-center mb-2">
                             <img src="./static/illustrations/cumplimiento-de-pedidos.png" height="120" alt="Logo">
                         </div>
-                        <h2 class="h3 text-center mb-4">SOFTWARE DE GESTIÓN DE INVENTARIO <br> [ MUNICIPALIDAD DE CHICLAYO ]</h3>
+                        <h2 class="h3 text-center mb-4">Sistema Informático de Gestión de Bienes Patrimoniales v1.0</h2>
                         <?php
                             if (isset($_GET["m"])) {
                             switch ($_GET["m"]) {

@@ -103,6 +103,12 @@
         word-wrap: break-word;
         overflow-wrap: break-word;
       }
+      #dependencia_data tbody tr:hover,
+      #tblHistorial tbody tr:hover ,
+      #dependencias_objetos tbody tr:hover {
+        background-color:#f1f1f1;
+        cursor: pointer;
+      }
       #slider_rango .noUi-connect {
       background: #0d6efd; /* azul Bootstrap */
       }

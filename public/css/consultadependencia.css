@@ -80,6 +80,10 @@
     #dependencia_data tbody td:last-child {
       border-right: none;
     }
+    #dependencia_data tbody tr:hover {
+      background-color:#f1f1f1;
+      cursor: pointer;
+    }
 
     .selectable {
       user-select: text !important;

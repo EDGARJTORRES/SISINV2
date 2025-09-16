@@ -1,4 +1,6 @@
 var usu_id = $("#usu_idx").val();
+let evitarAlertaTemporal = false;
+
 function mostrarAlertaCarga() {
   document.getElementById('alerta-carga').style.display = 'block';
 }
@@ -35,11 +37,15 @@ $(document).ready(function () {
     let inicioCarga;
     let tiempoMinimo = 1000;
     $('#bienes_data').on('preXhr.dt', function () {
-      mostrarAlertaCarga();
-      inicioCarga = new Date().getTime();
+      if (!evitarAlertaTemporal) {
+        inicioCarga = new Date().getTime();
+        mostrarAlertaCarga();
+      }
     });
 
     $('#bienes_data').on('xhr.dt', function () {
+      evitarAlertaTemporal = false; // Reinicia la bandera para próximas acciones
+
       let finCarga = new Date().getTime();
       let duracion = finCarga - inicioCarga;
       let tiempoRestante = tiempoMinimo - duracion;
@@ -52,9 +58,14 @@ $(document).ready(function () {
         ocultarAlertaCarga();
       }
     });
+
     var table = $('#bienes_data').DataTable({
-      "aProcessing": true,
-      "aServerSide": true,
+      processing: true,
+      serverSide: true,
+      paging: true,
+      pageLength: 10,
+      destroy: true,
+      info: true,
       dom: 'Bfrtip',
       searching: true,
       buttons: [
@@ -110,24 +121,24 @@ $(document).ready(function () {
        ]
   }
 ],
-      "ajax": {
+      ajax: {
         url: "../../controller/grupogenerico.php?op=listar_gg_bienes",
-        type: "post",
+        type: "POST",
+        data: function(d) {
+          console.log("Parametros enviados al servidor:", d);
+        }
       },
       "bDestroy": true,
       "responsive": true,
       "bInfo": true,
       "iDisplayLength":10,
-      "columnDefs": [
-        {
-            targets: [0],       
-            visible: false,
-            searchable: false
-        }
+      columnDefs: [
+        { targets: [0], visible: false, searchable: false }
       ],
-      "order": [[0, 'desc']] ,
+      order: [[0, 'desc']],
+      language: { /* igual que antes */ },
       "language": {
-        "sProcessing": "Procesando...",
+        "sProcessing": "Cargando datos ...",
         "sLengthMenu": "Mostrar _MENU_ registros",
         "sZeroRecords": "No se encontraron resultados",
         "sEmptyTable": "Ningún dato disponible en esta tabla",
@@ -153,9 +164,11 @@ $(document).ready(function () {
     $('#filtro_estado').on('change', function () {
         table.column(7).search(this.value).draw();
     });
-   $('#buscar_registros').on('input', function () {
-    table.search(this.value).draw();
-   });
+    $('#buscar_registros').on('input', function () {
+      evitarAlertaTemporal = true;
+      table.search(this.value).draw();
+    });
+
 });
 function limpiarFiltros() {
   document.getElementById('filtro_estado').selectedIndex = 0;

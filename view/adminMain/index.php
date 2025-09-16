@@ -30,7 +30,7 @@ if (isset($_SESSION["usua_id_siin"])) {
               </div>
             </div>
             <div class="container position-relative" style="margin-top: -40px; z-index: 10;">
-              <div class="card m-3 " style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
+              <div class="card m-3 border-0">
                 <div class="row m-3">
                   <div class="col-12">
                     <div class="row">

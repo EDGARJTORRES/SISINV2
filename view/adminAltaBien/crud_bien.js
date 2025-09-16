@@ -18,18 +18,13 @@ function guardaryeditarbienes(e) {
 
         let cod_generado = (cod_inicial + (i - 1)).toString().padStart(4, "0");
         let cod_barra = `${codigo_obj}-${cod_generado}`;
-
-        // Códigos
         formData.append("cod_interno", cod_generado);
         formData.append("codigo_barras_input", cod_barra);
-
-        // Generales
         formData.append("obj_id", $("#combo_obj_bien").val());
         formData.append("gc_id", $("#combo_clase_bien_obj").val());
         formData.append("gg_id", $("#combo_gg_bien_obj").val());
 
         if (i === 1) {
-          // Bien N°1 - campos sin sufijo
           formData.append("marca_id", $("#combo_marca_obj").val());
           formData.append("modelo_id", $("#combo_modelo_obj").val());
           formData.append("obj_dim", $("#obj_dim").val());
@@ -43,7 +38,6 @@ function guardaryeditarbienes(e) {
           formData.append("doc_adq", $("#doc_adq").val());
           formData.append("bien_placa", $("#bien_placa").val());
         } else {
-          // Bienes N°2 en adelante - campos dinámicos con sufijo
           formData.append("marca_id", $(`#marca_${i}`).val());
           formData.append("modelo_id", $(`#modelo_${i}`).val());
           formData.append("obj_dim", $(`input[name='obj_dim_${i}']`).val());

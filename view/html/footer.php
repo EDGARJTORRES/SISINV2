@@ -15,7 +15,7 @@
       <div class="col-12 col-lg-auto mt-1 mt-lg-0">
         <ul class="list-inline list-inline-dots mb-0" style="margin-bottom: 0;">
           <li class="list-inline-item text-light">
-            &copy; SISINV-2025 V 1.0 
+            &copy; SISPATRIMONIO-2025 V 1.0 
             <small class="link-secondary text-light">- GTIE | Área de Desarrollo de Software</small>
           </li>          
         </ul>
