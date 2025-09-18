@@ -17,7 +17,7 @@ if (isset($_SESSION["usua_id_siin"])) {
     <div class="page-header">
       <div class="container">
         <div style="position: relative; height: 150px; overflow: hidden;">
-            <div style="position: absolute;top: 0; left: 0; right: 0; bottom: 0;background-image: url('../../static/illustrations/fondo2.jpg');background-size: cover;background-position: center;filter:2px;transform: scale(1.1);z-index: 1;">
+            <div style="position: absolute;top: 0; left: 0; right: 0; bottom: 0;background-image: url('../../static/illustrations/fondo2.jpg');background-size: cover;background-position: center;filter:2px;transform: scale(1.1);z-index: 1; opacity: 0.9;">
             </div>
             <div class="container-xl d-flex align-items-center" style="position: relative;z-index: 2;height: 100%;padding-left: 50px;">
                 <div class="d-flex align-items-center">
@@ -75,7 +75,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                 <div class="card timeline-event-card">
                   <div class="card-body">
                     <h4>Rol</h4>
-                    <p class="text-secondary" name="tipo_rol" id="tipo_rol"></p>
+                    <p class="text-secondary" name="tipoRol2" id="tipoRol2"></p>
                   </div>
                 </div>
               </li>

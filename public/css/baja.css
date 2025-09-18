@@ -106,7 +106,7 @@
       #dependencia_data tbody tr:hover,
       #tblHistorial tbody tr:hover ,
       #dependencias_objetos tbody tr:hover {
-        background-color:#f1f1f1;
+        background-color:#f1f1f179;
         cursor: pointer;
       }
       #slider_rango .noUi-connect {

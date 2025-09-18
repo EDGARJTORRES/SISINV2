@@ -341,14 +341,17 @@ switch ($_GET["op"]) {
         // Dibuja línea de separación justo debajo
         $pdf->Line(50, $pdf->GetY() - 1, 130, $pdf->GetY() - 1);
         $pdf->SetX(20);
+        
         // Sub-Gerencia
+        $pdf->SetX(20);
         $pdf->SetFont("Arial", "", 8);
         $pdf->Cell(30, $espaciado, "Sub-Gerencia: ", 0, 0); // Imprime la etiqueta sin salto de línea
         $pdf->SetFont("Arial", "", $tletra );
-        $pdf->Cell(100, $espaciado, utf8_encode( $subgerencia_emisor ), 0, 1); // Imprime el valor con salto de línea
+        $pdf->MultiCell(90, $espaciado, utf8_encode($subgerencia_emisor), 0, 'L');
         // Dibuja línea de separación justo debajo
         $pdf->Line(50, $pdf->GetY() - 1, 130, $pdf->GetY() - 1);
         $pdf->SetX(20);
+        
         // Área
         $pdf->SetFont("Arial", "", 8);
         $pdf->Cell(30, $espaciado, utf8_decode("Área: "), 0, 0); // Imprime la etiqueta sin salto de línea
@@ -366,13 +369,20 @@ switch ($_GET["op"]) {
         $pdf->Line(50, $pdf->GetY() - 1, 130, $pdf->GetY() - 1);
         $pdf->SetX(20);
         // Sub-Gerencia
+        $pdf->SetX(20);  // Mueve el cursor a 60mm en horizontal (ajusta este valor para mover más o menos)
         $pdf->SetFont("Arial", "", 8);
-        $pdf->Cell(50, $espaciado, "Documento que Autoriza el traslado : ", 0, 0); // Imprime la etiqueta sin salto de línea
-        $pdf->SetFont("Arial", "", $tletra );
-        $pdf->Cell(0, $espaciado, strtoupper(utf8_encode($datos[0]['doc_traslado'])), 0, 1); // Imprime el valor con salto de línea
-        // Dibuja línea de separación justo debajo
-        $pdf->Line(70, $pdf->GetY() - 0.5, 200, $pdf->GetY() - 1);
+        $pdf->Cell(40, $espaciado, "Doc. que Autoriza el traslado : ", 0, 0);
+
+        $pdf->SetFont("Arial", "", $tletra);
+        $pdf->Cell(0, $espaciado, strtoupper(utf8_encode($datos[0]['doc_traslado'])), 0, 1);
+
+        // Dibuja línea justo debajo del texto
+        $pdf->Line(60, $pdf->GetY() - 1, 130, $pdf->GetY() - 1);
+
+        // Posición horizontal para siguiente línea
         $pdf->SetX(20);
+
+
 
         // Posición para los datos del receptor (columna derecha)
         $pdf->SetXY(160, 25); // Ajusta las coordenadas según la ubicación deseada
@@ -394,10 +404,16 @@ switch ($_GET["op"]) {
         // Sub-Gerencia
         $pdf->SetX(160);
         $pdf->SetFont("Arial", "", 8);
-        $pdf->Cell(30, $espaciado, "Sub-Gerencia: ", 0, 0); // Imprime la etiqueta sin salto de línea
-        $pdf->SetFont("Arial", "", $tletra );
-        $pdf->Cell(100, $espaciado, utf8_encode($subgerencia_receptor), 0, 1); // Imprime el valor con salto de línea
-        $pdf->Line($espaciolin, $pdf->GetY() - 1, 270, $pdf->GetY() - 1);  // Dibuja la línea justo debajo
+        $pdf->Cell(30, $espaciado, "Sub-Gerencia: ", 0, 0);
+
+        $pdf->SetFont("Arial", "", $tletra);
+
+        // Cambiamos Cell por MultiCell para que el texto se adapte en varias líneas:
+        $pdf->MultiCell(90, $espaciado, utf8_encode($subgerencia_receptor), 0, 'L');
+
+        // Dibuja la línea justo debajo del texto (usamos GetY para la posición vertical actual)
+        $pdf->Line($espaciolin, $pdf->GetY() - 1, 270, $pdf->GetY() - 1);
+
 
         // Área
         $pdf->SetX(160);
@@ -417,16 +433,17 @@ switch ($_GET["op"]) {
         // Suponiendo que $data es un array de datos que contiene los objetos con `bien_id`
 
         // Configura la posición inicial para la tabla en el PDF
-        $pdf->SetXY(10, $pdf->GetY() + 12);
+        $pdf->SetXY(10, $pdf->GetY() + 14);
 
         // Configura el estilo de fuente para el encabezado de la tabla
-        $pdf->SetWidths([10, 30, 20, 70, 20, 20, 30, 25, 12, 38]);
+         $pdf->SetWidths([10, 15, 15, 85, 25, 25, 30, 25, 12, 30]);
+
 
         // Establece las alineaciones de las columnas
         $pdf->SetAligns(['C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C', 'C']);
         $pdf->SetFont('Helvetica', 'B', 8);
         // Encabezado de la tabla
-        $header = [utf8_decode("N°"), utf8_decode("Código Patrimonial"), utf8_decode("Código Interno"), utf8_decode("Denominación"), "Marca", "Modelo", "Color", utf8_decode("Serie/Dimensión"), "Estado", utf8_decode("Observación")];
+        $header = [utf8_decode("N°"), utf8_decode("Cod Patr."), utf8_decode("Cod Int"), utf8_decode("Denominación"), "Marca", "Modelo", "Color", utf8_decode("Serie/Dimensión"), "Estado", utf8_decode("Observación")];
         $pdf->Row($header);
         $pdf->SetFont('Helvetica', '', 6.5);
         $count = 0;
