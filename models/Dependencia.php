@@ -486,15 +486,16 @@
         public function lista_historial_movimiento($codigo = '') {
             $conectar = parent::conexion();
             parent::set_names();
+
             if (!empty($codigo)) {
                 $sql = "SELECT  
                             o.obj_nombre,
                             b.bien_codbarras,
                             d.depe_denominacion,
-                            p.pers_apelpat || ' ' || p.pers_apelmat || ', ' || p.pers_nombre AS nombre_completo,
+                            CONCAT_WS(', ', p.pers_apelpat || ' ' || p.pers_apelmat, p.pers_nombre) AS nombre_completo,
                             f.form_fechacrea
                         FROM sc_inventario.tb_bien_dependencia bd
-                        LEFT JOIN sc_inventario.tb_bien b ON bd.bien_id = b.bien_id
+                        INNER JOIN sc_inventario.tb_bien b ON bd.bien_id = b.bien_id
                         LEFT JOIN sc_inventario.tb_objeto o ON b.obj_id = o.obj_id
                         LEFT JOIN public.tb_dependencia d ON d.depe_id = bd.depe_id
                         LEFT JOIN sc_escalafon.tb_persona p ON p.pers_id = bd.repre_id
@@ -508,15 +509,17 @@
                             o.obj_nombre,
                             b.bien_codbarras
                         FROM sc_inventario.tb_bien_dependencia bd
-                        LEFT JOIN sc_inventario.tb_bien b ON bd.bien_id = b.bien_id
+                        INNER JOIN sc_inventario.tb_bien b ON bd.bien_id = b.bien_id
                         LEFT JOIN sc_inventario.tb_objeto o ON b.obj_id = o.obj_id
                         LEFT JOIN sc_inventario.tb_formato f on f.form_id = bd.form_id
                         ORDER BY b.bien_codbarras, f.form_fechacrea DESC";
                 $stmt = $conectar->prepare($sql);
             }
+
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
+
 
 
     }

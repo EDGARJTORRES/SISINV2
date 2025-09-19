@@ -109,7 +109,7 @@ if (isset($_SESSION["usua_id_siin"])) {
         </div>  
     </div>
     <?php require_once("../html/footer.php"); ?>
-    <?php require_once("../html/mainjs.php"); ?>
+    <?php require_once("../html/mainJs.php"); ?>
     <script type="text/javascript" src="historialmov.js"></script>
 </body>
 </html>
