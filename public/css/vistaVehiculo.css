@@ -1,0 +1,106 @@
+@page {
+    size: A4 portrait;
+    margin:1cm;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+  }
+
+  h2 {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 14pt;
+    margin-bottom: 10px;
+  }
+
+  .encabezado {
+    justify-content: space-between;
+  }
+
+  .label {
+    font-weight: bold;
+    display: inline-block;
+    width: 100px;
+    vertical-align: top;
+  }
+  .section-title {
+    background: #f0f0f0;
+    font-weight: bold;
+    padding: 5px;
+    margin: 15px 0 10px;
+    border: 1px solid #ccc;
+  }
+
+  .double-column {
+    display: flex;
+    justify-content: space-between;
+    gap: 0px;
+    font-size: 12px;
+  }
+
+  .double-column .col {
+    width: 60%;
+  }
+
+  .observaciones {
+    min-height: 60px;
+    border: 1px solid #000;
+    padding: 6px;
+    margin-top: 20px;
+  }
+
+  /* 🔽 Fuerza impresión a ancho completo */
+    @media print {
+    .page-header,
+    .btn,
+    .d-print-none {
+      display: none !important;
+    }
+
+    #formato-baja {
+      width: 100% !important;
+      margin: 0;
+      padding: 0;
+      border: none !important;
+      box-shadow: none !important;
+    }
+    .container-xl,
+    .card,
+    .col-lg-6,
+    .col {
+      width: 100% !important;
+      max-width: 100% !important;
+      padding: 0 !important;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    
+    .tg .tg-0lax{
+      text-align:left;
+      vertical-align:top
+    }
+    }
+    .styled-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: Arial, sans-serif;
+      margin-top: 20px;
+    }
+
+    .styled-table th, .styled-table td {
+      border: 1px solid #cccccc;
+      padding: 10px 6px;
+      font-size: 12px;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    .styled-table thead th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+      text-align: center;
+    }

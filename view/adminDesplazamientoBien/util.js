@@ -36,7 +36,6 @@ function redirect_by_post(purl, pparameters, in_new_tab) {
   return false;
 }
 function get_color_string(color_id, callback) {
-  console.log(color_id);
   $.post(
     "../../controller/objeto.php?op=get_color",
     { color_id: color_id },

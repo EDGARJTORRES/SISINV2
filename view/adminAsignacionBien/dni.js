@@ -39,11 +39,9 @@ function limitarADigitosDNI(input) {
             console.error('Error al inicializar Quagga:', err);
             return;
         }
-        console.log('QuaggaJS iniciado correctamente');
         Quagga.start();
         });
         Quagga.onDetected(function(result) {
         const code = result.codeResult.code;
-        console.log('Código de barras detectado:', code);
         codigoBarrasInput.value = code;
 });

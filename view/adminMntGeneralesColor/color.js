@@ -232,7 +232,6 @@ function actualizarContadorSeleccionados() {
 
  function limpiarSeleccion() {
   idsSeleccionados.clear();
-  console.log(idsSeleccionados);
   $('.color-checkbox').prop('checked', false);
   $('#color_id_all').prop('checked', false);
   actualizarContadorSeleccionados();

@@ -11,7 +11,6 @@ function actualizarContadorSeleccionados() {
 }
  function limpiarSeleccion() {
   idsSeleccionados.clear();
-  console.log(idsSeleccionados);
   $('.clase-checkbox').prop('checked', false);
   $('#clase_id_all').prop('checked', false);
   actualizarContadorSeleccionados();
@@ -55,7 +54,6 @@ $('#eliminar_gc').on('click', function () {
     $('.clase-checkbox:checked').each(function () {
         seleccionados.push($(this).val());
     });
-    console.log("IDs seleccionados para eliminar:", seleccionados);
 
     if (seleccionados.length === 0) {
         Swal.fire({
@@ -107,7 +105,6 @@ $('#eliminar_gc').on('click', function () {
                 type: 'POST',
                 data: { ids: seleccionados },
                 success: function (response) {
-                    console.log("Respuesta del servidor:", response); 
                     $('#clase_data').DataTable().ajax.reload(function() {
                         idsSeleccionados.clear();
                         $('.clase-checkbox').prop('checked', false);

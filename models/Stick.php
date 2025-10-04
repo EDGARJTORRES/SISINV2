@@ -33,19 +33,29 @@
                 return null; 
             }
         }
-        public function get_last_id() {
+        public function get_next_codbarras($codigo_cana) {
             try {
                 $conectar = parent::conexion();
                 parent::set_names();
-                $sql = "SELECT * FROM sc_inventario.tb_objeto_dependencia  order by objdepe_id desc limit 1";
+                $sql = "SELECT MAX(CAST(split_part(bien_codbarras, '-', 2) AS INTEGER)) AS ultimo
+                        FROM sc_inventario.tb_bien
+                        WHERE bien_codbarras LIKE ? || '-%'";
                 $stmt = $conectar->prepare($sql);
+                $stmt->bindValue(1, $codigo_cana);
                 $stmt->execute();
-                return $stmt->fetchAll();
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                $ultimo = $row["ultimo"] ?? 0;
+                $siguiente = $ultimo + 1;
+                $siguiente = str_pad($siguiente, 4, "0", STR_PAD_LEFT);
+
+                return $codigo_cana . "-" . $siguiente;
             } catch (Exception $e) {
                 echo "Error en la consulta: " . $e->getMessage();
-                return null; 
+                return null;
             }
         }
+
         public function get_nros_imprimir_grupo($depe_id) {
             try {
                 $conectar = parent::conexion();

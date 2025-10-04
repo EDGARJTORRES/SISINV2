@@ -486,7 +486,6 @@
         public function lista_historial_movimiento($codigo = '') {
             $conectar = parent::conexion();
             parent::set_names();
-
             if (!empty($codigo)) {
                 $sql = "SELECT  
                             o.obj_nombre,
@@ -519,6 +518,62 @@
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
+        public function obtenerDetalleVehiculoporid($bien_id) {
+            $conectar = parent::conexion();
+            parent::set_names();
+
+            $sql = "SELECT
+                    b.bien_id,
+                    b.fechacrea,
+                    tbd.anio_fabricacion,
+                    tbd.nro_motor,
+                    ca.carroceria AS tipo_carroceria_id, 
+                    tbd.vin,
+                    COALESCE(string_agg(DISTINCT comb.comb_tipo, ', ' ORDER BY comb.comb_tipo), '---') AS combustibles,
+                    COALESCE(b.bien_placa, 'Sin placa') AS bien_placa,
+                    b.fecharegistro,
+                    COALESCE(
+                        p.pers_apelpat || ' ' || p.pers_apelmat || ', ' || p.pers_nombre,
+                        'Sin responsable'
+                    ) AS nombre_completo,
+                    b.bien_color,
+                    b.bien_codbarras,
+                    REPLACE(REPLACE(b.val_adq::text, 'S/', ''), ',', '')::numeric AS val_adq,
+                    COALESCE(o.obj_nombre, '---') AS obj_nombre,
+                    COALESCE(ma.marca_nom, '---') AS marca_nom,
+                    COALESCE(mo.modelo_nom, '---') AS modelo_nom,
+                    f.depe_receptor,
+                    COALESCE(string_agg(DISTINCT col.color_nom, ', '), '---') AS colores
+                FROM sc_inventario.tb_bien_dependencia bd
+                JOIN sc_inventario.tb_bien b ON bd.bien_id = b.bien_id
+                LEFT JOIN sc_inventario.tb_bien_detalle tbd ON tbd.bien_id = b.bien_id
+                LEFT JOIN public.vista_tipos_carroceria ca ON tbd.tipo_carroceria = ca.codigo
+                LEFT JOIN sc_inventario.tb_objeto o ON b.obj_id = o.obj_id
+                LEFT JOIN sc_escalafon.tb_persona p ON bd.repre_id = p.pers_id
+                LEFT JOIN LATERAL unnest(b.bien_color) AS bc(color_id) ON TRUE
+                LEFT JOIN public.tb_color col ON col.color_id = bc.color_id
+                LEFT JOIN LATERAL unnest(tbd.bien_comb) AS bc2(comb_id) ON TRUE
+                LEFT JOIN public.tb_combustible comb ON comb.comb_id = bc2.comb_id
+                LEFT JOIN sc_inventario.tb_modelo mo ON b.modelo_id = mo.modelo_id
+                LEFT JOIN sc_inventario.tb_marca ma ON mo.marca_id = ma.marca_id
+                LEFT JOIN sc_inventario.tb_formato f ON bd.form_id = f.form_id
+                WHERE b.bien_id = ?
+                AND bd.biendepe_est = 1
+                GROUP BY 
+                    b.bien_id, b.fechacrea, b.fecharegistro,ca.carroceria,
+                    p.pers_apelpat, p.pers_apelmat, p.pers_nombre,
+                    b.bien_color, b.bien_codbarras, b.val_adq,
+                    tbd.anio_fabricacion, tbd.nro_motor, tbd.vin,
+                    o.obj_nombre, ma.marca_nom, mo.modelo_nom,
+                    f.depe_receptor;";
+
+            $stmt = $conectar->prepare($sql);
+            $stmt->bindValue(1, $bien_id);
+            $stmt->execute();
+
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+
 
 
 

@@ -67,7 +67,6 @@ class Bien extends Conectar {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Bienes sin dependencia, excluyendo inactivos y erróneos
     public function get_bienes_sin_dependencia() {
         $conectar = parent::conexion();
         parent::set_names();
@@ -76,7 +75,8 @@ class Bien extends Conectar {
                 LEFT JOIN sc_inventario.tb_bien_dependencia AS bd ON b.bien_id = bd.bien_id
                 LEFT JOIN sc_inventario.tb_objeto AS o ON b.obj_id = o.obj_id
                 WHERE bd.bien_id IS NULL
-                AND b.bien_est NOT IN ('I', 'E');";
+                AND b.bien_est NOT IN ('I', 'E')
+                ORDER BY b.fechacrea DESC;";
         $stmt = $conectar->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

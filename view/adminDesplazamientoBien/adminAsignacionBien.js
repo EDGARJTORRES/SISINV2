@@ -8,8 +8,6 @@ function buscarDNIOrigen() {
       try {
         var data = JSON.parse(response);
 
-        // Depurar el objeto data
-        console.log(data);
 
         // Verifica que data contiene el campo "nombre_completo"
         if (data && data.nombre_completo) {
@@ -43,9 +41,6 @@ function buscarDNIDestino() {
     function (response) {
       try {
         var data = JSON.parse(response);
-
-        // Depurar el objeto data
-        console.log(data);
 
         // Verifica que data contiene el campo "nombre_completo"
         if (data && data.nombre_completo) {
@@ -126,8 +121,6 @@ function verDatosbien(cod_bar) {
     "../../controller/objeto.php?op=buscar_obj_barras",
     { cod_bar: cod_bar },
     function (response) {
-      // Si se reciben datos del servidor
-      console.log(response);
 
       try {
         // Intentar analizar la respuesta como JSON

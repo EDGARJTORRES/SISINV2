@@ -380,7 +380,6 @@ $('#eliminar_modelos').on('click', function () {
                 type: 'POST',
                 data: { ids: seleccionados },
                 success: function (response) {
-                    console.log("Respuesta del servidor:", response); 
                     $('#modelo_data').DataTable().ajax.reload(function() {
                         idsSeleccionados.clear();
                         $('.modelo-checkbox').prop('checked', false);

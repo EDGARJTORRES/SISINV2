@@ -9,11 +9,6 @@ function buscarDNI() {
   $.post("../../controller/persona.php?op=buscarDNI", {pers_dni: pers_dni}, function (response) {
       try {
           var data = JSON.parse(response);
-          
-          // Depurar el objeto data
-          console.log(data);
-          
-          // Verifica que data contiene el campo "nombre_completo"
           if (data && data.nombre_completo) {
               $("#pers_nom").val(data.nombre_completo);
               $("#pers_id").val(data.pers_id);
@@ -569,13 +564,11 @@ function mostrarDatosObjeto(data, nombresColores) {
 
       $("#obj_formato tbody").append(newRow);
     } else {
-      // Si se hace clic en el botón de cancelar
-      console.log("Objeto cancelado");
+
     }
   });
 }
 function get_color_string(color_id, callback) {
-  console.log(color_id);
   $.post(
     "../../controller/objeto.php?op=get_color",
     { color_id: color_id },
@@ -596,7 +589,6 @@ function verDatosbien(cod_bar) {
     "../../controller/objeto.php?op=buscar_obj_barras",
     { cod_bar: cod_bar },
     function (response) {
-      console.log(response);
 
       try {
         var data = JSON.parse(response);
@@ -712,7 +704,6 @@ function quitarbien(cod_bar) {
   rowToRemove.remove();
 }
 function imprimir(bien_codbarras) {
-  console.log(bien_codbarras);
   redirect_by_post(
     "../../controller/stick.php?op=imprimir_barras",
     { bien_codbarras, bien_codbarras },
@@ -727,7 +718,6 @@ function imprimirGrupo(depe_id) {
   );
 }
 function eliminarformato(form_id) {
-  console.log(form_id);
   swal
     .fire({
       title: "Eliminar!",

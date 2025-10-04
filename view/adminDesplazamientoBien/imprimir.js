@@ -1,5 +1,4 @@
 function imprimir(bien_codbarras) {
-  console.log(bien_codbarras);
   redirect_by_post(
     "../../controller/stick.php?op=imprimir_barras",
     { bien_codbarras, bien_codbarras },

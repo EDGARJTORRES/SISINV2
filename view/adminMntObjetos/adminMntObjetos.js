@@ -223,8 +223,6 @@ function registrardetalle() {
     const formData = new FormData($("#form_detalle")[0]);
     formData.append("gg_id", gg_id);
     formData.append("clase_id", clase_id);
-    console.log(gg_id);
-
     $.ajax({
       url: "../../controller/grupogenerico.php?op=insert_gg_clase",
       type: "POST",

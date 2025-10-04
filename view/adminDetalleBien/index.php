@@ -60,30 +60,38 @@ if (isset($_SESSION["usua_id_siin"])) {
                             <div class="ribbon bg-dark" id="ribbon-estado">
                                 <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trending-up"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 17l6 -6l4 4l8 -8" /><path d="M14 7l7 0l0 7" /></svg>
                             </div>
-                            <div class="row my-3 mx-4 align-items-center">
-                                <div class="col-lg-9 d-flex flex-column">
-                                    <label for="combo_vehiculo" class="form-label mb-1">
-                                        Vehículo: <span class="text-danger">*</span>
-                                    </label>
+                            <div class="row my-5 mx-4 align-items-center">
+                                <label for="combo_vehiculo" class="form-label mb-0 me-2">
+                                    Vehículo: <span class="text-danger">*</span>
+                                </label>    
+                                <div class="col-lg-8 d-flex align-items-center">
                                     <div class="input-group flex-grow-1">
-                                        <select class="form-select select2" id="combo_vehiculo" name="combo_vehiculo">
-                                        </select>
-                                        <button class="btn btn-primary" type="button" id="btnBuscarPlaca">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-world-search mx-2">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <path d="M21 12a9 9 0 1 0 -9 9" />
-                                                <path d="M3.6 9h16.8" />
-                                                <path d="M3.6 15h7.9" />
-                                                <path d="M11.5 3a17 17 0 0 0 0 18" />
-                                                <path d="M12.5 3a16.984 16.984 0 0 1 2.574 8.62" />
-                                                <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-                                                <path d="M20.2 20.2l1.8 1.8" />
-                                            </svg> Buscar Placa
-                                        </button>
+                                    <select class="form-select select2" id="combo_vehiculo" name="combo_vehiculo"></select>
+                                    <button class="btn btn-primary" type="button" id="btnBuscarPlaca">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" 
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+                                            class="icon icon-tabler icon-tabler-world-search mx-1">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                        <path d="M21 12a9 9 0 1 0 -9 9" />
+                                        <path d="M3.6 9h16.8" />
+                                        <path d="M3.6 15h7.9" />
+                                        <path d="M11.5 3a17 17 0 0 0 0 18" />
+                                        <path d="M12.5 3a16.984 16.984 0 0 1 2.574 8.62" />
+                                        <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+                                        <path d="M20.2 20.2l1.8 1.8" />
+                                        </svg> Buscar Placa
+                                    </button>
                                     </div>
                                 </div>
-                                <div class="col-lg-2 d-flex flex-column align-items-end ms-4 mt-4">
+                                <div class="col-lg-2 d-flex justify-content-center">
                                     <span id="bien_placa" class="badge bg-purple-lt badge-lg">Sin Registro</span>
+                                </div>
+                                <div class="col-lg-2 d-flex justify-content-center">
+                                    <button class="btn btn-6 btn-dark" id="add_button" onclick="generarFormato()">
+                                   <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="1"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-report-medical"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" /><path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" /><path d="M10 14l4 0" /><path d="M12 12l0 4" /></svg>
+                                    Generar Ficha
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -202,6 +210,7 @@ if (isset($_SESSION["usua_id_siin"])) {
     <script type="text/javascript" src="identificacion.js"></script>
     <script type="text/javascript" src="caracteristica.js"></script>
     <script type="text/javascript" src="capacidad.js"></script>
+    <script type="text/javascript" src="formatoVehiculo.js"></script>
 </body>
 </html>
 <?php

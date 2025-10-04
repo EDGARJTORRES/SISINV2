@@ -100,9 +100,9 @@ function generarCamposCaracteristicas(i) {
     </div>
     <div class="col-lg-3 extra-campo">
       <label class="form-label">Procedencia <span class="text-danger">*</span></label>
-      <select  data-placeholder="Seleccione la procedencia" class="form-select" name="procedencia_${i}">
-        <option value="NACIONAL">Nacional</option>
-        <option value="DONADO">Donado</option>
+      <select  data-placeholder="Seleccione la procedencia" class="form-select" name="procedencia_${i}" id="procedencia_${i}">
+        <option value="Nacional">Nacional</option>
+        <option value="Donado">Donado</option>
       </select>
     </div>`;
 }
@@ -144,7 +144,7 @@ function autocompletar(i) {
   $(`input[name='bien_placa_${i}']`).val($("#bien_placa").val());
   $(`textarea[name='bien_obs_${i}']`).val($("#bien_obs").val());
   $(`#color_${i}`).val($("#combo_color_bien").val()).trigger("change");
-  $(`select[name='procedencia_${i}']`).val($("#procedencia").val());
+  $(`#procedencia_${i}`).val($("#procedencia").val());
   $(`input[name='fecharegistro_${i}']`).val($("#fecharegistro").val());
   $(`input[name='val_adq_${i}']`).val($("#val_adq").val());
   $(`input[name='doc_adq_${i}']`).val($("#doc_adq").val());

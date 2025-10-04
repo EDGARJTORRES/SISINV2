@@ -257,15 +257,34 @@ class Objeto extends Conectar{
             $sql->execute();
             return $resultado = $sql->fetchAll();
         }
-    public function get_codinterno()
-        {
-        $conectar = parent::conexion();
-        parent::set_names();
-        $sql = "SELECT * FROM sc_inventario.tb_bien ORDER BY bien_id DESC LIMIT 1";
-        $sql = $conectar->prepare($sql);
-        $sql->execute();
-        return $sql->fetch(PDO::FETCH_ASSOC);
-      }
+    public function get_codinterno($codigo_cana){
+        try {
+            $conectar = parent::conexion();
+            parent::set_names();
+
+            $sql = "SELECT MAX(CAST(split_part(bien_codbarras, '-', 2) AS INTEGER)) AS ultimo
+                    FROM sc_inventario.tb_bien
+                    WHERE bien_codbarras LIKE ?";
+            $stmt = $conectar->prepare($sql);
+
+            // Se busca todo lo que empiece con el código + '-'
+            $stmt->bindValue(1, $codigo_cana . '-%');
+            $stmt->execute();
+
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            $ultimo = $row && $row['ultimo'] ? intval($row['ultimo']) : 0;
+            $siguiente = $ultimo + 1;
+
+            // Devuelve siempre 4 dígitos (ej: 0001, 0002, etc.)
+            return str_pad($siguiente, 4, "0", STR_PAD_LEFT);
+        } catch (Exception $e) {
+            echo "Error en la consulta: " . $e->getMessage();
+            return "0000";
+        }
+    }
+
+
     public function insert_objeto_usu($objeto_id, $pers_id)
         {
             $conectar = parent::conexion();
@@ -479,7 +498,7 @@ class Objeto extends Conectar{
 
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
-
+    
         
 
 }

@@ -87,7 +87,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                     </div>
                 </div>  
                 <div id="formato-baja" class="card py-5 px-5 border-0" style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
-                    <div class="encabezado row align-items-center">
+                    <div class="encabezado row align-items-center mx-2">
                         <div class="col-lg-6 d-flex align-items-center columna1">
                             <img src="../../static/illustrations/Escudo_de_Chiclayo.PNG" style="width:60px; height: 60px; margin-right: 10px;">
                             <div class="text-column">
@@ -102,8 +102,8 @@ if (isset($_SESSION["usua_id_siin"])) {
                         </div>
                     </div>
                     <h2>DATOS DEL ACTIVO FIJO</h2>
-                    <div class="double-column my-2">
-                        <table style="width: 50%; border-collapse: collapse;">
+                    <div class="double-column m-2">
+                        <table style="width: 50%; border-collapse: collapse; ">
                             <tr>
                                 <td style="width: 30%; border: none;"><strong>Ejecutora</strong></td>
                                 <td style="border: none;"><span class="respuesta-sm"> : 001 MUNICIPALIDAD PROVINCIAL DE CHICLAYO</span></td>
@@ -155,7 +155,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                                     <td rowspan="3">
                                         <table style="width: 100%; border-collapse: collapse;">
                                             <tr>
-                                                <td style="width: 45%; border: none;"><strong>Código Patrimonial</strong></td>
+                                                <td style="width: 40%; border: none;"><strong>Código Patrimonial</strong></td>
                                                <td style="border: none; font-size: 12px;">: <?php echo $datos["bien_codbarras"]; ?></td>
                                             </tr>
                                             <tr>
@@ -209,7 +209,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                                     <td rowspan="2" colspan="2">
                                         <table style="width:100%; border-collapse: collapse;">
                                             <tr>
-                                                <td style="width: 60%; border: none;"><strong>Val. Orden de compra S/.</strong></td>
+                                                <td style="width: 50%; border: none;"><strong>Val. Orden de compra S/.</strong></td>
                                                 <td style="border: none;">: <?php echo $formato_valor_orden_compra; ?></td>
                                             </tr>
                                             <tr>
@@ -270,7 +270,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                                     <td colspan="2">
                                         <table style="width:100%; border-collapse: collapse;">
                                             <tr>
-                                                <td style="border: none;"><strong>Fecha Resolución</strong></td>
+                                                <td style="width: 40%; border: none;"><strong>Fecha Resolución</strong></td>
                                                 <td style="border: none;font-size: 12px;" >: <?php echo date("d/m/Y", strtotime($datos["fecha_baja"]));?></td>
                                             </tr>
                                             <tr>

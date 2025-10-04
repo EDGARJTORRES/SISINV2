@@ -257,14 +257,12 @@ switch ($_GET["op"]) {
         }
         break;
     case "getcodinterno":
-        $datos = $objeto->get_codinterno();
-        if ($datos !== false) {
-            echo $datos['bien_id']; // Devuelve solo el valor de bien_id
-        } else {
-            // Manejar el caso en el que no se obtengan datos
-            echo "No se encontraron datos";
-        }
+        $codigo_cana = $_POST['codigo_cana'];
+        $correlativo = $objeto->get_codinterno($codigo_cana);
+
+        echo $correlativo ?? "0000";
         break;
+
     case "buscar_obj_barras":
         $datos = $objeto->buscar_obj_barras_simple($_POST['cod_bar']);
         $output = array();
@@ -436,5 +434,6 @@ switch ($_GET["op"]) {
         }
         echo $html;
         break;
+        
 
 }

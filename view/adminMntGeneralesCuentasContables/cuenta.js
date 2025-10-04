@@ -330,7 +330,6 @@ $('#eliminar_cuentas').on('click', function () {
                 type: 'POST',
                 data: { ids: seleccionados },
                 success: function (response) {
-                    console.log("Respuesta del servidor:", response); 
                     $('#cuenta_data').DataTable().ajax.reload(function() {
                         idsSeleccionados.clear();
                         $('.cuenta-checkbox').prop('checked', false);

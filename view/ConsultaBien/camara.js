@@ -43,7 +43,6 @@ function activarCamara(){
             console.error('Error al inicializar Quagga:', err);
             return;
         }
-        console.log('QuaggaJS iniciado correctamente');
         Quagga.start();
     });
     Quagga.onDetected(function(result) {

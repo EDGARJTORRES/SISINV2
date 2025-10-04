@@ -128,15 +128,21 @@ switch ($_GET["op"]) {
             echo $html;
         }
         break;
+
     case "generarBarras":
         $datos = $stick->get_nro_patrimonial($_POST['obj_id']);
-        $cod_cana = $datos['codigo_cana'];
-        $lid = $stick->get_last_id();
-        $codinterno = $lid['objdepe_id'];
-        $output["codigo_cana"] = $cod_cana; 
-        $output["objdepe_id"] = $codinterno; 
+        $cod_cana = $datos[0]['codigo_cana']; // OJO: fetchAll devuelve array de arrays
+
+        // Generar el nuevo código de barras
+        $nuevo_codbarras = $stick->get_next_codbarras($cod_cana);
+
+        $output["codigo_cana"] = $cod_cana;
+        $output["codigo_barras"] = $nuevo_codbarras;
+
         echo json_encode($output);
         break;
+
+
     case "contador_bienes_por_dependencia":
         $datos = $dependencia->contadorBienesPorDependencia();
         echo json_encode($datos);

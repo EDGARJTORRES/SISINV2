@@ -2,8 +2,6 @@ function imprimirFormatoBaja() {
     const ahora = new Date();
     const fecha = ahora.toLocaleDateString('es-PE');
     const hora = ahora.toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit' });
-
-    // Actualiza DOM visible
     document.getElementById('fecha-impresion').textContent = fecha;
     document.getElementById('hora-impresion').textContent = hora;
 
@@ -13,7 +11,7 @@ function imprimirFormatoBaja() {
     contenidoOriginal.querySelector('#fecha-impresion').textContent = fecha;
     contenidoOriginal.querySelector('#hora-impresion').textContent = hora;
 
-    const ventana = window.open('', '_blank', 'width=900,height=1000');
+    const ventana = window.open('', '_blank', 'fullscreen=yes');
 
     ventana.document.write(`
         <html>
@@ -56,8 +54,8 @@ function imprimirFormatoBaja() {
             .double-column strong { font-size: 11px; font-weight: bold; }
             .respuesta-sm { font-size: 11px; }
             .observaciones { min-height: 60px; border: 1px solid #000; padding: 6px; margin-top: 20px; }
-            .styled-table { width: 100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 12px; margin-top: 10px; }
-            .styled-table th, .styled-table td { border: 1px solid #cccccc; padding: 7px 10px; vertical-align: top; text-align: left; }
+            .styled-table { width: 100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 12px; margin-top: 11px; }
+            .styled-table th, .styled-table td { border: 1px solid #cccccc; padding: 7px 10px; vertical-align: top; text-align: left; font-size: 10px;}
             .styled-table thead th {  background-color: #a6c8ebff; font-weight: bold; text-align: center; }
             .styled-table tr:nth-child(even) { background-color: #fafafa; }
             .styled-table tr:hover { background-color: #f1f1f1; }

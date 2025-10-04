@@ -285,7 +285,6 @@ $(document).on('change', '.marca-checkbox', function () {
       $('.marca-checkbox:checked').each(function () {
           seleccionados.push($(this).val());
       });
-      console.log("IDs seleccionados para eliminar:", seleccionados);
 
       if (seleccionados.length === 0) {
           Swal.fire({
@@ -337,7 +336,6 @@ $(document).on('change', '.marca-checkbox', function () {
                   type: 'POST',
                  data: { ids: seleccionados },
                   success: function (response) {
-                      console.log("Respuesta del servidor:", response); 
                       $('#marca_data').DataTable().ajax.reload(function() {
                           idsSeleccionados.clear();
                           $('.marca-checkbox').prop('checked', false);

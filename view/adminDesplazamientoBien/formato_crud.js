@@ -251,7 +251,6 @@ function verFormatoDatos() {
   $("#modalFormato").modal("show");
 }
 function eliminarformato(form_id) {
-  console.log(form_id);
   swal
     .fire({
       title: "Eliminar!",

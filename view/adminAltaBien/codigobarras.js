@@ -2,6 +2,9 @@ function generarCodigoBarras(codigoBarras) {
   var canvas = document.getElementById("codigo_barras_canvas");
   var ctx = canvas.getContext("2d");
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  if (!codigoBarras) {
+    codigoBarras = "000000";
+  }
   JsBarcode(canvas, codigoBarras, {
     format: "CODE128",
     displayValue: true,
@@ -13,18 +16,24 @@ function generarCodigoBarras(codigoBarras) {
     height: 30,
   });
 }
+
 function generarBarras() {
-  obj_id = $("#combo_obj_bien").val();
+  var obj_id = $("#combo_obj_bien").val();
   $.ajax({
     type: "POST",
     url: "../../controller/dependencia.php?op=generarBarras",
     data: { obj_id: obj_id }, 
     dataType: "json",
     success: function (response) {
-      $("#codigo_barras_input").val(response.codigo_cana);
+      var codigo = response.codigo_barras || ""; 
+      $("#codigo_barras_input").val(codigo);
+      generarCodigoBarras(codigo); 
     },
     error: function (xhr, status, error) {
       console.error(error);
+      generarCodigoBarras(""); 
     },
   });
 }
+
+generarCodigoBarras("");

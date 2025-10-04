@@ -125,7 +125,6 @@ $(document).ready(function () {
         url: "../../controller/grupogenerico.php?op=listar_gg_bienes",
         type: "POST",
         data: function(d) {
-          console.log("Parametros enviados al servidor:", d);
         }
       },
       "bDestroy": true,

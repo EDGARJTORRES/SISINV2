@@ -101,17 +101,21 @@ $(document).ready(function () {
     }
   });
 
-  $("#combo_obj_bien").change(function () {
-    if (modoEdicion) {
-      return;
-    }
-    var obj_id = $(this).val();
-    if (obj_id !== "") {
-      var cod = $("#cod_interno").val();
-      var codigo_cana = $("#combo_obj_bien option:selected").attr("data-codigo-cana");
-      var nuevo_cod = `${codigo_cana}-${cod}`;
-      $("#codigo_barras_input").val(nuevo_cod);
-      generarCodigoBarras(nuevo_cod);
+  $("#combo_obj_bien").on("change", function () {
+    if (modoEdicion) return;
+    let codigo_cana = $("#combo_obj_bien option:selected").attr("data-codigo-cana") || "";
+    if (codigo_cana) {
+      $.post("../../controller/objeto.php?op=getcodinterno", { codigo_cana: codigo_cana }, function (data) {
+        let formattedCod = data || "0001";
+        $("#cod_interno").val(formattedCod);
+
+        let cod_barra = `${codigo_cana}-${formattedCod}`;
+        $("#codigo_barras_input").val(cod_barra);
+        generarCodigoBarras(cod_barra);
+      });
+    } else {
+      $("#cod_interno").val("0000");
+      $("#codigo_barras_input").val("");
     }
   });
   $("#combo_gg_bien_obj").change(function () {

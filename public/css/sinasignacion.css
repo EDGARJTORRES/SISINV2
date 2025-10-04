@@ -152,30 +152,47 @@
         -moz-user-select: text !important;
         -ms-user-select: text !important;
       }
-     #bienes_data {
-      border-collapse: collapse;
-    }
 
-    /* Encabezado con borde inferior */
-    #bienes_data thead th {
-      background-color: #f8f9fa;
-      border-top: 1px solid rgb(192, 192, 192);
-      border-bottom: 1px solid rgb(192, 192, 192);
-      border-left: 1px solid rgb(192, 192, 192);
-      border-right: 1px solid rgb(192, 192, 192);
-      vertical-align: middle;
-      text-align: center;
-    }
-
-    /* Celdas del cuerpo: solo bordes laterales */
-    #bienes_data tbody td {
-      border-top: none !important; /* asegúrate que no se herede */
-      border-bottom: none;
-      border-left: 1px solid rgb(192, 192, 192);
-      border-right: 1px solid rgb(192, 192, 192);
-      vertical-align: middle;
-      text-align: center;
-    }
     #contenedor-excel {
       display: inline-block;
+    }
+    #bienes_data {
+      border-collapse: collapse;
+      border: 1px solid rgb(192, 192, 192); /* borde externo general */
+      width: 100%;
+    }
+
+    /* Encabezado */
+    #bienes_data thead th {
+      background-color: #f8f9fa;
+      border-top: none !important;
+      border-bottom: 1px solid rgb(192, 192, 192);
+      border-left: none !important;
+      border-right: 1px solid rgb(192, 192, 192);
+      vertical-align: middle;
+      text-align: center;
+    }
+    #bienes_data thead th:first-child,
+    #bienes_data tbody td:first-child {
+      width: 50px  !important;
+      text-align: center !important;
+    }
+
+
+    /* Cuerpo: solo líneas horizontales */
+    #bienes_data tbody tr {
+      border-top: 1px solid rgb(192, 192, 192); /* 👈 línea por fila */
+    }
+
+    #bienes_data tbody td {
+      border-top: none !important;
+      border-bottom: none;
+      border-left: none !important;
+      border-right: 1px solid rgb(192, 192, 192);
+      vertical-align: middle;
+      text-align: center;
+      padding: 6px 8px;
+    }
+    #bienes_data tbody td:last-child {
+      border-right: none;
     }

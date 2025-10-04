@@ -181,7 +181,6 @@ function verHistorial(codigo, btn) {
     data: { codigo_barras: codigo },
     dataType: "json",
     success: function (data) {
-      console.log("Historial recibido:", data);
       let historialDiv = $("#historialBien");
       historialDiv.empty();
       if (Array.isArray(data) && data.length > 0) {

@@ -8,56 +8,69 @@ function guardaryeditarbienes(e) {
   if (esNuevo) {
     let cantidad = parseInt($("#cantidad_bienes").val()) || 1;
 
-    $.post("../../controller/objeto.php?op=getcodinterno", function (data) {
-      let cod_inicial = parseInt(data) + 1;
-      let codigo_obj = $("#combo_obj_bien option:selected").attr("data-codigo-cana") || "";
-      let registros = [];
+    // Pedir correlativo al backend (ya devuelve el siguiente listo: 0001, 0002, etc.)
+    let codigo_obj = $("#combo_obj_bien option:selected").attr("data-codigo-cana") || "";
 
-      for (let i = 1; i <= cantidad; i++) {
-        let formData = new FormData();
+    $.post(
+      "../../controller/objeto.php?op=getcodinterno",
+      { codigo_cana: codigo_obj },
+      function (data) {
 
-        let cod_generado = (cod_inicial + (i - 1)).toString().padStart(4, "0");
-        let cod_barra = `${codigo_obj}-${cod_generado}`;
-        formData.append("cod_interno", cod_generado);
-        formData.append("codigo_barras_input", cod_barra);
-        formData.append("obj_id", $("#combo_obj_bien").val());
-        formData.append("gc_id", $("#combo_clase_bien_obj").val());
-        formData.append("gg_id", $("#combo_gg_bien_obj").val());
+        let cod_inicial = parseInt(data);
+        if (isNaN(cod_inicial)) cod_inicial = 1;
 
-        if (i === 1) {
-          formData.append("marca_id", $("#combo_marca_obj").val());
-          formData.append("modelo_id", $("#combo_modelo_obj").val());
-          formData.append("obj_dim", $("#obj_dim").val());
-          formData.append("bien_numserie", $("#bien_numserie").val());
-          formData.append("bien_obs", $("#bien_obs").val());
-          formData.append("bien_cuenta", $("#bien_cuenta").val());
-          formData.append("bien_color", $("#combo_color_bien").val());
-          formData.append("procedencia", $("#procedencia").val());
-          formData.append("fecharegistro", $("#fecharegistro").val());
-          formData.append("val_adq", $("#val_adq").val());
-          formData.append("doc_adq", $("#doc_adq").val());
-          formData.append("bien_placa", $("#bien_placa").val());
-        } else {
-          formData.append("marca_id", $(`#marca_${i}`).val());
-          formData.append("modelo_id", $(`#modelo_${i}`).val());
-          formData.append("obj_dim", $(`input[name='obj_dim_${i}']`).val());
-          formData.append("bien_numserie", $(`input[name='bien_numserie_${i}']`).val());
-          formData.append("bien_obs", $(`textarea[name='bien_obs_${i}']`).val());
-          formData.append("bien_cuenta", $(`#bien_cuenta_${i}`).val());
-          formData.append("bien_color", $(`#color_${i}`).val());
-          formData.append("procedencia", $(`select[name='procedencia_${i}']`).val());
-          formData.append("fecharegistro", $(`input[name='fecharegistro_${i}']`).val());
-          formData.append("val_adq", $(`input[name='val_adq_${i}']`).val());
-          formData.append("doc_adq", $(`input[name='doc_adq_${i}']`).val());
-          formData.append("bien_placa", $(`input[name='bien_placa_${i}']`).val());
+        let registros = [];
+
+        for (let i = 1; i <= cantidad; i++) {
+          let formData = new FormData();
+
+          let cod_generado = String(cod_inicial + (i - 1)).padStart(4, "0");
+          let cod_barra = `${codigo_obj}-${cod_generado}`;
+
+          formData.append("cod_interno", cod_generado);
+          formData.append("codigo_barras_input", cod_barra);
+          formData.append("obj_id", $("#combo_obj_bien").val());
+          formData.append("gc_id", $("#combo_clase_bien_obj").val());
+          formData.append("gg_id", $("#combo_gg_bien_obj").val());
+
+          if (i === 1) {
+            // Primer bien → datos principales del modal
+            formData.append("marca_id", $("#combo_marca_obj").val());
+            formData.append("modelo_id", $("#combo_modelo_obj").val());
+            formData.append("obj_dim", $("#obj_dim").val());
+            formData.append("bien_numserie", $("#bien_numserie").val());
+            formData.append("bien_obs", $("#bien_obs").val());
+            formData.append("bien_cuenta", $("#bien_cuenta").val());
+            formData.append("bien_color", $("#combo_color_bien").val());
+            formData.append("procedencia", $("#procedencia").val());
+            formData.append("fecharegistro", $("#fecharegistro").val());
+            formData.append("val_adq", $("#val_adq").val());
+            formData.append("doc_adq", $("#doc_adq").val());
+            formData.append("bien_placa", $("#bien_placa").val());
+          } else {
+            // Bienes adicionales → toman de inputs dinámicos
+            formData.append("marca_id", $(`#marca_${i}`).val());
+            formData.append("modelo_id", $(`#modelo_${i}`).val());
+            formData.append("obj_dim", $(`input[name='obj_dim_${i}']`).val());
+            formData.append("bien_numserie", $(`input[name='bien_numserie_${i}']`).val());
+            formData.append("bien_obs", $(`textarea[name='bien_obs_${i}']`).val());
+            formData.append("bien_cuenta", $(`#bien_cuenta_${i}`).val());
+            formData.append("bien_color", $(`#color_${i}`).val());
+            formData.append("procedencia", $(`#procedencia_${i}`).val());
+            formData.append("fecharegistro", $(`input[name='fecharegistro_${i}']`).val());
+            formData.append("val_adq", $(`input[name='val_adq_${i}']`).val());
+            formData.append("doc_adq", $(`input[name='doc_adq_${i}']`).val());
+            formData.append("bien_placa", $(`input[name='bien_placa_${i}']`).val());
+          }
+
+          registros.push(formData);
         }
 
-        registros.push(formData);
+        enviarRegistros(registros, cantidad);
       }
-
-      enviarRegistros(registros, cantidad);
-    });
+    );
   } else {
+    // --- EDICIÓN ---
     let formData = new FormData($("#bien_form")[0]);
     formData.set("bien_id", bien_id);
     formData.set("codigo_barras_input", $("#codigo_barras_input").val());
@@ -83,6 +96,7 @@ function guardaryeditarbienes(e) {
     enviarRegistros(registros, 1);
   }
 }
+
 function enviarRegistros(registros, cantidad) {
   let promesas = registros.map((formData) =>
     $.ajax({
@@ -101,7 +115,10 @@ function enviarRegistros(registros, cantidad) {
 
       Swal.fire({
         title: "¡Correcto!",
-        text: cantidad === 1 ? "Se actualizó correctamente." : `Se registraron ${cantidad} bienes correctamente.`,
+        text:
+          cantidad === 1
+            ? "Se actualizó correctamente."
+            : `Se registraron ${cantidad} bienes correctamente.`,
         imageUrl: "../../static/gif/verified.gif",
         imageWidth: 100,
         imageHeight: 100,

@@ -26,7 +26,7 @@
 <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
 <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
 <script type="text/javascript" src="../../view/usuProfile/usuperfil.js"></script>
-<!-- No borrar -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 <script>
   dayjs.extend(dayjs_plugin_relativeTime);
   dayjs.locale('es'); // 👈 Esto activa el español

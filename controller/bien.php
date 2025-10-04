@@ -37,9 +37,7 @@ switch ($_GET["op"]) {
         $data = array(); 
         foreach ($datos as $row) {
             $sub_array = array();
-            $sub_array[] = $row["bien_id"];
             $sub_array[] = '<span class="badge bg-cyan text-cyan-fg selectable copiar-codbarras" data-codigo="' . $row["bien_codbarras"] . '">' . $row["bien_codbarras"] . '</span>';
-            $sub_array[] = date("Y-m-d", strtotime($row["fecharegistro"]));
             $sub_array[] = $row["obj_nombre"];
             $estado = strtolower($row["bien_est"]);
             switch ($estado) {
@@ -64,8 +62,7 @@ switch ($_GET["op"]) {
                     $estado_text = 'Inactivo';
             }
             $sub_array[] = '<span class="d-inline-block ' . $badge_class . ' text-white text-center px-0 py-0 rounded-pill" style="min-width: 70px;">' . $estado_text . '</span>';
-            $sub_array[] = $row["procedencia"]; 
-            $sub_array[] = $row["val_adq"]; 
+            $sub_array[] = date("Y-m-d", strtotime($row["fecharegistro"])); 
             $data[] = $sub_array;
         }
 

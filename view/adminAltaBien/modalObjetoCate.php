@@ -58,7 +58,7 @@
                     <div class="row g-3" >
                         <div class="hr-text hr-text-center hr-text-spaceless my-4 fs-4">Clasificación Patrimonial</div>
                         <div class="col-lg-9">
-                            <label class="form-label">Objeto <span class="text-danger">*</span></label>
+                            <label class="form-label">Familia Patrimonial <span class="text-danger">*</span></label>
                             <select class="form-select select2 required" id="combo_obj_bien" name="obj_id" data-placeholder="Seleccione el Objeto">
                                 <option></option> 
                             </select>

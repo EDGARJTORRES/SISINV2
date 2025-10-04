@@ -39,7 +39,6 @@ document.addEventListener("DOMContentLoaded", function () {
   fetch("../../controller/dependencia.php?op=listar_cantidad_bienes_por_dependencia")
     .then(response => response.json())
     .then(data => {
-      console.log(data);
       const lista = document.getElementById("lista-items");
       const detalle = document.getElementById("detalle-contenido");
       const mensajeInicial = document.getElementById("mensaje-inicial");

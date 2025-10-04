@@ -12,6 +12,9 @@ if (isset($_SESSION["usua_id_siin"])) {
   <link href="../../public/css/loader.css" rel="stylesheet"/>
   <link href="../../public/css/asignacionBien.css" rel="stylesheet"/>
   <link href="../../public/css/iconos.css" rel="stylesheet"/>
+  <link href="../../public/css/sinasignacion.css" rel="stylesheet"/>
+  <link href="../../public/css/loader.css" rel="stylesheet"/>
+  <link href="../../public/css/alta.css" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   </head>
 <body >
@@ -32,87 +35,28 @@ if (isset($_SESSION["usua_id_siin"])) {
                     ASIGNACIÓN DE BIENES PARA EL SISTEMA DE INVENTARIO
                   </h2>
                 </div>
-                <div class="col-auto d-flex flex-wrap justify-content-end gap-2">
-                  <!-- Guardar -->
-                  <button type="submit" name="action" value="add" onclick="nuevoFormato()" 
-                          title="Guardar asignación del bien patrimonial" 
-                          class="button"
-                          style="--clr: #00ad54; border-left:1px solid #00ad54;">
-                    <span class="button-decor"></span>
-                    <div class="button-content">
-                      <div class="button__icon">
-                        <!-- SVG Guardar -->
-                        <svg viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg" width="24">
-                          <circle opacity="0.5" cx="23" cy="23" r="23" fill="url(#gradSave)" />
-                          <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M34.42 15.93c.382-1.145-.706-2.234-1.851-1.852l-18.568 6.189c-1.186.395-1.362 2-.29 2.644l5.12 3.072a1.464 1.464 0 001.733-.167l5.394-4.854a1.464 1.464 0 011.958 2.177l-5.154 4.638a1.464 1.464 0 00-.276 1.841l3.101 5.17c.644 1.072 2.25.896 2.645-.29L34.42 15.93z"
-                            fill="#fff" />
-                          <defs>
-                            <linearGradient id="gradSave" x1="23" y1="0" x2="23" y2="46" gradientUnits="userSpaceOnUse">
-                              <stop stop-color="#fff" stop-opacity="0.71"></stop>
-                              <stop offset="1" stop-color="#fff" stop-opacity="0"></stop>
-                            </linearGradient>
-                          </defs>
-                        </svg>
-                      </div>
-                      <span class="button__text">Guardar</span>
-                    </div>
-                  </button>
-
-                  <!-- Cancelar -->
-                  <button type="reset" onclick="resetCampos()" 
+                <div class="col-auto ms-auto d-print-none">
+                  <div class="btn-list"> 
+                    <button class="btn btn-6 btn-light btn-izquierdo" type="reset" onclick="resetCampos()" 
                           title="Cancelar y limpiar todos los campos del formulario" 
-                          class="button"
-                          style="--clr: #00c2c5;">
-                    <span class="button-decor"></span>
-                    <div class="button-content">
-                      <div class="button__icon">
-                        <!-- SVG Cancelar -->
-                        <svg viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg" width="24">
-                          <circle opacity="0.5" cx="23" cy="23" r="23" fill="url(#gradCancel)" />
-                          <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M35.65 15.354L23 8.05l-12.65 7.303V29.96L23 37.264l12.65-7.304V15.353zm-1.512 3.02l-9.988 4.994v9.912h-2.3v-9.933L12.5 18.36l1.082-2.03 9.435 5.033 10.092-5.046 1.029 2.057z"
-                            fill="#fff" />
-                          <defs>
-                            <linearGradient id="gradCancel" x1="23" y1="0" x2="23" y2="46" gradientUnits="userSpaceOnUse">
-                              <stop stop-color="#fff" stop-opacity="0.71"></stop>
-                              <stop offset="1" stop-color="#fff" stop-opacity="0"></stop>
-                            </linearGradient>
-                          </defs>
-                        </svg>
-                      </div>
-                      <span class="button__text">Cancelar</span>
-                    </div>
-                  </button>
-
-                  <!-- Bien sin Asignación -->
-                  <button onclick="window.location.href='../adminSinAsignacionBien/'" 
-                          title="Ir al módulo de bienes sin asignación" 
-                          class="button"
-                          style="--clr: #7808d0;">
-                    <span class="button-decor"></span>
-                    <div class="button-content">
-                      <div class="button__icon">
-                        <!-- SVG Bien sin asignación -->
-                        <svg width="24" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 36 36">
-                          <circle fill="url(#gradBien)" r="18" cy="18" cx="18" opacity="0.5"></circle>
-                          <path fill="#fff"
-                            d="M22.911 8.791c.46-.87-.621-1.734-1.368-1.093L9.293 18.215c-.627.54-.246 1.568.581 1.568h6.93l-3.838 7.248c-.46.87.622 1.734 1.368 1.093l12.25-10.517c.627-.539.246-1.567-.58-1.567h-6.93L22.91 8.79z"
-                            clip-rule="evenodd" fill-rule="evenodd" />
-                          <defs>
-                            <linearGradient id="gradBien" gradientUnits="userSpaceOnUse" y2="36" x2="18" y1="0" x1="18">
-                              <stop stop-opacity="0.71" stop-color="#fff"></stop>
-                              <stop stop-opacity="0" stop-color="#fff" offset="1"></stop>
-                            </linearGradient>
-                          </defs>
-                        </svg>
-                      </div>
-                      <span class="button__text">Bien sin Asignación</span>
-                    </div>
-                  </button>
+                          class="button">
+                      <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-list-details"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 5h8" /><path d="M13 9h5" /><path d="M13 15h8" /><path d="M13 19h5" /><path d="M3 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" /><path d="M3 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" /></svg>
+                        CANCELAR
+                    </button>
+                  </div>
+                </div>
+                <div class="col-auto ms-auto d-print-none">
+                  <div class="btn-list">
+                    <button class="btn btn-6 btn-primary btn-derecho" value="add" 
+                          onclick="nuevoFormato()" 
+                          title="Guardar asignación del bien patrimonial" 
+                          class="button">
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-device-imac-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12.5 17h-8.5a1 1 0 0 1 -1 -1v-12a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v8.5" /><path d="M3 13h13.5" /><path d="M8 21h4.5" /><path d="M10 17l-.5 4" /><path d="M16 19h6" /><path d="M19 16v6" /></svg>
+                        CREAR ASIGNACIÓN
+                    </button>
+                  </div>
                 </div>
               </div>
-
               <div class="card border-0  mb-4"  style="box-shadow: rgb(116, 142, 152) 0px 4px 16px -8px;">
                 <div class="card-status-start bg-primary"></div>
                 <div class="card-header">
@@ -144,7 +88,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                               </div>
                           </div>
                           <div class="row">
-                              <div class="col-6">
+                              <div class="col-5">
                               <input type="text" class="form-control" id="cod_bar" name="cod_bar" placeholder="Ingresa el código de barras...">
                               </div>
                               <div class="col-3 d-flex align-items-center">
@@ -159,11 +103,12 @@ if (isset($_SESSION["usua_id_siin"])) {
                                   <span>Buscar</span>
                               </button>
                               </div>
-                              <div class="col-3 d-flex align-items-center">
-                                  <button type="button" class="btn btn-outline-dark w-100 px-2 d-flex align-items-center justify-content-center gap-1"  id="btnCamara" onclick="activarCamara()">
-                                      <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-camera-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13.5 20h-8.5a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v4" /><path d="M9 13a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M22 22l-5 -5" /><path d="M17 22l5 -5" /></svg>
-                                  <span> Escanear</span>
-                              </button>
+                              <div class="col-4 d-flex align-items-center">
+                                <button type="button" class="btn btn-outline-dark w-100 px-2 d-flex align-items-center justify-content-center gap-1"  id="add_button"  onclick="bien_sin_asignacion()"
+                                         title="Ir al módulo de bienes sin asignación" >
+                                  <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-camera-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13.5 20h-8.5a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v4" /><path d="M9 13a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M22 22l-5 -5" /><path d="M17 22l5 -5" /></svg>
+                                  <span>Bienes Nuevos</span>
+                                </button>
                               </div>
                           </div>
                           </div>
@@ -234,12 +179,15 @@ if (isset($_SESSION["usua_id_siin"])) {
     </div>
     <?php require_once("../html/footer.php"); ?>
     <?php require_once("../html/mainJs.php"); ?>
+    <?php require_once("modal_bienes_sin_asignacion.php"); ?>
     <script type="text/javascript" src="color.js"></script>
     <script type="text/javascript" src="alerts.js"></script>
     <script type="text/javascript" src="adminAsignacionBien.js"></script>
+    <script type="text/javascript" src="bienSinAsignacion.js"></script>
     <script type="text/javascript" src="dni.js"></script>
-     <script type="text/javascript" src="imprimir.js"></script>
+    <script type="text/javascript" src="imprimir.js"></script>
     <script type="text/javascript" src="init.js"></script>
+    <script type="text/javascript" src="modal.js"></script>
 </body>
 </html>
 <?php
