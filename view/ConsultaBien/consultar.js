@@ -189,24 +189,24 @@ innerWrapper.innerHTML = `
                 </div>
               </div>
               <div class="row mb-3">
-                <div class="col-lg-3">
+                <div class="col-6 col-lg-3">
                   <strong>Doc. Adquisición:</strong><br>
                   ${data.doc_adq ? data.doc_adq.toUpperCase() : 'NO ASIGNADO'}
                 </div>
-                <div class=" col-6 col-lg-3">
+                <div class="col-6 col-lg-3">
                   <strong>Observación:</strong><br>
                   ${data.bien_obs ? data.bien_obs.toUpperCase() : 'SIN OBSERVACIONES'}
                 </div>
-                <div class=" col-6 col-lg-3">
+                <div class="col-6 col-lg-3">
                   <strong>Marca:</strong><br>
                   ${data.marca_nom ? data.marca_nom.toUpperCase() : 'SIN MARCA ASIGNADA'}
                 </div>
-                <div class=" col-6 col-lg-3">
+                <div class="col-6 col-lg-3">
                   <strong>Modelo:</strong><br>
                   ${data.modelo_nom ? data.modelo_nom.toUpperCase() : 'SIN MODELO ASIGNADO'}
                 </div>
               </div>
-              <div class="row">
+              <div class="row mb-3">
                 <div class=" col-6 col-lg-3">
                   <strong>Número de Serie:</strong><br>
                   ${data.bien_numserie ? data.bien_numserie.toUpperCase() : 'NO TIENE NÚMERO DE SERIE'}
@@ -223,6 +223,12 @@ innerWrapper.innerHTML = `
                   <strong>Color:</strong><br>
                   ${nombresColores.length > 0 ? nombresColores.join(", ").toUpperCase() : 'SIN COLOR ASIGNADO'}
                 </div>
+              </div>
+              <div class="row">
+                <div class=" col-6 col-lg-12">
+                  <strong>Observación:</strong><br>
+                  ${data.bien_obs ? data.bien_obs.toUpperCase() : 'SIN OBSERVACIONES'}
+                </div>  
               </div>
             </div>
           </div>

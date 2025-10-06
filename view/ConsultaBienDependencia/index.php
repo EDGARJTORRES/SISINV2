@@ -13,7 +13,7 @@ if (isset($_SESSION["usua_id_siin"])) {
   <link href="../../public/css/consultadependencia.css" rel="stylesheet"/>
   <link href="../../public/css/iconos.css" rel="stylesheet"/>
   <link href="../../public/css/botones.css" rel="stylesheet" />
-  <link href="../../public/css/color.css" rel="stylesheet" />
+  <link href="../../public/css/marca.css" rel="stylesheet" />
 </head>
 <body>
     <?php require_once("../html/mainProfile.php"); ?>

@@ -160,7 +160,13 @@ document.addEventListener("DOMContentLoaded", function () {
                           <span class="cbx">
                             <span>
                               <svg viewBox="0 0 12 10" height="10px" width="12px">
-                                <!-- Aquí dentro va el contenido SVG si tienes alguno -->
+                                <polyline points="1.5 6 4.5 9 10.5 1" 
+                                          stroke="#fff" 
+                                          stroke-width="2" 
+                                          fill="none" 
+                                          stroke-linecap="round" 
+                                          stroke-linejoin="round">
+                                </polyline>
                               </svg>
                             </span>
                             <span></span>
@@ -226,6 +232,10 @@ document.addEventListener("DOMContentLoaded", function () {
               $('#buscar_registros').on('input', function () {
                   table.search(this.value).draw();
               }); 
+              $('#gb_id_all').on('click', function () {
+                  var checked = $(this).is(':checked');
+                  $('#dependencia_data tbody input.gb-checkbox').prop('checked', checked);
+              });
               setTimeout(ocultarAlertaCarga, 1000);
             },
             error: function () {

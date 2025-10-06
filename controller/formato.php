@@ -155,6 +155,18 @@ switch ($_GET["op"]) {
         $data = array();
         foreach ($datos as $row) {
             $sub_array = array();
+            $sub_array[] = '
+            <label class="checkbox-wrapper-46">
+                <input type="checkbox" class="inp-cbx formato_checkbox" data-id="' . htmlspecialchars($row["form_id"]) . '" value="' . htmlspecialchars($row["form_id"]) . '" />
+                <span class="cbx">
+                    <span>
+                        <svg viewBox="0 0 12 10" height="10px" width="12px">
+                            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                        </svg>
+                    </span>
+                    <span></span>
+                </span>
+            </label>';
             $fechaHora = date('d/m/Y H:i', strtotime($row["form_fechacrea"]));
             $sub_array[] = '<span class="badge bg-blue-lt selectable">' . $fechaHora . '</span>';
             $sub_array[] = $row["tif_nom"];
@@ -217,7 +229,7 @@ switch ($_GET["op"]) {
         $formato->delete_formato($_POST["form_id"]);
         $bitacora->update_bitacora($_SESSION["usua_id_siin"]);
         break;
-     case "imprimir_formato":
+    case "imprimir_formato":
         $datos = $formato->get_formato_id($_POST["form_id"]);
         $titulo = $datos[0]['tif_nom'];
         $datos_emisor = $formato->get_dependenciadatos($datos[0]['depe_emisor']);
@@ -325,6 +337,7 @@ switch ($_GET["op"]) {
         // Dividir la página en dos columnas para los datos del emisor y del receptor
         $espaciado = 6;
         $espaciolin = 190;
+        $tletra =6  ;
 
         // Posición para los datos del emisor (columna izquierda)
         $pdf->SetXY(20, 25); // Ajusta las coordenadas según la ubicación deseada
@@ -332,7 +345,6 @@ switch ($_GET["op"]) {
         $pdf->Cell(100, $espaciado, "Datos del Receptor:", 0, 1);
         $pdf->SetFont("Arial", "", 8);
         // Imprime los datos del emisor
-        $tletra =6  ;
         // Gerencia
         $pdf->SetX(20);
         $pdf->Cell(30, $espaciado, "Gerencia: ", 0, 0); // Imprime la etiqueta sin salto de línea
@@ -433,7 +445,7 @@ switch ($_GET["op"]) {
         // Suponiendo que $data es un array de datos que contiene los objetos con `bien_id`
 
         // Configura la posición inicial para la tabla en el PDF
-        $pdf->SetXY(10, $pdf->GetY() + 14);
+        $pdf->SetXY(10, $pdf->GetY() + 7);
 
         // Configura el estilo de fuente para el encabezado de la tabla
          $pdf->SetWidths([10, 15, 15, 85, 25, 25, 30, 25, 12, 30]);
@@ -534,7 +546,7 @@ switch ($_GET["op"]) {
         $pdf->Cell(30, $espaciado, utf8_decode(" - EL USUARIO ES RESPONSABLE DEL BUEN USO DE LOS BIENES PATRIMONIALES REGISTRADOS EN LA PRESENTE FICHA Y EN CASO DE PERDIDA O EXTRAVIO SERAN REPUESTOS O REEMBOLSADOS POR ÉL."), 0, 0);
         $pdf->ln(5);
         $pdf->Cell(30, $espaciado, utf8_decode(" - CUALQUIER MOVIMIENTO DE BIENES DENTRO O FUERA DE LAS INSTALACIONES DE LA MUNICIPALIAD DEBERÁ SER COMUNICADO AL RESPONSABLE DE CONTROL PATRIMONIAL BAJO RESPONSABILIDAD."), 0, 0);
-        $pdf->ln(30);
+        $pdf->ln(20);
         //FIRMAS
         // Configura la fuente en negrita para los títulos de firma
         $pdf->SetFont('Helvetica', 'B', 7);
@@ -578,4 +590,300 @@ switch ($_GET["op"]) {
         $pdf->Output();
 
         break;
+    case "imprimir_formato_multiple":
+    $form_ids = $_POST['form_ids']; // array de IDs enviados desde JS
+    $pdf = new PDF("L", "mm", "A4"); // orientación horizontal
+
+    foreach ($form_ids as $form_id) {
+        $datos = $formato->get_formato_id($form_id);
+        $titulo = $datos[0]['tif_nom'];
+        $datos_emisor = $formato->get_dependenciadatos($datos[0]['depe_emisor']);
+        $datos_receptor = $formato->get_dependenciadatos($datos[0]['depe_receptor']);
+
+        // Inicializa variables de jerarquía
+        $Gerencia_emisor = $subgerencia_emisor = $area_emisor = "";
+        $Gerencia_receptor = $subgerencia_receptor = $area_receptor = "";
+
+        $nivel_actual_emisor = $datos_emisor[0]['nior_id'];
+        $nivel_superior_emisor = $datos_emisor[0]['depe_id'];
+
+        $nivel_actual_receptor = $datos_receptor[0]['nior_id'];
+        $nivel_superior_receptor = $datos_receptor[0]['depe_id'];
+
+        // Jerarquía Emisor
+        while ($nivel_actual_emisor >= 2) {
+            $datos_superior_emisor = $formato->get_dependenciadatos($nivel_superior_emisor);
+            $nivel_actual_emisor = $datos_superior_emisor[0]['nior_id'];
+            if ($nivel_actual_emisor == 2) {
+                $Gerencia_emisor = $datos_superior_emisor[0]['depe_denominacion'];
+                break;
+            } elseif ($nivel_actual_emisor == 4) {
+                $subgerencia_emisor = $datos_superior_emisor[0]['depe_denominacion'];
+            } elseif ($nivel_actual_emisor == 5) {
+                $area_emisor = $datos_superior_emisor[0]['depe_denominacion'];
+            }
+            $nivel_superior_emisor = $datos_superior_emisor[0]['depe_superior'];
+        }
+
+        // Jerarquía Receptor
+        while ($nivel_actual_receptor >= 2) {
+            $datos_superior_receptor = $formato->get_dependenciadatos($nivel_superior_receptor);
+            $nivel_actual_receptor = $datos_superior_receptor[0]['nior_id'];
+            if ($nivel_actual_receptor == 2) {
+                $Gerencia_receptor = $datos_superior_receptor[0]['depe_denominacion'];
+                break;
+            } elseif ($nivel_actual_receptor == 4) {
+                $subgerencia_receptor = $datos_superior_receptor[0]['depe_denominacion'];
+            } elseif ($nivel_actual_receptor == 5) {
+                $area_receptor = $datos_superior_receptor[0]['depe_denominacion'];
+            }
+            $nivel_superior_receptor = $datos_superior_receptor[0]['depe_superior'];
+        }
+
+        // Nueva página por formato
+        $pdf->AddPage();
+
+        // LOGO y cabecera
+        $pdf->SetFont("Arial", "", 7);
+        $pdf->SetX(30);
+        $pdf->Image('../public/logo144.png', $pdf->GetX() - 5, $pdf->GetY() - 5, 0, 15);
+        $pdf->SetXY(10, 20);
+        $pdf->Cell(0, 5, utf8_decode('MUNICIPALIDAD PROVINCIAL DE CHICLAYO'), 0, 1, "L");
+
+        $t = mb_convert_encoding($titulo, 'UTF-8', 'ISO-8859-1');
+        $pdf->SetFont("Arial", "B", 12);
+        $pdf->SetTitle($t, true);
+        $pdf->SetY(10);
+        
+        $t_id = $datos[0]['tif_id'];
+        if ($t_id == 1) {
+            $pdf->Cell(0, 10, utf8_decode('ANEXO N 1: FORMATO ASIGNACIÓN DE BIENES EN USO'), 0, 1, "C");
+        } else if ($t_id == 2) {
+            $pdf->Cell(0, 10, utf8_decode('ANEXO N 2: FORMATO AUTORIZACIÓN DE DESPLAZAMIENTO EXTERNO DE BIENES PATRIMONIALES '), 0, 1, "C");
+        }
+        $pdf->Ln(1);
+        $pdf->SetXY(20, 20);
+        // Extraer solo el día, mes y año de la fecha
+        $fecha = $datos[0]["form_fechacrea"];
+        $fecha_formateada = substr($fecha, 0, 10);
+        $pdf->SetFont("Arial", "B", 9);
+        // Mostrar la fecha formateada
+        $pdf->Cell(0, 10, utf8_decode('Fecha: ' . $fecha_formateada), 0, 1, 'R');
+        $pdf->Ln(1);
+        $pdf->SetXY(0, 0);
+        // Configura el estilo de fuente para el contenido
+        $pdf->SetFont("Arial", "", 10);
+
+ // Dividir la página en dos columnas para los datos del emisor y del receptor
+        $espaciado = 6;
+        $espaciolin = 190;
+        $tletra =6  ;
+
+        // Posición para los datos del emisor (columna izquierda)
+        $pdf->SetXY(20, 25); // Ajusta las coordenadas según la ubicación deseada
+        $pdf->SetFont("Arial", "B", 10);
+        $pdf->Cell(100, $espaciado, "Datos del Receptor:", 0, 1);
+        $pdf->SetFont("Arial", "", 8);
+        // Imprime los datos del emisor
+        // Gerencia
+        $pdf->SetX(20);
+        $pdf->Cell(30, $espaciado, "Gerencia: ", 0, 0); // Imprime la etiqueta sin salto de línea
+        $pdf->SetFont("Arial", "", $tletra );
+        $pdf->Cell(100, $espaciado, utf8_encode($Gerencia_emisor), 0, 1); // Imprime el valor con salto de línea
+        // Dibuja línea de separación justo debajo
+        $pdf->Line(50, $pdf->GetY() - 1, 130, $pdf->GetY() - 1);
+        $pdf->SetX(20);
+        
+        // Sub-Gerencia
+        $pdf->SetX(20);
+        $pdf->SetFont("Arial", "", 8);
+        $pdf->Cell(30, $espaciado, "Sub-Gerencia: ", 0, 0); // Imprime la etiqueta sin salto de línea
+        $pdf->SetFont("Arial", "", $tletra );
+        $pdf->MultiCell(90, $espaciado, utf8_encode($subgerencia_emisor), 0, 'L');
+        // Dibuja línea de separación justo debajo
+        $pdf->Line(50, $pdf->GetY() - 1, 130, $pdf->GetY() - 1);
+        $pdf->SetX(20);
+        
+        // Área
+        $pdf->SetFont("Arial", "", 8);
+        $pdf->Cell(30, $espaciado, utf8_decode("Área: "), 0, 0); // Imprime la etiqueta sin salto de línea
+        $pdf->SetFont("Arial", "", $tletra );
+        $pdf->Cell(100, $espaciado, utf8_encode( $area_emisor), 0, 1); // Imprime el valor con salto de línea
+        // Dibuja línea de separación justo debajo
+        $pdf->Line(50, $pdf->GetY() - 1, 130, $pdf->GetY() - 1);
+        $pdf->SetX(20);
+        // Representante
+        $pdf->SetFont("Arial", "", 8);
+        $pdf->Cell(30, $espaciado, "Representante: ", 0, 0); // Imprime la etiqueta sin salto de línea
+        $pdf->SetFont("Arial", "", $tletra );
+        $pdf->Cell(100, $espaciado, utf8_encode($datos[0]["form_repre_emisor_nom"]), 0, 1); // Imprime el valor con salto de línea
+        // Dibuja línea de separación justo debajo
+        $pdf->Line(50, $pdf->GetY() - 1, 130, $pdf->GetY() - 1);
+        $pdf->SetX(20);
+        // Sub-Gerencia
+        $pdf->SetX(20);  // Mueve el cursor a 60mm en horizontal (ajusta este valor para mover más o menos)
+        $pdf->SetFont("Arial", "", 8);
+        $pdf->Cell(40, $espaciado, "Doc. que Autoriza el traslado : ", 0, 0);
+
+        $pdf->SetFont("Arial", "", $tletra);
+        $pdf->Cell(0, $espaciado, strtoupper(utf8_encode($datos[0]['doc_traslado'])), 0, 1);
+
+        // Dibuja línea justo debajo del texto
+        $pdf->Line(60, $pdf->GetY() - 1, 130, $pdf->GetY() - 1);
+
+        // Posición horizontal para siguiente línea
+        $pdf->SetX(20);
+
+
+
+        // Posición para los datos del receptor (columna derecha)
+        $pdf->SetXY(160, 25); // Ajusta las coordenadas según la ubicación deseada
+        $pdf->SetFont("Arial", "B", 10);
+        $pdf->Cell(100, $espaciado, "Datos del Responsable:", 0, 1);
+        $pdf->SetFont("Arial", "", 8);
+
+        // Imprime los datos del receptor
+        // Datos del receptor (columna derecha)
+        $pdf->SetX(160); // Configura la posición inicial para la columna derecha
+
+        // Gerencia
+        $pdf->SetFont("Arial", "", 8);
+        $pdf->Cell(30, $espaciado, "Gerencia: ", 0, 0); // Imprime la etiqueta sin salto de línea
+        $pdf->SetFont("Arial", "", $tletra );
+        $pdf->Cell(100, $espaciado, utf8_encode($Gerencia_receptor), 0, 1); // Imprime el valor con salto de línea
+        $pdf->Line($espaciolin, $pdf->GetY() - 1, 270, $pdf->GetY() - 1); // Dibuja la línea justo debajo
+
+        // Sub-Gerencia
+        $pdf->SetX(160);
+        $pdf->SetFont("Arial", "", 8);
+        $pdf->Cell(30, $espaciado, "Sub-Gerencia: ", 0, 0);
+
+        $pdf->SetFont("Arial", "", $tletra);
+
+        // Cambiamos Cell por MultiCell para que el texto se adapte en varias líneas:
+        $pdf->MultiCell(90, $espaciado, utf8_encode($subgerencia_receptor), 0, 'L');
+
+        // Dibuja la línea justo debajo del texto (usamos GetY para la posición vertical actual)
+        $pdf->Line($espaciolin, $pdf->GetY() - 1, 270, $pdf->GetY() - 1);
+
+
+        // Área
+        $pdf->SetX(160);
+        $pdf->SetFont("Arial", "", 8);
+        $pdf->Cell(30, $espaciado, utf8_decode("Área: "), 0, 0); // Imprime la etiqueta sin salto de línea
+        $pdf->SetFont("Arial", "", $tletra );
+        $pdf->Cell(100, $espaciado, utf8_encode($area_receptor), 0, 1); // Imprime el valor con salto de línea
+        $pdf->Line($espaciolin, $pdf->GetY() - 1, 270, $pdf->GetY() - 1);  // Dibuja la línea justo debajo
+
+        // Representante
+        $pdf->SetX(160);
+        $pdf->SetFont("Arial", "", 8);
+        $pdf->Cell(30, $espaciado, "Representante: ", 0, 0); // Imprime la etiqueta sin salto de línea
+        $pdf->SetFont("Arial", "", $tletra );
+        $pdf->Cell(100, $espaciado, utf8_encode($datos[0]["form_repre_receptor_nom"]), 0, 1); // Imprime el valor con salto de línea
+        $pdf->Line($espaciolin, $pdf->GetY() - 1, 270, $pdf->GetY() - 1); 
+
+        // TABLA DE BIENES
+        $pdf->SetXY(10, $pdf->GetY() + 7);
+        $pdf->SetWidths([10, 15, 15, 85, 25, 25, 30, 25, 12, 30]);
+        $pdf->SetAligns(['C','C','C','C','C','C','C','C','C','C']);
+        $pdf->SetFont('Helvetica','B',8);
+        $header = [utf8_decode("N°"), utf8_decode("Cod Patr."), utf8_decode("Cod Int"), utf8_decode("Denominación"), "Marca", "Modelo", "Color", utf8_decode("Serie/Dimensión"), "Estado", utf8_decode("Observación")];
+        $pdf->Row($header);
+        $pdf->SetFont('Helvetica','',6.5);
+
+        $coun = 0;
+        $maxFilas = 10;
+
+        foreach ($datos as $indice) {
+            $bien_id = $indice['bien_id'];
+            $datosBienes = $objeto->buscar_bien_id($bien_id);
+
+            foreach ($datosBienes as $bien) {
+                $color_ids = explode(",", str_replace(array("{","}"), "", $bien['bien_color']));
+                $nombres_colores = [];
+                foreach($color_ids as $color_id){
+                    $color_nom = $objeto->get_color($color_id);
+                    if(!empty($color_nom)) $nombres_colores[] = $color_nom[0]['color_nom'];
+                }
+                $colores_text = implode(', ', $nombres_colores);
+
+                $partes_codbarras = explode('-', $bien["bien_codbarras"]);
+                $codigo_patrimonial = $partes_codbarras[0];
+                $codigo_interno = isset($partes_codbarras[1]) ? $partes_codbarras[1] : '';
+
+                $fila = [
+                    $coun+1,
+                    $codigo_patrimonial,
+                    $codigo_interno,
+                    utf8_decode($bien["obj_nombre"]),
+                    utf8_decode($bien["marca_nom"]),
+                    utf8_decode($bien["modelo_nom"]),
+                    $colores_text,
+                    $bien["bien_numserie"],
+                    $bien["estadodepe"],
+                    utf8_decode($bien["biendepe_obs"])
+                ];
+                $pdf->Row($fila);
+                $coun++;
+            }
+        }
+
+        // Filas en blanco si faltan
+        for($i=0; $i<($maxFilas-$coun); $i++){
+            $filaEnBlanco = array_fill(0,10,'--');
+            $pdf->Row($filaEnBlanco);
+        }
+
+        // LEYENDA Y DECLARACIONES
+        $pdf->ln(2);
+        $pdf->SetFont('Helvetica','B',8);
+        $pdf->Cell(0, $espaciado, "LEYENDA ESTADO: (N) NUEVO   (B) BUENO   (R) REGULAR   (M) MALO",0,1);
+        $pdf->SetFont('Helvetica','',6);
+        $pdf->MultiCell(0, 5, " - EL USUARIO DECLARA HABER MOSTRADO TODOS LOS BIENES PATRIMONIALES QUE SE ENCUENTRAN BAJO SU RESPONSABILIDAD Y NO CONTAR CON MAS BIENES MATERIA DE INVENTARIO.\n - EL USUARIO ES RESPONSABLE DEL BUEN USO DE LOS BIENES PATRIMONIALES REGISTRADOS EN LA PRESENTE FICHA Y EN CASO DE PERDIDA O EXTRAVIO SERAN REPUESTOS O REEMBOLSADOS POR ÉL.\n - CUALQUIER MOVIMIENTO DE BIENES DENTRO O FUERA DE LAS INSTALACIONES DE LA MUNICIPALIAD DEBERÁ SER COMUNICADO AL RESPONSABLE DE CONTROL PATRIMONIAL BAJO RESPONSABILIDAD.",0,'L');
+        $pdf->ln(20);
+        //FIRMAS
+        // Configura la fuente en negrita para los títulos de firma
+        $pdf->SetFont('Helvetica', 'B', 7);
+
+        // Espaciado entre cada celda
+        $espaciado = 5;
+
+        // Posición inicial en la página (ajústala según tus necesidades)
+        $posicionInicialX = 5;
+        $posicionY = $pdf->GetY();
+
+        // Ancho de cada celda (ajústalo según tus necesidades)
+        $anchoCelda = 71;
+
+        // Añade líneas de firma justo encima de los títulos
+        // Establece el grosor de las líneas
+        $pdf->SetLineWidth(0.1);
+
+        // Dibuja una línea horizontal justo encima de cada título de firma
+        for ($i = 0; $i < 4; $i++) {
+            // Calcula la posición X para cada línea
+            $posicionX = $posicionInicialX + $i * $anchoCelda;
+
+            // Dibuja la línea
+            $pdf->Line($posicionX + 10, $posicionY, $posicionX + 65, $posicionY);
+        }
+
+        // Incrementa la posición Y para los títulos de firma
+        $posicionY += 1; // Ajusta el valor según necesites
+
+        // Configura las celdas para los títulos de firma
+        $pdf->SetXY($posicionInicialX, $posicionY + 2);
+        $pdf->Cell($anchoCelda, $espaciado, "FIRMA DEL USUARIO", 0, 0, 'C');
+        // Utiliza MultiCell para imprimir el texto con salto de línea automático
+        $pdf->MultiCell($anchoCelda, 3, "V* B* FUNCIONARIO DEL AREA ORGANICA INVENTARIADA", 0, 'C');
+        $pdf->SetXY(150,  $pdf->GetY() - 5);
+        $pdf->Cell($anchoCelda, $espaciado, "INTEGRANTES DE B. PATRIMONIALES", 0, 0, 'C');
+        $pdf->Cell($anchoCelda, $espaciado, "FIRMA DEL REPRESENTANTE", 0, 1, 'C');
+    }
+
+    ob_clean();
+    $pdf->Output();
+    break;
+
 }

@@ -328,7 +328,7 @@ switch ($_GET["op"]) {
                 $output["fecharegistro"] = $row["fecharegistro"];
                 $output["obj_nombre"] = $row["obj_nombre"];
                 $output["obj_img"] = $row["obj_img"];
-                $output["bien_numserie"] = $row["bien_numserie"];
+                $output["bien_obs"] = $row["bien_obs"];
                 if($row["bien_est"] =='A'){
                     $output["bien_est"] = 'Activo';
                 }else if($row["bien_est"] =='N'){

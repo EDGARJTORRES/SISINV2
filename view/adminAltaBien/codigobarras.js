@@ -3,7 +3,7 @@ function generarCodigoBarras(codigoBarras) {
   var ctx = canvas.getContext("2d");
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   if (!codigoBarras) {
-    codigoBarras = "000000";
+    codigoBarras = "00000000-0000";
   }
   JsBarcode(canvas, codigoBarras, {
     format: "CODE128",
@@ -14,7 +14,7 @@ function generarCodigoBarras(codigoBarras) {
     fontSize: 14,
     width: 2,
     height: 30,
-  });
+  }); 
 }
 
 function generarBarras() {

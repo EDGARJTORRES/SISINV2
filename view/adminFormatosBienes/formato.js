@@ -104,3 +104,37 @@ function redirect_by_post(purl, pparameters, in_new_tab) {
 
   return false;
 }
+function imprimirFormatosSeleccionados() {
+    let selected = [];
+    $('#formatos_data tbody input.formato_checkbox:checked').each(function () {
+        selected.push($(this).val());
+    });
+
+    if (selected.length === 0) {
+        Swal.fire({
+            icon: 'warning',
+            title: '¡Atención!',
+            text: 'Debes seleccionar al menos un formato para imprimir.',
+            confirmButtonColor: 'rgb(243, 18, 18)'
+        });
+        return;
+    }
+
+    // Crear inputs para enviar cada ID como array
+    var form = document.createElement("form");
+    form.method = "POST";
+    form.action = "../../controller/formato.php?op=imprimir_formato_multiple";
+    form.target = "_blank"; // abrir en nueva pestaña
+
+    selected.forEach(function(id){
+        var input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "form_ids[]"; // <- ojo, con corchetes
+        input.value = id;
+        form.appendChild(input);
+    });
+
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
+}

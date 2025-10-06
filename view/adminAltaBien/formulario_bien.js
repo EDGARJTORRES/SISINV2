@@ -2,16 +2,18 @@ function nuevoBien() {
   modoEdicion = false;
   $("#bien_form")[0].reset();
   $("#cod_interno").val("0000").prop("readonly", true);
-  $("#codigo_barras_input").val("");
+  $("#codigo_barras_input").val("00000000-0000");
   $("#contenedor_ident_tecnica .extra-campo, #contenedor_caracteristicas .extra-campo, #contenedor_adquisicion .extra-campo").remove();
   $("#cantidad_bienes").val(1).prop("readonly", false).removeAttr("disabled").off("keydown mousewheel");
   $("#combo_marca_obj, #bien_cuenta, #combo_modelo_obj, #procedencia, #combo_color_bien").val("").trigger("change").prop("disabled", false);
   $("#edit_block").hide();
   $("#bien_id").val("");
+
   $.post("../../controller/objeto.php?op=combo_objetos_todos", function (objetos) {
     $("#combo_obj_bien").html('<option></option>' + objetos);
     $("#combo_obj_bien").trigger("change.select2"); // refrescar Select2
   });
+  generarCodigoBarras("00000000-0000");
   $("#modalObjetoCate").modal("show");
 }
 

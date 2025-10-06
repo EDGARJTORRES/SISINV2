@@ -97,7 +97,6 @@ if (isset($_SESSION["usua_id_siin"])) {
                           <div class="text-dark mx-3">
                             Por favor, <strong>ingrese manualmente</strong> o <strong>escanee el código de barras</strong> del bien patrimonial para visualizar <strong>todas sus características registradas</strong>, incluyendo información como el <strong>nombre del objeto</strong>, <strong>estado</strong>, <strong>valor de adquisición</strong>, <strong>documento de adquisición</strong> y <strong>responsable asignado</strong>.
                           </div>
-
                         </div>
                       </div>
                     </div>

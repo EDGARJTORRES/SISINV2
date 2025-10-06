@@ -4,15 +4,16 @@ if (isset($_SESSION["usua_id_siin"])) {
 ?>
 <!DOCTYPE html>
 <html lang="es">
-<head>
+  <head>
     <?php require_once("../html/mainHead.php"); ?>
     <link href="../../public/css/Breadcrumb.css" rel="stylesheet"/>
     <link href="../../public/css/iconos.css" rel="stylesheet"/>
-    <link href="../../public/css/marca.css" rel="stylesheet"/>
-     <link href="../../public/css/reporte.css" rel="stylesheet"/>
+    <link href="../../public/css/reporte.css" rel="stylesheet"/>
+    <link href="../../public/css/botones.css" rel="stylesheet"/>
+    <link href="../../public/css/alerta.css" rel="stylesheet"/>
     <title>MPCH::Reportes</title>
   </head>
-<body>
+  <body>
     <?php require_once("../html/mainProfile.php"); ?>
     <div class="page-wrapper mb-5">
       <div class="page-header d-print-none">
@@ -40,17 +41,12 @@ if (isset($_SESSION["usua_id_siin"])) {
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
-                      <div class="row mb-4 mx-1">
+                      <div class="row mb-4">
                         <div class="col-4 col-md-6 col-lg-2">
-                          <div class="input-icon mt-2">
-                            <span class="input-icon-addon">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-1">
-                                <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
-                                <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
-                              </svg>
-                            </span>
-                            <input type="number" id="cantidad_registros" class="form-control" min="1" max="100" value="10"> 
-                          </div>
+                          <button class="btn btn-6 btn-outline-secundary mt-2" onclick="imprimirFormatosSeleccionados()" >
+                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-printer"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" /><path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" /><path d="M7 13m0 2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2z" /></svg>
+                              Imprimir Formatos 
+                          </button>
                         </div>
                         <div class="col-4 col-md-6 col-lg-2">
                           <select id="filtro_anexo" class="form-select mt-2">
@@ -76,7 +72,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                         <div class="col-4 col-md-6 col-lg-2">
                           <input type="date" id="fecha_inicio" class="form-control mt-2" placeholder="Fecha inicio">
                         </div>
-                        <div class="col-4 col-md-6 col-lg-4">
+                        <div class="col-12 col-md-6 col-lg-4">
                           <div class="input-icon mt-2">
                             <span class="input-icon-addon">
                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-search">
@@ -92,6 +88,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                       <table id="formatos_data" class="table card-table table-vcenter text-nowrap datatable" style="width: 99%;">
                           <thead>
                             <tr>
+                              <th><input type="checkbox" id="form_id_all"></th>
                               <th title="Fecha de registro">Fecha</th>
                               <th title="Número de anexo">Anexo</th>
                               <th title="Dependencia emisora">Depe. Emisor</th>

@@ -15,7 +15,7 @@ $(document).ready(function () {
         "bDestroy": true,
         "responsive": true,
         "bInfo": true,
-        "iDisplayLength": parseInt($('#cantidad_registros').val()),
+        "iDisplayLength": 10,
         "ordering": true,
         "order": [[0, 'desc']],
         "language": {
@@ -40,13 +40,6 @@ $(document).ready(function () {
         },
     });
 
-    $('#cantidad_registros').on('input change', function () {
-        var val = parseInt($(this).val());
-        if (val > 0) {
-            table.page.len(val).draw();
-        }
-    });
-
     $('#buscar_registros').on('input', function () {
         table.search(this.value).draw();
     });
@@ -55,11 +48,11 @@ $(document).ready(function () {
         let value = $(this).val();
 
         if (value === "0") {
-            table.column(1).search('').draw();
+            table.column(2).search('').draw();
         } else if (value === "Asignacion") {
-            table.column(1).search('ASIGNACIÓN', true, false).draw();
+            table.column(2).search('ASIGNACIÓN', true, false).draw();
         } else if (value === "Desplazamiento") {
-            table.column(1).search('DESPLAZAMIENTO', true, false).draw();
+            table.column(2).search('DESPLAZAMIENTO', true, false).draw();
         }
     });
 
@@ -67,7 +60,7 @@ $(document).ready(function () {
         const selectedDate = $('#fecha_inicio').val(); 
         if (!selectedDate) return true; 
         const div = document.createElement('div');
-        div.innerHTML = data[0];
+        div.innerHTML = data[1];
         const fechaStr = div.textContent.trim();  
         const [fechaParte] = fechaStr.split(' ');
         const [d, m, y] = fechaParte.split('/');
@@ -76,6 +69,10 @@ $(document).ready(function () {
     });
     $('#fecha_inicio').on('change', function () {
         table.draw();
+    });
+    $('#form_id_all').on('click', function () {
+        var checked = $(this).is(':checked');
+        $('#formatos_data tbody input.formato_checkbox').prop('checked', checked);
     });
 
 });
@@ -86,4 +83,6 @@ function limpiarFiltros() {
     $('#cantidad_registros').val(10).trigger('change'); 
     $('#fecha_inicio').val('');                    
     table.search('').columns().search('').draw();  
+    $('#form_id_all').prop('checked', false);
+    $('#formatos_data tbody input.formato_checkbox').prop('checked', false);
 }
