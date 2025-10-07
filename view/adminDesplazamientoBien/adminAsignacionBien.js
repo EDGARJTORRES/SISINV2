@@ -1,71 +1,5 @@
-function buscarDNIOrigen() {
-  pers_dni = $("#pers_origen_dni").val();
-
-  $.post(
-    "../../controller/persona.php?op=buscarDNI",
-    { pers_dni: pers_dni },
-    function (response) {
-      try {
-        var data = JSON.parse(response);
-
-
-        // Verifica que data contiene el campo "nombre_completo"
-        if (data && data.nombre_completo) {
-          $("#pers_origen_nom").val(data.nombre_completo);
-          $("#pers_origen_id").val(data.pers_id);
-          listarBienesRepre(data.pers_id);
-        } else {
-          console.error(
-            "No se encontró el campo 'nombre_completo' en la respuesta"
-          );
-          $("#pers_origen_nom").val("");
-        }
-      } catch (e) {
-        console.error("Error al procesar la respuesta JSON:", e);
-        $("#pers_origen_nom").val("");
-        $("#pers_origen_dni").val("");
-      }
-    }
-  ).fail(function (jqXHR, textStatus, errorThrown) {
-    console.error("Error en la solicitud AJAX:", textStatus, errorThrown);
-    $("#pers_origen_nom").val("");
-    $("#pers_origen_id").val("");
-  });
-}
-function buscarDNIDestino() {
-  pers_dni = $("#pers_destino_dni").val();
-
-  $.post(
-    "../../controller/persona.php?op=buscarDNI",
-    { pers_dni: pers_dni },
-    function (response) {
-      try {
-        var data = JSON.parse(response);
-
-        // Verifica que data contiene el campo "nombre_completo"
-        if (data && data.nombre_completo) {
-          $("#pers_destino_nom").val(data.nombre_completo);
-          $("#pers_destino_id").val(data.pers_id);
-        } else {
-          console.error(
-            "No se encontró el campo 'nombre_completo' en la respuesta"
-          );
-          $("#pers_destino_nom").val("");
-        }
-      } catch (e) {
-        console.error("Error al procesar la respuesta JSON:", e);
-        $("#pers_destino_nom").val("");
-        $("#pers_destino_dni").val("");
-      }
-    }
-  ).fail(function (jqXHR, textStatus, errorThrown) {
-    console.error("Error en la solicitud AJAX:", textStatus, errorThrown);
-    $("#pers_destino_nom").val("");
-    $("#pers_destino_id").val("");
-  });
-}
 function listarBienesRepre(pers_id) {
-  $("#obj_formato").DataTable({
+   var table = $("#obj_formato").DataTable({
     aProcessing: true,
     aServerSide: true,
     dom: "Bfrtip",
@@ -108,6 +42,10 @@ function listarBienesRepre(pers_id) {
           ": Activar para ordenar la columna de manera descendente",
       },
     },
+  });
+  $('#buscar_registros').on('input', function () {
+    evitarAlertaTemporal = true;
+    table.search(this.value).draw();
   });
 }
 function verDatosbien(cod_bar) {
@@ -182,7 +120,7 @@ function verDatosbien(cod_bar) {
                   </tr>
                   <tr>
                     <td style="width:40%; padding: 4px;  color:black"><strong>COLOR:</strong></td>
-                    <td style="width:60%; padding: 4px; text-align:right;">${nombresColores.join(", ")}</td>
+                    <td style="width:60%; padding: 4px; text-align:right;">${data.bien_color}</td>
                   </tr>
                   <tr>
                     <td style="width:40%; padding: 4px;  color:black"><strong>DEPENDENCIA DEL ORIGEN:</strong></td>

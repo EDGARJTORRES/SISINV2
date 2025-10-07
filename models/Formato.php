@@ -193,6 +193,7 @@ class Formato extends Conectar
         $sql = "SELECT 
                 COUNT(tbp.biendepe_id),
                 esper.pers_nombre, 
+                tbf.form_id,
                 tbp.form_id,
                 COALESCE(
                     pers_rec.pers_apelpat || ' ' || pers_rec.pers_apelmat || ', ' || pers_rec.pers_nombre,
@@ -223,6 +224,7 @@ class Formato extends Conectar
                 ON pers_emi.pers_id::text = tbf.form_repre_emisor
             GROUP BY 
                 tbp.form_id, 
+                tbf.form_id,
                 tbf.form_fechacrea, 
                 tbft.tif_nom,
                 tbf.depe_emisor,
@@ -233,7 +235,9 @@ class Formato extends Conectar
                 pers_rec.pers_apelpat, pers_rec.pers_apelmat, pers_rec.pers_nombre,
                 pers_emi.pers_apelpat, pers_emi.pers_apelmat, pers_emi.pers_nombre,
                 tbf.form_repre_receptor,
-                tbf.form_repre_emisor;
+                tbf.form_repre_emisor
+            order by 
+                tbf.form_id desc ;
             ";
         $sql = $conectar->prepare($sql);
         $sql->execute();

@@ -40,7 +40,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                     <button class="btn btn-6 btn-light btn-izquierdo" type="reset" onclick="resetCampos()" 
                           title="Cancelar y limpiar todos los campos del formulario" 
                           class="button">
-                      <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-list-details"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 5h8" /><path d="M13 9h5" /><path d="M13 15h8" /><path d="M13 19h5" /><path d="M3 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" /><path d="M3 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" /></svg>
+                      <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-cancel"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M18.364 5.636l-12.728 12.728" /></svg>
                         CANCELAR
                     </button>
                   </div>
@@ -88,28 +88,9 @@ if (isset($_SESSION["usua_id_siin"])) {
                               </div>
                           </div>
                           <div class="row">
-                              <div class="col-5">
-                              <input type="text" class="form-control" id="cod_bar" name="cod_bar" placeholder="Ingresa el código de barras...">
-                              </div>
-                              <div class="col-3 d-flex align-items-center">
-                              <button type="button" class="btn btn-dark w-100 px-2 d-flex align-items-center justify-content-center gap-1" id="buscaObjeto" onclick="buscarBien()">
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                  <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-                                  <path d="M12 21h-5a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v4.5" />
-                                  <path d="M16.5 17.5m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0 -5 0" />
-                                  <path d="M18.5 19.5l2.5 2.5" />
-                                  </svg>
-                                  <span>Buscar</span>
-                              </button>
-                              </div>
-                              <div class="col-4 d-flex align-items-center">
-                                <button type="button" class="btn btn-outline-dark w-100 px-2 d-flex align-items-center justify-content-center gap-1"  id="add_button"  onclick="bien_sin_asignacion()"
-                                         title="Ir al módulo de bienes sin asignación" >
-                                  <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-camera-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13.5 20h-8.5a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v4" /><path d="M9 13a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M22 22l-5 -5" /><path d="M17 22l5 -5" /></svg>
-                                  <span>Bienes Nuevos</span>
-                                </button>
-                              </div>
+                              <div class="col-12">
+                                <input type="text" class="form-control" id="cod_bar" name="cod_bar" placeholder="Ingresa el código de barras...">
+                                </div>
                           </div>
                           </div>
                       </div>
@@ -118,14 +99,37 @@ if (isset($_SESSION["usua_id_siin"])) {
                       <div class="col-lg-6">
                           <div class="mb-3">
                               <label class="form-label">DNI Representante:<span style="color:red"> *</span></label>
+                               <!--
                               <input type="text" class="form-control" id="pers_dni" name="pers_dni" placeholder="Ingresa el DNI del representante del bien..." required oninput="limitarADigitosDNI(this)">
+                              -->  
+                              <select class="form-select select2" id="usuario_combo" name="pers_id" data-placeholder="Seleccione Usuario" style="width: 100%;">
+                              <option value="" disabled selected>Seleccione</option>
+                              </select>
                           </div>
                       </div>
                       <div class="col-lg-6">
-                          <div class="mb-3">
-                              <label class="form-label">Nombre del Representante:<span style="color:red"> *</span></label>
-                              <input type="text" class="form-control" id="pers_nom" name="pers_nom" placeholder="Nombre Representante" required readonly>
+                        <div class="row">
+                          <label class="form-label">Acciones:<span style="color:red"> *</span></label>
+                          <div class="col-6 d-flex align-items-center">
+                            <button type="button" class="btn btn-dark w-100 px-2 d-flex align-items-center justify-content-center gap-1" id="buscaObjeto" onclick="buscarBien()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                                <path d="M12 21h-5a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v4.5" />
+                                <path d="M16.5 17.5m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0 -5 0" />
+                                <path d="M18.5 19.5l2.5 2.5" />
+                                </svg>
+                                <span>BUSCAR</span>
+                            </button>
                           </div>
+                          <div class="col-6 d-flex align-items-center">
+                            <button type="button" class="btn btn-black active w-100 px-2 d-flex align-items-center justify-content-center gap-1"  id="add_button"  onclick="bien_sin_asignacion()"
+                                      title="Ir al módulo de bienes sin asignación" >
+                              <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-camera-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13.5 20h-8.5a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v4" /><path d="M9 13a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M22 22l-5 -5" /><path d="M17 22l5 -5" /></svg>
+                              <span>BIENES NUEVOS</span>
+                            </button>
+                          </div>
+                        </div>
                       </div>
                     </div>
                 </div>
@@ -143,7 +147,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                       <div class="col-12">
                         <div class="table-responsive m-4">
                           <table id="obj_formato"  class="table card-table table-vcenter text-nowrap datatable">
-                            <thead>
+                            <thead class="text-center">
                               <tr>
                                 <th>Codigo de Barras</th>
                                 <th>Objeto denominación</th>
@@ -182,9 +186,7 @@ if (isset($_SESSION["usua_id_siin"])) {
     <?php require_once("modal_bienes_sin_asignacion.php"); ?>
     <script type="text/javascript" src="color.js"></script>
     <script type="text/javascript" src="alerts.js"></script>
-    <script type="text/javascript" src="adminAsignacionBien.js"></script>
     <script type="text/javascript" src="bienSinAsignacion.js"></script>
-    <script type="text/javascript" src="dni.js"></script>
     <script type="text/javascript" src="imprimir.js"></script>
     <script type="text/javascript" src="init.js"></script>
     <script type="text/javascript" src="modal.js"></script>

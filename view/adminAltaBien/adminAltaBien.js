@@ -61,7 +61,7 @@ $(document).ready(function () {
 
     var table = $('#bienes_data').DataTable({
       processing: true,
-      serverSide: true,
+      serverSide: true,  
       paging: true,
       pageLength: 10,
       destroy: true,

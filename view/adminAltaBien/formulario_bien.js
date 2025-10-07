@@ -1,8 +1,8 @@
 function nuevoBien() {
   modoEdicion = false;
   $("#bien_form")[0].reset();
-  $("#cod_interno").val("0000").prop("readonly", true);
-  $("#codigo_barras_input").val("00000000-0000");
+  $("#cod_interno").prop("readonly", false);
+  $("#codigo_barras_input").val("reandonly",true);
   $("#contenedor_ident_tecnica .extra-campo, #contenedor_caracteristicas .extra-campo, #contenedor_adquisicion .extra-campo").remove();
   $("#cantidad_bienes").val(1).prop("readonly", false).removeAttr("disabled").off("keydown mousewheel");
   $("#combo_marca_obj, #bien_cuenta, #combo_modelo_obj, #procedencia, #combo_color_bien").val("").trigger("change").prop("disabled", false);
@@ -24,11 +24,13 @@ function editarBien(bien_id) {
   $("#contenedor_ident_tecnica .extra-campo").remove();
   $("#contenedor_caracteristicas .extra-campo").remove();
   $("#contenedor_adquisicion .extra-campo").remove();
-  $("#cod_interno").prop("readonly", true);
+  $("#cod_interno").prop("readonly", false);
+  $("#codigo_barras_input").prop("readonly", true);
   $("#cantidad_bienes")
     .val(1)
     .prop("readonly", false)
     .attr("disabled", true);
+
   $.post("../../controller/objeto.php?op=mostrar_bien_id", { bien_id }, function (data) {
     let bienData;
     try {
@@ -46,6 +48,15 @@ function editarBien(bien_id) {
     $("#fecharegistro").val(bienData.fecharegistro);
     $("#modelo_id").val(bienData.modelo_id);
     $("#codigo_barras_input").val(bienData.bien_codbarras);
+
+    // Extraer el código interno del código de barras (después del último guion)
+    let cod_interno = "";
+    if (bienData.bien_codbarras) {
+      let partes = bienData.bien_codbarras.split("-");
+      cod_interno = partes.length > 1 ? partes[partes.length - 1] : bienData.bien_codbarras;
+    }
+    $("#cod_interno").val(cod_interno);
+
     $("#bien_numserie").val(bienData.bien_numserie);
     $("#bien_placa").val(bienData.bien_placa);
     $("#obj_dim").val(bienData.bien_dim);
@@ -53,14 +64,18 @@ function editarBien(bien_id) {
     $("#doc_adq").val(bienData.doc_adq);
     $("#bien_obs").val(bienData.bien_obs);
     $("#procedencia").val(bienData.procedencia).trigger("change");
+
     $.post("../../controller/cuenta.php?op=combo", function (data) {
       $("#bien_cuenta").html(data);
       $("#bien_cuenta").val(bienData.bien_cuenta).trigger("change");
     });
+
     generarCodigoBarras(bienData.bien_codbarras);
+
     const colorArray = bienData.bien_color ? bienData.bien_color.replace(/[{}"]/g, "").split(",") : [];
     $("#combo_color_bien").val(colorArray).trigger("change");
     $("#combo_gg_bien_obj").val(bienData.gg_id).trigger("change");
+
     $.post("../../controller/clase.php?op=combo", { gg_id: bienData.gg_id }, function (clases) {
       $("#combo_clase_bien_obj").html(clases);
       $("#combo_clase_bien_obj").val(bienData.gc_id).trigger("change");

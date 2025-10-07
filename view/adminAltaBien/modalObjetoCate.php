@@ -72,8 +72,9 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="step2" role="tabpanel">
-                    <div class="row g-3" id="contenedor_ident_tecnica">
-                        <div class="hr-text hr-text-center hr-text-spaceless my-4 fs-4"> Identificación Técnica del Bien</div>
+                    <div class="hr-text hr-text-center hr-text-spaceless my-4 fs-4">Identificación Técnica del Bien</div>
+                        <div class="row g-3" id="contenedor_ident_tecnica">
+                        <span class="fw-bold text-primary">BIEN PATRIMONIAL N° 1</span>
                         <div class="col-lg-3">
                             <label class="form-label">Marca <span class="text-danger">*</span></label>
                             <select class="form-select select2 required" id="combo_marca_obj" name="marca_id" data-placeholder="Seleccione la marca">
@@ -92,15 +93,20 @@
                         </div>
 
                         <!-- N° Serie -->
-                        <div class="col-lg-3">
+                        <div class="col-lg-2">
                             <label class="form-label">N° Serie <span class="text-danger">*</span></label>
                             <input type="text" class="form-control required" id="bien_numserie" name="bien_numserie" placeholder="Ingrese el N° de serie">
+                        </div>
+                        <div class="col-lg-1">
+                            <label class="form-label">C. Interno <span class="text-danger">*</span></label>
+                            <input class="form-control tx-uppercase" placeholder="0000" id="cod_interno" type="text" name="cod_interno"/>
                         </div>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="step3" role="tabpanel">
-                    <div class="hr-text hr-text-center hr-text-spaceless my-5 fs-4">  Características Generales del Bien</div>
-                    <div class="row g-3"  id="contenedor_caracteristicas">
+                    <div class="hr-text hr-text-center hr-text-spaceless my-5 fs-4">Características Generales del Bien</div>
+                        <div class="row g-3"  id="contenedor_caracteristicas">
+                        <span class="fw-bold text-primary">BIEN PATRIMONIAL N° 1</span>
                         <div class="col-lg-3">
                             <label class="form-label">Características <span class="text-danger">*</span></label>
                             <textarea class="form-control required" name="bien_obs" id="bien_obs" rows="1" placeholder="Describa las características..." style="resize: none;"></textarea>
@@ -127,8 +133,9 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="step4" role="tabpanel">
-                        <div class="hr-text hr-text-center hr-text-spaceless my-5 fs-4"> Datos de Adquision del Bien</div>
-                    <div class="row g-3" id="contenedor_adquisicion">
+                    <div class="hr-text hr-text-center hr-text-spaceless my-5 fs-4"> Datos de Adquision del Bien</div>
+                        <div class="row g-3" id="contenedor_adquisicion">
+                        <span class="fw-bold text-primary">BIEN PATRIMONIAL N° 1</span>
                         <div class="col-lg-3">
                             <label class="form-label">Fecha de Adquisición <span class="text-danger">*</span></label>
                             <div class="input-group" >
@@ -146,9 +153,6 @@
                         </div>
                         <div class="col-lg-3">
                             <label class="form-label">Placa del Vehiculo:<span style="color:red"> *</span></label>
-                            <div class="form-group" style="display:none !important;">
-                                <input class="form-control tx-uppercase" id="cod_interno" type="text" name="cod_interno" readonly />
-                            </div>
                             <div class="form-group">
                                 <input class="form-control tx-uppercase" placeholder="Ej: ABC-123" id="bien_placa" type="text" name="bien_placa"/>
                             </div>

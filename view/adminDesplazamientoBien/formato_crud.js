@@ -147,8 +147,8 @@ function nuevoFormato() {
 }
 function enviarDatosAlServidor(dataDict, depeReceptor, depeEmisor) {
   // Obtener los IDs de origen y destino
-  var persOrigenId = $("#pers_origen_id").val();
-  var persDestinoId = $("#pers_destino_id").val();
+  var persOrigenId = $("#usuario_combo_origen").val();
+  var persDestinoId = $("#usuario_combo_destino").val();
 
   // Obtener el valor del documento que autoriza el traslado
   var docTraslado = $("#doc_traslado").val();

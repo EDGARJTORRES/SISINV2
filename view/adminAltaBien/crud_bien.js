@@ -7,26 +7,23 @@ function guardaryeditarbienes(e) {
 
   if (esNuevo) {
     let cantidad = parseInt($("#cantidad_bienes").val()) || 1;
-
-    // Pedir correlativo al backend (ya devuelve el siguiente listo: 0001, 0002, etc.)
     let codigo_obj = $("#combo_obj_bien option:selected").attr("data-codigo-cana") || "";
 
     $.post(
       "../../controller/objeto.php?op=getcodinterno",
       { codigo_cana: codigo_obj },
       function (data) {
-
         let cod_inicial = parseInt(data);
         if (isNaN(cod_inicial)) cod_inicial = 1;
 
         let registros = [];
 
         for (let i = 1; i <= cantidad; i++) {
-          let formData = new FormData();
-
-          let cod_generado = String(cod_inicial + (i - 1)).padStart(4, "0");
+          let formData = new FormData(); // <-- CORRECTO: crear aquí
+          let cod_generado = (i === 1)
+            ? $("#cod_interno").val()
+            : $(`#cod_interno_${i}`).val();
           let cod_barra = `${codigo_obj}-${cod_generado}`;
-
           formData.append("cod_interno", cod_generado);
           formData.append("codigo_barras_input", cod_barra);
           formData.append("obj_id", $("#combo_obj_bien").val());
@@ -34,7 +31,6 @@ function guardaryeditarbienes(e) {
           formData.append("gg_id", $("#combo_gg_bien_obj").val());
 
           if (i === 1) {
-            // Primer bien → datos principales del modal
             formData.append("marca_id", $("#combo_marca_obj").val());
             formData.append("modelo_id", $("#combo_modelo_obj").val());
             formData.append("obj_dim", $("#obj_dim").val());
@@ -48,7 +44,6 @@ function guardaryeditarbienes(e) {
             formData.append("doc_adq", $("#doc_adq").val());
             formData.append("bien_placa", $("#bien_placa").val());
           } else {
-            // Bienes adicionales → toman de inputs dinámicos
             formData.append("marca_id", $(`#marca_${i}`).val());
             formData.append("modelo_id", $(`#modelo_${i}`).val());
             formData.append("obj_dim", $(`input[name='obj_dim_${i}']`).val());
@@ -96,7 +91,6 @@ function guardaryeditarbienes(e) {
     enviarRegistros(registros, 1);
   }
 }
-
 function enviarRegistros(registros, cantidad) {
   let promesas = registros.map((formData) =>
     $.ajax({

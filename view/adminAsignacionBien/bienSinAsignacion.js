@@ -25,9 +25,6 @@ function mostrarToast(codigo, mensaje = '') {
 var table;
 
 $(document).ready(function () {
-
-    console.log("Documento listo, inicializando DataTable...");
-
     table = $('#bienes_data').DataTable({
         "aProcessing": true,
         "aServerSide": true,
@@ -72,16 +69,19 @@ $(document).ready(function () {
                 .then(() => {
                     console.log("Código copiado con clipboard:", codigo);
                     mostrarToast(codigo); // Muestra solo el código
+                    $('#modalsinasignacion').modal('hide');
                 })
                 .catch(err => {
                     console.error('Error clipboard, usando fallback:', err);
                     copyTextFallback(codigo);
                     mostrarToast(codigo); // Ahora también solo muestra el código
+                    $('#modalsinasignacion').modal('hide');
                 });
         } else {
             console.log("Usando fallback porque no hay clipboard o contexto inseguro");
             copyTextFallback(codigo);
             mostrarToast(codigo); // Muestra solo el código
+            $('#modalsinasignacion').modal('hide');
         }
 
         // Pegar automáticamente en el input #cod_bar

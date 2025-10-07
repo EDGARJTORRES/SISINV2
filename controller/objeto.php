@@ -205,13 +205,45 @@ switch ($_GET["op"]) {
 
             // Comentario input
             $sub_array[] = '<input type="text" class="form-control" placeholder="Comentario">';
-
-            // Botón ver
-            $sub_array[] = '<button type="button" onclick="verDatosbien(\'' . $row["bien_codbarras"] . '\')" id="' . $row["bien_codbarras"] . '" class="btn btn-outline-warning btn-icon"><div><i class="fa fa-eye"></i></div></button>';
-
-            // Checkbox con validación segura de obj_id
+            // Ícono Ver (solo el icono, color fijo)
+            $sub_array[] = '
+            <svg xmlns="http://www.w3.org/2000/svg" 
+                onclick="verDatosbien(\'' . htmlspecialchars($row["bien_codbarras"]) . '\')" 
+                class="icon icon-tabler icon-tabler-eye" style="height: 30px; width: 30px; cursor: pointer;"
+                width="30" height="30" viewBox="0 0 24 24" 
+                stroke-width="2" stroke="#0d6efd" fill="none" 
+                stroke-linecap="round" stroke-linejoin="round"
+                style="cursor: pointer; transition: transform 0.2s ease, stroke 0.2s ease;"
+                title="Ver detalles">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                <path d="M21 12c-2.4 4 -5.4 6 -9 6s-6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6s6.6 2 9 6" />
+            </svg>
+            <style>
+            .icon-tabler-eye:hover {
+            transform: scale(1.15);
+            stroke: #6610f2;
+            }
+            </style>';
             $obj_id = $row["obj_id"] ?? '';
-            $sub_array[] = '<input type="checkbox" name="select_bien" value="' . $obj_id . '" style="transform: scale(1.5);" onclick="validarCheckbox(this)">';
+            $sub_array[] = '
+            <label class="checkbox-wrapper-46">
+                <input type="checkbox" name="select_bien" 
+                    class="inp-cbx gb-checkbox" 
+                    value="' . htmlspecialchars($obj_id) . '" 
+                    onclick="validarCheckbox(this)" 
+                    style="transform: scale(1.5);" />
+                <span class="cbx">
+                    <span>
+                        <svg viewBox="0 0 12 10" height="10px" width="12px">
+                            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                        </svg>
+                    </span>
+                    <span></span>
+                </span>
+            </label>';
+
+
 
             $data[] = $sub_array;
         }
@@ -434,6 +466,5 @@ switch ($_GET["op"]) {
         }
         echo $html;
         break;
-        
 
 }

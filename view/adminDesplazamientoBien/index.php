@@ -39,7 +39,7 @@ if (isset($_SESSION["usua_id_siin"])) {
                 <button class="btn btn-6 btn-light btn-izquierdo" type="reset" onclick="resetCampos()" 
                       title="Cancelar y limpiar todos los campos del formulario" 
                       class="button">
-                  <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-list-details"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 5h8" /><path d="M13 9h5" /><path d="M13 15h8" /><path d="M13 19h5" /><path d="M3 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" /><path d="M3 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" /></svg>
+                  <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-cancel"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M18.364 5.636l-12.728 12.728" /></svg>
                     CANCELAR
                 </button>
               </div>
@@ -70,7 +70,7 @@ if (isset($_SESSION["usua_id_siin"])) {
             </div>
             <div class="card-body">
               <div class="col-12">
-                <div class="row">
+                <div class="row mx-2">
                   <div class="col-md-6">
                     <div class="form-group mb-3">
                       <input type="hidden" name="pers_origen_id" id="pers_origen_id" />
@@ -82,11 +82,9 @@ if (isset($_SESSION["usua_id_siin"])) {
                     </div>
                     <div class="form-group mb-3">
                       <label class="form-label">DNI Representante Origen:<span  style="color:red"> *</span></label>
-                      <input type="text" class="form-control" id="pers_origen_dni" name="pers_origen_dni" placeholder="Ingresa el DNI del representante del bien..." required oninput="limitarADigitosDNI(this)">
-                    </div>
-                    <div class="form-group mb-3">
-                      <label class="form-label">Nombre del Representante Origen:<span  style="color:red"> *</span></label>
-                      <input type="text" class="form-control" id="pers_origen_nom" name="pers_origen_nom" placeholder="Nombre Representante" required readonly>
+                      <select class="form-select select2" id="usuario_combo_origen" name="pers_id" data-placeholder="Seleccione representante de origen" style="width: 100%;">
+                      <option value="" disabled selected>Seleccione</option>
+                      </select>
                     </div>
                   </div>
                   <div class="col-md-6">
@@ -98,24 +96,64 @@ if (isset($_SESSION["usua_id_siin"])) {
                     </div>
                     <div class="form-group mb-3">
                       <label class="form-label">DNI Representante Destino:<span  style="color:red"> *</span></label>
-                      <input type="text" class="form-control" id="pers_destino_dni" name="pers_destino_dni" placeholder="Ingresa el DNI del representante del bien..." required oninput="limitarADigitosDNIdestino(this)">
+                       <select class="form-select select2" id="usuario_combo_destino" name="pers_id" data-placeholder="Seleccione representante  de destino" style="width: 100%;">
+                      <option value="" disabled selected>Seleccione</option>
+                      </select>
                     </div>
-                    <div class="form-group mb-3">
-                        <label class="form-label">Nombre del Representante Destino:<span  style="color:red"> *</span></label>
-                      <input type="text" class="form-control" id="pers_destino_nom" name="pers_destino_nom" placeholder="Nombre Representante" required readonly>
-                    </div>
-
                   </div>
                 </div>
-                <div class="row">
+                <div class="row mx-2">
                   <div class="col-md-12">
                     <div class="form-group mb-3">
                       <label class="form-label">Documento  que autoriza el traslado:<span  style="color:red"> *</span></label>
                       <input type="text" class="form-control" id="doc_traslado" name="doc_traslado" placeholder=" Documento de traslado" required >
                     </div> 
                   </div> 
-                </div>  
-                <div class="table-responsive m-4">
+                </div>
+                <div class="table-responsive m-3">
+                  <div class="row">
+                    <div class="col-6 col-md-6 col-lg-10 mb-3">
+                      <div class="input-group">
+                        <!-- Campo de texto -->
+                        <span class="input-group-text bg-white border-end-0">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-search">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+                            <path d="M21 21l-6 -6" />
+                          </svg>
+                        </span>
+                        <input type="text" id="buscar_registros" class="form-control border-start-0"
+                          placeholder="Buscar registro de bienes . . .">
+
+                        <!-- Botón del buscador -->
+                        <button type="button" class="btn btn-primary text-white" onclick="buscarRegistros()">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-search">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+                            <path d="M21 21l-6 -6" />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col-6 col-md-6 col-lg-2 mb-3">
+                      <button class="btn btn-6 btn-outline-secundary w-100" onclick="limpiarFiltros()">
+                        <svg xmlns="http://www.w3.org/2000/svg"   style="color: rgba(55, 57, 59, 1);"
+                            width="24" height="24" viewBox="0 0 24 24"  
+                            fill="none" stroke="currentColor" stroke-width="2"  
+                            stroke-linecap="round" stroke-linejoin="round"  
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-eraser">
+                          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                          <path d="M19 20h-10.5l-4.21 -4.3a1 1 0 0 1 0 -1.41l10 -10a1 1 0 0 1 1.41 0l5 5a1 1 0 0 1 0 1.41l-9.2 9.3" />
+                          <path d="M18 13.3l-6.3 -6.3" />
+                        </svg>
+                        <span style="color: rgba(55, 57, 59, 1);">Limpiar Filtros</span>
+                      </button>
+                    </div>
+                  </div>  
                   <table id="obj_formato"  class="table card-table table-vcenter text-nowrap datatable">
                   <thead>
                     <tr>
@@ -154,8 +192,7 @@ if (isset($_SESSION["usua_id_siin"])) {
     </div>
     <?php require_once("../html/footer.php"); ?>
     <?php require_once("../html/mainJs.php"); ?>
-    <script type="text/javascript" src="util.js"></script>              
-    <script type="text/javascript" src="dni.js"></script>                
+    <script type="text/javascript" src="util.js"></script>                       
     <script type="text/javascript" src="init.js"></script>             
     <script type="text/javascript" src="adminAsignacionBien.js"></script> 
     <script type="text/javascript" src="formato_crud.js"></script>       

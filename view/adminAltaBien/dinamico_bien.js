@@ -7,8 +7,12 @@ document.addEventListener("DOMContentLoaded", function () {
     $("#contenedor_caracteristicas .extra-campo").remove();
     $("#contenedor_adquisicion .extra-campo").remove();
 
+    let cod_inicial = $("#cod_interno").val();
+    let cod_base = cod_inicial && !isNaN(parseInt(cod_inicial)) ? parseInt(cod_inicial) : 1;
+
     for (let i = 2; i <= cantidad; i++) {
-      $("#contenedor_ident_tecnica").append(generarCamposIdentificacion(i));
+      let cod_secuencial = String(cod_base + (i - 1)).padStart(cod_inicial.length, "0");
+      $("#contenedor_ident_tecnica").append(generarCamposIdentificacion(i, cod_secuencial));
       $("#contenedor_caracteristicas").append(generarCamposCaracteristicas(i));
       $("#contenedor_adquisicion").append(generarCamposAdquisicion(i));
 
@@ -42,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-function generarCamposIdentificacion(i) {
+function generarCamposIdentificacion(i, cod_secuencial = "") {
   return `
     <div class="col-12 extra-campo">
       <div class="d-flex justify-content-between align-items-center">
@@ -68,12 +72,16 @@ function generarCamposIdentificacion(i) {
       <label class="form-label">Dimensiones <span class="text-danger">*</span></label>
       <input type="text" placeholder="Ej: 40 h x 30 l x 20 a" class="form-control required" name="obj_dim_${i}" />
     </div>
-    <div class="col-lg-3 extra-campo">
+    <div class="col-lg-2 extra-campo">
       <label class="form-label">N° Serie <span class="text-danger">*</span></label>
       <input  placeholder="Ingrese el N° de serie" type="text" class="form-control required" name="bien_numserie_${i}" />
-    </div>`;
+    </div>
+    <div class="col-lg-1 extra-campo">
+      <label class="form-label">C. Interno <span class="text-danger">*</span></label>
+      <input type="text" class="form-control required" name="cod_interno_${i}" id="cod_interno_${i}" value="${cod_secuencial}" />
+    </div>
+    `;
 }
-
 function generarCamposCaracteristicas(i) {
   return `
     <div class="col-12 extra-campo">

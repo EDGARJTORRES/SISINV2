@@ -16,6 +16,7 @@ function ocultarLoader() {
   loader.style.opacity = '0';
   loader.style.pointerEvents = 'none';
 }
+
 function redirect_by_post(purl, pparameters, in_new_tab) {
   pparameters = typeof pparameters === "undefined" ? {} : pparameters;
   in_new_tab = typeof in_new_tab === "undefined" ? true : in_new_tab;
@@ -53,5 +54,12 @@ function redirect_by_post(purl, pparameters, in_new_tab) {
 
   return false;
 }
+$("#cod_interno").on("input", function () {
+  let codigo_cana = $("#combo_obj_bien option:selected").attr("data-codigo-cana") || "";
+  let cod_interno = $(this).val();
+  let cod_barra = `${codigo_cana}-${cod_interno}`;
+  $("#codigo_barras_input").val(cod_barra);
+  generarCodigoBarras(cod_barra);
+});
 
 initbienes();

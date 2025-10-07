@@ -40,6 +40,9 @@ $(document).ready(function () {
     let valor = $(this).val();
     $(this).val(valor.replace(/'/g, "-"));
   });
+  $.post("../../controller/persona.php?op=combo", function (data) {
+    $("#usuario_combo").html(data);
+  });
 });
 
 function nuevoFormato() {
@@ -172,7 +175,21 @@ function nuevoFormato() {
       `;
        mostrarLoader();
       var depe_receptor = $("#area_asignacion_combo").val();
-      var pers_id = $("#pers_id").val();
+      var pers_id = $("#usuario_combo").val();
+      if (!pers_id) {
+        swal.fire({
+          title: "Error",
+          text: "Debes seleccionar un representante.",
+          imageUrl: '../../static/gif/asignar.gif',
+          imageWidth: 100,  
+          imageHeight: 100,
+          confirmButtonText: "Aceptar",
+          confirmButtonColor: 'rgb(243, 18, 18)',
+          backdrop: true
+        });
+        return;
+      }
+
       $.post(
         "../../controller/formato.php?op=asignar",
         {
@@ -437,7 +454,7 @@ function mostrarDatosObjeto(data, nombresColores) {
     </tr>
     <tr>
       <td style="width:40%; padding:4px;"><strong>COLOR:</strong></td>
-      <td style="width:60%; padding:4px; text-align:right;">${nombresColores.join(", ")}</td>
+      <td style="width:60%; padding:4px; text-align:right;">${data.bien_color}</td>
     </tr>
     <tr>
       <td style="width:40%; padding:4px;"><strong>DEPENDENCIA DEL ORIGEN:</strong></td>
@@ -510,57 +527,37 @@ function mostrarDatosObjeto(data, nombresColores) {
       }
 
       // Agregar la fila a la tabla solo si no hay dependencia asignada
-      var newRow =
-        "<tr>" +
-        "<td>" + data.bien_codbarras +"</td>" +
-        "<td>" + data.obj_nombre +"</td>" +
-        "<td>" + nombresColores.join(", ") +  "</td>" +
-        "<td>" +
-        "<style>" +
-        "table { width: 100%; font-size: 1rem; border-collapse: collapse; }" +
-        "table tr td { padding: 0.75rem; }" +
-        "table tr td select { " +
-        "  width: 100%; padding: 0.5rem; border-radius: 0.375rem;" +
-        "  border: 1px solid #ced4da; font-size: 1rem;" +
-        "  background-color: white; color: #333; outline: none;" +
-        "}" +
-        "</style>" +
-        "<select class='form-select' onchange='actualizarEstado(this, \"" +
-        data.bien_codbarras +
-        "\")'>" +
-        "<option value='N'" +
-        (data.bien_est === "N" ? " selected" : "") +
-        ">N - Nuevo</option>" +
-        "<option value='B'" +
-        (data.bien_est === "B" ? " selected" : "") +
-        ">B - Bueno</option>" +
-        "<option value='R'" +
-        (data.bien_est === "R" ? " selected" : "") +
-        ">R - Regular</option>" +
-        "<option value='M'" +
-        (data.bien_est === "M" ? " selected" : "") +
-        ">M - Malo</option>" +
-        "</select>" +
-        "</td>" +
-        "<td>" +
-        // Agregar una nueva celda con un input de texto para comentarios
-        "<input type='text' class='form-control' placeholder='Comentario' onchange='actualizarComentario(this, \"" +
-        data.bien_codbarras +
-        "\")'>" +
-        "</td>" +
-       '<td>' +
-          '<div class="dropdown">' +
-            '<button class="btn btn-btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">' +
-              'Opciones' +
-            '</button>' +
-            '<ul class="dropdown-menu">' +
-              '<li><a class="dropdown-item" href="#" onclick="verDatosbien(\'' + data.bien_codbarras + '\')"><i class="fa fa-eye mx-2"></i> Ver</a></li>' +
-              '<li><a class="dropdown-item" href="#" onclick="imprimir(\'' + data.bien_codbarras + '\')"><i class="fa fa-print  mx-2"></i> Imprimir</a></li>' +
-              '<li><a class="dropdown-item text-danger" href="#" onclick="quitarbien(\'' + data.bien_codbarras + '\')"><i class="fa fa-trash  mx-2"></i> Eliminar</a></li>' +
-            '</ul>' +
-          '</div>' +
-        '</td>' +
-        "</tr>";
+     var newRow =
+  "<tr style='text-align:center; vertical-align:middle;'>" +
+    "<td>" + data.bien_codbarras + "</td>" +
+    "<td>" + data.obj_nombre + "</td>" +
+    "<td>" + data.bien_color + "</td>" +
+
+    "<td>" +
+      "<select class='form-select' style='display:inline-block; width:auto;' onchange='actualizarEstado(this, \"" + data.bien_codbarras + "\")'>" +
+        "<option value='N'" + (data.bien_est === "N" ? " selected" : "") + ">N - Nuevo</option>" +
+        "<option value='B'" + (data.bien_est === "B" ? " selected" : "") + ">B - Bueno</option>" +
+        "<option value='R'" + (data.bien_est === "R" ? " selected" : "") + ">R - Regular</option>" +
+        "<option value='M'" + (data.bien_est === "M" ? " selected" : "") + ">M - Malo</option>" +
+      "</select>" +
+    "</td>" +
+
+    "<td>" +
+      "<input type='text' class='form-control' style='width:90%; margin:auto;' placeholder='Comentario' onchange='actualizarComentario(this, \"" + data.bien_codbarras + "\")'>" +
+    "</td>" +
+
+    "<td class='text-center'>" +
+      "<a href='#' onclick='verDatosbien(\"" + data.bien_codbarras + "\")' title='Ver detalles'>" +
+        "<i class='fa-solid fa-eye fa-lg mx-2 text-primary'></i>" +
+      "</a>" +
+      "<a href='#' onclick='imprimir(\"" + data.bien_codbarras + "\")' title='Imprimir etiqueta'>" +
+        "<i class='fa-solid fa-print fa-lg mx-2 text-success'></i>" +
+      "</a>" +
+      "<a href='#' onclick='quitarbien(\"" + data.bien_codbarras + "\")' title='Eliminar'>" +
+        "<i class='fa-solid fa-trash fa-lg mx-2 text-danger'></i>" +
+      "</a>" +
+    "</td>" +
+  "</tr>";
 
       $("#obj_formato tbody").append(newRow);
     } else {
@@ -646,7 +643,7 @@ function verDatosbien(cod_bar) {
                   </tr>
                   <tr>
                     <td style="width:40%; padding: 4px;  color:black"><strong>COLOR:</strong></td>
-                    <td style="width:60%; padding: 4px; text-align:right;">${nombresColores.join(", ")}</td>
+                    <td style="width:60%; padding: 4px; text-align:right;">${data.bien_color}</td>
                   </tr>
                   <tr>
                     <td style="width:40%; padding: 4px;  color:black"><strong>DEPENDENCIA DEL ORIGEN:</strong></td>
